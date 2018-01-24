@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { DropTarget } from 'react-dnd'
-import ItemTypes from './ItemTypes'
+import {connect} from 'react-redux'
+
+import ItemTypes from '../ItemTypes'
+import Box from './Box'
 
 const style = {
-	height: '12rem',
+	height: '400px',
 	width: '12rem',
 	marginRight: '1.5rem',
 	marginBottom: '1.5rem',
@@ -34,7 +37,7 @@ const collect = (connect, monitor) => ({
 // 	canDrop: monitor.canDrop(),
 // }))
 class Dustbin extends Component {
-  
+
 	static propTypes = {
 		connectDropTarget: PropTypes.func.isRequired,
 		isOver: PropTypes.bool.isRequired,
@@ -44,6 +47,7 @@ class Dustbin extends Component {
 	render() {
 		const { canDrop, isOver, connectDropTarget } = this.props
 		const isActive = canDrop && isOver
+		const selectedTools = this.props.selectedTools
 
 		let backgroundColor = '#222'
 		if (isActive) {
@@ -55,10 +59,21 @@ class Dustbin extends Component {
 		return connectDropTarget(
 			<div style={{ ...style, backgroundColor }}>
 				{isActive ? 'Release to drop' : 'Drag a box here'}
+		{selectedTools.includes("Choice") &&	<Box name="Choice" /> }
+		{selectedTools.includes("Input") &&		<Box name="Input" /> }
+		{selectedTools.includes("Repel")	&&	<Box name="Repel" /> }
+		{selectedTools.includes("Hot Spot")	&&	<Box name="Hot Spot" />}
+		{selectedTools.includes("Name Generator")	&&		<Box name="Name Generator" />}
 			</div>,
 		)
 	}
 }
 
-export default DropTarget(ItemTypes.BOX, boxTarget, collect)(Dustbin)
+const mapState = state => {
+	return {
+		selectedTools: state.selectedTools
+	}
+}
+
+export default connect(mapState)(DropTarget(ItemTypes.BOX, boxTarget, collect)(Dustbin))
 
