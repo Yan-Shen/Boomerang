@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { DropTarget } from 'react-dnd'
 import {connect} from 'react-redux'
-
 import ItemTypes from '../ItemTypes'
 import Box from './Box'
+import ToolChoice from './tools/Choice'
+
 
 const style = {
 	height: '400px',
@@ -59,7 +60,7 @@ class Dustbin extends Component {
 		return connectDropTarget(
 			<div style={{ ...style, backgroundColor }}>
 				{isActive ? 'Release to drop' : 'Drag a box here'}
-		{selectedTools.includes("Choice") &&	<Box name="Choice" /> }
+		{selectedTools.includes("Choice") &&	<ToolChoice name="Choice" /> }
 		{selectedTools.includes("Input") &&		<Box name="Input" /> }
 		{selectedTools.includes("Repel")	&&	<Box name="Repel" /> }
 		{selectedTools.includes("Hot Spot")	&&	<Box name="Hot Spot" />}

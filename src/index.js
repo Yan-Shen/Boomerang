@@ -6,6 +6,7 @@ import {Provider} from 'react-redux'
 import registerServiceWorker from './registerServiceWorker';
 import Container from './components/Container';
 import store from './store/store'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 
 
@@ -13,7 +14,9 @@ import store from './store/store'
 
 ReactDOM.render(
   <Provider store={store}>
-    <Container />
+    <MuiThemeProvider>
+      <Container />
+    </MuiThemeProvider>
   </Provider>,
 document.getElementById('root')
 );

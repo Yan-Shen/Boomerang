@@ -4,17 +4,24 @@ import { DragSource } from 'react-dnd'
 import ItemTypes from '../ItemTypes'
 import {connect} from 'react-redux'
 import {addTool} from '../store'
+import RaisedButton from 'material-ui/RaisedButton';
 
 const style = {
-	border: '1px dashed gray',
-	backgroundColor: 'white',
-	padding: '0.5rem 1rem',
-	marginRight: '1.5rem',
-	marginBottom: '1.5rem',
-	cursor: 'move',
-  float: 'left',
-  color: 'black'
-}
+  margin: '2px',
+  fontSize: '0.5em',
+  padding: '1px'
+};
+
+// const style = {
+// 	border: '1px dashed gray',
+// 	backgroundColor: 'white',
+// 	padding: '0.5rem 1rem',
+// 	marginRight: '1.5rem',
+// 	marginBottom: '1.5rem',
+// 	cursor: 'move',
+//   float: 'left',
+//   color: 'black'
+// }
 
 const boxSource = {
 	beginDrag(props) {
@@ -57,7 +64,7 @@ const boxSource = {
       const { name } = this.props
       const opacity = isDragging ? 0.4 : 1
 
-      return connectDragSource(<div style={{ ...style, opacity }}>{name}</div>)
+      return connectDragSource(<div><RaisedButton label={name} labelStyle={style} /></div>)
     }
   }
 
