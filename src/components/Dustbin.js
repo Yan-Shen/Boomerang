@@ -3,22 +3,21 @@ import PropTypes from 'prop-types'
 import { DropTarget } from 'react-dnd'
 import {connect} from 'react-redux'
 import ItemTypes from '../ItemTypes'
-import Box from './Box'
-import ToolChoice from './tools/Choice'
+import Tool from './tools/Tool'
 
 
-const style = {
-	height: '400px',
-	width: '12rem',
-	marginRight: '1.5rem',
-	marginBottom: '1.5rem',
-	color: 'white',
-	padding: '1rem',
-	textAlign: 'center',
-	fontSize: '1rem',
-	lineHeight: 'normal',
-	float: 'left',
-}
+// const style = {
+// 	height: '400px',
+// 	width: '12rem',
+// 	marginRight: '1.5rem',
+// 	marginBottom: '1.5rem',
+// 	color: 'white',
+// 	padding: '1rem',
+// 	textAlign: 'center',
+// 	fontSize: '1rem',
+// 	lineHeight: 'normal',
+// 	float: 'left',
+// }
 
 const boxTarget = {
 	drop() {
@@ -58,13 +57,12 @@ class Dustbin extends Component {
 		}
 
 		return connectDropTarget(
-			<div style={{ ...style, backgroundColor }}>
-				{isActive ? 'Release to drop' : 'Drag a box here'}
-		{selectedTools.includes("Choice") &&	<ToolChoice name="Choice" /> }
-		{selectedTools.includes("Input") &&		<Box name="Input" /> }
-		{selectedTools.includes("Repel")	&&	<Box name="Repel" /> }
-		{selectedTools.includes("Hot Spot")	&&	<Box name="Hot Spot" />}
-		{selectedTools.includes("Name Generator")	&&		<Box name="Name Generator" />}
+			<div className="fullWidth toolBoxArea flex-container-wrap">
+		{selectedTools.includes("Choice Q") &&	<Tool name="Choice Q" /> }
+		{selectedTools.includes("Input Q") &&		<Tool name="Input Q" /> }
+		{selectedTools.includes("Repel")	&&	<Tool name="Repel" /> }
+		{selectedTools.includes("Hot Spot")	&&	<Tool name="Hot Spot" />}
+		{selectedTools.includes("Name Picker")	&&		<Tool name="Name Picker" />}
 			</div>,
 		)
 	}

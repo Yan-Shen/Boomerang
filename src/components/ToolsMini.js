@@ -4,7 +4,6 @@ import { DragSource } from 'react-dnd'
 import ItemTypes from '../ItemTypes'
 import {connect} from 'react-redux'
 import {addTool} from '../store'
-import RaisedButton from 'material-ui/RaisedButton';
 
 const style = {
   margin: '2px',
@@ -62,9 +61,9 @@ const boxSource = {
     render() {
       const { isDragging, connectDragSource } = this.props
       const { name } = this.props
-      const opacity = isDragging ? 0.4 : 1
+      // const opacity = isDragging ? 0.4 : 1
 
-      return connectDragSource(<div><RaisedButton label={name} labelStyle={style} /></div>)
+      return connectDragSource(<div className="toolsMini">{name}</div>)
     }
   }
 
