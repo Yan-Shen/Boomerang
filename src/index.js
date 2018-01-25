@@ -2,13 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import {teal500, teal400, teal300} from 'material-ui/styles/colors';
+import {teal500, teal400, teal300, grey600} from 'material-ui/styles/colors';
 import {Provider} from 'react-redux'
 import registerServiceWorker from './registerServiceWorker';
 import Container from './components/Container';
 import store from './store/store'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import config from './config'
+
+
 
 
 const muiTheme = getMuiTheme({
@@ -20,8 +23,8 @@ const muiTheme = getMuiTheme({
     // accent1Color: pinkA200,
     // accent2Color: grey100,
     // accent3Color: grey500,
-		textColor: teal500,
-    // alternateTextColor: white,
+		textColor: grey600,
+    //alternateTextColor: white,
     // canvasColor: white,
     // borderColor: grey300,
     // disabledColor: fade(darkBlack, 0.3),
@@ -33,7 +36,6 @@ const muiTheme = getMuiTheme({
     height: 50,
   },
 });
-
 
 ReactDOM.render(
   <Provider store={store}>
