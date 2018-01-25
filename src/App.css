@@ -21,6 +21,10 @@
 .App-intro {
   font-size: large;
 }
+.twitter-picker {
+  margin-top: 10px;
+  z-index: 9999;
+}
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
