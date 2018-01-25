@@ -1,26 +1,21 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { DragSource } from 'react-dnd'
-import ItemTypes from '../ItemTypes'
+import ItemTypes from '../../../ItemTypes'
 import {connect} from 'react-redux'
-import {addTool} from '../store'
+import {addTool} from '../reducers/SelectedTools'
 
 const style = {
-  margin: '2px',
-  fontSize: '0.5em',
-  padding: '1px'
+  display: "inline-block",
+  fontSize: "0.7em",
+  borderStyle: "solid",
+  borderWidth: 0.5,
+  padding: 3,
+  margin: "30px 5px",
+  color: "grey",
+  boxShadow: "0.5px 0.5px 1px 1.2px #ccc",
+  borderRadius: 2,
 };
-
-// const style = {
-// 	border: '1px dashed gray',
-// 	backgroundColor: 'white',
-// 	padding: '0.5rem 1rem',
-// 	marginRight: '1.5rem',
-// 	marginBottom: '1.5rem',
-// 	cursor: 'move',
-//   float: 'left',
-//   color: 'black'
-// }
 
 const boxSource = {
 	beginDrag(props) {
@@ -40,18 +35,13 @@ const boxSource = {
 	}
 }
 
-// @DragSource(ItemTypes.BOX, boxSource, (connect, monitor) => ({
-  // 	connectDragSource: connect.dragSource(),
-  // 	isDragging: monitor.isDragging(),
-  // }))
-
   const collect = (connect, monitor) => ({
     connectDragSource: connect.dragSource(),
     isDragging: monitor.isDragging()
   })
 
 
-  class Box extends Component {
+  class ToolMini extends Component {
     static propTypes = {
       connectDragSource: PropTypes.func.isRequired,
       isDragging: PropTypes.bool.isRequired,
@@ -63,7 +53,7 @@ const boxSource = {
       const { name } = this.props
       // const opacity = isDragging ? 0.4 : 1
 
-      return connectDragSource(<div className="toolsMini">{name}</div>)
+      return connectDragSource(<div style={style}>{name}</div>)
     }
   }
 
@@ -75,4 +65,4 @@ const boxSource = {
     }
   }
 
-export default connect(null, mapDispatch)(DragSource(ItemTypes.BOX, boxSource, collect)(Box))
+export default connect(null, mapDispatch)(DragSource(ItemTypes.BOX, boxSource, collect)(ToolMini))

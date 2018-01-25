@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import {AppBar, Paper} from 'material-ui';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
-import Container from './components/Container.js'
+// import Container from './components/Container.js'
 //import SlideEdit from './components/Container.js'
 
 import logo from './logo.svg';
@@ -23,10 +23,6 @@ class App extends Component {
             <Route
               exact path={'/'}
               render={() => <SlideEdit />}
-            />
-            <Route
-              exact path={'/instructor'}
-              component={() => <Container />}
             />
           </div>
        </Router>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {AppBar, Paper} from 'material-ui';
 
 import components from '../components'
+import ToolContainer from '../../tools/containers/ToolContainer'
 
 const {CanvasBlock} = components
 
@@ -13,14 +14,21 @@ class SlideEdit extends Component {
             <Paper style={{margin: "10px"}} zDepth={1}>
               <CanvasBlock />
             </Paper>
+           {/* thumbnail area */}
             <Paper style={{margin: "10px"}} zDepth={1}>
               <div style={{height: "140px"}}></div>
             </Paper>
           </div>
+
           <div style={{flex: 3}}>
+           {/* Toolbox area */}
             <Paper style={{margin: "10px"}} zDepth={1}>
-              <div style={{height: "400px"}}></div>
+            <div className="flex-container-column toolSectionContainer">
+              <ToolContainer />
+              </div>
             </Paper>
+
+             {/* Display area */}
             <Paper style={{margin: "10px"}} zDepth={1}>
               <div style={{height: "410px"}}></div>
             </Paper>

@@ -13,7 +13,7 @@ const styles = {
   },
 };
 
-class Tool extends Component {
+class ToolBtn extends Component {
   render() {
     return (
 
@@ -28,4 +28,4 @@ class Tool extends Component {
   }
 }
 
-export default Tool;
+export default ToolBtn;
