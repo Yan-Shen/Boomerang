@@ -34,7 +34,8 @@ class CanvasBlock extends Component {
 			textPositionSelect: false,
 			imagePositionSelect: false,
 			colorPicker: false,
-			fontFamily: 'Times New Roman'
+			fontFamily: 'Times New Roman',
+			fontSize: 14
 		}
 		this.removeObject = this.removeObject.bind(this)
 		this.addText = this.addText.bind(this)
@@ -66,11 +67,11 @@ class CanvasBlock extends Component {
 			}
 		})
 		this.canvas.on('selection:created', (object) => {
-			// console.log(object.target.fontFamily)
+			this.setState({fontSize: object.target.fontSize})
 			this.setState({fontFamily: object.target.fontFamily})
 		})
 		this.canvas.on('selection:updated', (object) => {
-			// console.log(object.target.fontFamily)
+			this.setState({fontSize: object.target.fontSize})
 			this.setState({fontFamily: object.target.fontFamily})
 		})
 	}
@@ -91,6 +92,7 @@ class CanvasBlock extends Component {
 		this.canvas.remove(this.canvas.getActiveObject());
 	}
 
+	/* Is addText needed? */
 	addText(x,y){
 		var text = new window.fabric.IText('Text Box', { left: x, top: y , fontSize: this.state.fontSize, fontWeight: this.state.fontWeight, fontFamily: this.state.fontFamily});
 		this.canvas.add(text);
@@ -98,6 +100,14 @@ class CanvasBlock extends Component {
 
 	textPosition(type){
 		switch(type) {
+			case 'custom':
+			this.setState({
+				textPositionSelect: true,
+				fontSize: this.state.fontSize,
+				fontWeight: this.state.fontWeight,
+				fontFamily: this.state.fontFamily
+			})
+			break;
 			case 'normal':
 			this.setState({
 				textPositionSelect: true,
@@ -176,6 +186,7 @@ class CanvasBlock extends Component {
 
 	editTextStyles(action, value = null) {
 		const object = this.canvas.getActiveObject()
+		if (action === 'fontSize') this.setState({fontSize: value})
 		if (object && object.textLines) {
 			let curStyles = object.getSelectionStyles()
 			switch(action) {
@@ -277,6 +288,7 @@ class CanvasBlock extends Component {
 						    anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
 						    targetOrigin={{horizontal: 'left', vertical: 'top'}}
 						  >
+								<MenuItem onClick={()=>this.textPosition('custom')} primaryText="Custom Text" leftIcon={<TextField />} />
 								<MenuItem onClick={()=>this.textPosition('normal')} primaryText="Normal Text" leftIcon={<TextField />} />
 						    <MenuItem onClick={()=>this.textPosition('h1')} primaryText="Header 1" leftIcon={<TextField />} />
 								<MenuItem onClick={()=>this.textPosition('h2')} primaryText="Header 2" leftIcon={<TextField />} />
@@ -311,7 +323,7 @@ class CanvasBlock extends Component {
 								{this.state.colorPicker && this.state.color === 'fill' && <TwitterPicker onChange={ this.changeTextBGColor } triangle="hide"/>}
 							</IconButton>
 							<ToolbarSeparator style={{marginRight: '24px'}}/>
-							<IconMenu
+							<IconMenu 
 						    iconButtonElement={<IconButton><TextField /></IconButton>}
 						    anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
 						    targetOrigin={{horizontal: 'left', vertical: 'top'}}
@@ -324,6 +336,7 @@ class CanvasBlock extends Component {
 								<MenuItem primaryText="36" onClick={() => this.editTextStyles('fontSize', 36)} />
 								<MenuItem primaryText="48" onClick={() => this.editTextStyles('fontSize', 48)} />
 						  </IconMenu>
+							{this.state.fontSize}
 							<SelectField value={this.state.fontFamily} hintText={this.state.fontFamily} onChange={(event,key,value)=>this.setState({fontFamily: value})}>
 				        <MenuItem value="Times New Roman"  primaryText="Times New Roman" onClick={() => this.editTextStyles('fontFamily', 'Times New Roman')}/>
 				        <MenuItem value="Arial"  primaryText="Arial" onClick={() => this.editTextStyles('fontFamily', 'Arial')}/>
