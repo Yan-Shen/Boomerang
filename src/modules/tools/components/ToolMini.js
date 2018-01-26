@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { DragSource } from 'react-dnd'
 import ItemTypes from '../../../ItemTypes'
 import {connect} from 'react-redux'
+import {addTool} from '../reducers/SelectedTools'
 import IconButton from 'material-ui/IconButton';
 import ListIcon from 'material-ui/svg-icons/action/list';
 import CodeIcon from 'material-ui/svg-icons/action/code';
@@ -16,10 +17,10 @@ import {updateToolsDispatcher} from '../reducers/SelectedTools'
 const style = {
   display: "inline-block",
   fontSize: "0.7em",
-  borderStyle: "solid",
-  borderWidth: 0.5,
-  padding: 3,
-  margin: "30px 5px",
+  // borderStyle: "solid",
+  borderWidth: 0.3,
+  padding: 2,
+  // margin: "30px 5px",
   color: "grey",
   boxShadow: "0.5px 0.5px 1px 1.2px #ccc",
   borderRadius: 2,
