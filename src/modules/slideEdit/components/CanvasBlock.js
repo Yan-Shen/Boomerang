@@ -22,6 +22,7 @@ import Divider from 'material-ui/Divider';
 import Download from 'material-ui/svg-icons/file/file-download';
 import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import LayersMenu from 'material-ui/svg-icons/maps/layers';
 
 import { TwitterPicker } from 'react-color'
 
@@ -33,7 +34,7 @@ class CanvasBlock extends Component {
 			textPositionSelect: false,
 			imagePositionSelect: false,
 			colorPicker: false,
-			font: 'Times New Roman'
+			fontFamily: 'Times New Roman'
 		}
 		this.removeObject = this.removeObject.bind(this)
 		this.addText = this.addText.bind(this)
@@ -64,6 +65,14 @@ class CanvasBlock extends Component {
 				this.setState({textPositionSelect: false})
 			}
 		})
+		this.canvas.on('selection:created', (object) => {
+			// console.log(object.target.fontFamily)
+			this.setState({fontFamily: object.target.fontFamily})
+		})
+		this.canvas.on('selection:updated', (object) => {
+			// console.log(object.target.fontFamily)
+			this.setState({fontFamily: object.target.fontFamily})
+		})
 	}
 
 	colorPicker(type){
@@ -83,7 +92,7 @@ class CanvasBlock extends Component {
 	}
 
 	addText(x,y){
-		var text = new window.fabric.IText('Text Box', { left: x, top: y , fontSize: this.state.fontSize, fontWeight: this.state.fontWeight});
+		var text = new window.fabric.IText('Text Box', { left: x, top: y , fontSize: this.state.fontSize, fontWeight: this.state.fontWeight, fontFamily: this.state.fontFamily});
 		this.canvas.add(text);
 	}
 
@@ -93,21 +102,24 @@ class CanvasBlock extends Component {
 			this.setState({
 				textPositionSelect: true,
 				fontSize: 24,
-				fontWeight: 'normal'
+				fontWeight: 'normal',
+				fontFamily: this.state.fontFamily
 			})
 			break;
 			case 'h1':
 			this.setState({
 				textPositionSelect: true,
 				fontSize: 48,
-				fontWeight: 'bold'
+				fontWeight: 'bold',
+				fontFamily: this.state.fontFamily
 			})
 			break;
 			case 'h2':
 			this.setState({
 				textPositionSelect: true,
 				fontSize: 36,
-				fontWeight: 'bold'
+				fontWeight: 'bold',
+				fontFamily: this.state.fontFamily
 			})
 			break;
 			default:
@@ -131,7 +143,8 @@ class CanvasBlock extends Component {
 	
 	changeColor(color){
 		const object = this.canvas.getActiveObject()
-		if (object.textLines) {
+		console.log(object)
+		if (object && object.textLines) {
 			if (object.setSelectionStyles && object.isEditing) {
 				let style = {}
 				style.fill = color.hex
@@ -147,7 +160,7 @@ class CanvasBlock extends Component {
 
 	changeTextBGColor(color){
 		const object = this.canvas.getActiveObject()
-		if (object.textLines) {
+		if (object && object.textLines) {
 			if (object.setSelectionStyles && object.isEditing) {
 				let style = {}
 				style.textBackgroundColor = color.hex
@@ -163,7 +176,7 @@ class CanvasBlock extends Component {
 
 	editTextStyles(action, value = null) {
 		const object = this.canvas.getActiveObject()
-		if (object.textLines) {
+		if (object && object.textLines) {
 			let curStyles = object.getSelectionStyles()
 			switch(action) {
 				case 'underline':
@@ -206,6 +219,7 @@ class CanvasBlock extends Component {
 						this.setIndividualStyles(object, 'fontFamily', value)
 					} else {
 						this.setStyle(object, 'fontFamily', value)
+						this.setState({fontFamily: value})
 					}
 				break
 			}
@@ -226,6 +240,30 @@ class CanvasBlock extends Component {
 		let style = {}
 		style[styleName] = value
 		object.setSelectionStyles(style)
+	}
+
+	changeZAxis(action) {
+		const object = this.canvas.getActiveObject()
+		if (object) {
+			switch(action) {
+				case 'bringToFront': 
+					this.canvas.bringToFront(object)
+				break
+
+				case 'bringForward':
+					this.canvas.bringForward(object)
+				break
+
+				case 'sendBackward':
+					this.canvas.sendBackwards(object)
+				break
+
+				case 'sendToBack':
+					this.canvas.sendToBack(object)
+				break
+			}
+		}
+		this.canvas.renderAll()
 	}
 
 	render() {
@@ -286,16 +324,26 @@ class CanvasBlock extends Component {
 								<MenuItem primaryText="36" onClick={() => this.editTextStyles('fontSize', 36)} />
 								<MenuItem primaryText="48" onClick={() => this.editTextStyles('fontSize', 48)} />
 						  </IconMenu>
-							<SelectField value={this.state.font} hintText={this.state.font} onChange={(event,key,value)=>this.setState({font: value})}>
+							<SelectField value={this.state.fontFamily} hintText={this.state.fontFamily} onChange={(event,key,value)=>this.setState({fontFamily: value})}>
 				        <MenuItem value="Times New Roman"  primaryText="Times New Roman" onClick={() => this.editTextStyles('fontFamily', 'Times New Roman')}/>
 				        <MenuItem value="Arial"  primaryText="Arial" onClick={() => this.editTextStyles('fontFamily', 'Arial')}/>
-				        <MenuItem value="Comic Sans"  primaryText="Cursive" onClick={() => this.editTextStyles('fontFamily', 'Cursive')}/>
+				        <MenuItem value="Cursive"  primaryText="Cursive" onClick={() => this.editTextStyles('fontFamily', 'Cursive')}/>
       				</SelectField>
 							<ToolbarSeparator style={{marginRight: '24px'}}/>
 							<IconButton><FormatBold onClick={() => this.editTextStyles('bold')} color="rgba(0,0,0,.3)"/></IconButton>
 							<IconButton><FormatItalic onClick={() => this.editTextStyles('italic')} color="rgba(0,0,0,.3)"/></IconButton>
 							<IconButton><FormatUnderlined onClick={() => this.editTextStyles('underline')} color="rgba(0,0,0,.3)"/></IconButton>
 							<ToolbarSeparator style={{marginRight: '24px'}}/>
+							<IconMenu
+						    iconButtonElement={<IconButton><LayersMenu /></IconButton>}
+						    anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+						    targetOrigin={{horizontal: 'left', vertical: 'top'}}
+						  >
+								<MenuItem primaryText="Bring To Front" leftIcon={<Square />} onClick={() => {this.changeZAxis('bringToFront')}} />
+								<MenuItem primaryText="Bring Forward" leftIcon={<Rectangle />} onClick={() => {this.changeZAxis('bringForward')}}/>
+								<MenuItem primaryText="Send Backward" leftIcon={<Circle />} onClick={() => {this.changeZAxis('sendBackward')}}/>
+								<MenuItem primaryText="Send To Back" leftIcon={<Triangle />} onClick={() => {this.changeZAxis('sendToBack')}}/>
+						  </IconMenu>
 							<IconMenu
 						    iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
 						    anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
