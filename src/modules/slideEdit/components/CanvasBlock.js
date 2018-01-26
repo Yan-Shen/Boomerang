@@ -38,11 +38,12 @@ class CanvasBlock extends Component {
 		this.removeObject = this.removeObject.bind(this)
 		this.addText = this.addText.bind(this)
 		this.addImage = this.addImage.bind(this)
-		this.changeColor = this.changeColor.bind(this)
 		this.textPosition = this.textPosition.bind(this)
 		this.imagePosition = this.imagePosition.bind(this)
 		this.editTextStyles = this.editTextStyles.bind(this)
 		this.colorPicker = this.colorPicker.bind(this)
+		this.changeColor = this.changeColor.bind(this)
+		this.changeTextBGColor = this.changeTextBGColor.bind(this)
 	}
 
 	componentDidMount(){
@@ -64,6 +65,7 @@ class CanvasBlock extends Component {
 			}
 		})
 	}
+
 	colorPicker(type){
 		if(type){
 			this.setState({
@@ -75,33 +77,36 @@ class CanvasBlock extends Component {
 			this.setState({ colorPicker: !this.state.colorPicker, color: null})
 		}
 	}
+
 	removeObject(){
 		this.canvas.remove(this.canvas.getActiveObject());
 	}
+
 	addText(x,y){
 		var text = new window.fabric.IText('Text Box', { left: x, top: y , fontSize: this.state.fontSize, fontWeight: this.state.fontWeight});
 		this.canvas.add(text);
 	}
+
 	textPosition(type){
 		switch(type) {
 			case 'normal':
 			this.setState({
 				textPositionSelect: true,
-				fontSize: 10,
+				fontSize: 24,
 				fontWeight: 'normal'
 			})
 			break;
 			case 'h1':
 			this.setState({
 				textPositionSelect: true,
-				fontSize: 30,
+				fontSize: 48,
 				fontWeight: 'bold'
 			})
 			break;
 			case 'h2':
 			this.setState({
 				textPositionSelect: true,
-				fontSize: 20,
+				fontSize: 36,
 				fontWeight: 'bold'
 			})
 			break;
@@ -110,43 +115,55 @@ class CanvasBlock extends Component {
 		}
 
 	}
+
 	imagePosition(){
 		this.setState({imagePositionSelect: !this.state.imagePositionSelect})
 	}
+
 	addImage(x,y){
 		window.fabric.Image.fromURL('http://fabricjs.com/assets/pug_small.jpg', (myImg) =>{
-			console.log(myImg)
  			var img1 = myImg.set({ left: x, top: y,width:myImg.width/2,height:myImg.height/2});
  			this.canvas.add(img1);
 		})
+
 		this.setState({imagePositionSelect: !this.state.imagePositionSelect})
 	}
-	// changeColor(){
-	// 	const obj = this.canvas.getActiveObject()
-	// 	var style = { };
-  //   style.fill = '#007681';
-	// 	obj.setSelectionStyles(style)
-	// 	// obj.setColor("#6bada7")
-	// 	// obj.opacity = 0.1
-	// 	this.canvas.renderAll()
-	// }
+	
 	changeColor(color){
-		const obj = this.canvas.getActiveObject()
-		if (obj.setSelectionStyles && obj.isEditing) {
-			let style = {}
-			style.fill = color.hex
-			obj.setSelectionStyles(style)
+		const object = this.canvas.getActiveObject()
+		if (object.textLines) {
+			if (object.setSelectionStyles && object.isEditing) {
+				let style = {}
+				style.fill = color.hex
+				object.setSelectionStyles(style)
+			}
+			else {
+				object.removeStyle('fill')
+				object.setColor(color.hex)
+			}
+			this.canvas.renderAll()
 		}
-		else {
-			obj.removeStyle('fill')
-			obj.setColor(color.hex)
-		}
-		this.canvas.renderAll()
 	}
 
-	editTextStyles(action) {
+	changeTextBGColor(color){
 		const object = this.canvas.getActiveObject()
-		if (object) {
+		if (object.textLines) {
+			if (object.setSelectionStyles && object.isEditing) {
+				let style = {}
+				style.textBackgroundColor = color.hex
+				object.setSelectionStyles(style)
+			}
+			else {
+				object.removeStyle('textBackgroundColor')
+				object.set('textBackgroundColor', color.hex)
+			}
+			this.canvas.renderAll()
+		}
+	}
+
+	editTextStyles(action, value = null) {
+		const object = this.canvas.getActiveObject()
+		if (object.textLines) {
 			let curStyles = object.getSelectionStyles()
 			switch(action) {
 				case 'underline':
@@ -160,7 +177,7 @@ class CanvasBlock extends Component {
 
 				case 'italic':
 					if (object.setSelectionStyles && object.isEditing) {
-						this.setIndividualStyles(object, 'fontStyle', curStyles[0][action] ? '' : 'italic')
+						this.setIndividualStyles(object, 'fontStyle', curStyles[0]['fontStyle'] ? '' : 'italic')
 					} else {
 						let isItalic = this.getStyle(object, 'fontStyle') === 'italic'
 						this.setStyle(object, 'fontStyle', isItalic ? '' : 'italic')
@@ -169,10 +186,26 @@ class CanvasBlock extends Component {
 
 				case 'bold':
 					if (object.setSelectionStyles && object.isEditing) {
-						this.setIndividualStyles(object, 'fontWeight', curStyles[0][action] ? '' : 'bold')
+						this.setIndividualStyles(object, 'fontWeight', curStyles[0]['fontWeight'] ? '' : 'bold')
 					} else {
 						let isBold = this.getStyle(object, 'fontWeight') === 'bold'
 						this.setStyle(object, 'fontWeight', isBold ? '' : 'bold')
+					}
+				break
+
+				case 'fontSize':
+					if (object.setSelectionStyles && object.isEditing) {
+						this.setIndividualStyles(object, 'fontSize', value)
+					} else {
+						this.setStyle(object, 'fontSize', value)
+					}
+				break
+
+				case 'fontFamily':
+					if (object.setSelectionStyles && object.isEditing) {
+						this.setIndividualStyles(object, 'fontFamily', value)
+					} else {
+						this.setStyle(object, 'fontFamily', value)
 					}
 				break
 			}
@@ -185,9 +218,8 @@ class CanvasBlock extends Component {
 	}
 
 	setStyle(object, styleName, value) {
-		// console.log(styleName, value)
+		object.removeStyle(styleName)
 		object.set(styleName, value)
-		this.canvas.renderAll()
 	}
 
 	setIndividualStyles(object, styleName, value) {
@@ -195,8 +227,8 @@ class CanvasBlock extends Component {
 		style[styleName] = value
 		object.setSelectionStyles(style)
 	}
-	render() {
 
+	render() {
 		return (
 			<div>
 				<div style={{display: 'flex', flexDirection: 'column'}}>
@@ -234,11 +266,11 @@ class CanvasBlock extends Component {
 							<ToolbarSeparator style={{marginRight: '24px'}}/>
 							<IconButton onClick={()=>this.colorPicker("text")}>
 								<FormatColorText />
-								{this.state.colorPicker && this.state.color === 'text' && <TwitterPicker onChange={ this.colorPicker } triangle="hide"/>}
+								{this.state.colorPicker && this.state.color === 'text' && <TwitterPicker onChange={ this.changeColor } triangle="hide"/>}
 							</IconButton>
 							<IconButton onClick={()=>this.colorPicker("fill")}>
 								<FormatColorFill />
-								{this.state.colorPicker && this.state.color === 'fill' && <TwitterPicker onChange={ this.colorPicker } triangle="hide"/>}
+								{this.state.colorPicker && this.state.color === 'fill' && <TwitterPicker onChange={ this.changeTextBGColor } triangle="hide"/>}
 							</IconButton>
 							<ToolbarSeparator style={{marginRight: '24px'}}/>
 							<IconMenu
@@ -246,14 +278,18 @@ class CanvasBlock extends Component {
 						    anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
 						    targetOrigin={{horizontal: 'left', vertical: 'top'}}
 						  >
-								<MenuItem primaryText="12" />
-								<MenuItem primaryText="16" />
-								<MenuItem primaryText="20" />
+								<MenuItem primaryText="14" onClick={() => this.editTextStyles('fontSize', 14)} />
+								<MenuItem primaryText="18" onClick={() => this.editTextStyles('fontSize', 18)} />
+								<MenuItem primaryText="20" onClick={() => this.editTextStyles('fontSize', 20)} />
+								<MenuItem primaryText="24" onClick={() => this.editTextStyles('fontSize', 24)} />
+								<MenuItem primaryText="30" onClick={() => this.editTextStyles('fontSize', 30)} />
+								<MenuItem primaryText="36" onClick={() => this.editTextStyles('fontSize', 36)} />
+								<MenuItem primaryText="48" onClick={() => this.editTextStyles('fontSize', 48)} />
 						  </IconMenu>
 							<SelectField value={this.state.font} hintText={this.state.font} onChange={(event,key,value)=>this.setState({font: value})}>
-				        <MenuItem value="Times New Roman"  primaryText="Times New Roman" />
-				        <MenuItem value="Arial"  primaryText="Arial" />
-				        <MenuItem value="Comic Sans"  primaryText="Comic sans" />
+				        <MenuItem value="Times New Roman"  primaryText="Times New Roman" onClick={() => this.editTextStyles('fontFamily', 'Times New Roman')}/>
+				        <MenuItem value="Arial"  primaryText="Arial" onClick={() => this.editTextStyles('fontFamily', 'Arial')}/>
+				        <MenuItem value="Comic Sans"  primaryText="Cursive" onClick={() => this.editTextStyles('fontFamily', 'Cursive')}/>
       				</SelectField>
 							<ToolbarSeparator style={{marginRight: '24px'}}/>
 							<IconButton><FormatBold onClick={() => this.editTextStyles('bold')} color="rgba(0,0,0,.3)"/></IconButton>
