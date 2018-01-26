@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import {AppBar, Paper} from 'material-ui';
 
 import components from '../components'
-import ToolContainer from '../../tools/containers/ToolContainer'
+import {ToolContainer} from '../../tools'
+import {QAContainer} from '../../display'
 
 const {CanvasBlock} = components
 
@@ -30,7 +31,7 @@ class SlideEdit extends Component {
 
              {/* Display area */}
             <Paper style={{margin: "10px"}} zDepth={1}>
-              <div style={{height: "410px"}}></div>
+              < QAContainer />
             </Paper>
           </div>
 

@@ -44,9 +44,9 @@ export const updateToolsDispatcher = (tool, slideId) => {
  }
 }
 
-export const getToolsDispatcher = ()=> {
+export const getToolsDispatcher = (slideId)=> {
   return dispatch=> {
-    const listener = db.ref().child('selectedTools')
+    const listener = db.ref(`/selectedTools/${slideId}`)
     listener.on('value', snap => {
       const selectedTools = Object.keys(snap.val())
       dispatch(getTools(selectedTools))
