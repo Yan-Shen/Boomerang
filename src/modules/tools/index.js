@@ -1,6 +1,6 @@
 import ToolContainer from './containers/ToolContainer';
 
-export default {
+export {
   // reducers,
   // components,
   ToolContainer

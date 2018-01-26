@@ -1,5 +1,5 @@
 import slideEdit from "./slideEdit"
-import ToolContainer from './tools'
+import {ToolContainer} from './tools'
 
 export default {
   slideEdit,

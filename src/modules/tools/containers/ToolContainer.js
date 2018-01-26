@@ -16,7 +16,8 @@ const style = {
 
 class Container extends Component {
 	componentDidMount(){
-		// this.props.getTools();
+		const slideId = 'id1'
+		this.props.getTools(slideId);
   }
 
 
@@ -46,8 +47,8 @@ const mapState = state => {
 
 const mapDispath = dispatch => {
 	return {
-		getTools(){
-			dispatch(getToolsDispatcher())
+		getTools(slideId){
+			dispatch(getToolsDispatcher(slideId))
 		}
 	}
 }
