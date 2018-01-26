@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { DragSource } from 'react-dnd'
 import ItemTypes from '../../../ItemTypes'
 import {connect} from 'react-redux'
-import {addTool} from '../reducers/SelectedTools'
+import {updateToolsDispatcher} from '../reducers/SelectedTools'
 
 const style = {
   display: "inline-block",
@@ -59,8 +59,8 @@ const boxSource = {
 
   const mapDispatch = dispatch => {
     return {
-      addTool (tool){
-        dispatch(addTool(tool))
+      addTool(tool){
+        dispatch(updateToolsDispatcher(tool))
       }
     }
   }
