@@ -70,16 +70,21 @@ class CanvasBlock extends Component {
 			}
 		})
 		this.canvas.on('selection:created', (object) => {
-			this.setState({fontSize: object.target.fontSize})
-			this.setState({fontFamily: object.target.fontFamily})
-			this.setState({textColor: object.target.fill})
-			this.setState({textBGColor: object.target.textBackgroundColor})
+			if (object.textLines) {
+				this.setState({fontSize: object.target.fontSize})
+				this.setState({fontFamily: object.target.fontFamily})
+				this.setState({textColor: object.target.fill})
+				this.setState({textBGColor: object.target.textBackgroundColor})
+			}
+			
 		})
 		this.canvas.on('selection:updated', (object) => {
-			this.setState({fontSize: object.target.fontSize})
-			this.setState({fontFamily: object.target.fontFamily})
-			this.setState({textColor: object.target.fill})
-			this.setState({textBGColor: object.target.textBackgroundColor})
+			if (object.textLines) {
+				this.setState({fontSize: object.target.fontSize})
+				this.setState({fontFamily: object.target.fontFamily})
+				this.setState({textColor: object.target.fill})
+				this.setState({textBGColor: object.target.textBackgroundColor})
+			}
 		})
 	}
 
@@ -202,7 +207,6 @@ class CanvasBlock extends Component {
 
 	editTextStyles(action, value = null) {
 		const object = this.canvas.getActiveObject()
-		console.log(value)
 		if (action === 'fontSize') this.setState({fontSize: value})
 		if (object && object.textLines) {
 			let curStyles = object.getSelectionStyles()
@@ -357,7 +361,7 @@ class CanvasBlock extends Component {
 								<MenuItem primaryText="36" onClick={() => this.editTextStyles('fontSize', 36)} />
 								<MenuItem primaryText="48" onClick={() => this.editTextStyles('fontSize', 48)} />
 						  </IconMenu>
-							<TextField style={{width: 25, marginRight: 5}} id='font-size-field' value={this.state.fontSize} onChange={(event)=>{this.editTextStyles('fontSize', event.target.value)}} />
+							<TextField style={{width: 25}} id='font-size-field' value={this.state.fontSize} onChange={(event)=>{this.editTextStyles('fontSize', event.target.value)}} />
 
 							<SelectField value={this.state.fontFamily} hintText={this.state.fontFamily} onChange={(event,key,value)=>this.setState({fontFamily: value})}>
 				        <MenuItem value="Times New Roman"  primaryText="Times New Roman" onClick={() => this.editTextStyles('fontFamily', 'Times New Roman')}/>
