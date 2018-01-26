@@ -5,7 +5,7 @@ import App from './App';
 import {teal500, teal400, teal300, grey600} from 'material-ui/styles/colors';
 import {Provider} from 'react-redux'
 import registerServiceWorker from './registerServiceWorker';
-import Container from './components/Container';
+// import Container from './components/Container';
 import store from './store/store'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
