@@ -5,7 +5,7 @@ import components from '../components'
 import {getToolsDispatcher} from '../../../store'
 import {connect} from 'react-redux'
 
-const {ToolBox, ToolMiniChoice, ToolMiniRepl} = components
+const {ToolBox, ToolMiniChoice, ToolMiniRepl, ToolMiniInput, ToolMiniHotSpot, ToolMiniName} = components
 
 
 
@@ -26,10 +26,10 @@ class Container extends Component {
 						<div>
 							<div style={style}>
 									<ToolMiniChoice name="Choice Q" />
-									{/* <ToolMini name="Input Q" /> */}
+									<ToolMiniInput name="Input Q" />
 									<ToolMiniRepl name="Repel" />
-									{/* <ToolMini name="Hot Spot" />
-									<ToolMini name="Name Picker" /> */}
+									<ToolMiniHotSpot name="Hot Spot" />
+									<ToolMiniName name="Name Picker" />
 							</div>
 							<ToolBox selectedTools={this.props.selectedTools}/>
 						</div>

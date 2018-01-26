@@ -10,16 +10,17 @@ import CodeIcon from 'material-ui/svg-icons/action/code';
 import TouchIcon from 'material-ui/svg-icons/action/touch-app';
 import PersonIcon from 'material-ui/svg-icons/social/person';
 import GroupIcon from 'material-ui/svg-icons/social/people';
+import QuestionIcon from 'material-ui/svg-icons/action/question-answer'
 
 import {updateToolsDispatcher} from '../reducers/SelectedTools'
 
 const style = {
   display: "inline-block",
   fontSize: "0.7em",
-  borderStyle: "solid",
-  borderWidth: 0.5,
-  padding: 3,
-  margin: "30px 5px",
+  // borderStyle: "solid",
+  borderWidth: 0.3,
+  padding: 2,
+  // margin: "30px 5px",
   color: "grey",
   boxShadow: "0.5px 0.5px 1px 1.2px #ccc",
   borderRadius: 2,
@@ -79,7 +80,47 @@ const boxSource = {
     }
   }
 
+  class HotSpot extends Component {
+    static propTypes = {
+      connectDragSource: PropTypes.func.isRequired,
+      isDragging: PropTypes.bool.isRequired,
+      name: PropTypes.string.isRequired,
+    }
+    render() {
+      const { isDragging, connectDragSource } = this.props
+      const { name } = this.props
+      // const opacity = isDragging ? 0.4 : 1
+      return connectDragSource(<div style={style}><IconButton><TouchIcon /></IconButton></div>)
+    }
+  }
 
+  class Name extends Component {
+    static propTypes = {
+      connectDragSource: PropTypes.func.isRequired,
+      isDragging: PropTypes.bool.isRequired,
+      name: PropTypes.string.isRequired,
+    }
+    render() {
+      const { isDragging, connectDragSource } = this.props
+      const { name } = this.props
+      // const opacity = isDragging ? 0.4 : 1
+      return connectDragSource(<div style={style}><IconButton><PersonIcon /></IconButton></div>)
+    }
+  }
+
+  class Input extends Component {
+    static propTypes = {
+      connectDragSource: PropTypes.func.isRequired,
+      isDragging: PropTypes.bool.isRequired,
+      name: PropTypes.string.isRequired,
+    }
+    render() {
+      const { isDragging, connectDragSource } = this.props
+      const { name } = this.props
+      // const opacity = isDragging ? 0.4 : 1
+      return connectDragSource(<div style={style}><IconButton><QuestionIcon /></IconButton></div>)
+    }
+  }
 
   const mapDispatch = dispatch => {
     return {
@@ -92,6 +133,10 @@ const boxSource = {
 export const ToolMiniChoice = connect(null, mapDispatch)(DragSource(ItemTypes.BOX, boxSource, collect)(Choice))
 
 export const ToolMiniRepl = connect(null, mapDispatch)(DragSource(ItemTypes.BOX, boxSource, collect)(Repl))
+export const ToolMiniHotSpot = connect(null, mapDispatch)(DragSource(ItemTypes.BOX, boxSource, collect)(HotSpot))
+export const ToolMiniName = connect(null, mapDispatch)(DragSource(ItemTypes.BOX, boxSource, collect)(Name))
+
+export const ToolMiniInput = connect(null, mapDispatch)(DragSource(ItemTypes.BOX, boxSource, collect)(Input))
 
 {/* <div style={style}><IconButton><ListIcon /></IconButton></div>
 <div style={style}><IconButton><CodeIcon /></IconButton></div>
