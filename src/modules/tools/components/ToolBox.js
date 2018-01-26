@@ -5,6 +5,7 @@ import {connect} from 'react-redux'
 import ItemTypes from '../../../ItemTypes'
 import ToolBtn from './ToolBtn'
 
+
 const style = {
 	width: "100%",
 	height: 200,

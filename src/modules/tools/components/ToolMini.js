@@ -4,6 +4,8 @@ import { DragSource } from 'react-dnd'
 import ItemTypes from '../../../ItemTypes'
 import {connect} from 'react-redux'
 import {addTool} from '../reducers/SelectedTools'
+import IconButton from 'material-ui/IconButton';
+import ListIcon from 'material-ui/svg-icons/action/list';
 
 const style = {
   display: "inline-block",
@@ -53,9 +55,11 @@ const boxSource = {
       const { name } = this.props
       // const opacity = isDragging ? 0.4 : 1
 
-      return connectDragSource(<div style={style}>{name}</div>)
+      return connectDragSource(<div style={style}><IconButton><ListIcon /></IconButton></div>)
     }
   }
+
+
 
   const mapDispatch = dispatch => {
     return {
