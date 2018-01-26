@@ -36,7 +36,8 @@ class CanvasBlock extends Component {
 			colorPicker: false,
 			fontFamily: 'Times New Roman',
 			fontSize: 14,
-			textColor: '#000000'
+			textColor: '#000000',
+			textBGColor: '#ffffff'
 		}
 		this.removeObject = this.removeObject.bind(this)
 		this.addText = this.addText.bind(this)
@@ -71,11 +72,13 @@ class CanvasBlock extends Component {
 			this.setState({fontSize: object.target.fontSize})
 			this.setState({fontFamily: object.target.fontFamily})
 			this.setState({textColor: object.target.fill})
+			this.setState({textBGColor: object.target.textBackgroundColor})
 		})
 		this.canvas.on('selection:updated', (object) => {
 			this.setState({fontSize: object.target.fontSize})
 			this.setState({fontFamily: object.target.fontFamily})
 			this.setState({textColor: object.target.fill})
+			this.setState({textBGColor: object.target.textBackgroundColor})
 		})
 	}
 
@@ -97,7 +100,7 @@ class CanvasBlock extends Component {
 
 	/* Is addText needed? */
 	addText(x,y){
-		var text = new window.fabric.IText('Text Box', { left: x, top: y , fontSize: this.state.fontSize, fontWeight: this.state.fontWeight, fontFamily: this.state.fontFamily, fill: this.state.textColor});
+		var text = new window.fabric.IText('Text Box', { left: x, top: y , fontSize: this.state.fontSize, fontWeight: this.state.fontWeight, fontFamily: this.state.fontFamily, fill: this.state.textColor, textBackgroundColor: this.state.textBGColor});
 		this.canvas.add(text);
 	}
 
@@ -109,7 +112,8 @@ class CanvasBlock extends Component {
 				fontSize: this.state.fontSize,
 				fontWeight: this.state.fontWeight,
 				fontFamily: this.state.fontFamily,
-				textColor: this.state.textColor
+				textColor: this.state.textColor,
+				textBGColor: this.state.textBGColor
 			})
 			break;
 			case 'normal':
@@ -118,7 +122,8 @@ class CanvasBlock extends Component {
 				fontSize: 24,
 				fontWeight: 'normal',
 				fontFamily: this.state.fontFamily,
-				textColor: '#000000'
+				textColor: '#000000',
+				textBGColor: '#ffffff'
 			})
 			break;
 			case 'h1':
@@ -127,7 +132,8 @@ class CanvasBlock extends Component {
 				fontSize: 48,
 				fontWeight: 'bold',
 				fontFamily: this.state.fontFamily,
-				textColor: '#000000'
+				textColor: '#000000',
+				textBGColor: '#ffffff'
 			})
 			break;
 			case 'h2':
@@ -136,7 +142,8 @@ class CanvasBlock extends Component {
 				fontSize: 36,
 				fontWeight: 'bold',
 				fontFamily: this.state.fontFamily,
-				textColor: '#000000'
+				textColor: '#000000',
+				textBGColor: '#ffffff'
 			})
 			break;
 			default:
@@ -177,6 +184,7 @@ class CanvasBlock extends Component {
 
 	changeTextBGColor(color){
 		const object = this.canvas.getActiveObject()
+		this.setState({textBGColor: color.hex})
 		if (object && object.textLines) {
 			if (object.setSelectionStyles && object.isEditing) {
 				let style = {}
@@ -331,6 +339,8 @@ class CanvasBlock extends Component {
 								<FormatColorFill />
 								{this.state.colorPicker && this.state.color === 'fill' && <TwitterPicker onChange={ this.changeTextBGColor } triangle="hide"/>}
 							</IconButton>
+							<div style={{width: 30, height: 30, borderRadius: 4, backgroundColor: this.state.textBGColor}}/>
+
 							<ToolbarSeparator style={{marginRight: '24px'}}/>
 							<IconMenu 
 						    iconButtonElement={<IconButton><TextField /></IconButton>}
