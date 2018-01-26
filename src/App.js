@@ -14,9 +14,9 @@ import {db} from './firebase'
 //const {db} = firebase
 //import {init as firebaseInit} from './firebase/firebase'
 
-const {slideEdit} = modules
+const {slideEdit, teacherDashboard} = modules
 const {SlideEdit} = slideEdit.containers
-
+const {TeacherDashboard} = teacherDashboard.containers
 
 //const rootReference = db.ref().child('testObject')
 //console.log(rootReference)
@@ -26,12 +26,16 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <AppBar iconClassNameRight="muidocs-icon-navigation-expand-more"/>
+        <AppBar zDepth={0} iconClassNameRight="muidocs-icon-navigation-expand-more"/>
         <Router>
           <div>
             <Route
               exact path={'/'}
               render={() => <SlideEdit />}
+            />
+            <Route
+              path={'/teacher'}
+              component={TeacherDashboard}
             />
           </div>
        </Router>
