@@ -6,7 +6,8 @@ import FormatShape from 'material-ui/svg-icons/editor/format-shapes';
 import InsertPhoto from 'material-ui/svg-icons/editor/insert-photo';
 import FormatColorFill from 'material-ui/svg-icons/editor/format-color-fill';
 import FormatColorText from 'material-ui/svg-icons/editor/format-color-text';
-import TextField from 'material-ui/svg-icons/editor/text-fields';
+import TextFieldIcon from 'material-ui/svg-icons/editor/text-fields';
+import TextField from 'material-ui/TextField'
 import FormatBold from 'material-ui/svg-icons/editor/format-bold';
 import FormatItalic from 'material-ui/svg-icons/editor/format-italic';
 import FormatUnderlined from 'material-ui/svg-icons/editor/format-underlined';
@@ -201,6 +202,7 @@ class CanvasBlock extends Component {
 
 	editTextStyles(action, value = null) {
 		const object = this.canvas.getActiveObject()
+		console.log(value)
 		if (action === 'fontSize') this.setState({fontSize: value})
 		if (object && object.textLines) {
 			let curStyles = object.getSelectionStyles()
@@ -303,10 +305,10 @@ class CanvasBlock extends Component {
 						    anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
 						    targetOrigin={{horizontal: 'left', vertical: 'top'}}
 						  >
-								<MenuItem onClick={()=>this.textPosition('custom')} primaryText="Custom Text" leftIcon={<TextField />} />
-								<MenuItem onClick={()=>this.textPosition('normal')} primaryText="Normal Text" leftIcon={<TextField />} />
-						    <MenuItem onClick={()=>this.textPosition('h1')} primaryText="Header 1" leftIcon={<TextField />} />
-								<MenuItem onClick={()=>this.textPosition('h2')} primaryText="Header 2" leftIcon={<TextField />} />
+								<MenuItem onClick={()=>this.textPosition('custom')} primaryText="Custom Text" leftIcon={<TextFieldIcon />} />
+								<MenuItem onClick={()=>this.textPosition('normal')} primaryText="Normal Text" leftIcon={<TextFieldIcon />} />
+						    <MenuItem onClick={()=>this.textPosition('h1')} primaryText="Header 1" leftIcon={<TextFieldIcon />} />
+								<MenuItem onClick={()=>this.textPosition('h2')} primaryText="Header 2" leftIcon={<TextFieldIcon />} />
 						  </IconMenu>
 							<IconMenu
 						    iconButtonElement={<IconButton><InsertPhoto /></IconButton>}
@@ -343,7 +345,7 @@ class CanvasBlock extends Component {
 
 							<ToolbarSeparator style={{marginRight: '24px'}}/>
 							<IconMenu 
-						    iconButtonElement={<IconButton><TextField /></IconButton>}
+						    iconButtonElement={<IconButton><TextFieldIcon /></IconButton>}
 						    anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
 						    targetOrigin={{horizontal: 'left', vertical: 'top'}}
 						  >
@@ -355,7 +357,8 @@ class CanvasBlock extends Component {
 								<MenuItem primaryText="36" onClick={() => this.editTextStyles('fontSize', 36)} />
 								<MenuItem primaryText="48" onClick={() => this.editTextStyles('fontSize', 48)} />
 						  </IconMenu>
-							{this.state.fontSize}
+							<TextField style={{width: 25, marginRight: 5}} id='font-size-field' value={this.state.fontSize} onChange={(event)=>{this.editTextStyles('fontSize', event.target.value)}} />
+
 							<SelectField value={this.state.fontFamily} hintText={this.state.fontFamily} onChange={(event,key,value)=>this.setState({fontFamily: value})}>
 				        <MenuItem value="Times New Roman"  primaryText="Times New Roman" onClick={() => this.editTextStyles('fontFamily', 'Times New Roman')}/>
 				        <MenuItem value="Arial"  primaryText="Arial" onClick={() => this.editTextStyles('fontFamily', 'Arial')}/>
