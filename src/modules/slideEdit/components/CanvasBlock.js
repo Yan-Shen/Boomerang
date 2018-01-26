@@ -92,21 +92,21 @@ class CanvasBlock extends Component {
 			case 'normal':
 			this.setState({
 				textPositionSelect: true,
-				fontSize: 10,
+				fontSize: 24,
 				fontWeight: 'normal'
 			})
 			break;
 			case 'h1':
 			this.setState({
 				textPositionSelect: true,
-				fontSize: 30,
+				fontSize: 48,
 				fontWeight: 'bold'
 			})
 			break;
 			case 'h2':
 			this.setState({
 				textPositionSelect: true,
-				fontSize: 20,
+				fontSize: 36,
 				fontWeight: 'bold'
 			})
 			break;
@@ -122,7 +122,6 @@ class CanvasBlock extends Component {
 
 	addImage(x,y){
 		window.fabric.Image.fromURL('http://fabricjs.com/assets/pug_small.jpg', (myImg) =>{
-			console.log(myImg)
  			var img1 = myImg.set({ left: x, top: y,width:myImg.width/2,height:myImg.height/2});
  			this.canvas.add(img1);
 		})
@@ -131,22 +130,24 @@ class CanvasBlock extends Component {
 	}
 	
 	changeColor(color){
-		const obj = this.canvas.getActiveObject()
-		if (obj.setSelectionStyles && obj.isEditing) {
-			let style = {}
-			style.fill = color.hex
-			obj.setSelectionStyles(style)
+		const object = this.canvas.getActiveObject()
+		if (object.textLines) {
+			if (object.setSelectionStyles && object.isEditing) {
+				let style = {}
+				style.fill = color.hex
+				object.setSelectionStyles(style)
+			}
+			else {
+				object.removeStyle('fill')
+				object.setColor(color.hex)
+			}
+			this.canvas.renderAll()
 		}
-		else {
-			obj.removeStyle('fill')
-			obj.setColor(color.hex)
-		}
-		this.canvas.renderAll()
 	}
 
 	changeTextBGColor(color){
 		const object = this.canvas.getActiveObject()
-		if (object) {
+		if (object.textLines) {
 			if (object.setSelectionStyles && object.isEditing) {
 				let style = {}
 				style.textBackgroundColor = color.hex
@@ -162,7 +163,7 @@ class CanvasBlock extends Component {
 
 	editTextStyles(action, value = null) {
 		const object = this.canvas.getActiveObject()
-		if (object) {
+		if (object.textLines) {
 			let curStyles = object.getSelectionStyles()
 			switch(action) {
 				case 'underline':
@@ -193,11 +194,19 @@ class CanvasBlock extends Component {
 				break
 
 				case 'fontSize':
-				if (object.setSelectionStyles && object.isEditing) {
-					this.setIndividualStyles(object, 'fontSize', value)
-				} else {
-					this.setStyle(object, 'fontSize', value)
-				}
+					if (object.setSelectionStyles && object.isEditing) {
+						this.setIndividualStyles(object, 'fontSize', value)
+					} else {
+						this.setStyle(object, 'fontSize', value)
+					}
+				break
+
+				case 'fontFamily':
+					if (object.setSelectionStyles && object.isEditing) {
+						this.setIndividualStyles(object, 'fontFamily', value)
+					} else {
+						this.setStyle(object, 'fontFamily', value)
+					}
 				break
 			}
 		}
@@ -269,14 +278,18 @@ class CanvasBlock extends Component {
 						    anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
 						    targetOrigin={{horizontal: 'left', vertical: 'top'}}
 						  >
-								<MenuItem primaryText="12" onClick={() => this.editTextStyles('fontSize', 12)} />
-								<MenuItem primaryText="16" onClick={() => this.editTextStyles('fontSize', 16)} />
-								<MenuItem primaryText="20" onClick={() => this.editTextStyles('fontSize', 20)}/>
+								<MenuItem primaryText="14" onClick={() => this.editTextStyles('fontSize', 14)} />
+								<MenuItem primaryText="18" onClick={() => this.editTextStyles('fontSize', 18)} />
+								<MenuItem primaryText="20" onClick={() => this.editTextStyles('fontSize', 20)} />
+								<MenuItem primaryText="24" onClick={() => this.editTextStyles('fontSize', 24)} />
+								<MenuItem primaryText="30" onClick={() => this.editTextStyles('fontSize', 30)} />
+								<MenuItem primaryText="36" onClick={() => this.editTextStyles('fontSize', 36)} />
+								<MenuItem primaryText="48" onClick={() => this.editTextStyles('fontSize', 48)} />
 						  </IconMenu>
 							<SelectField value={this.state.font} hintText={this.state.font} onChange={(event,key,value)=>this.setState({font: value})}>
-				        <MenuItem value="Times New Roman"  primaryText="Times New Roman" />
-				        <MenuItem value="Arial"  primaryText="Arial" />
-				        <MenuItem value="Comic Sans"  primaryText="Comic sans" />
+				        <MenuItem value="Times New Roman"  primaryText="Times New Roman" onClick={() => this.editTextStyles('fontFamily', 'Times New Roman')}/>
+				        <MenuItem value="Arial"  primaryText="Arial" onClick={() => this.editTextStyles('fontFamily', 'Arial')}/>
+				        <MenuItem value="Comic Sans"  primaryText="Cursive" onClick={() => this.editTextStyles('fontFamily', 'Cursive')}/>
       				</SelectField>
 							<ToolbarSeparator style={{marginRight: '24px'}}/>
 							<IconButton><FormatBold onClick={() => this.editTextStyles('bold')} color="rgba(0,0,0,.3)"/></IconButton>
