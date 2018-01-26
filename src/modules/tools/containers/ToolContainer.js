@@ -5,7 +5,7 @@ import components from '../components'
 import {getToolsDispatcher} from '../../../store'
 import {connect} from 'react-redux'
 
-const {ToolBox, ToolMini} = components
+const {ToolBox, ToolMiniChoice, ToolMiniRepl} = components
 
 
 
@@ -16,7 +16,7 @@ const style = {
 
 class Container extends Component {
 	componentDidMount(){
-		this.props.getTools();
+		// this.props.getTools();
   }
 
 
@@ -25,11 +25,11 @@ class Container extends Component {
 					<DragDropContextProvider backend={HTML5Backend}>
 						<div>
 							<div style={style}>
-									<ToolMini name="Choice Q" />
-									<ToolMini name="Input Q" />
-									<ToolMini name="Repel" />
-									<ToolMini name="Hot Spot" />
-									<ToolMini name="Name Picker" />
+									<ToolMiniChoice name="Choice Q" />
+									{/* <ToolMini name="Input Q" /> */}
+									<ToolMiniRepl name="Repel" />
+									{/* <ToolMini name="Hot Spot" />
+									<ToolMini name="Name Picker" /> */}
 							</div>
 							<ToolBox selectedTools={this.props.selectedTools}/>
 						</div>

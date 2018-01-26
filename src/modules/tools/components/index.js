@@ -1,9 +1,10 @@
-import ToolMini from './ToolMini'
+import {ToolMiniChoice, ToolMiniRepl} from './ToolMini'
 import ToolBtn from './ToolBtn'
 import ToolBox from './ToolBox'
 
 export default {
-  ToolMini,
+  ToolMiniChoice,
+  ToolMiniRepl,
   ToolBtn,
   ToolBox,
 };
