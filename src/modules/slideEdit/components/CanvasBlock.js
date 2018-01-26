@@ -286,7 +286,7 @@ class CanvasBlock extends Component {
 					this.canvas.bringForward(object)
 				break
 
-				case 'sendBackward':
+				case 'sendBackwards':
 					this.canvas.sendBackwards(object)
 				break
 
@@ -361,7 +361,7 @@ class CanvasBlock extends Component {
 								<MenuItem primaryText="36" onClick={() => this.editTextStyles('fontSize', 36)} />
 								<MenuItem primaryText="48" onClick={() => this.editTextStyles('fontSize', 48)} />
 						  </IconMenu>
-							<TextField style={{width: 25}} id='font-size-field' value={this.state.fontSize} onChange={(event)=>{this.editTextStyles('fontSize', event.target.value)}} />
+							<TextField style={{width: 30}} id='font-size-field' value={this.state.fontSize} onChange={(event)=>{this.editTextStyles('fontSize', event.target.value)}} />
 
 							<SelectField value={this.state.fontFamily} hintText={this.state.fontFamily} onChange={(event,key,value)=>this.setState({fontFamily: value})}>
 				        <MenuItem value="Times New Roman"  primaryText="Times New Roman" onClick={() => this.editTextStyles('fontFamily', 'Times New Roman')}/>
@@ -378,10 +378,10 @@ class CanvasBlock extends Component {
 						    anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
 						    targetOrigin={{horizontal: 'left', vertical: 'top'}}
 						  >
-								<MenuItem primaryText="Bring To Front" leftIcon={<Square />} onClick={() => {this.changeZAxis('bringToFront')}} />
-								<MenuItem primaryText="Bring Forward" leftIcon={<Rectangle />} onClick={() => {this.changeZAxis('bringForward')}}/>
-								<MenuItem primaryText="Send Backward" leftIcon={<Circle />} onClick={() => {this.changeZAxis('sendBackward')}}/>
-								<MenuItem primaryText="Send To Back" leftIcon={<Triangle />} onClick={() => {this.changeZAxis('sendToBack')}}/>
+								<MenuItem primaryText="Bring To Front" onClick={() => {this.changeZAxis('bringToFront')}} />
+								<MenuItem primaryText="Bring Forward" onClick={() => {this.changeZAxis('bringForward')}}/>
+								<MenuItem primaryText="Send Backwards" onClick={() => {this.changeZAxis('sendBackwards')}}/>
+								<MenuItem primaryText="Send To Back"  onClick={() => {this.changeZAxis('sendToBack')}}/>
 						  </IconMenu>
 							<IconMenu
 						    iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
