@@ -3,9 +3,13 @@ import PropTypes from 'prop-types'
 import { DragSource } from 'react-dnd'
 import ItemTypes from '../../../ItemTypes'
 import {connect} from 'react-redux'
+<<<<<<< HEAD
 import {addTool} from '../reducers/SelectedTools'
 import IconButton from 'material-ui/IconButton';
 import ListIcon from 'material-ui/svg-icons/action/list';
+=======
+import {updateToolsDispatcher} from '../reducers/SelectedTools'
+>>>>>>> 7244b90cb140b2c7abace45b56744325904ec795
 
 const style = {
   display: "inline-block",
@@ -63,8 +67,8 @@ const boxSource = {
 
   const mapDispatch = dispatch => {
     return {
-      addTool (tool){
-        dispatch(addTool(tool))
+      addTool(tool){
+        dispatch(updateToolsDispatcher(tool))
       }
     }
   }

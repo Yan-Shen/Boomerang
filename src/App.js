@@ -22,10 +22,7 @@ const {SlideEdit} = slideEdit.containers
 //console.log(rootReference)
 
 class App extends Component {
-  componentDidMount(){
-    const listener = db.ref().child('testObject')
-    listener.on('value', snap => console.log(snap.val()))
-  }
+
   render() {
     return (
       <div className="App">

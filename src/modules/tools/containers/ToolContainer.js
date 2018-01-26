@@ -2,8 +2,11 @@ import React, { Component } from 'react'
 import { DragDropContextProvider } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 import components from '../components'
+import {getToolsDispatcher} from '../../../store'
+import {connect} from 'react-redux'
 
 const {ToolBox, ToolMini} = components
+
 
 
 const style = {
@@ -11,7 +14,12 @@ const style = {
 	backgroundColor: "rgb(232, 232, 232)"
 }
 
-export default class Container extends Component {
+class Container extends Component {
+	componentDidMount(){
+		this.props.getTools();
+  }
+
+
 	render() {
 		return (
 					<DragDropContextProvider backend={HTML5Backend}>
@@ -23,11 +31,25 @@ export default class Container extends Component {
 									<ToolMini name="Hot Spot" />
 									<ToolMini name="Name Picker" />
 							</div>
-							<ToolBox />
+							<ToolBox selectedTools={this.props.selectedTools}/>
 						</div>
 					</DragDropContextProvider>
 		)
 	}
 }
 
+const mapState = state => {
+	return {
+		selectedTools: state.selectedTools
+	}
+}
 
+const mapDispath = dispatch => {
+	return {
+		getTools(){
+			dispatch(getToolsDispatcher())
+		}
+	}
+}
+
+export default connect(mapState, mapDispath)(Container)

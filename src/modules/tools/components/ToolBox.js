@@ -34,9 +34,8 @@ class ToolBox extends Component {
 	}
 
 	render() {
-		const { canDrop, isOver, connectDropTarget } = this.props
+		const { canDrop, isOver, connectDropTarget, selectedTools } = this.props
 		const isActive = canDrop && isOver
-		const selectedTools = this.props.selectedTools
 
 		let backgroundColor = '#222'
 		if (isActive) {
@@ -57,11 +56,5 @@ class ToolBox extends Component {
 	}
 }
 
-const mapState = state => {
-	return {
-		selectedTools: state.selectedTools
-	}
-}
-
-export default connect(mapState)(DropTarget(ItemTypes.BOX, boxTarget, collect)(ToolBox))
+export default DropTarget(ItemTypes.BOX, boxTarget, collect)(ToolBox)
 
