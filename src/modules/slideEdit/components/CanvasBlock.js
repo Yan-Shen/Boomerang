@@ -69,21 +69,21 @@ class CanvasBlock extends Component {
 				this.setState({textPositionSelect: false})
 			}
 		})
-		this.canvas.on('selection:created', (object) => {
-			if (object.textLines) {
-				this.setState({fontSize: object.target.fontSize})
-				this.setState({fontFamily: object.target.fontFamily})
-				this.setState({textColor: object.target.fill})
-				this.setState({textBGColor: object.target.textBackgroundColor})
+		this.canvas.on('selection:created', (event) => {
+			if (event.target.text) {
+				this.setState({fontSize: event.target.fontSize})
+				this.setState({fontFamily: event.target.fontFamily})
+				this.setState({textColor: event.target.fill})
+				this.setState({textBGColor: event.target.textBackgroundColor})
 			}
 			
 		})
-		this.canvas.on('selection:updated', (object) => {
-			if (object.textLines) {
-				this.setState({fontSize: object.target.fontSize})
-				this.setState({fontFamily: object.target.fontFamily})
-				this.setState({textColor: object.target.fill})
-				this.setState({textBGColor: object.target.textBackgroundColor})
+		this.canvas.on('selection:updated', (event) => {
+			if (event.target.text) {
+				this.setState({fontSize: event.target.fontSize})
+				this.setState({fontFamily: event.target.fontFamily})
+				this.setState({textColor: event.target.fill})
+				this.setState({textBGColor: event.target.textBackgroundColor})
 			}
 		})
 	}
