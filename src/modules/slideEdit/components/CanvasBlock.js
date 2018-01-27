@@ -164,7 +164,7 @@ class CanvasBlock extends Component {
 
 		this.setState({imagePositionSelect: !this.state.imagePositionSelect})
 	}
-	
+
 	changeColor(color){
 		const object = this.canvas.getActiveObject()
 		this.setState({textColor: color.hex})
@@ -272,7 +272,7 @@ class CanvasBlock extends Component {
 		const object = this.canvas.getActiveObject()
 		if (object) {
 			switch(action) {
-				case 'bringToFront': 
+				case 'bringToFront':
 					this.canvas.bringToFront(object)
 				break
 
@@ -342,7 +342,7 @@ class CanvasBlock extends Component {
 							<div style={{width: 30, height: 30, borderRadius: 4, backgroundColor: this.state.textBGColor}}/>
 
 							<ToolbarSeparator style={{marginRight: '24px'}}/>
-							<IconMenu 
+							<IconMenu
 						    iconButtonElement={<IconButton><TextField /></IconButton>}
 						    anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
 						    targetOrigin={{horizontal: 'left', vertical: 'top'}}
@@ -394,7 +394,7 @@ class CanvasBlock extends Component {
 						</ToolbarGroup>
 					</Toolbar>
 
-						<canvas id="fabricTest" width="960" height="615" />
+						<canvas id="fabricTest" width="960" height="500" />
 
 				</div>
 			</div>
