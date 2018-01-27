@@ -2,8 +2,13 @@ import React, { Component } from 'react';
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {fetchLesson,addSlide,deleteSlide,changeSlide} from "../actions";
-
 import SlideEditWrapper from '../components/SlideEditWrapper'
+import {AppBar, Paper} from 'material-ui';
+import {db} from '../../../firebase'
+import components from '../components'
+import {ToolContainer} from '../../tools'
+import {DisplayContainer} from '../../display'
+
 
 
 class SlideEdit extends Component {
@@ -31,7 +36,9 @@ class SlideEdit extends Component {
   // }
   render() {
     return (
+
         <SlideEditWrapper {...this.props}/>
+
     );
   }
 }

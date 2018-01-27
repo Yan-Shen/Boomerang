@@ -11,6 +11,11 @@ const styles = {
   toggle: {
     width: '25%',
   },
+  btn: {
+    fontSize: "13px",
+    paddingLeft: "5px",
+    paddingRight: "5px"
+  }
 };
 
 class ToolBtn extends Component {
@@ -21,7 +26,7 @@ class ToolBtn extends Component {
         <Toggle
           // style={styles.toggle}
         style={styles.toggle}/>
-        <RaisedButton label={this.props.name} className="toolBtn"/>
+        <RaisedButton label={this.props.name} labelStyle={styles.btn} className="toolBtn" onClick={this.props.onClick}/>
       </div>
 
     )
