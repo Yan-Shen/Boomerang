@@ -23,7 +23,7 @@ import Download from 'material-ui/svg-icons/file/file-download';
 import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import LayersMenu from 'material-ui/svg-icons/maps/layers';
-
+import SlidePreview from './SlidePreview'
 import { TwitterPicker } from 'react-color'
 
 class CanvasBlock extends Component {
@@ -48,6 +48,7 @@ class CanvasBlock extends Component {
 		this.colorPicker = this.colorPicker.bind(this)
 		this.changeColor = this.changeColor.bind(this)
 		this.changeTextBGColor = this.changeTextBGColor.bind(this)
+		this.saveSlide = this.saveSlide.bind(this)
 	}
 
 	componentDidMount(){
@@ -291,12 +292,16 @@ class CanvasBlock extends Component {
 		}
 		this.canvas.renderAll()
 	}
-
+	saveSlide(){
+		const data = this.canvas.toJSON()
+		this.props.addSlide(data)
+	}
 	render() {
+		const {slides, deleteSlide,addSlide, changeSlide} = this.props
 		return (
 			<div>
-				<div style={{display: 'flex', flexDirection: 'column'}}>
-					<Toolbar style={{width: '100%'}}>
+				<div style={{display: 'flex', flexDirection: 'column', background: "#9e9e9e"}}>
+					<Toolbar style={{width: '100%', background: "#fafafa", boxShadow: "rgba(0, 0, 0, 0.12) 0px 1px 4px"}}>
 						<ToolbarGroup firstChild={true}>
 							<IconMenu
 						    iconButtonElement={<IconButton><FormatShape /></IconButton>}
@@ -328,20 +333,20 @@ class CanvasBlock extends Component {
 						  </IconMenu>
 
 
-							<ToolbarSeparator style={{marginRight: '24px'}}/>
+							<ToolbarSeparator style={{marginRight: '10px', marginLeft: '10px'}}/>
 							<IconButton onClick={()=>this.colorPicker("text")}>
 								<FormatColorText />
 								{this.state.colorPicker && this.state.color === 'text' && <TwitterPicker onChange={ this.changeColor } triangle="hide"/>}
 							</IconButton>
-							<div style={{width: 30, height: 30, borderRadius: 4, backgroundColor: this.state.textColor}}/>
+							<div style={{width: 30, height: 30, borderRadius: 4, backgroundColor: this.state.textColor,boxShadow: "rgba(0, 0, 0, 0.12) 0px 1px 4px"}}/>
 
 							<IconButton onClick={()=>this.colorPicker("fill")}>
 								<FormatColorFill />
 								{this.state.colorPicker && this.state.color === 'fill' && <TwitterPicker onChange={ this.changeTextBGColor } triangle="hide"/>}
 							</IconButton>
-							<div style={{width: 30, height: 30, borderRadius: 4, backgroundColor: this.state.textBGColor}}/>
+							<div style={{width: 30, height: 30, borderRadius: 4, backgroundColor: this.state.textBGColor,boxShadow: "rgba(0, 0, 0, 0.12) 0px 1px 4px"}}/>
 
-							<ToolbarSeparator style={{marginRight: '24px'}}/>
+							<ToolbarSeparator style={{marginRight: '10px', marginLeft: '10px'}}/>
 							<IconMenu
 						    iconButtonElement={<IconButton><TextField /></IconButton>}
 						    anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
@@ -361,11 +366,11 @@ class CanvasBlock extends Component {
 				        <MenuItem value="Arial"  primaryText="Arial" onClick={() => this.editTextStyles('fontFamily', 'Arial')}/>
 				        <MenuItem value="Cursive"  primaryText="Cursive" onClick={() => this.editTextStyles('fontFamily', 'Cursive')}/>
       				</SelectField>
-							<ToolbarSeparator style={{marginRight: '24px'}}/>
+							<ToolbarSeparator style={{marginRight: '10px', marginLeft: '10px'}}/>
 							<IconButton><FormatBold onClick={() => this.editTextStyles('bold')} color="rgba(0,0,0,.3)"/></IconButton>
 							<IconButton><FormatItalic onClick={() => this.editTextStyles('italic')} color="rgba(0,0,0,.3)"/></IconButton>
 							<IconButton><FormatUnderlined onClick={() => this.editTextStyles('underline')} color="rgba(0,0,0,.3)"/></IconButton>
-							<ToolbarSeparator style={{marginRight: '24px'}}/>
+							<ToolbarSeparator style={{marginRight: '10px', marginLeft: '10px'}}/>
 							<IconMenu
 						    iconButtonElement={<IconButton><LayersMenu /></IconButton>}
 						    anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
@@ -390,11 +395,27 @@ class CanvasBlock extends Component {
 						  </IconMenu>
 						</ToolbarGroup>
 						<ToolbarGroup lastChild={true}>
+							<IconButton><Widgets onClick={this.saveSlide} color="rgba(0,0,0,.3)"/></IconButton>
 							<IconButton><Delete onClick={this.removeObject} color="rgba(0,0,0,.3)"/></IconButton>
 						</ToolbarGroup>
 					</Toolbar>
+					<div style={{display: 'flex'}}>
+						<div style={{flex: 1, background: 'white',margin: "10px", marginRight: "0px", height: "680px"}}>
+							{slides.map(slide => (
+								<div onClick={()=>changeSlide(slide.id)} style={{margin: '10px', border: '1px solid #ccc'}} key={slide.id}>
+									<SlidePreview data={slide}/>
+									<button onClick={()=>{deleteSlide(slide.id)}}>delete</button>Slide: {slide.id}
+								</div>
+							)
+							)}
+						</div>
+						<div style={{background: "#9e9e9e",margin: "10px", flexDirection: 'column'}}>
+							<canvas  id="fabricTest" width="1100" height="700" />
+							<div style={{height: "40px", background: 'white',marginTop: "10px"}}>hfjdjkh</div>
+						</div>
+					</div>
 
-						<canvas id="fabricTest" width="960" height="500" />
+
 
 				</div>
 			</div>
