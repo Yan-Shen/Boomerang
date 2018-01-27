@@ -15,7 +15,7 @@ function Choice (props) {
   return (
     <div>
     <TextField
-      hintText="Add OPTION"
+      hintText="Enter Choice"
       multiLine={true}
       rows={2}
       rowsMax={4}

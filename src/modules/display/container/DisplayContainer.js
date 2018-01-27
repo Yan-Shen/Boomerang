@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
-import { QAContainer } from '../index';
-import ToggleChoice, {toggleChoice} from '../../tools/reducers/ToggleChoice'
+import { QAContainer, InputQContainer } from '../index';
 
 class DisplayContainer extends Component {
   constructor(props) {
@@ -15,6 +14,9 @@ class DisplayContainer extends Component {
         {
           this.props.toggleChoice && <QAContainer />
         }
+        {
+          this.props.toggleInput && <InputQContainer />
+        }
       </div>
      )
   }
@@ -23,7 +25,8 @@ class DisplayContainer extends Component {
 
 const mapState = state => {
   return {
-    toggleChoice: state.toggleChoice
+    toggleChoice: state.toggleChoice,
+    toggleInput: state.toggleInput
   }
 }
 

@@ -5,6 +5,7 @@ import components from '../components'
 import {getToolsDispatcher} from '../../../store'
 import {connect} from 'react-redux'
 import { toggleChoice } from '../reducers/ToggleChoice';
+import {toggleInput} from '../reducers/ToggleInput'
 
 const {ToolBox, ToolMiniChoice, ToolMiniRepl, ToolMiniInput, ToolMiniHotSpot, ToolMiniName} = components
 
@@ -23,6 +24,7 @@ class Container extends Component {
 
 
 	render() {
+		const {toggleInput, selectedTools, choiceStatus, inputStatus, toggleChoice} = this.props
 		return (
 					<DragDropContextProvider backend={HTML5Backend}>
 						<div>
@@ -34,8 +36,11 @@ class Container extends Component {
 									<ToolMiniName name="Name Picker" />
 							</div>
 							<ToolBox
-							toggleChoice = {this.props.toggleChoice}
-							selectedTools={this.props.selectedTools}/>
+							toggleChoice = {toggleChoice}
+							toggleInput = {toggleInput}
+							selectedTools={selectedTools}
+							choiceStatus= {choiceStatus}
+							inputStatus = {inputStatus} />
 						</div>
 					</DragDropContextProvider>
 		)
@@ -44,7 +49,9 @@ class Container extends Component {
 
 const mapState = state => {
 	return {
-		selectedTools: state.selectedTools
+		selectedTools: state.selectedTools,
+		choiceStatus: state.toggleChoice,
+		inputStatus: state.toggleInput,
 	}
 }
 
@@ -55,6 +62,9 @@ const mapDispath = dispatch => {
 		},
 		toggleChoice(){
 			dispatch(toggleChoice())
+		},
+		toggleInput(){
+			dispatch(toggleInput())
 		}
 	}
 }

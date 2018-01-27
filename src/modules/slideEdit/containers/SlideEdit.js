@@ -45,14 +45,14 @@ class SlideEdit extends Component {
 
           <div style={{flex: 3.5}}>
            {/* Toolbox area */}
-            <Paper style={{margin: "10px"}} zDepth={1}>
+            <Paper style={{margin: "10px"}} zDepth={2}>
             <div className="flex-container-column toolSectionContainer">
               <ToolContainer />
               </div>
             </Paper>
 
              {/* Display area */}
-            <Paper style={{margin: "10px"}} zDepth={1}>
+            <Paper style={{margin: "10px"}} zDepth={2}>
               < DisplayContainer />
             </Paper>
           </div>
