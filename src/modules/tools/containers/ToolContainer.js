@@ -4,6 +4,7 @@ import HTML5Backend from 'react-dnd-html5-backend'
 import components from '../components'
 import {getToolsDispatcher} from '../../../store'
 import {connect} from 'react-redux'
+import { toggleChoice } from '../reducers/ToggleChoice';
 
 const {ToolBox, ToolMiniChoice, ToolMiniRepl, ToolMiniInput, ToolMiniHotSpot, ToolMiniName} = components
 
@@ -32,7 +33,9 @@ class Container extends Component {
 									<ToolMiniHotSpot name="Hot Spot" />
 									<ToolMiniName name="Name Picker" />
 							</div>
-							<ToolBox selectedTools={this.props.selectedTools}/>
+							<ToolBox
+							toggleChoice = {this.props.toggleChoice}
+							selectedTools={this.props.selectedTools}/>
 						</div>
 					</DragDropContextProvider>
 		)
@@ -49,6 +52,9 @@ const mapDispath = dispatch => {
 	return {
 		getTools(slideId){
 			dispatch(getToolsDispatcher(slideId))
+		},
+		toggleChoice(){
+			dispatch(toggleChoice())
 		}
 	}
 }
