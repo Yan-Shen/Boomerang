@@ -174,7 +174,7 @@ class CanvasBlock extends Component {
 	changeColor(color, proxy, object = null){
 		if (!object) object = this.canvas.getActiveObject()
 		this.setState({textColor: color.hex})
-		if (object._objects) {
+		if (object && object._objects) {
 			object._objects.forEach(element => {
 				this.changeColor(color, proxy, element)
 			})
@@ -196,7 +196,7 @@ class CanvasBlock extends Component {
 	changeTextBGColor(color, proxy, object = null){
 		if (!object) object = this.canvas.getActiveObject()
 		this.setState({textBGColor: color.hex})
-		if (object._objects) {
+		if (object && object._objects) {
 			object._objects.forEach(element => {
 				this.changeTextBGColor(color, proxy, element)
 			})
@@ -218,7 +218,7 @@ class CanvasBlock extends Component {
 	editTextStyles(action, value = null, object = null) {
 		if (!object) object = this.canvas.getActiveObject()
 		if (action === 'fontSize') this.setState({fontSize: value})
-		if (object._objects) {
+		if (object && object._objects) {
 			object._objects.forEach(element => {
 				this.editTextStyles(action, value, element)
 			})
