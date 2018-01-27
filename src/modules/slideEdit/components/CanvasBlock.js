@@ -205,9 +205,14 @@ class CanvasBlock extends Component {
 		}
 	}
 
-	editTextStyles(action, value = null) {
-		const object = this.canvas.getActiveObject()
+	editTextStyles(action, value = null, object = null) {
+		if (!object) object = this.canvas.getActiveObject()
 		if (action === 'fontSize') this.setState({fontSize: value})
+		if (object._objects) {
+			object._objects.forEach(element => {
+				this.editTextStyles(action, value, element)
+			})
+		}
 		if (object && object.textLines) {
 			let curStyles = object.getSelectionStyles()
 			switch(action) {
