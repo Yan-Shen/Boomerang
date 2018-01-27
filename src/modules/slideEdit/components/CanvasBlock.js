@@ -171,9 +171,14 @@ class CanvasBlock extends Component {
 		this.setState({imagePositionSelect: !this.state.imagePositionSelect})
 	}
 	
-	changeColor(color){
-		const object = this.canvas.getActiveObject()
+	changeColor(color, proxy, object = null){
+		if (!object) object = this.canvas.getActiveObject()
 		this.setState({textColor: color.hex})
+		if (object._objects) {
+			object._objects.forEach(element => {
+				this.changeColor(color, proxy, element)
+			})
+		}
 		if (object && object.textLines) {
 			if (object.setSelectionStyles && object.isEditing) {
 				let style = {}
@@ -188,9 +193,14 @@ class CanvasBlock extends Component {
 		}
 	}
 
-	changeTextBGColor(color){
-		const object = this.canvas.getActiveObject()
+	changeTextBGColor(color, proxy, object = null){
+		if (!object) object = this.canvas.getActiveObject()
 		this.setState({textBGColor: color.hex})
+		if (object._objects) {
+			object._objects.forEach(element => {
+				this.changeTextBGColor(color, proxy, element)
+			})
+		}
 		if (object && object.textLines) {
 			if (object.setSelectionStyles && object.isEditing) {
 				let style = {}
