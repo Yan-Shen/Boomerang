@@ -76,7 +76,13 @@ class CanvasBlock extends Component {
 				this.setState({textColor: event.target.fill})
 				this.setState({textBGColor: event.target.textBackgroundColor})
 			}
-			
+			if (event.target && event.target._objects) {
+				let decider = event.target._objects[0]
+				this.setState({fontSize: decider.fontSize})
+				this.setState({fontFamily: decider.fontFamily})
+				this.setState({textColor: decider.fill})
+				this.setState({textBGColor: decider.textBackgroundColor})
+			}
 		})
 		this.canvas.on('selection:updated', (event) => {
 			if (event.target.text) {
@@ -85,6 +91,13 @@ class CanvasBlock extends Component {
 				this.setState({textColor: event.target.fill})
 				this.setState({textBGColor: event.target.textBackgroundColor})
 			}
+			// if (event.target && event.target._objects) {
+			// 	let decider = event.target._objects[0]
+			// 	this.setState({fontSize: decider.fontSize})
+			// 	this.setState({fontFamily: decider.fontFamily})
+			// 	this.setState({textColor: decider.fill})
+			// 	this.setState({textBGColor: decider.textBackgroundColor})
+			// }
 		})
 	}
 
