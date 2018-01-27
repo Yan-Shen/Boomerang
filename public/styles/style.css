@@ -11,32 +11,13 @@ body {
   flex-wrap: wrap;
 }
 
-.slideContainer {
-  flex: 0 0 70%
-}
-
 .flex-container-column {
   display: flex;
   flex-direction: column;
 }
 
 .fullWidth {
-  width: 100%
-}
-
-/*--------------------MAIN------------------------*/
-
-.toolSectionContainer {
-  flex: 0 0 30%
-}
-
-.toolSection {
-
-}
-
-.displayArea{
-  height: 550px;
-  border-style: solid;
+  width: 100%;
 }
 
 
