@@ -23,24 +23,12 @@ export const getTools = tools =>{
 // Dispatcher
 export const updateToolsDispatcher = (tool, slideId) => {
   return dispatch=> {
-    // var newPostKey = firebase.database().ref().child('selectedTools').push().key;
-    console.log('slideid is----------', slideId)
-    // var updates ={}
-    // updates[slideId] = {[tool]: {name: tool}}
     db.ref(`/selectedTools/${slideId}`).update({[tool]: {name: tool}})
     const listener = db.ref(`/selectedTools/${slideId}`)
     listener.on('value', snap=>{
       const selectedTools = Object.keys(snap.val())
       dispatch(updateTools(selectedTools))
     })
-
-    // const listener = db.ref().child('selectedTools')
-
-    // db.ref().child('selectedTools').update({[tool]: {name: tool}})
-    // listener.on('value', snap=>{
-    //   const selectedTools = Object.keys(snap.val())
-    //   dispatch(updateTools(selectedTools))
-    // })
  }
 }
 

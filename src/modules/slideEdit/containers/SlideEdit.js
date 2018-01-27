@@ -3,7 +3,7 @@ import {AppBar, Paper} from 'material-ui';
 
 import components from '../components'
 import {ToolContainer} from '../../tools'
-import {QAContainer} from '../../display'
+import {DisplayContainer} from '../../display'
 
 const {CanvasBlock} = components
 
@@ -11,7 +11,7 @@ class SlideEdit extends Component {
   render() {
     return (
         <div style={{display: 'flex'}}>
-          <div style={{flex: 7}}>
+          <div style={{flex: 6.5}}>
             <Paper style={{margin: "10px"}} zDepth={1}>
               <CanvasBlock />
             </Paper>
@@ -21,7 +21,7 @@ class SlideEdit extends Component {
             </Paper>
           </div>
 
-          <div style={{flex: 3}}>
+          <div style={{flex: 3.5}}>
            {/* Toolbox area */}
             <Paper style={{margin: "10px"}} zDepth={1}>
             <div className="flex-container-column toolSectionContainer">
@@ -31,7 +31,7 @@ class SlideEdit extends Component {
 
              {/* Display area */}
             <Paper style={{margin: "10px"}} zDepth={1}>
-              < QAContainer />
+              < DisplayContainer />
             </Paper>
           </div>
 

@@ -33,8 +33,12 @@ class ToolBox extends Component {
 		canDrop: PropTypes.bool.isRequired,
 	}
 
+	handleClick(){
+
+	}
+
 	render() {
-		const { canDrop, isOver, connectDropTarget, selectedTools } = this.props
+		const { canDrop, isOver, connectDropTarget, selectedTools, toggleChoice } = this.props
 		const isActive = canDrop && isOver
 
 		let backgroundColor = '#222'
@@ -46,7 +50,7 @@ class ToolBox extends Component {
 
 		return connectDropTarget(
 			<div style ={style} className="fullWidth flex-container-wrap">
-		{selectedTools.includes("Choice Q") &&	<ToolBtn name="Choice Q" /> }
+		{selectedTools.includes("Choice Q") &&	<ToolBtn onClick={toggleChoice} name="Choice Q" /> }
 		{selectedTools.includes("Input Q") &&		<ToolBtn name="Input Q" /> }
 		{selectedTools.includes("Repel")	&&	<ToolBtn name="Repel" /> }
 		{selectedTools.includes("Hot Spot")	&&	<ToolBtn name="Hot Spot" />}
