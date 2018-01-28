@@ -4,7 +4,8 @@ import * as actions from './actionTypes';
 export const getLesson = lesson =>  ({type: actions.GET_LESSON, lesson})
 export const getSlide = slide =>  ({type: actions.GET_SLIDE, slide})
 export const removeSlide = slideId =>  ({type: actions.DELETE_SLIDE, slideId})
-export const changeSlide = slideId =>  ({type: actions.CHANGE_SLIDE, slideId})
+export const changeSlide = index =>  ({type: actions.CHANGE_SLIDE, index})
+export const updateSlideData = data =>  ({type: actions.UPDATE_SLIDE, data})
 
 export function fetchLesson (id) {
   return function thunk (dispatch) {
@@ -40,13 +41,13 @@ export function deleteSlide (slideId) {
 }
 
 
-export function addSlide (data) {
+export function addSlide (index) {
   return function thunk (dispatch) {
-		// const emptySlide = {
-		// 	version: "2.0.0-rc.4",
-		// 	backgorund: 'white'
-		// }
-		db.ref().child('slides').push(data)
+		const emptySlide = {
+			version: "2.0.0-rc.4",
+			background: 'white'
+		}
+		db.ref().child('slides').push(emptySlide)
 			.then(slideKey => {
 				db.ref().child(`lessons/-L3nOPjk6NFSMcJGRn4p/slides/${slideKey.key}`).set(true)
 				return slideKey
@@ -62,8 +63,16 @@ export function addSlide (data) {
 						id: slideId,
 						...slideData
 					}
-					dispatch(getSlide(slideObject));
+					dispatch(getSlide(slideObject))
+					dispatch(changeSlide(index));
 				})
 			})
+	}
+}
+
+export function updateSlide (id,data) {
+  return function thunk (dispatch) {
+		db.ref().child(`slides/${id}`).set(data)
+		.then(()=>console.log("updated"))
 	}
 }

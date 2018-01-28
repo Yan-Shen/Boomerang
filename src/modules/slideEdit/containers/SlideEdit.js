@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import {fetchLesson,addSlide,deleteSlide,changeSlide} from "../actions";
+import {fetchLesson,addSlide,deleteSlide,changeSlide,updateSlide} from "../actions";
 import SlideEditWrapper from '../components/SlideEditWrapper'
 import {AppBar, Paper} from 'material-ui';
 import {db} from '../../../firebase'
@@ -71,14 +71,15 @@ class SlideEdit extends Component {
 
 function mapStateToProps(state){
   return {
-    currentSlide: state.lesson.currentSlide,
+    currentSlideIndex: state.lesson.currentSlide,
+    currentSlide: state.lesson.slides[state.lesson.currentSlide],
     slides: state.lesson.slides,
     lesson: state.lesson.lesson
   };
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({fetchLesson,addSlide,deleteSlide,changeSlide}, dispatch);
+  return bindActionCreators({fetchLesson,addSlide,deleteSlide,changeSlide,updateSlide}, dispatch);
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(SlideEdit);
