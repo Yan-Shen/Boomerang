@@ -12,14 +12,14 @@ export const updateQuestions = questions => {
 }
 
 // THUNK
-export const updateQuestionsThunk = (question, choice, slideId, qType) => {
+export const updateQuestionsThunk = (question, choice, slideId) => {
 
   return dispatch => {
-    const key = db.ref(`/selectedTools/${slideId}/${qType}/QA`).push().key
-    db.ref(`/selectedTools/${slideId}/${qType}/QA/${key}`).update({question})
-    db.ref(`/selectedTools/${slideId}/${qType}/QA/${key}/choice`).update(choice)
+    const key = db.ref(`/selectedTools/${slideId}/Choice Q/QA`).push().key
+    db.ref(`/selectedTools/${slideId}/Choice Q/QA/${key}`).update({question})
+    db.ref(`/selectedTools/${slideId}/Choice Q/QA/${key}/choice`).update(choice)
 
-    const listener = db.ref(`/selectedTools/${slideId}/${qType}/QA/${key}`)
+    const listener = db.ref(`/selectedTools/${slideId}/Choice Q/QA/${key}`)
     listener.on('value', snap=>{
       const questions = snap.val()
       dispatch(updateQuestions(questions))

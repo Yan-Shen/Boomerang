@@ -30,7 +30,7 @@ class InputQContainer extends Component {
       <form onSubmit={this.handleSubmit}>
         <Question value={this.state.inputQ} onChange={this.handleChangeQuestion}/>
         <div>
-        <RaisedButton label="Submit" type="submit" />
+        <RaisedButton label="Save" type="submit" />
         </div>
       </form>
      )
