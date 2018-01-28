@@ -6,7 +6,8 @@ import FormatShape from 'material-ui/svg-icons/editor/format-shapes';
 import InsertPhoto from 'material-ui/svg-icons/editor/insert-photo';
 import FormatColorFill from 'material-ui/svg-icons/editor/format-color-fill';
 import FormatColorText from 'material-ui/svg-icons/editor/format-color-text';
-import TextField from 'material-ui/svg-icons/editor/text-fields';
+import TextFieldIcon from 'material-ui/svg-icons/editor/text-fields';
+import TextField from 'material-ui/TextField'
 import FormatBold from 'material-ui/svg-icons/editor/format-bold';
 import FormatItalic from 'material-ui/svg-icons/editor/format-italic';
 import FormatUnderlined from 'material-ui/svg-icons/editor/format-underlined';
@@ -23,7 +24,7 @@ import Download from 'material-ui/svg-icons/file/file-download';
 import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import LayersMenu from 'material-ui/svg-icons/maps/layers';
-
+import SlidePreview from './SlidePreview'
 import { TwitterPicker } from 'react-color'
 
 class CanvasBlock extends Component {
@@ -48,6 +49,7 @@ class CanvasBlock extends Component {
 		this.colorPicker = this.colorPicker.bind(this)
 		this.changeColor = this.changeColor.bind(this)
 		this.changeTextBGColor = this.changeTextBGColor.bind(this)
+		this.saveSlide = this.saveSlide.bind(this)
 	}
 
 	componentDidMount(){
@@ -68,17 +70,35 @@ class CanvasBlock extends Component {
 				this.setState({textPositionSelect: false})
 			}
 		})
-		this.canvas.on('selection:created', (object) => {
-			this.setState({fontSize: object.target.fontSize})
-			this.setState({fontFamily: object.target.fontFamily})
-			this.setState({textColor: object.target.fill})
-			this.setState({textBGColor: object.target.textBackgroundColor})
+		this.canvas.on('selection:created', (event) => {
+			if (event.target.text) {
+				this.setState({fontSize: event.target.fontSize})
+				this.setState({fontFamily: event.target.fontFamily})
+				this.setState({textColor: event.target.fill})
+				this.setState({textBGColor: event.target.textBackgroundColor})
+			}
+			if (event.target && event.target._objects) {
+				let decider = event.target._objects[0]
+				this.setState({fontSize: decider.fontSize})
+				this.setState({fontFamily: decider.fontFamily})
+				this.setState({textColor: decider.fill})
+				this.setState({textBGColor: decider.textBackgroundColor})
+			}
 		})
-		this.canvas.on('selection:updated', (object) => {
-			this.setState({fontSize: object.target.fontSize})
-			this.setState({fontFamily: object.target.fontFamily})
-			this.setState({textColor: object.target.fill})
-			this.setState({textBGColor: object.target.textBackgroundColor})
+		this.canvas.on('selection:updated', (event) => {
+			if (event.target.text) {
+				this.setState({fontSize: event.target.fontSize})
+				this.setState({fontFamily: event.target.fontFamily})
+				this.setState({textColor: event.target.fill})
+				this.setState({textBGColor: event.target.textBackgroundColor})
+			}
+			// if (event.target && event.target._objects) {
+			// 	let decider = event.target._objects[0]
+			// 	this.setState({fontSize: decider.fontSize})
+			// 	this.setState({fontFamily: decider.fontFamily})
+			// 	this.setState({textColor: decider.fill})
+			// 	this.setState({textBGColor: decider.textBackgroundColor})
+			// }
 		})
 	}
 
@@ -164,10 +184,15 @@ class CanvasBlock extends Component {
 
 		this.setState({imagePositionSelect: !this.state.imagePositionSelect})
 	}
-
-	changeColor(color){
-		const object = this.canvas.getActiveObject()
+	
+	changeColor(color, proxy, object = null){
+		if (!object) object = this.canvas.getActiveObject()
 		this.setState({textColor: color.hex})
+		if (object && object._objects) {
+			object._objects.forEach(element => {
+				this.changeColor(color, proxy, element)
+			})
+		}
 		if (object && object.textLines) {
 			if (object.setSelectionStyles && object.isEditing) {
 				let style = {}
@@ -182,9 +207,14 @@ class CanvasBlock extends Component {
 		}
 	}
 
-	changeTextBGColor(color){
-		const object = this.canvas.getActiveObject()
+	changeTextBGColor(color, proxy, object = null){
+		if (!object) object = this.canvas.getActiveObject()
 		this.setState({textBGColor: color.hex})
+		if (object && object._objects) {
+			object._objects.forEach(element => {
+				this.changeTextBGColor(color, proxy, element)
+			})
+		}
 		if (object && object.textLines) {
 			if (object.setSelectionStyles && object.isEditing) {
 				let style = {}
@@ -199,9 +229,14 @@ class CanvasBlock extends Component {
 		}
 	}
 
-	editTextStyles(action, value = null) {
-		const object = this.canvas.getActiveObject()
+	editTextStyles(action, value = null, object = null) {
+		if (!object) object = this.canvas.getActiveObject()
 		if (action === 'fontSize') this.setState({fontSize: value})
+		if (object && object._objects) {
+			object._objects.forEach(element => {
+				this.editTextStyles(action, value, element)
+			})
+		}
 		if (object && object.textLines) {
 			let curStyles = object.getSelectionStyles()
 			switch(action) {
@@ -280,7 +315,7 @@ class CanvasBlock extends Component {
 					this.canvas.bringForward(object)
 				break
 
-				case 'sendBackward':
+				case 'sendBackwards':
 					this.canvas.sendBackwards(object)
 				break
 
@@ -291,22 +326,26 @@ class CanvasBlock extends Component {
 		}
 		this.canvas.renderAll()
 	}
-
+	saveSlide(){
+		const data = this.canvas.toJSON()
+		this.props.addSlide(data)
+	}
 	render() {
+		const {slides, deleteSlide,addSlide, changeSlide} = this.props
 		return (
 			<div>
-				<div style={{display: 'flex', flexDirection: 'column'}}>
-					<Toolbar style={{width: '100%'}}>
+				<div style={{display: 'flex', flexDirection: 'column', background: "#9e9e9e"}}>
+					<Toolbar style={{width: '100%', background: "#fafafa", boxShadow: "rgba(0, 0, 0, 0.12) 0px 1px 4px"}}>
 						<ToolbarGroup firstChild={true}>
 							<IconMenu
 						    iconButtonElement={<IconButton><FormatShape /></IconButton>}
 						    anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
 						    targetOrigin={{horizontal: 'left', vertical: 'top'}}
 						  >
-								<MenuItem onClick={()=>this.textPosition('custom')} primaryText="Custom Text" leftIcon={<TextField />} />
-								<MenuItem onClick={()=>this.textPosition('normal')} primaryText="Normal Text" leftIcon={<TextField />} />
-						    <MenuItem onClick={()=>this.textPosition('h1')} primaryText="Header 1" leftIcon={<TextField />} />
-								<MenuItem onClick={()=>this.textPosition('h2')} primaryText="Header 2" leftIcon={<TextField />} />
+								<MenuItem onClick={()=>this.textPosition('custom')} primaryText="Custom Text" leftIcon={<TextFieldIcon />} />
+								<MenuItem onClick={()=>this.textPosition('normal')} primaryText="Normal Text" leftIcon={<TextFieldIcon />} />
+						    <MenuItem onClick={()=>this.textPosition('h1')} primaryText="Header 1" leftIcon={<TextFieldIcon />} />
+								<MenuItem onClick={()=>this.textPosition('h2')} primaryText="Header 2" leftIcon={<TextFieldIcon />} />
 						  </IconMenu>
 							<IconMenu
 						    iconButtonElement={<IconButton><InsertPhoto /></IconButton>}
@@ -328,20 +367,20 @@ class CanvasBlock extends Component {
 						  </IconMenu>
 
 
-							<ToolbarSeparator style={{marginRight: '24px'}}/>
+							<ToolbarSeparator style={{marginRight: '10px', marginLeft: '10px'}}/>
 							<IconButton onClick={()=>this.colorPicker("text")}>
 								<FormatColorText />
 								{this.state.colorPicker && this.state.color === 'text' && <TwitterPicker onChange={ this.changeColor } triangle="hide"/>}
 							</IconButton>
-							<div style={{width: 30, height: 30, borderRadius: 4, backgroundColor: this.state.textColor}}/>
+							<div style={{width: 30, height: 30, borderRadius: 4, backgroundColor: this.state.textColor,boxShadow: "rgba(0, 0, 0, 0.12) 0px 1px 4px"}}/>
 
 							<IconButton onClick={()=>this.colorPicker("fill")}>
 								<FormatColorFill />
 								{this.state.colorPicker && this.state.color === 'fill' && <TwitterPicker onChange={ this.changeTextBGColor } triangle="hide"/>}
 							</IconButton>
-							<div style={{width: 30, height: 30, borderRadius: 4, backgroundColor: this.state.textBGColor}}/>
+							<div style={{width: 30, height: 30, borderRadius: 4, backgroundColor: this.state.textBGColor,boxShadow: "rgba(0, 0, 0, 0.12) 0px 1px 4px"}}/>
 
-							<ToolbarSeparator style={{marginRight: '24px'}}/>
+							<ToolbarSeparator style={{marginRight: '10px', marginLeft: '10px'}}/>
 							<IconMenu
 						    iconButtonElement={<IconButton><TextField /></IconButton>}
 						    anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
@@ -355,26 +394,27 @@ class CanvasBlock extends Component {
 								<MenuItem primaryText="36" onClick={() => this.editTextStyles('fontSize', 36)} />
 								<MenuItem primaryText="48" onClick={() => this.editTextStyles('fontSize', 48)} />
 						  </IconMenu>
-							{this.state.fontSize}
+							<TextField style={{width: 30}} id='font-size-field' value={this.state.fontSize} onChange={(event)=>{this.editTextStyles('fontSize', event.target.value)}} />
+
 							<SelectField value={this.state.fontFamily} hintText={this.state.fontFamily} onChange={(event,key,value)=>this.setState({fontFamily: value})}>
 				        <MenuItem value="Times New Roman"  primaryText="Times New Roman" onClick={() => this.editTextStyles('fontFamily', 'Times New Roman')}/>
 				        <MenuItem value="Arial"  primaryText="Arial" onClick={() => this.editTextStyles('fontFamily', 'Arial')}/>
 				        <MenuItem value="Cursive"  primaryText="Cursive" onClick={() => this.editTextStyles('fontFamily', 'Cursive')}/>
       				</SelectField>
-							<ToolbarSeparator style={{marginRight: '24px'}}/>
+							<ToolbarSeparator style={{marginRight: '10px', marginLeft: '10px'}}/>
 							<IconButton><FormatBold onClick={() => this.editTextStyles('bold')} color="rgba(0,0,0,.3)"/></IconButton>
 							<IconButton><FormatItalic onClick={() => this.editTextStyles('italic')} color="rgba(0,0,0,.3)"/></IconButton>
 							<IconButton><FormatUnderlined onClick={() => this.editTextStyles('underline')} color="rgba(0,0,0,.3)"/></IconButton>
-							<ToolbarSeparator style={{marginRight: '24px'}}/>
+							<ToolbarSeparator style={{marginRight: '10px', marginLeft: '10px'}}/>
 							<IconMenu
 						    iconButtonElement={<IconButton><LayersMenu /></IconButton>}
 						    anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
 						    targetOrigin={{horizontal: 'left', vertical: 'top'}}
 						  >
-								<MenuItem primaryText="Bring To Front" leftIcon={<Square />} onClick={() => {this.changeZAxis('bringToFront')}} />
-								<MenuItem primaryText="Bring Forward" leftIcon={<Rectangle />} onClick={() => {this.changeZAxis('bringForward')}}/>
-								<MenuItem primaryText="Send Backward" leftIcon={<Circle />} onClick={() => {this.changeZAxis('sendBackward')}}/>
-								<MenuItem primaryText="Send To Back" leftIcon={<Triangle />} onClick={() => {this.changeZAxis('sendToBack')}}/>
+								<MenuItem primaryText="Bring To Front" onClick={() => {this.changeZAxis('bringToFront')}} />
+								<MenuItem primaryText="Bring Forward" onClick={() => {this.changeZAxis('bringForward')}}/>
+								<MenuItem primaryText="Send Backwards" onClick={() => {this.changeZAxis('sendBackwards')}}/>
+								<MenuItem primaryText="Send To Back"  onClick={() => {this.changeZAxis('sendToBack')}}/>
 						  </IconMenu>
 							<IconMenu
 						    iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
@@ -390,11 +430,27 @@ class CanvasBlock extends Component {
 						  </IconMenu>
 						</ToolbarGroup>
 						<ToolbarGroup lastChild={true}>
+							<IconButton><Widgets onClick={this.saveSlide} color="rgba(0,0,0,.3)"/></IconButton>
 							<IconButton><Delete onClick={this.removeObject} color="rgba(0,0,0,.3)"/></IconButton>
 						</ToolbarGroup>
 					</Toolbar>
+					<div style={{display: 'flex'}}>
+						<div style={{flex: 1, background: 'white',margin: "10px", marginRight: "0px", height: "680px"}}>
+							{slides.map(slide => (
+								<div onClick={()=>changeSlide(slide.id)} style={{margin: '10px', border: '1px solid #ccc'}} key={slide.id}>
+									<SlidePreview data={slide}/>
+									<button onClick={()=>{deleteSlide(slide.id)}}>delete</button>Slide: {slide.id}
+								</div>
+							)
+							)}
+						</div>
+						<div style={{background: "#9e9e9e",margin: "10px", flexDirection: 'column'}}>
+							<canvas  id="fabricTest" width="1100" height="700" />
+							<div style={{height: "40px", background: 'white',marginTop: "10px"}}>hfjdjkh</div>
+						</div>
+					</div>
 
-						<canvas id="fabricTest" width="960" height="500" />
+
 
 				</div>
 			</div>

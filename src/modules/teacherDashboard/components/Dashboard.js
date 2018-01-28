@@ -20,7 +20,7 @@ const Dashboard = ({}) => (
 				component={LessonList}
 			/>
 			<Route
-				path={'/teacher/lesson/:id'}
+				path={'/teacher/lesson/:lessonId'}
 				component={SlideEdit}
 			/>
 		</div>
