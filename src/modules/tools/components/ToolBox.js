@@ -38,7 +38,7 @@ class ToolBox extends Component {
 	}
 
 	render() {
-		const { canDrop, isOver, connectDropTarget, selectedTools, toggleChoice } = this.props
+		const { canDrop, isOver, connectDropTarget, selectedTools, toggleChoice, choiceStatus, inputStatus, toggleInput } = this.props
 		const isActive = canDrop && isOver
 
 		let backgroundColor = '#222'
@@ -50,11 +50,26 @@ class ToolBox extends Component {
 
 		return connectDropTarget(
 			<div style ={style} className="fullWidth flex-container-wrap">
-		{selectedTools.includes("Choice Q") &&	<ToolBtn onClick={toggleChoice} name="Choice Q" /> }
-		{selectedTools.includes("Input Q") &&		<ToolBtn name="Input Q" /> }
-		{selectedTools.includes("Repel")	&&	<ToolBtn name="Repel" /> }
-		{selectedTools.includes("Hot Spot")	&&	<ToolBtn name="Hot Spot" />}
-		{selectedTools.includes("Name Picker")	&&		<ToolBtn name="Name Picker" />}
+				{selectedTools.includes("Choice Q") &&
+				<ToolBtn
+				onClick={toggleChoice}
+				choiceStatus = {choiceStatus}
+				name="Choice Q" /> }
+
+				{selectedTools.includes("Input Q") &&
+				<ToolBtn
+				onClick={toggleInput}
+				inputStatus = {inputStatus}
+				name="Input Q" /> }
+
+				{selectedTools.includes("Repel")	&&
+				<ToolBtn name="Repel" /> }
+
+				{selectedTools.includes("Hot Spot")	&&
+				<ToolBtn name="Hot Spot" />}
+
+				{selectedTools.includes("Name Picker")	&&
+				<ToolBtn name="Name Picker" />}
 			</div>,
 		)
 	}

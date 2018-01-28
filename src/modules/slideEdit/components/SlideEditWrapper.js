@@ -4,12 +4,12 @@ import {db} from '../../../firebase'
 
 
 import {ToolContainer} from '../../tools'
-import {QAContainer} from '../../display'
+import {DisplayContainer} from '../../display'
 import CanvasBlock from './CanvasBlock'
 
 const SlideEditWrapper = ({addSlide,slides,deleteSlide,changeSlide}) => (
 	<div style={{display: 'flex'}}>
-		<div style={{flex: 7.5}}>
+		<div style={{flex: 7}}>
 			<button onClick={addSlide}>test</button>
 			<Paper style={{margin: "10px"}} zDepth={1}>
 				<CanvasBlock addSlide={addSlide} changeSlide={changeSlide} deleteSlide={deleteSlide} slides={slides}/>
@@ -22,7 +22,7 @@ const SlideEditWrapper = ({addSlide,slides,deleteSlide,changeSlide}) => (
 			</Paper>
 		</div>
 
-		<div style={{flex: 2}}>
+		<div style={{flex: 3}}>
 		 {/* Toolbox area */}
 			<Paper style={{margin: "10px"}} zDepth={1}>
 			<div className="flex-container-column toolSectionContainer">
@@ -32,7 +32,7 @@ const SlideEditWrapper = ({addSlide,slides,deleteSlide,changeSlide}) => (
 
 			 {/* Display area */}
 			<Paper style={{margin: "10px"}} zDepth={1}>
-				< QAContainer />
+				< DisplayContainer />
 			</Paper>
 		</div>
 

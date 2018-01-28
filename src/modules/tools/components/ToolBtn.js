@@ -11,7 +11,13 @@ const styles = {
   toggle: {
     width: '25%',
   },
-  btn: {
+  btnOff: {
+    backgroundColor: "white",
+  },
+  btnOn: {
+    background: "radial-gradient(circle, rgb(204, 255, 212), rgb(152, 255, 167), rgb(117, 255, 138))"
+  },
+  label: {
     fontSize: "13px",
     paddingLeft: "5px",
     paddingRight: "5px"
@@ -19,14 +25,31 @@ const styles = {
 };
 
 class ToolBtn extends Component {
+
   render() {
+    const {onClick, choiceStatus, inputStatus} = this.props
+    let btnStyle
+    if (choiceStatus || inputStatus) {
+      btnStyle = styles.btnOn
+    } else {
+      btnStyle = styles.btnOff
+    }
+
     return (
 
       <div className="flex-container-row singleToolContainer">
         <Toggle
           // style={styles.toggle}
         style={styles.toggle}/>
-        <RaisedButton label={this.props.name} labelStyle={styles.btn} className="toolBtn" onClick={this.props.onClick}/>
+        <RaisedButton
+        label={this.props.name}
+        labelStyle={styles.lable}
+        buttonStyle = {btnStyle}
+        className="toolBtn"
+        onClick={onClick}
+        choiceStatus = {choiceStatus}
+        inputStatus = {inputStatus}
+        />
       </div>
 
     )

@@ -35,8 +35,7 @@ class QAContainer extends Component {
   handleSubmit(evt) {
     evt.preventDefault()
     let slideId = 'id1'
-    let qType = 'Choice Q'
-    this.props.addQuestion(this.state.question, this.state.choice, slideId, qType)
+    this.props.addQuestion(this.state.question, this.state.choice, slideId)
     this.setState({question: ""})
     this.setState({choice: {}})
     this.setState({counter:[]})
@@ -78,7 +77,7 @@ class QAContainer extends Component {
           <FlatButton label="Add Choice" onClick={this.handleClick} />
         </div>
         <div>
-        <RaisedButton label="Submit" type="submit" />
+        <RaisedButton label="Save" type="submit" />
         </div>
       </form>
      )

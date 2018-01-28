@@ -15,10 +15,7 @@ function Choice (props) {
   return (
     <div>
     <TextField
-      hintText="Add OPTION"
-      multiLine={true}
-      rows={2}
-      rowsMax={4}
+      hintText="Enter Choice"
       hintStyle ={style.add}
       value = {props.value}
       onChange = {(evt, newValue)=>{props.onChange(evt, newValue, props.counter)}}
