@@ -38,7 +38,8 @@ const boxSource = {
 		const dropResult = monitor.getDropResult()
 
 		if (dropResult) {
-      let slideId = 'id1'
+      console.log("props",props)
+      let slideId = props.currentSlideId
       // alert(`You dropped ${item.name} into ${dropResult.name}!`) // eslint-disable-line no-alert
       props.addTool(item.name, slideId)
 		}

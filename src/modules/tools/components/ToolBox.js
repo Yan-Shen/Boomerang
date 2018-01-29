@@ -38,7 +38,7 @@ class ToolBox extends Component {
 	}
 
 	render() {
-		const { canDrop, isOver, connectDropTarget, selectedTools, toggleChoice, choiceStatus, inputStatus, toggleInput } = this.props
+		const { canDrop, isOver, connectDropTarget, selectedTools, toggleChoice, choiceStatus, inputStatus, toggleInput, currentSlideId } = this.props
 		const isActive = canDrop && isOver
 
 		let backgroundColor = '#222'
@@ -54,6 +54,7 @@ class ToolBox extends Component {
 				<ToolBtn
 				onClick={toggleChoice}
 				choiceStatus = {choiceStatus}
+				currentSlideId = {currentSlideId}
 				name="Choice Q" /> }
 
 				{selectedTools.includes("Input Q") &&
@@ -76,4 +77,3 @@ class ToolBox extends Component {
 }
 
 export default DropTarget(ItemTypes.BOX, boxTarget, collect)(ToolBox)
-
