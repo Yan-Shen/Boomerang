@@ -64,7 +64,7 @@ export function addSlide (index) {
 						...slideData
 					}
 					dispatch(getSlide(slideObject))
-					//dispatch(changeSlide(index));
+					dispatch(changeSlide(index));
 				})
 			})
 	}
