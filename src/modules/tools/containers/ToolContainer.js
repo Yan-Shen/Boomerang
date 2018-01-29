@@ -24,7 +24,7 @@ class Container extends Component {
 
 
 	render() {
-		const {toggleInput, selectedTools, choiceStatus, inputStatus, toggleChoice} = this.props
+		const {toggleInput, selectedTools, choiceStatus, inputStatus, toggleChoice, currentSlideId} = this.props
 		return (
 					<DragDropContextProvider backend={HTML5Backend}>
 						<div>
@@ -35,12 +35,7 @@ class Container extends Component {
 									<ToolMiniHotSpot name="Hot Spot" />
 									<ToolMiniName name="Name Picker" />
 							</div>
-							<ToolBox
-							toggleChoice = {toggleChoice}
-							toggleInput = {toggleInput}
-							selectedTools={selectedTools}
-							choiceStatus= {choiceStatus}
-							inputStatus = {inputStatus} />
+							<ToolBox {...this.props}/>
 						</div>
 					</DragDropContextProvider>
 		)
@@ -48,10 +43,12 @@ class Container extends Component {
 }
 
 const mapState = state => {
+	const slides = state.lesson.slides
 	return {
 		selectedTools: state.selectedTools,
 		choiceStatus: state.toggleChoice,
 		inputStatus: state.toggleInput,
+		currentSlideId: slides.length ? slides[state.lesson.currentSlide].id : ''
 	}
 }
 
