@@ -55,7 +55,7 @@ class CanvasBlock extends Component {
 		this.updateSlide = this.updateSlide.bind(this);
 	}
 	componentDidUpdate(prevProps){
-		if (prevProps.currentSlide !== this.props.currentSlide) {
+		if (!prevProps.currentSlide || prevProps.currentSlideIndex !== this.props.currentSlideIndex) {
 			this.canvas.loadFromJSON(this.props.currentSlide, this.canvas.renderAll.bind(this.canvas));
 			this.canvas.renderAll();
 		}
@@ -110,11 +110,12 @@ class CanvasBlock extends Component {
 		});
 
 
-			this.canvas.on('object:added', this.updateSlide);
-			this.canvas.on('object:removed', this.updateSlide);
-			this.canvas.on('object:modified', this.updateSlide);
+			this.canvas.on('object:added', ()=>this.updateSlide('added'));
+			this.canvas.on('object:removed', ()=>this.updateSlide('removed'));
+			this.canvas.on('object:modified', ()=>this.updateSlide('modded'));
 	}
-	updateSlide(){
+	updateSlide(param){
+		console.log(param,this.props.currentSlide.id)
 		if(this.props.currentSlide.id){
 			this.props.updateSlide(this.props.currentSlide.id,this.canvas.toJSON())
 		}
