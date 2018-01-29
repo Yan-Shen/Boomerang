@@ -19,15 +19,29 @@ export const updateTools = tools=>{
 export const updateToolsDispatcher = (tool, slideId) => {
   return dispatch=> {
     db.ref(`/selectedTools/${slideId}`).update({[tool]: {name: tool}})
-    const listener = db.ref(`/selectedTools/${slideId}`)
-    listener.on('value', snap=>{
-      const selectedTools = Object.keys(snap.val())
-      dispatch(updateTools(selectedTools))
-    })
+      .then(data => console.log(data))
+
+    // const listener = db.ref(`/selectedTools/${slideId}`)
+    // listener.on('value', snap=>{
+    //   const selectedTools = Object.keys(snap.val())
+    //   dispatch(updateTools(selectedTools))
+    // })
  }
 }
 
+<<<<<<< HEAD
 
+=======
+export const getToolsDispatcher = (slideId)=> {
+  return dispatch=> {
+    // const listener = db.ref(`/selectedTools/${slideId}`)
+    // listener.on('value', snap => {
+    //   const selectedTools = Object.keys(snap.val())
+    //   dispatch(getTools(selectedTools))
+    // })
+  }
+}
+>>>>>>> 0db0c4dc0752965981832981a157658957f8802b
 
 // Reducer
 export default function reducer (state= [], action) {
@@ -39,4 +53,3 @@ export default function reducer (state= [], action) {
       return state;
   }
 }
-

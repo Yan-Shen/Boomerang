@@ -80,4 +80,3 @@ class ToolBox extends Component {
 }
 
 export default DropTarget(ItemTypes.BOX, boxTarget, collect)(ToolBox)
-

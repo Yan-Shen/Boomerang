@@ -1,6 +1,6 @@
 import {db} from '../../firebase'
 import * as actions from './actionTypes';
-
+export function test(){}
 export const getLesson = lesson =>  ({type: actions.GET_LESSON, lesson})
 export const getSlide = slide =>  ({type: actions.GET_SLIDE, slide})
 export const removeSlide = slideId =>  ({type: actions.DELETE_SLIDE, slideId})

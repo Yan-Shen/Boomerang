@@ -29,6 +29,7 @@ const SlideEditWrapper = (props) => (
 			<Paper style={{margin: "10px"}} zDepth={1}>
 				< DisplayContainer />
 			</Paper>
+
 		</div>
 
 	</div>
