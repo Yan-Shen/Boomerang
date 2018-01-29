@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { DragDropContextProvider } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 import components from '../components'
-import {getToolsDispatcher} from '../../../store'
+// import {getToolsDispatcher} from '../../../store'
 import {connect} from 'react-redux'
 import { toggleChoice } from '../reducers/ToggleChoice';
 import {toggleInput} from '../reducers/ToggleInput'
@@ -18,18 +18,21 @@ const style = {
 
 class Container extends Component {
 	componentDidMount(){
-		const slideId = 'id1'
-		this.props.getTools(slideId);
+		// const slideId = this.props.currentSlideId
+		// console.log('slideId -------------', slideId)
+		// this.props.getTools(slideId);
   }
 
 
 	render() {
-		const {toggleInput, selectedTools, choiceStatus, inputStatus, toggleChoice} = this.props
+		const {toggleInput, selectedTools, choiceStatus, inputStatus, toggleChoice, currentSlideId} = this.props
 		return (
 					<DragDropContextProvider backend={HTML5Backend}>
 						<div>
 							<div style={style}>
-									<ToolMiniChoice name="Choice Q" />
+									<ToolMiniChoice name="Choice Q"
+									currentSlideId = {currentSlideId}
+									/>
 									<ToolMiniInput name="Input Q" />
 									<ToolMiniRepl name="Repel" />
 									<ToolMiniHotSpot name="Hot Spot" />
@@ -40,7 +43,8 @@ class Container extends Component {
 							toggleInput = {toggleInput}
 							selectedTools={selectedTools}
 							choiceStatus= {choiceStatus}
-							inputStatus = {inputStatus} />
+							inputStatus = {inputStatus}
+							/>
 						</div>
 					</DragDropContextProvider>
 		)
@@ -48,18 +52,20 @@ class Container extends Component {
 }
 
 const mapState = state => {
+	const slides = state.lesson.slides
 	return {
 		selectedTools: state.selectedTools,
 		choiceStatus: state.toggleChoice,
 		inputStatus: state.toggleInput,
+		currentSlideId: slides ? slides[state.lesson.currentSlide].id : ''
 	}
 }
 
 const mapDispath = dispatch => {
 	return {
-		getTools(slideId){
-			dispatch(getToolsDispatcher(slideId))
-		},
+		// getTools(slideId){
+		// 	dispatch(getToolsDispatcher(slideId))
+		// },
 		toggleChoice(){
 			dispatch(toggleChoice())
 		},

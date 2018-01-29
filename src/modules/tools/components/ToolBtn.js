@@ -47,8 +47,8 @@ class ToolBtn extends Component {
         buttonStyle = {btnStyle}
         className="toolBtn"
         onClick={onClick}
-        choiceStatus = {choiceStatus}
-        inputStatus = {inputStatus}
+        // choicestatus = {choiceStatus}
+        // inputstatus = {inputStatus}
         />
       </div>
 

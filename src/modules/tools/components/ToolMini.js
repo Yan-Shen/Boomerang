@@ -34,13 +34,16 @@ const boxSource = {
 	},
 
 	endDrag(props, monitor) {
+
 		const item = monitor.getItem()
 		const dropResult = monitor.getDropResult()
 
 		if (dropResult) {
-      let slideId = 'id1'
+      let currentSlideId = props.currentSlideId
+      console.log('props  is-------------', props)
+      console.log('currenSlideId  is-------------', currentSlideId)
       // alert(`You dropped ${item.name} into ${dropResult.name}!`) // eslint-disable-line no-alert
-      props.addTool(item.name, slideId)
+      props.addTool(item.name, currentSlideId)
 		}
 	}
 }
