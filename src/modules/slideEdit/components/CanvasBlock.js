@@ -45,7 +45,6 @@ class CanvasBlock extends Component {
 		this.addImage = this.addImage.bind(this);
 		this.textPosition = this.textPosition.bind(this);
 		this.imagePosition = this.imagePosition.bind(this);
-		this.editTextStyles = this.editTextStyles.bind(this);
 		this.colorPicker = this.colorPicker.bind(this);
 		this.changeColor = this.changeColor.bind(this);
 		this.changeTextBGColor = this.changeTextBGColor.bind(this);
