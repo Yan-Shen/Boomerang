@@ -13,36 +13,39 @@ export const updateTools = tools=>{
   }
 }
 
-export const getTools = tools =>{
+export const getTools = tools=>{
   return {
     type: GET_TOOLS,
     tools: tools
   }
 }
 
+
+
 // Dispatcher
 export const updateToolsDispatcher = (tool, slideId) => {
   return dispatch=> {
     db.ref(`/selectedTools/${slideId}`).update({[tool]: {name: tool}})
-      .then(data => console.log(data))
+    //   .then(data => console.log(data))
 
-    // const listener = db.ref(`/selectedTools/${slideId}`)
-    // listener.on('value', snap=>{
-    //   const selectedTools = Object.keys(snap.val())
-    //   dispatch(updateTools(selectedTools))
-    // })
+    const listener = db.ref(`/selectedTools/${slideId}`)
+    listener.on('value', snap=>{
+      const selectedTools = Object.keys(snap.val())
+      dispatch(updateTools(selectedTools))
+    })
  }
 }
 
 export const getToolsDispatcher = (slideId)=> {
   return dispatch=> {
-    // const listener = db.ref(`/selectedTools/${slideId}`)
-    // listener.on('value', snap => {
-    //   const selectedTools = Object.keys(snap.val())
-    //   dispatch(getTools(selectedTools))
-    // })
+    return db.ref(`/selectedTools/${slideId}`).once('value')
+      .then(selectedTools => {
+        console.log('tools are----------', Object.keys(selectedTools.val()))
+        dispatch(getTools(Object.keys(selectedTools.val())))
+      })
   }
 }
+
 
 // Reducer
 export default function reducer (state= [], action) {

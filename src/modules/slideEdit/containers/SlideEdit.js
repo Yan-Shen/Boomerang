@@ -37,32 +37,6 @@ class SlideEdit extends Component {
   render() {
     return (
         <div style={{display: 'flex'}}>
-        {/* //   <div style={{flex: 6.5}}>
-        //     <Paper style={{margin: "10px"}} zDepth={1}>
-        //       <CanvasBlock />
-        //     </Paper>
-        //    {/* thumbnail area */}
-        {/* //     <Paper style={{margin: "10px"}} zDepth={1}>
-        //       <div style={{display: 'flex',height: "140px"}}>
-        //         {this.state.slides.map(slide => <div style={{margin: '10px', border: '1px solid #ccc'}} key={slide.id}>Slide: {slide.id}</div>)}
-        //       </div>
-        //     </Paper>
-        //   </div> */}
-
-          {/* <div style={{flex: 3.5}}> */}
-       {/* Toolbox area */}
-        {/* <Paper style={{margin: "10px"}} zDepth={2}>
-        <div className="flex-container-column toolSectionContainer">
-          <ToolContainer />
-          </div>
-        </Paper> */}
-
-         {/* Display area */}
-        {/* <Paper style={{margin: "10px"}} zDepth={2}>
-          < DisplayContainer />
-        </Paper>
-      </div>  */}
-
         <SlideEditWrapper {...this.props}/>
       </div>
     );
@@ -70,10 +44,11 @@ class SlideEdit extends Component {
 }
 
 function mapStateToProps(state){
+  const slides = state.lesson.slides
   return {
     currentSlideIndex: state.lesson.currentSlide,
-    currentSlide: state.lesson.slides[state.lesson.currentSlide],
-    slides: state.lesson.slides,
+    currentSlide: slides? slides[state.lesson.currentSlide] : {},
+    slides: slides? state.lesson.slides: [],
     lesson: state.lesson.lesson
   };
 }

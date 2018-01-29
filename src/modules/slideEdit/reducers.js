@@ -1,6 +1,7 @@
 import * as actions from './actionTypes';
+import SelectedTools from '../tools/reducers/SelectedTools'
 
-export default function reducers(state = {lesson: {}, slides:[], currentSlide: 0}, action){
+export default function reducers(state = {lesson: {}, slides:[], currentSlide: 0, SelectedTools: []}, action){
   switch (action.type){
     case actions.GET_LESSON:
       return {...state, lesson: action.lesson}
@@ -18,7 +19,7 @@ export default function reducers(state = {lesson: {}, slides:[], currentSlide: 0
 				})
 				return {...state, slides: updatedSlides}
 			}
-      return {...state, slides: [...state.slides,action.slide]}
+			return {...state, slides: [...state.slides,action.slide]}
     default:
       return state;
   }
