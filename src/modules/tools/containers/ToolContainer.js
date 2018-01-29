@@ -38,17 +38,8 @@ class Container extends Component {
 									<ToolMiniHotSpot name="Hot Spot" />
 									<ToolMiniName name="Name Picker" />
 							</div>
-<<<<<<< HEAD
-							<ToolBox
-							toggleChoice = {toggleChoice}
-							toggleInput = {toggleInput}
-							selectedTools={selectedTools}
-							choiceStatus= {choiceStatus}
-							inputStatus = {inputStatus}
-							/>
-=======
+
 							<ToolBox {...this.props}/>
->>>>>>> 0db0c4dc0752965981832981a157658957f8802b
 						</div>
 					</DragDropContextProvider>
 		)
@@ -61,11 +52,7 @@ const mapState = state => {
 		selectedTools: state.selectedTools,
 		choiceStatus: state.toggleChoice,
 		inputStatus: state.toggleInput,
-<<<<<<< HEAD
-		currentSlideId: slides ? slides[state.lesson.currentSlide].id : ''
-=======
 		currentSlideId: slides.length ? slides[state.lesson.currentSlide].id : ''
->>>>>>> 0db0c4dc0752965981832981a157658957f8802b
 	}
 }
 

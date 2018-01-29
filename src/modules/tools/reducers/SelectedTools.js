@@ -29,9 +29,6 @@ export const updateToolsDispatcher = (tool, slideId) => {
  }
 }
 
-<<<<<<< HEAD
-
-=======
 export const getToolsDispatcher = (slideId)=> {
   return dispatch=> {
     // const listener = db.ref(`/selectedTools/${slideId}`)
@@ -41,7 +38,7 @@ export const getToolsDispatcher = (slideId)=> {
     // })
   }
 }
->>>>>>> 0db0c4dc0752965981832981a157658957f8802b
+
 
 // Reducer
 export default function reducer (state= [], action) {
