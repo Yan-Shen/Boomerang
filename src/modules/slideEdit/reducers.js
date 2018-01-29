@@ -20,8 +20,6 @@ export default function reducers(state = {lesson: {}, slides:[], currentSlide: 0
 				return {...state, slides: updatedSlides}
 			}
 			return {...state, slides: [...state.slides,action.slide]}
-		case actions.GET_TOOLS:
-      return action.tools;
     default:
       return state;
   }

@@ -7,7 +7,7 @@ import {connect} from 'react-redux'
 import { toggleChoice } from '../reducers/ToggleChoice';
 import {toggleInput} from '../reducers/ToggleInput'
 
-const {ToolBox, ToolMiniChoice, ToolMiniRepl, ToolMiniInput, ToolMiniHotSpot, ToolMiniName} = components
+const {ToolBox, ToolMiniChoice, ToolMiniRepl, ToolMiniInput} = components
 
 
 
@@ -33,10 +33,10 @@ class Container extends Component {
 									<ToolMiniChoice name="Choice Q"
 									currentSlideId = {currentSlideId}
 									/>
-									<ToolMiniInput name="Input Q" />
-									<ToolMiniRepl name="Repel" />
-									<ToolMiniHotSpot name="Hot Spot" />
-									<ToolMiniName name="Name Picker" />
+									<ToolMiniInput name="Input Q"
+									currentSlideId = {currentSlideId}/>
+									<ToolMiniRepl name="Repel"
+									currentSlideId = {currentSlideId}/>
 							</div>
 
 							<ToolBox {...this.props}/>

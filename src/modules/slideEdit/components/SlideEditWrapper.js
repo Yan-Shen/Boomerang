@@ -9,7 +9,7 @@ import CanvasBlock from './CanvasBlock'
 
 const SlideEditWrapper = (props) => (
 	<div style={{display: 'flex'}}>
-		<div style={{flex: 7}}>
+		<div style={{flex: 6}}>
 			<Paper style={{margin: "10px"}} zDepth={1}>
 				<CanvasBlock {...props}/>
 			</Paper>
@@ -17,7 +17,7 @@ const SlideEditWrapper = (props) => (
 
 		</div>
 
-		<div style={{flex: 3}}>
+		<div style={{flex: 4}}>
 		 {/* Toolbox area */}
 			<Paper style={{margin: "10px"}} zDepth={1}>
 			<div className="flex-container-column toolSectionContainer">

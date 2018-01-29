@@ -54,26 +54,17 @@ class ToolBox extends Component {
 				<ToolBtn
 				onClick={toggleChoice}
 				choiceStatus = {choiceStatus}
-				currentSlideId = {currentSlideId}
 				name="Choice Q" /> }
 
 				{selectedTools.includes("Input Q") &&
 				<ToolBtn
 				onClick={toggleInput}
 				inputStatus = {inputStatus}
-				currentSlideId = {currentSlideId}
 				name="Input Q" /> }
 
 				{selectedTools.includes("Repel")	&&
 				<ToolBtn name="Repel"
-				currentSlideId = {currentSlideId}
 				/> }
-
-				{selectedTools.includes("Hot Spot")	&&
-				<ToolBtn name="Hot Spot" />}
-
-				{selectedTools.includes("Name Picker")	&&
-				<ToolBtn name="Name Picker" />}
 			</div>,
 		)
 	}

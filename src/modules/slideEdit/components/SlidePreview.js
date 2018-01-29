@@ -24,7 +24,7 @@ class SlidePreview extends Component {
 	render() {
 		const {id} = this.props.data
 		return (
-			<div onClick={()=>this.props.changeSlide(this.props.index)} style={{margin: '10px'}}>
+			<div onClick={()=>this.props.changeSlide(this.props.index, id)} style={{margin: '10px'}}>
 				<div style={{height: '120px', width: '180px', overflow: 'hidden',
 					border: this.props.index === this.props.currentSlideIndex ? `2px solid ${teal500}` : "1px solid #ccc",
 					borderRadius: '4px'}}>
