@@ -1,6 +1,6 @@
 import {db} from '../../firebase'
 import * as actions from './actionTypes';
-
+export function test(){}
 export const getLesson = lesson =>  ({type: actions.GET_LESSON, lesson})
 export const getSlide = slide =>  ({type: actions.GET_SLIDE, slide})
 export const removeSlide = slideId =>  ({type: actions.DELETE_SLIDE, slideId})
@@ -50,6 +50,7 @@ export function addSlide (index) {
 		db.ref().child('slides').push(emptySlide)
 			.then(slideKey => {
 				db.ref().child(`lessons/-L3nOPjk6NFSMcJGRn4p/slides/${slideKey.key}`).set(true)
+				db.ref().child(`selectedTools/${slideKey.key}`).set(true)
 				return slideKey
 			})
 			.then((slideKey)=>{
