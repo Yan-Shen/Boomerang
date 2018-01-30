@@ -18,6 +18,26 @@ class EditText extends Component {
     this.editTextStyles = this.editTextStyles.bind(this)
   }
 
+  componentDidMount() {
+    this.props.canvas.on('selection:created', (event) => {
+			if (event.target.text) {
+				this.setState({fontSize: event.target.fontSize})
+				this.setState({fontFamily: event.target.fontFamily})
+			}
+			if (event.target && event.target._objects) {
+				let decider = event.target._objects[0]
+				this.setState({fontSize: decider.fontSize})
+				this.setState({fontFamily: decider.fontFamily})
+			}
+		})
+		this.props.canvas.on('selection:updated', (event) => {
+			if (event.target.text) {
+				this.setState({fontSize: event.target.fontSize})
+				this.setState({fontFamily: event.target.fontFamily})
+			}
+		})
+  }
+
   editTextStyles(action, value = null, object = null) {
     const canvas = this.props.canvas
     if (!object) object = canvas.getActiveObject()
@@ -76,6 +96,7 @@ class EditText extends Component {
       }
     }
     canvas.renderAll()
+    this.props.updateSlide(this.props.currentSlide.id, this.props.canvas.toJSON())
   }
 
   getStyle(object, styleName) {
@@ -109,9 +130,16 @@ class EditText extends Component {
           <MenuItem primaryText="36" onClick={() => this.editTextStyles('fontSize', 36)} />
           <MenuItem primaryText="48" onClick={() => this.editTextStyles('fontSize', 48)} />
         </IconMenu>
-        <TextField style={{width: 30}} id="font-size-field" value={this.state.fontSize} onChange={(event) => {this.editTextStyles('fontSize', event.target.value)}} />
+        <TextField 
+          style={{width: 30}}  
+          id="font-size-field" 
+          value={this.state.fontSize} 
+          onChange={(event) => {this.editTextStyles('fontSize', event.target.value)}} 
+        />
 
-        <SelectField value={this.state.fontFamily} hintText={this.state.fontFamily} onChange={(event, key, value) => this.setState({fontFamily: value})}>
+        <SelectField 
+          value={this.state.fontFamily} hintText={this.state.fontFamily} onChange={(event, key, value) => this.setState({fontFamily: value})}
+        >
           <MenuItem value="Times New Roman"  primaryText="Times New Roman" onClick={() => this.editTextStyles('fontFamily', 'Times New Roman')} />
           <MenuItem value="Arial"  primaryText="Arial" onClick={() => this.editTextStyles('fontFamily', 'Arial')} />
           <MenuItem value="Cursive"  primaryText="Cursive" onClick={() => this.editTextStyles('fontFamily', 'Cursive')} />
