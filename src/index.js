@@ -5,6 +5,7 @@ import App from './App';
 import {teal500, teal400, teal300, grey600} from 'material-ui/styles/colors';
 import {Provider} from 'react-redux'
 import registerServiceWorker from './registerServiceWorker';
+import {BrowserRouter as Router} from 'react-router-dom';
 // import Container from './components/Container';
 import store from './store/store'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -40,7 +41,9 @@ const muiTheme = getMuiTheme({
 ReactDOM.render(
   <Provider store={store}>
     <MuiThemeProvider muiTheme={muiTheme}>
-      <App />
+      <Router>
+        <App />
+      </Router>
     </MuiThemeProvider>
   </Provider>,
 document.getElementById('root')

@@ -5,12 +5,14 @@ import {getToolsDispatcher} from '../../store'
 export function test(){}
 export const getLesson = lesson =>  ({type: actions.GET_LESSON, lesson})
 export const getSlide = slide =>  ({type: actions.GET_SLIDE, slide})
+export const getSlideIndex = index =>  ({type: actions.GET_SLIDE_INDEX, index})
 export const removeSlide = slideId =>  ({type: actions.DELETE_SLIDE, slideId})
 export const changeSlideAction = index => ({type: actions.CHANGE_SLIDE, index})
 // export const changeSlide = index => ({type: actions.CHANGE_SLIDE, index})
 
 export const changeSlide = (index, id) =>  {
 	return function thunk (dispatch) {
+		db.ref().child(`lessons/-L3nOPjk6NFSMcJGRn4p/currentSlide`).set(index)
 		dispatch(getToolsDispatcher(id))
 		dispatch(changeSlideAction(index))
 	}
@@ -21,6 +23,10 @@ export const updateSlideData = data =>  ({type: actions.UPDATE_SLIDE, data})
 
 export function fetchLesson (id) {
   return function thunk (dispatch) {
+		/// Keep track of current slide
+		db.ref(`lessons/-L3nOPjk6NFSMcJGRn4p/currentSlide`).on('value', (data)=>{
+			dispatch(getSlideIndex(data.val()))
+		})
     return db.ref('/lessons/-L3nOPjk6NFSMcJGRn4p').once('value')
 			.then(lesson => {
 				dispatch(getLesson(lesson.val().title))
@@ -91,4 +97,3 @@ export function updateSlide (id,data) {
 		.then(()=>console.log('updateSlide'))
 	}
 }
-
