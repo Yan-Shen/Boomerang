@@ -5,6 +5,7 @@ import FlatButton from 'material-ui/FlatButton';
 import {connect} from 'react-redux'
 import { updateQuestionsThunk } from '../reducers/questions';
 
+
 const {Question, Choice} = components
 
 const style = {
@@ -34,18 +35,17 @@ class QAContainer extends Component {
 
   handleSubmit(evt) {
     evt.preventDefault()
-    let slideId = 'id1'
-    this.props.addQuestion(this.state.question, this.state.choice, slideId)
+    this.props.addQuestion(this.state.question, this.state.choice, this.props.currentSlideId)
     this.setState({question: ""})
     this.setState({choice: {}})
     this.setState({counter:[]})
+    this.props.toggleChoice();
   }
 
   handleClick(evt){
     let array = this.state.counter
     let len = this.state.counter.length
     this.setState({counter: [...array, len]})
-    // this.setState({choice: {[len]: true}})
   }
 
   handleChangeQuestion(evt, newValue) {
@@ -59,7 +59,6 @@ class QAContainer extends Component {
 
   render() {
     const counter = this.state.counter
-    console.log('state is--------------', this.state)
 
     return (
       <form onSubmit={this.handleSubmit}>
@@ -84,11 +83,11 @@ class QAContainer extends Component {
   }
 }
 
+
 const mapDispatcher = dispatch => {
   return {
     addQuestion(question, choice, slideId, qType) {
       dispatch(updateQuestionsThunk(question, choice, slideId, qType))
-
     }
   }
 }

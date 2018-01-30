@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import { QAContainer, InputQContainer, ReplContainer } from '../index';
-import {toggleRepl} from '../../tools/reducers/ToggleRepl'
+import { toggleChoice, toggleInput, toggleRepl} from '../../../store';
 
 class DisplayContainer extends Component {
   constructor(props) {
@@ -10,16 +11,27 @@ class DisplayContainer extends Component {
   }
 
   render() {
+    const {choiceStatus, inputStatus, replStatus, currentSlideId, toggleChoice, toggleInput, toggleRepl} = this.props;
+
     return (
       <div>
         {
-          this.props.toggleChoice && <QAContainer />
+          choiceStatus &&
+          <QAContainer
+          currentSlideId = {currentSlideId}
+          toggleChoice = {toggleChoice}/>
         }
         {
-          this.props.toggleInput && <InputQContainer />
+          inputStatus &&
+          <InputQContainer
+          toggleInput = {toggleInput}
+          currentSlideId = {currentSlideId}/>
         }
-                {
-          this.props.toggleRepl && <ReplContainer />
+        {
+          replStatus &&
+          <ReplContainer
+          toggleRepl = {toggleRepl}
+          currentSlideId = {currentSlideId}/>
         }
       </div>
      )
@@ -28,11 +40,17 @@ class DisplayContainer extends Component {
 
 
 const mapState = state => {
+  const slides = state.lesson.slides
   return {
-    toggleChoice: state.toggleChoice,
-    toggleInput: state.toggleInput,
-    toggleRepl: state.toggleRepl
+    choiceStatus: state.toggleChoice,
+    inputStatus: state.toggleInput,
+    replStatus: state.toggleRepl,
+    currentSlideId: slides[state.lesson.currentSlide].id,
   }
 }
 
-export default connect(mapState)(DisplayContainer);
+function mapDispatcher(dispatch){
+  return bindActionCreators({toggleChoice, toggleInput, toggleRepl}, dispatch);
+}
+
+export default connect(mapState, mapDispatcher)(DisplayContainer);

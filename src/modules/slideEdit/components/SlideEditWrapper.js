@@ -4,7 +4,7 @@ import {db} from '../../../firebase'
 
 
 import {ToolContainer} from '../../tools'
-import {DisplayContainer} from '../../display'
+import {MainDisplayContainer} from '../../display'
 import CanvasBlock from './CanvasBlock'
 
 const SlideEditWrapper = (props) => (
@@ -27,7 +27,11 @@ const SlideEditWrapper = (props) => (
 
 			 {/* Display area */}
 			<Paper style={{margin: "10px"}} zDepth={1}>
+<<<<<<< HEAD
 				{/* <DisplayContainer /> */}
+=======
+				< MainDisplayContainer />
+>>>>>>> 9befef47680eb1b7d14b68cc74e7a6d06355dec5
 			</Paper>
 
 		</div>
