@@ -1,5 +1,5 @@
 import React from 'react'
-import {IconMenu, MenuItem,IconButton} from 'material-ui'
+import {IconMenu, MenuItem, IconButton} from 'material-ui'
 import Delete from 'material-ui/svg-icons/action/delete'
 
 const removeObject = (canvas) => {

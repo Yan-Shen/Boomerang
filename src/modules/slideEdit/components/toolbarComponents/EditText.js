@@ -3,6 +3,7 @@ import MenuItem from 'material-ui/MenuItem'
 import IconButton from 'material-ui/IconButton'
 import LayersMenu from 'material-ui/svg-icons/maps/layers'
 import TextField from 'material-ui/TextField'
+import TextFieldIcon from 'material-ui/svg-icons/editor/text-fields'
 import { IconMenu, SelectField, ToolbarSeparator } from 'material-ui'
 import FormatBold from 'material-ui/svg-icons/editor/format-bold'
 import FormatItalic from 'material-ui/svg-icons/editor/format-italic'
@@ -118,7 +119,7 @@ class EditText extends Component {
     return (
       <div style={{display: 'flex', alignItems: 'center'}}>
         <IconMenu
-          iconButtonElement={<IconButton><TextField /></IconButton>}
+          iconButtonElement={<IconButton><TextFieldIcon /></IconButton>}
           anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
           targetOrigin={{horizontal: 'left', vertical: 'top'}}
         >
