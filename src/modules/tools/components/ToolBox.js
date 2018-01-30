@@ -62,8 +62,8 @@ class ToolBox extends Component {
 				inputStatus = {inputStatus}
 				name="Input Q" /> }
 
-				{selectedTools.includes("Repel")	&&
-				<ToolBtn name="Repel"
+				{selectedTools.includes("Repl")	&&
+				<ToolBtn name="Repl"
 				onClick={toggleRepl}
 				replStatus = {replStatus}
 				/> }

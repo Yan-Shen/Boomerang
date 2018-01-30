@@ -18,7 +18,6 @@ export const updateQuestionsThunk = (question, choice, slideId) => {
     const key = db.ref(`/selectedTools/${slideId}/Choice Q/QA`).push().key
     db.ref(`/selectedTools/${slideId}/Choice Q/QA/${key}`).update({question})
     db.ref(`/selectedTools/${slideId}/Choice Q/QA/${key}/choice`).update(choice)
-
     const listener = db.ref(`/selectedTools/${slideId}/Choice Q/QA/${key}`)
     listener.on('value', snap=>{
       const questions = snap.val()
