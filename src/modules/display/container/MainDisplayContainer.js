@@ -17,11 +17,9 @@ class MainDisplayContainer extends Component {
     this.setState({selectedTab: select})
   }
 
-  render() {
-    console.log('state is--------------', this.state)
-    const selectedTab = this.state.selectedTab
+  render() {    const selectedTab = this.state.selectedTab
     return (
-    <div>
+    <div style={{width:"350px", height: "550px"}}>
       <ToolsTabsContainer handleChange={this.handleChange}/>
       {
         (selectedTab === "default") && <DisplayContainer />
