@@ -15,9 +15,6 @@ import EditText from './toolbarComponents/EditText'
 class CanvasBlock extends Component {
 	constructor(props) {
 		super(props)
-		// this.state = {
-		// }
-
 		this.saveSlide = this.saveSlide.bind(this)
 		this.updateSlide = this.updateSlide.bind(this)
 	}

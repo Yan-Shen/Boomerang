@@ -116,7 +116,7 @@ class EditText extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{display: 'flex', alignItems: 'center'}}>
         <IconMenu
           iconButtonElement={<IconButton><TextField /></IconButton>}
           anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}

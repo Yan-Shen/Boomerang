@@ -8,7 +8,11 @@ class AddText extends Component {
 		super(props)
 		this.state = {
 			text: false,
-			textPositionSelect: false
+			textPositionSelect: false,
+			fontFamily: 'Times New Roman',
+			fontSize: 14,
+			textBGColor: '#ffffff',
+			textColor: '#000000'
 		}
 
 		this.addText = this.addText.bind(this)
@@ -26,23 +30,18 @@ class AddText extends Component {
 
 	addText(x, y){
 		var text = new window.fabric.IText('Text Box', 
-			{ left: x, top: y, fill: this.state.textColor, 
-				textBackgroundColor: this.state.textBGColor })
+			{ left: x, top: y, 
+				fill: this.state.textColor, 
+				textBackgroundColor: this.state.textBGColor,
+				fontFamily: this.state.fontFamily,
+				fontWeight: this.state.fontWeight,
+				fontSize: this.state.fontSize
+			})
 		this.props.canvas.add(text)
 	}
 
 	textPosition(type){
 		switch (type) {
-			case 'custom':
-			this.setState({
-				textPositionSelect: true,
-				fontSize: this.state.fontSize,
-				fontWeight: this.state.fontWeight,
-				fontFamily: this.state.fontFamily,
-				textColor: this.state.textColor,
-				textBGColor: this.state.textBGColor
-			})
-			break
 			case 'normal':
 			this.setState({
 				textPositionSelect: true,
@@ -86,7 +85,6 @@ class AddText extends Component {
 				anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
 				targetOrigin={{horizontal: 'left', vertical: 'top'}}
 			>
-				<MenuItem onClick={() => this.textPosition('custom')} primaryText="Custom Text" leftIcon={<TextFieldIcon />} />
 				<MenuItem onClick={() => this.textPosition('normal')} primaryText="Normal Text" leftIcon={<TextFieldIcon />} />
 				<MenuItem onClick={() => this.textPosition('h1')} primaryText="Header 1" leftIcon={<TextFieldIcon />} />
 				<MenuItem onClick={() => this.textPosition('h2')} primaryText="Header 2" leftIcon={<TextFieldIcon />} />
