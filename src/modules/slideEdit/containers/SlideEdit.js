@@ -44,6 +44,9 @@ class SlideEdit extends Component {
 	// 	})
   // }
   render() {
+    if (!this.props.currentSlide) {
+      return (<div>Loading...</div>)
+    }
     return (
         <div style={{display: 'flex'}}>
         <SlideEditWrapper {...this.props}/>
@@ -56,8 +59,8 @@ function mapStateToProps(state){
   const slides = state.lesson.slides
   return {
     currentSlideIndex: state.lesson.currentSlide,
-    currentSlide: slides? slides[state.lesson.currentSlide] : {},
-    slides: slides? state.lesson.slides : [],
+    currentSlide: slides[state.lesson.currentSlide],
+    slides: state.lesson.slides,
     lesson: state.lesson.lesson
   };
 }

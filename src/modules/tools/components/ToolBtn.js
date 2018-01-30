@@ -27,9 +27,9 @@ const styles = {
 class ToolBtn extends Component {
 
   render() {
-    const {onClick, choiceStatus, inputStatus} = this.props
+    const {onClick, choiceStatus, inputStatus, replStatus} = this.props
     let btnStyle
-    if (choiceStatus || inputStatus) {
+    if (choiceStatus || inputStatus || replStatus) {
       btnStyle = styles.btnOn
     } else {
       btnStyle = styles.btnOff

@@ -4,8 +4,10 @@ import HTML5Backend from 'react-dnd-html5-backend'
 import components from '../components'
 // import {getToolsDispatcher} from '../../../store'
 import {connect} from 'react-redux'
-import { toggleChoice } from '../reducers/ToggleChoice';
-import {toggleInput} from '../reducers/ToggleInput'
+import {bindActionCreators} from 'redux'
+
+import { toggleChoice, toggleInput, toggleRepl } from '../../../store';
+// import {toggleInput} from '../reducers/ToggleInput'
 
 const {ToolBox, ToolMiniChoice, ToolMiniRepl, ToolMiniInput} = components
 
@@ -17,12 +19,6 @@ const style = {
 }
 
 class Container extends Component {
-	componentDidMount(){
-		// const slideId = this.props.currentSlideId
-		// console.log('slideId -------------', slideId)
-		// this.props.getTools(slideId);
-  }
-
 
 	render() {
 		if (!this.props.currentSlideId) return <div>loading....</div>
@@ -53,22 +49,13 @@ const mapState = state => {
 		selectedTools: state.selectedTools,
 		choiceStatus: state.toggleChoice,
 		inputStatus: state.toggleInput,
-		currentSlideId: state.lesson.slides[state.lesson.currentSlide]
+		replStatus: state.toggleRepl,
+		currentSlideId: slides[state.lesson.currentSlide].id
 	}
 }
 
 const mapDispath = dispatch => {
-	return {
-		// getTools(slideId){
-		// 	dispatch(getToolsDispatcher(slideId))
-		// },
-		toggleChoice(){
-			dispatch(toggleChoice())
-		},
-		toggleInput(){
-			dispatch(toggleInput())
-		}
-	}
+	return bindActionCreators({toggleChoice,toggleInput, toggleRepl}, dispatch);
 }
 
 export default connect(mapState, mapDispath)(Container)

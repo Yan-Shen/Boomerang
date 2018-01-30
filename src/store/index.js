@@ -4,12 +4,14 @@ import slideEdit from '../modules/slideEdit/reducers';
 import questions from '../modules/display/reducers/questions'
 import InputQ from '../modules/display/reducers/InputQ'
 import toggleChoice from '../modules/tools/reducers/ToggleChoice';
+import toggleRepl from '../modules/tools/reducers/ToggleRepl';
 import toggleInput from '../modules/tools/reducers/ToggleInput';
 
 export default combineReducers({
   selectedTools,
   questions,
   toggleChoice,
+  toggleRepl,
   lesson: slideEdit,
   toggleInput,
   InputQ
@@ -21,3 +23,4 @@ export * from '../modules/display/reducers/questions'
 export * from '../modules/display/reducers/InputQ'
 export * from '../modules/tools/reducers/ToggleChoice'
 export * from '../modules/tools/reducers/ToggleInput'
+export * from '../modules/tools/reducers/ToggleRepl'
