@@ -27,6 +27,8 @@ class CanvasBlock extends Component {
 	componentDidMount() {
 		this.canvas = new window.fabric.Canvas('fabricTest')
 		this.canvas.backgroundColor = 'white'
+		this.canvas.loadFromJSON(this.props.currentSlide, this.canvas.renderAll.bind(this.canvas))
+		this.canvas.renderAll()
 		this.canvas.on('object:added', ()=>this.updateSlide('added'))
 		this.canvas.on('object:removed', ()=>this.updateSlide('removed'))
 		this.canvas.on('object:modified', ()=>this.updateSlide('modded'))
@@ -122,7 +124,7 @@ class CanvasBlock extends Component {
 							margin: '10px',
 							flexDirection: 'column'}}
 						>
-							<canvas  id="fabricTest" width="1100" height="710" />
+							<canvas  id="fabricTest" width="900" height="500" />
 							<div style={{
 								height: '70px',
 								background: 'white',

@@ -9,8 +9,8 @@ class SlidePreview extends Component {
 	}
 
 	componentDidMount(){
-		const scale = 0.17
-		this.canvas = new window.fabric.Canvas(`${this.props.data.id}`);
+		const scale = 0.2
+		this.canvas = new window.fabric.StaticCanvas(`${this.props.data.id}`);
 		this.canvas.backgroundColor="white"
 		this.canvas.setDimensions({
         "width": this.canvas.getWidth() * scale,
@@ -37,10 +37,10 @@ class SlidePreview extends Component {
 		const {id} = this.props.data
 		return (
 			<div onClick={()=>this.handleClick(id)} style={{margin: '10px'}}>
-				<div style={{height: '120px', width: '180px', overflow: 'hidden',
+				<div style={{height: '100px', width: '180px', overflow: 'hidden',
 					border: this.props.index === this.props.currentSlideIndex ? `2px solid ${teal500}` : "1px solid #ccc",
 					borderRadius: '4px'}}>
-					<canvas   id={`${id}`} width="1100" height="700" />
+					<canvas   id={`${id}`} width="900" height="500" />
 				</div>
 				<div style={{position: 'relative', height: "0px", top: "-30px", left: "75px"}}>
 					<Delete onClick={()=>this.props.deleteSlide(id)}/>
