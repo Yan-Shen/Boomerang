@@ -40,8 +40,11 @@ export const getToolsDispatcher = (slideId)=> {
   return dispatch=> {
     return db.ref(`/selectedTools/${slideId}`).once('value')
       .then(selectedTools => {
-        console.log('tools are----------', Object.keys(selectedTools.val()))
-        dispatch(getTools(Object.keys(selectedTools.val())))
+        if (selectedTools.val()) {
+          dispatch(getTools(Object.keys(selectedTools.val())))
+        } else {
+          dispatch(getTools([]))
+        }
       })
   }
 }
