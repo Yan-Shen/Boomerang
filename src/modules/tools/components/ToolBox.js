@@ -38,7 +38,7 @@ class ToolBox extends Component {
 	}
 
 	render() {
-		const { canDrop, isOver, connectDropTarget, selectedTools, toggleChoice, choiceStatus, inputStatus, toggleInput, currentSlideId } = this.props
+		const { canDrop, isOver, connectDropTarget, selectedTools, toggleChoice, choiceStatus, inputStatus, toggleInput, currentSlideId, toggleRepl, replStatus } = this.props
 		const isActive = canDrop && isOver
 
 		let backgroundColor = '#222'
@@ -64,6 +64,8 @@ class ToolBox extends Component {
 
 				{selectedTools.includes("Repel")	&&
 				<ToolBtn name="Repel"
+				onClick={toggleRepl}
+				replStatus = {replStatus}
 				/> }
 			</div>,
 		)
