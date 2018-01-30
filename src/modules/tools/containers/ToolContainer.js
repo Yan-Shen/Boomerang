@@ -32,7 +32,7 @@ class Container extends Component {
 									/>
 									<ToolMiniInput name="Input Q"
 									currentSlideId = {currentSlideId}/>
-									<ToolMiniRepl name="Repel"
+									<ToolMiniRepl name="Repl"
 									currentSlideId = {currentSlideId}/>
 							</div>
 

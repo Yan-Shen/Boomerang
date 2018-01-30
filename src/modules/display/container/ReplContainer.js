@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import components from '../components'
 import RaisedButton from 'material-ui/RaisedButton';
 import {connect} from 'react-redux'
-import { updateInputQuestionsThunk } from '../reducers/InputQ';
+import { updateReplsThunk } from '../reducers/repl';
 
 const {ReplQuestion, ReplSolution} = components
 
@@ -15,6 +15,7 @@ class ReplContainer extends Component {
     }
     this.handleChangeQuestion=this.handleChangeQuestion.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleChangeSolution = this.handleChangeSolution.bind(this)
   }
 
   handleChangeQuestion(evt, newValue) {
@@ -27,9 +28,9 @@ class ReplContainer extends Component {
 
   handleSubmit(evt) {
     evt.preventDefault()
-    // let slideId = 'id1'
-    // this.props.addQuestion(this.state.inputQ, slideId)
+    this.props.addQuestion(this.state.ReplQuestion, this.state.ReplSolution, this.props.currentSlideId)
     this.setState({ReplQuestion: "", ReplSolution: ""})
+    this.props.toggleRepl();
   }
 
   render() {
@@ -48,8 +49,8 @@ class ReplContainer extends Component {
 
 const mapDispatcher = dispatch => {
   return {
-    addQuestion(question, slideId) {
-      // dispatch(updateInputQuestionsThunk(question, slideId))
+    addQuestion(question, solution, slideId) {
+      dispatch(updateReplsThunk(question, solution, slideId))
 
     }
   }

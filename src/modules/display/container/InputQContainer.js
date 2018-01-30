@@ -20,9 +20,9 @@ class InputQContainer extends Component {
 
   handleSubmit(evt) {
     evt.preventDefault()
-    let slideId = 'id1'
-    this.props.addQuestion(this.state.inputQ, slideId)
+    this.props.addQuestion(this.state.inputQ, this.props.currentSlideId)
     this.setState({inputQ: ""})
+    this.props.toggleInput();
   }
 
   render() {
