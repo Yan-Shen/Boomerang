@@ -27,7 +27,7 @@ export function fetchLesson (id) {
 				return db.ref('/lessons/-L3nOPjk6NFSMcJGRn4p/slides').once('value')
 			})
 			.then((slides)=>{
-				slides.forEach((slide, index)=>{
+				slides.forEach((slide)=>{
 					db.ref(`slides/${slide.key}`).on('value', (data)=>{
 						if(data.val() === null){
 							return dispatch(removeSlide(data.key))
@@ -39,7 +39,7 @@ export function fetchLesson (id) {
 							...slideData
 						}
 						dispatch(getSlide(slideObject));
-						// dispatch(getToolsDispatcher(slideId));
+
 					})
 			})
 		});
@@ -64,7 +64,7 @@ export function addSlide (index) {
 		db.ref().child('slides').push(emptySlide)
 			.then(slideKey => {
 				db.ref().child(`lessons/-L3nOPjk6NFSMcJGRn4p/slides/${slideKey.key}`).set(true)
-				db.ref().child(`selectedTools/${slideKey.key}`).set(true)
+				db.ref().child(`selectedTools/${slideKey.key}`).set({})
 				return slideKey
 			})
 			.then((slideKey)=>{
