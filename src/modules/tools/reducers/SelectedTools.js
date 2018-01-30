@@ -38,6 +38,7 @@ export const updateToolsDispatcher = (tool, slideId) => {
 
 export const getToolsDispatcher = (slideId)=> {
   return dispatch=> {
+
     return db.ref(`/selectedTools/${slideId}`).once('value')
       .then(selectedTools => {
         if (selectedTools.val()) {

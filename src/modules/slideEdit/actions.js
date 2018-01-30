@@ -1,6 +1,6 @@
 import {db} from '../../firebase'
 import * as actions from './actionTypes';
-import {getToolsDispatcher} from '../../store'
+// import {getToolsDispatcher} from '../../store'
 
 export function test(){}
 export const getLesson = lesson =>  ({type: actions.GET_LESSON, lesson})
@@ -13,7 +13,7 @@ export const changeSlideAction = index => ({type: actions.CHANGE_SLIDE, index})
 export const changeSlide = (index, id) =>  {
 	return function thunk (dispatch) {
 		db.ref().child(`lessons/-L3nOPjk6NFSMcJGRn4p/currentSlide`).set(index)
-		dispatch(getToolsDispatcher(id))
+		// dispatch(getToolsDispatcher(id))
 		dispatch(changeSlideAction(index))
 	}
 }

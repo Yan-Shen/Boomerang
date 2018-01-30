@@ -43,8 +43,8 @@ class CanvasBlock extends Component {
 	}
 
 	render() {
-		const { slides, deleteSlide, addSlide, changeSlide, 
-			currentSlideIndex, updateSlide } = this.props
+		const { slides, deleteSlide, addSlide, changeSlide,
+			currentSlideIndex, updateSlide, getToolsDispatcher } = this.props
 		return (
 			<div>
 				<div style={{
@@ -54,40 +54,40 @@ class CanvasBlock extends Component {
 				}}>
 				{ !this.canvas || !this.props.currentSlide ? null :
 					<Toolbar style={{
-							width: '100%', 
-							background: '#fafafa', 
+							width: '100%',
+							background: '#fafafa',
 							boxShadow: 'rgba(0, 0, 0, 0.12) 0px 1px 4px'
 					}}>
 						<ToolbarGroup firstChild={true}>
-							<AddText 
-								canvas={this.canvas} 
-								currentSlide={this.props.currentSlide} 
-								updateSlide={this.props.updateSlide} 
+							<AddText
+								canvas={this.canvas}
+								currentSlide={this.props.currentSlide}
+								updateSlide={this.props.updateSlide}
 							/>
-							<AddImage 
-								canvas={this.canvas} 
-								currentSlide={this.props.currentSlide} 
-								updateSlide={this.props.updateSlide} 
+							<AddImage
+								canvas={this.canvas}
+								currentSlide={this.props.currentSlide}
+								updateSlide={this.props.updateSlide}
 							/>
 							<AddShape />
 							<ToolbarSeparator style={{
 								marginRight: '10px',
-								marginLeft: '10px'}} 
+								marginLeft: '10px'}}
 							/>
-							<ChangeTextColor 
-								canvas={this.canvas} 
-								currentSlide={this.props.currentSlide} 
-								updateSlide={this.props.updateSlide} 
+							<ChangeTextColor
+								canvas={this.canvas}
+								currentSlide={this.props.currentSlide}
+								updateSlide={this.props.updateSlide}
 							/>
 						 	<ChangeTextBackground
-								canvas={this.canvas} 
-								currentSlide={this.props.currentSlide} 
-								updateSlide={this.props.updateSlide} 
-							/> 
-							<EditText 
-								canvas={this.canvas} 
-								currentSlide={this.props.currentSlide} 
-								updateSlide={this.props.updateSlide} 
+								canvas={this.canvas}
+								currentSlide={this.props.currentSlide}
+								updateSlide={this.props.updateSlide}
+							/>
+							<EditText
+								canvas={this.canvas}
+								currentSlide={this.props.currentSlide}
+								updateSlide={this.props.updateSlide}
 							/>
 							<EditLayers canvas={this.canvas} />
 						</ToolbarGroup>
@@ -105,13 +105,14 @@ class CanvasBlock extends Component {
 							height: '790px'
 						}}>
 							{slides.map((slide, index) => (
-									<SlidePreview 
+									<SlidePreview
 										currentSlideIndex={currentSlideIndex}
 										index={index}
 										changeSlide={changeSlide}
 										deleteSlide={deleteSlide}
+										getToolsDispatcher = {getToolsDispatcher}
 										key={slide.id}
-										data={slide} 
+										data={slide}
 									/>
 							))}
 							<AddSlide onClick={this.saveSlide}/>

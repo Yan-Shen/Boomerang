@@ -4,6 +4,8 @@ import HTML5Backend from 'react-dnd-html5-backend'
 import components from '../components'
 // import {getToolsDispatcher} from '../../../store'
 import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+
 import { toggleChoice, toggleInput, toggleRepl } from '../../../store';
 // import {toggleInput} from '../reducers/ToggleInput'
 
@@ -47,27 +49,13 @@ const mapState = state => {
 		selectedTools: state.selectedTools,
 		choiceStatus: state.toggleChoice,
 		inputStatus: state.toggleInput,
-<<<<<<< HEAD
 		replStatus: state.toggleRepl,
-		currentSlideId: slides.length ? slides[state.lesson.currentSlide].id : ''
-=======
-		currentSlideId: state.lesson.slides[state.lesson.currentSlide]
->>>>>>> master
+		currentSlideId: slides[state.lesson.currentSlide].id
 	}
 }
 
 const mapDispath = dispatch => {
-	return {
-		toggleChoice(){
-			dispatch(toggleChoice())
-		},
-		toggleInput(){
-			dispatch(toggleInput())
-		},
-		toggleRepl(){
-			dispatch(toggleRepl())
-		}
-	}
+	return bindActionCreators({toggleChoice,toggleInput, toggleRepl}, dispatch);
 }
 
 export default connect(mapState, mapDispath)(Container)
