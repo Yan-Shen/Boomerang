@@ -4,15 +4,8 @@ export default function reducers(state = {lesson: {}, slides:[], currentSlide: 0
   switch (action.type){
     case actions.GET_LESSON:
 			return {...state, lesson: action.lesson}
-      case actions.GET_SLIDE_INDEX:
-  			return {...state, currentSlide: action.index}
-		case actions.DELETE_SLIDE:
-			const updatedSlides = state.slides.filter(slide => slide.id !== action.slideId)
-			return {...state, slides: updatedSlides}
-
-		case actions.CHANGE_SLIDE:
+		case actions.GET_SLIDE_INDEX:
 			return {...state, currentSlide: action.index}
-
 		case actions.GET_SLIDE:
 			const update = state.slides.find(slide => slide.id === action.slide.id)
 			if(update){
@@ -23,7 +16,6 @@ export default function reducers(state = {lesson: {}, slides:[], currentSlide: 0
 				return {...state, slides: updatedSlides}
 			}
 			return {...state, slides: [...state.slides,action.slide]}
-
     default:
       return state;
   }

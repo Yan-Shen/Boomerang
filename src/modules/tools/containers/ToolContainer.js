@@ -19,6 +19,7 @@ const style = {
 class Container extends Component {
 
 	render() {
+		if (!this.props.currentSlideId) return <div>loading....</div>
 		const {toggleInput, selectedTools, choiceStatus, inputStatus, toggleChoice, currentSlideId} = this.props
 		return (
 					<DragDropContextProvider backend={HTML5Backend}>
@@ -46,8 +47,12 @@ const mapState = state => {
 		selectedTools: state.selectedTools,
 		choiceStatus: state.toggleChoice,
 		inputStatus: state.toggleInput,
+<<<<<<< HEAD
 		replStatus: state.toggleRepl,
 		currentSlideId: slides.length ? slides[state.lesson.currentSlide].id : ''
+=======
+		currentSlideId: state.lesson.slides[state.lesson.currentSlide]
+>>>>>>> master
 	}
 }
 

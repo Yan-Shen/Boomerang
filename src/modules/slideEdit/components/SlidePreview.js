@@ -6,7 +6,7 @@ class SlidePreview extends Component {
 	componentDidMount(){
 		const scale = 0.17
 		this.canvas = new window.fabric.Canvas(`${this.props.data.id}`);
-		this.canvas.backgroundColor="red"
+		this.canvas.backgroundColor="white"
 		this.canvas.setDimensions({
         "width": this.canvas.getWidth() * scale,
         "height": this.canvas.getHeight() * scale
