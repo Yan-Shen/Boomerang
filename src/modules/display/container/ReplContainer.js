@@ -22,7 +22,7 @@ class ReplContainer extends Component {
     this.setState({ReplQuestion:  newValue})
   }
 
-  handleChangeSolution(evt, newValue) {
+  handleChangeSolution(newValue, evt) {
     this.setState({ReplSolution:  newValue})
   }
 

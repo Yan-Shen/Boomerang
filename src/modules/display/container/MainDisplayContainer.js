@@ -19,7 +19,7 @@ class MainDisplayContainer extends Component {
 
   render() {    const selectedTab = this.state.selectedTab
     return (
-    <div style={{width:"350px", height: "550px"}}>
+    <div style={{width:"350px", height: "630px"}}>
       <ToolsTabsContainer handleChange={this.handleChange}/>
       {
         (selectedTab === "default") && <DisplayContainer />

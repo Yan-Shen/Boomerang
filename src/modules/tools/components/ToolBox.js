@@ -8,7 +8,7 @@ import ToolBtn from './ToolBtn'
 
 const style = {
 	width: "100%",
-	height: 200,
+	height: 120,
 	paddingTop: "30px",
 	paddingBottom: "15px"
 }
