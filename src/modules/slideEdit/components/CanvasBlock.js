@@ -12,7 +12,10 @@ import RemoveObject from './toolbarComponents/RemoveObject'
 import EditLayers from './toolbarComponents/EditLayers'
 import EditText from './toolbarComponents/EditText'
 
-import ReactOverlay from './ReactOverlay'
+import Icon from 'react-icons-kit'
+import { socialYoutube } from 'react-icons-kit/typicons/socialYoutube'
+
+import YouTubeOverlay from './YouTubeOverlay'
 
 class CanvasBlock extends Component {
 	constructor(props) {
@@ -88,6 +91,7 @@ class CanvasBlock extends Component {
 								updateSlide={this.props.updateSlide}
 							/>
 							<AddShape />
+							<Icon icon={socialYoutube} toggled={this.state.canvas} onClick={this.toggleCanvas} label="Simple" />
 							<ToolbarSeparator style={{
 								marginRight: '10px',
 								marginLeft: '10px'}}
@@ -110,7 +114,6 @@ class CanvasBlock extends Component {
 							<EditLayers canvas={this.canvas} />
 						</ToolbarGroup>
 						<ToolbarGroup lastChild={true}>
-							<Toggle toggled={this.state.canvas} onToggle={this.toggleCanvas} label="Simple" />
 							<RemoveObject canvas={this.canvas}/>
 						</ToolbarGroup>
 					</Toolbar>
@@ -144,8 +147,8 @@ class CanvasBlock extends Component {
 							flexDirection: 'column'}}
 						>
 							<canvas  id="fabricTest" width="900" height="550" />
-							<div style={{zIndex: this.state.canvas ? -5000 : 5000, position: 'absolute', background: "red", top: 0, left: 0, width: this.block ? this.block.clientWidth : "0px", height: this.block ? this.block.clientHeight : "0px"}}>
-								<ReactOverlay toggleCanvas={this.toggleCanvas} canvas={this.state.canvas}/>
+							<div style={{zIndex: this.state.canvas ? -5000 : 5000, position: 'absolute', background: "white", top: 0, left: 0, width: this.block ? this.block.clientWidth : "0px", height: this.block ? this.block.clientHeight : "0px"}}>
+								<YouTubeOverlay toggleCanvas={this.toggleCanvas} canvas={this.state.canvas}/>
 							</div>
 							{/* <div style={{
 								height: '70px',
