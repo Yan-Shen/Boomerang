@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Toolbar, ToolbarGroup, ToolbarSeparator } from 'material-ui'
+import { Toolbar, ToolbarGroup, ToolbarSeparator,Toggle } from 'material-ui'
 import AddSlide from 'material-ui/svg-icons/av/library-add'
 import SlidePreview from './SlidePreview'
 import Steps from './Steps'
@@ -12,11 +12,20 @@ import RemoveObject from './toolbarComponents/RemoveObject'
 import EditLayers from './toolbarComponents/EditLayers'
 import EditText from './toolbarComponents/EditText'
 
+import ReactOverlay from './ReactOverlay'
+
 class CanvasBlock extends Component {
 	constructor(props) {
 		super(props)
 		this.saveSlide = this.saveSlide.bind(this)
 		this.updateSlide = this.updateSlide.bind(this)
+		this.toggleCanvas = this.toggleCanvas.bind(this)
+		this.state = {
+			canvas: true
+		}
+	}
+	toggleCanvas(){
+		this.setState({canvas: !this.state.canvas})
 	}
 	componentDidUpdate(prevProps) {
 		if (!prevProps.currentSlide || prevProps.currentSlideIndex !== this.props.currentSlideIndex) {
@@ -25,8 +34,17 @@ class CanvasBlock extends Component {
 		}
   }
 	componentDidMount() {
+		const width = this.block.clientWidth
+		const scale = width/900
 		this.canvas = new window.fabric.Canvas('fabricTest')
-		this.canvas.backgroundColor = 'white'
+		this.canvas.backgroundColor="white"
+		this.canvas.setDimensions({
+        "width": this.canvas.getWidth() * scale,
+        "height": this.canvas.getHeight() * scale
+    })
+		this.canvas.loadFromJSON(this.props.currentSlide, this.canvas.renderAll.bind(this.canvas))
+		this.canvas.setZoom(scale);
+		this.canvas.renderAll()
 		this.canvas.on('object:added', ()=>this.updateSlide('added'))
 		this.canvas.on('object:removed', ()=>this.updateSlide('removed'))
 		this.canvas.on('object:modified', ()=>this.updateSlide('modded'))
@@ -46,15 +64,15 @@ class CanvasBlock extends Component {
 		const { slides, deleteSlide, addSlide, changeSlide,
 			currentSlideIndex, updateSlide, getToolsDispatcher } = this.props
 		return (
-			<div>
+			<div style={{flex: 1}}>
 				<div style={{
 					display: 'flex',
+					flex: 1,
 					flexDirection: 'column',
 					background: '#ccc'
 				}}>
 				{ !this.canvas || !this.props.currentSlide ? null :
 					<Toolbar style={{
-							width: '100%',
 							background: '#fafafa',
 							boxShadow: 'rgba(0, 0, 0, 0.12) 0px 1px 4px'
 					}}>
@@ -92,13 +110,14 @@ class CanvasBlock extends Component {
 							<EditLayers canvas={this.canvas} />
 						</ToolbarGroup>
 						<ToolbarGroup lastChild={true}>
+							<Toggle toggled={this.state.canvas} onToggle={this.toggleCanvas} label="Simple" />
 							<RemoveObject canvas={this.canvas}/>
 						</ToolbarGroup>
 					</Toolbar>
 				}
 					<div style={{display: 'flex'}}>
 						<div style={{
-							flex: 1,
+							width: '200px',
 							background: 'white',
 							margin: '10px',
 							marginRight: '0px',
@@ -117,19 +136,24 @@ class CanvasBlock extends Component {
 							))}
 							<AddSlide onClick={this.saveSlide}/>
 						</div>
-						<div style={{
+						<div ref={block => this.block = block} style={{
+							position: 'relative',
 							background: '#ccc',
 							margin: '10px',
+							flex: 1,
 							flexDirection: 'column'}}
 						>
-							<canvas  id="fabricTest" width="1100" height="710" />
-							<div style={{
+							<canvas  id="fabricTest" width="900" height="550" />
+							<div style={{zIndex: this.state.canvas ? -5000 : 5000, position: 'absolute', background: "red", top: 0, left: 0, width: this.block ? this.block.clientWidth : "0px", height: this.block ? this.block.clientHeight : "0px"}}>
+								<ReactOverlay toggleCanvas={this.toggleCanvas} canvas={this.state.canvas}/>
+							</div>
+							{/* <div style={{
 								height: '70px',
 								background: 'white',
 								marginTop: '10px'
 							}}>
 								<Steps/>
-							</div>
+							</div> */}
 						</div>
 					</div>
 				</div>
