@@ -60,12 +60,12 @@ class CanvasBlock extends Component {
 	}
 
 	saveSlide() {
-		this.props.addSlide(this.props.slides.length)
+		this.props.addSlide(this.props.slides.length, this.props.lesson.id)
 	}
 
 	render() {
 		const { slides, deleteSlide, addSlide, changeSlide,
-			currentSlideIndex, updateSlide, getToolsDispatcher } = this.props
+			currentSlideIndex, updateSlide, getToolsDispatcher,lesson} = this.props
 		return (
 			<div style={{flex: 1}}>
 				<div style={{
@@ -128,6 +128,8 @@ class CanvasBlock extends Component {
 						}}>
 							{slides.map((slide, index) => (
 									<SlidePreview
+										lesson={lesson}
+										slides={slides.length}
 										currentSlideIndex={currentSlideIndex}
 										index={index}
 										changeSlide={changeSlide}
