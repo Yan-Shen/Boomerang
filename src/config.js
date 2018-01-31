@@ -4,7 +4,8 @@ var config = {
     databaseURL: "https://capstone-project-1710.firebaseio.com",
     projectId: "capstone-project-1710",
     storageBucket: "",
-    messagingSenderId: "276934583949"
+    messagingSenderId: "276934583949",
+    API_KEY: 'AIzaSyAWzZEqfgkefmEXweJM85fkasEuGrR-OWY'
   };
 
 export default config
