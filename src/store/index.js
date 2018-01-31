@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import selectedTools from '../modules/tools/reducers/SelectedTools';
 import slideEdit from '../modules/slideEdit/reducers';
+import lessonList from '../modules/teacherDashboard/reducers';
 import questions from '../modules/display/reducers/questions'
 import InputQ from '../modules/display/reducers/InputQ'
 import repl from '../modules/display/reducers/repl'
@@ -13,6 +14,7 @@ export default combineReducers({
   questions,
   toggleChoice,
   toggleRepl,
+  lessonList,
   lesson: slideEdit,
   toggleInput,
   InputQ,

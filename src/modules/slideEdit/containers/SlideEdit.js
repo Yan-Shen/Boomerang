@@ -48,9 +48,9 @@ class SlideEdit extends Component {
       return (<div>Loading...</div>)
     }
     return (
-        <div style={{display: 'flex'}}>
-        <SlideEditWrapper {...this.props}/>
-      </div>
+        <div style={{display: 'flex',width: '100vw'}}>
+          <SlideEditWrapper {...this.props}/>
+        </div>
     );
   }
 }
