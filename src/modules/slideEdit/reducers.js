@@ -1,14 +1,14 @@
 import * as actions from './actionTypes';
 
-export default function reducers(state = {lesson: {}, slides:[], currentSlide: 0}, action){
+export default function reducers(state = {lessonData: {}, slides:[], currentSlide: 0}, action){
   switch (action.type){
     case actions.GET_LESSON:
-			return {...state, lesson: action.lesson}
+			return {...state, lessonData: action.lesson}
       case actions.GET_SLIDE_INDEX:
   			return {...state, currentSlide: action.index}
 		case actions.DELETE_SLIDE:
 			const updatedSlides = state.slides.filter(slide => slide.id !== action.slideId)
-			return {...state, slides: updatedSlides}
+			return {...state, slides: updatedSlides, currentSlide: state.currentSlide -1}
 
 		case actions.CHANGE_SLIDE:
 			return {...state, currentSlide: action.index}
@@ -23,7 +23,8 @@ export default function reducers(state = {lesson: {}, slides:[], currentSlide: 0
 				return {...state, slides: updatedSlides}
 			}
 			return {...state, slides: [...state.slides,action.slide]}
-
+    case actions.UNMOUNT_LESSON:
+  		return {lessonData: {}, slides: [], currentSlide: 0}
     default:
       return state;
   }

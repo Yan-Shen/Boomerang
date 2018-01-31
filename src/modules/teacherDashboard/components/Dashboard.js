@@ -13,13 +13,11 @@ const Dashboard = ({createLesson,deleteLesson,lessonList}) => (
 				<Link style={{textDecoration: 'none'}} to="/teacher"><h5 style={{width: "100px", color: teal200}}>DASHBOARD</h5></Link>
 				<Link style={{textDecoration: 'none'}} to="/teacher/lessons"><h5 style={{width: "100px",color: teal200}}>LESSONS</h5></Link>
 			</ToolbarGroup>
-			<button onClick={()=>{createLesson("gfdhsdghjfgdhjfg")}}>ghfdghjsgfhjg</button>
-			<button onClick={()=>{deleteLesson("-L48FDyzW7GZpb5K0XSx")}}>delete</button>
 		</Toolbar>
 		<div>
 			<Route
 				exact path={'/teacher'}
-				render={()=><LessonList lessonList={lessonList} deleteLesson={deleteLesson}/>}
+				render={()=><LessonList createLesson={createLesson} lessonList={lessonList} deleteLesson={deleteLesson}/>}
 			/>
 			<Route
 				path={'/teacher/lesson/:lessonId'}

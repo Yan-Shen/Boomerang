@@ -6,6 +6,7 @@ class SlidePreview extends Component {
 	constructor(props){
 		super(props)
 		this.handleClick = this.handleClick.bind(this)
+		this.handleDelete = this.handleDelete.bind(this)
 	}
 
 	componentDidMount(){
@@ -32,18 +33,24 @@ class SlidePreview extends Component {
 		this.props.changeSlide(this.props.index, id)
 		this.props.getToolsDispatcher(id)
 	}
-
+	handleDelete(){
+		console.log('clicked')
+		if(this.props.slides > 1 ){
+			this.props.deleteSlide(this.props.data.id,this.props.lesson.id,this.props.index-1)
+		}
+	}
 	render() {
 		const {id} = this.props.data
+		const lessonId = this.props.lesson.id
 		return (
-			<div onClick={()=>this.handleClick(id)} style={{margin: '10px'}}>
+			<div onClick={()=>this.handleClick(lessonId)} style={{margin: '10px'}}>
 				<div style={{height: '120px', width: '180px', overflow: 'hidden',
 					border: this.props.index === this.props.currentSlideIndex ? `2px solid ${teal500}` : "1px solid #ccc",
 					borderRadius: '4px'}}>
 					<canvas   id={`${id}`} width="900" height="550" />
 				</div>
 				<div style={{position: 'relative', height: "0px", top: "-30px", left: "75px"}}>
-					<Delete onClick={()=>this.props.deleteSlide(id)}/>
+					<Delete onClick={()=>this.handleDelete(lessonId)}/>
 				</div>
 
 			</div>

@@ -42,7 +42,7 @@ export function createLesson (title) {
 			})
 			.then(slideKey => {
 				db.ref().child(`lessons/${lessonKey}/slides/${slideKey.key}`).set(true)
-				db.ref().child(`selectedTools/${slideKey.key}`).set({})
+				db.ref().child(`selectedTools/${slideKey.key}`).set(true)
 				return slideKey
 		})
 	}
@@ -57,6 +57,7 @@ export function deleteLesson (LessonId) {
 			.then((data)=> {
 				return data.forEach(slide =>{
 					db.ref(`/slides/${slide.key}`).remove()
+          db.ref(`/selectedTools/${slide.key}`).remove()
 				})
 			})
 			.then(()=>db.ref(`/lessons/${LessonId}`).remove())
