@@ -37,10 +37,10 @@ class SlidePreview extends Component {
 		const {id} = this.props.data
 		return (
 			<div onClick={()=>this.handleClick(id)} style={{margin: '10px'}}>
-				<div style={{height: '100px', width: '180px', overflow: 'hidden',
+				<div style={{height: '120px', width: '180px', overflow: 'hidden',
 					border: this.props.index === this.props.currentSlideIndex ? `2px solid ${teal500}` : "1px solid #ccc",
 					borderRadius: '4px'}}>
-					<canvas   id={`${id}`} width="900" height="500" />
+					<canvas   id={`${id}`} width="900" height="550" />
 				</div>
 				<div style={{position: 'relative', height: "0px", top: "-30px", left: "75px"}}>
 					<Delete onClick={()=>this.props.deleteSlide(id)}/>

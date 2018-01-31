@@ -28,15 +28,15 @@ class LessonWrapper extends Component {
 	render() {
 		const {id} = this.props.currentSlide
 		return (
-			<div style={{padding: "15px", display: 'flex'}}>
-				<div ref={block => this.block = block} style={{flex: 4}}>
+			<div style={{background: "#ccc",padding: "15px", display: 'flex'}}>
+				<div ref={block => this.block = block} style={{marginRight: "30px", flex: 4}}>
 					<Paper>
-							<canvas id='studentCanvas' width="900" height="500" />
+							<canvas id='studentCanvas' width="900" height="550" style={{borderRadius: "4px"}}/>
 					</Paper>
 
 				</div>
-				<div style={{flex: 1}}>
-					<Paper>
+				<div style={{width: '350px', height: 'calc(100vh - 90px)'}}>
+					<Paper style={{width: '350px', height: 'calc(100vh - 120px)'}}>
 						gdfhjgdhjf
 					</Paper>
 				</div>
