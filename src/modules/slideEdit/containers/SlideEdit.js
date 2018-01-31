@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import {fetchLesson,addSlide,deleteSlide,changeSlide,updateSlide} from "../actions";
+import {fetchLesson,addSlide,deleteSlide,changeSlide,updateSlide,unmountLesson} from "../actions";
 import {getToolsDispatcher} from '../../../store'
 import SlideEditWrapper from '../components/SlideEditWrapper'
 import {AppBar, Paper} from 'material-ui';
@@ -14,7 +14,8 @@ import {DisplayContainer} from '../../display'
 
 class SlideEdit extends Component {
   componentDidMount(){
-    this.props.fetchLesson()
+    const id = this.props.match.params.lessonId
+    this.props.fetchLesson(id)
     console.log('slides are----------', this.props.slides)
   }
 
@@ -23,7 +24,10 @@ class SlideEdit extends Component {
         this.props.getToolsDispatcher(this.props.slides[0].id)
 		}
   }
-
+  componentWillUnmount(){
+    console.log("unmounted!!!!!!")
+    this.props.unmountLesson()
+  }
   // constructor(props) {
   //   super(props);
   //   this.state = {
@@ -55,18 +59,18 @@ class SlideEdit extends Component {
   }
 }
 
-function mapStateToProps(state){
+function mapStateToProps(state,props){
   const slides = state.lesson.slides
   return {
     currentSlideIndex: state.lesson.currentSlide,
     currentSlide: slides[state.lesson.currentSlide],
     slides: state.lesson.slides,
-    lesson: state.lesson.lesson
+    lesson: state.lesson.lessonData,
   };
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({fetchLesson,addSlide,deleteSlide,changeSlide,updateSlide, getToolsDispatcher}, dispatch);
+  return bindActionCreators({fetchLesson,addSlide,deleteSlide,changeSlide,updateSlide, getToolsDispatcher,unmountLesson}, dispatch);
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(SlideEdit);
