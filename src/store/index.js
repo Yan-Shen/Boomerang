@@ -8,6 +8,7 @@ import repl from '../modules/display/reducers/repl'
 import toggleChoice from '../modules/tools/reducers/ToggleChoice';
 import toggleRepl from '../modules/tools/reducers/ToggleRepl';
 import toggleInput from '../modules/tools/reducers/ToggleInput';
+import choiceShow from '../modules/tools/reducers/ChoiceShow';
 
 export default combineReducers({
   selectedTools,
@@ -18,7 +19,8 @@ export default combineReducers({
   lesson: slideEdit,
   toggleInput,
   InputQ,
-  repl
+  repl,
+  choiceShow
 });
 
 
@@ -29,3 +31,4 @@ export * from '../modules/display/reducers/repl'
 export * from '../modules/tools/reducers/ToggleChoice'
 export * from '../modules/tools/reducers/ToggleInput'
 export * from '../modules/tools/reducers/ToggleRepl'
+export * from '../modules/tools/reducers/ChoiceShow'

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import components from '../components'
+import components from '../../components'
 import RaisedButton from 'material-ui/RaisedButton';
 import {connect} from 'react-redux'
-import { updateInputQuestionsThunk } from '../reducers/InputQ';
+import { updateInputQuestionsThunk } from '../../reducers/InputQ';
 
 const {Question} = components
 

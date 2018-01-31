@@ -5,6 +5,7 @@ import {db} from '../../../firebase'
 const UPDATE_TOOLS = 'UPDATE_TOOLS'
 const GET_TOOLS = 'GET_TOOLS'
 
+
 // Action Creator
 export const updateTools = tools=>{
   return {
@@ -30,7 +31,7 @@ export const updateToolsDispatcher = (tool, slideId) => {
 
     const listener = db.ref(`/selectedTools/${slideId}`)
     listener.on('value', snap=>{
-      const selectedTools = Object.keys(snap.val())
+      const selectedTools = snap.val()
       dispatch(updateTools(selectedTools))
     })
  }
@@ -42,7 +43,7 @@ export const getToolsDispatcher = (slideId)=> {
     return db.ref(`/selectedTools/${slideId}`).once('value')
       .then(selectedTools => {
         if (selectedTools.val()) {
-          dispatch(getTools(Object.keys(selectedTools.val())))
+          dispatch(getTools(selectedTools.val()))
         } else {
           dispatch(getTools([]))
         }
@@ -52,7 +53,7 @@ export const getToolsDispatcher = (slideId)=> {
 
 
 // Reducer
-export default function reducer (state= [], action) {
+export default function reducer (state= {}, action) {
   switch (action.type) {
     case UPDATE_TOOLS:
       return action.tools;
