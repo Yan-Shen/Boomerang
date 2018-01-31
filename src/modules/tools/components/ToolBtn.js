@@ -27,7 +27,7 @@ const styles = {
 class ToolBtn extends Component {
 
   render() {
-    const {onClick, choiceStatus, inputStatus, replStatus} = this.props
+    const {onClick, choiceStatus, inputStatus, replStatus, name, showChoice} = this.props
     let btnStyle
     if (choiceStatus || inputStatus || replStatus) {
       btnStyle = styles.btnOn
@@ -39,16 +39,14 @@ class ToolBtn extends Component {
 
       <div className="flex-container-row singleToolContainer">
         <Toggle
-          // style={styles.toggle}
+          onToggle={showChoice}
         style={styles.toggle}/>
         <RaisedButton
-        label={this.props.name}
+        label={name}
         labelStyle={styles.lable}
         buttonStyle = {btnStyle}
         className="toolBtn"
         onClick={onClick}
-        // choicestatus = {choiceStatus}
-        // inputstatus = {inputStatus}
         />
       </div>
 

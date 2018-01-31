@@ -8,7 +8,7 @@ import ToolBtn from './ToolBtn'
 
 const style = {
 	width: "100%",
-	height: 200,
+	height: 120,
 	paddingTop: "30px",
 	paddingBottom: "15px"
 }
@@ -38,7 +38,8 @@ class ToolBox extends Component {
 	}
 
 	render() {
-		const { canDrop, isOver, connectDropTarget, selectedTools, toggleChoice, choiceStatus, inputStatus, toggleInput, currentSlideId, toggleRepl, replStatus } = this.props
+		const { canDrop, isOver, connectDropTarget, selectedTools, toggleChoice, choiceStatus, inputStatus, toggleInput, currentSlideId, toggleRepl, replStatus, showChoice } = this.props
+		const selectedToolsName = Object.keys(selectedTools)
 		const isActive = canDrop && isOver
 
 		let backgroundColor = '#222'
@@ -50,19 +51,20 @@ class ToolBox extends Component {
 
 		return connectDropTarget(
 			<div style ={style} className="fullWidth flex-container-wrap">
-				{selectedTools.includes("Choice Q") &&
+				{selectedToolsName.includes("Choice Q") &&
 				<ToolBtn
 				onClick={toggleChoice}
 				choiceStatus = {choiceStatus}
+				showChoice = {showChoice}
 				name="Choice Q" /> }
 
-				{selectedTools.includes("Input Q") &&
+				{selectedToolsName.includes("Input Q") &&
 				<ToolBtn
 				onClick={toggleInput}
 				inputStatus = {inputStatus}
 				name="Input Q" /> }
 
-				{selectedTools.includes("Repl")	&&
+				{selectedToolsName.includes("Repl")	&&
 				<ToolBtn name="Repl"
 				onClick={toggleRepl}
 				replStatus = {replStatus}

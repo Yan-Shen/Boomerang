@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import components from '../components'
+import components from '../../components'
 import RaisedButton from 'material-ui/RaisedButton';
 import {connect} from 'react-redux'
-import { updateReplsThunk } from '../reducers/repl';
+import { updateReplsThunk } from '../../reducers/repl';
 
 const {ReplQuestion, ReplSolution} = components
 
@@ -22,7 +22,7 @@ class ReplContainer extends Component {
     this.setState({ReplQuestion:  newValue})
   }
 
-  handleChangeSolution(evt, newValue) {
+  handleChangeSolution(newValue, evt) {
     this.setState({ReplSolution:  newValue})
   }
 

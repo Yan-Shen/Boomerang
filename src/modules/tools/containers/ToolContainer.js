@@ -6,8 +6,7 @@ import components from '../components'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 
-import { toggleChoice, toggleInput, toggleRepl } from '../../../store';
-// import {toggleInput} from '../reducers/ToggleInput'
+import { toggleChoice, toggleInput, toggleRepl,showChoice } from '../../../store';
 
 const {ToolBox, ToolMiniChoice, ToolMiniRepl, ToolMiniInput} = components
 
@@ -22,7 +21,7 @@ class Container extends Component {
 
 	render() {
 		if (!this.props.currentSlideId) return <div>loading....</div>
-		const {toggleInput, selectedTools, choiceStatus, inputStatus, toggleChoice, currentSlideId} = this.props
+		const {toggleInput, selectedTools, choiceStatus, inputStatus, toggleChoice, currentSlideId, showChoice} = this.props
 		return (
 					<DragDropContextProvider backend={HTML5Backend}>
 						<div>
@@ -55,7 +54,7 @@ const mapState = state => {
 }
 
 const mapDispath = dispatch => {
-	return bindActionCreators({toggleChoice,toggleInput, toggleRepl}, dispatch);
+	return bindActionCreators({toggleChoice,toggleInput, toggleRepl, showChoice}, dispatch);
 }
 
 export default connect(mapState, mapDispath)(Container)

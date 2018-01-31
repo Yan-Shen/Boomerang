@@ -19,8 +19,8 @@ const SlideEditWrapper = (props) => (
 		<div style={{width: '350px'}}>
 		 {/* Toolbox area */}
 			<Paper style={{margin: "10px"}} zDepth={1}>
-				<div className="flex-container-column toolSectionContainer">
-					<ToolContainer />
+			<div className="flex-container-column">
+				<ToolContainer />
 				</div>
 			</Paper>
 
