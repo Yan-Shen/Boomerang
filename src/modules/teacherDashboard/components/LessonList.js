@@ -1,15 +1,33 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import {Table,TableRow,TableHeader, TableBody,TableHeaderColumn,TableRowColumn} from 'material-ui';
+import Delete from 'material-ui/svg-icons/action/delete'
 
 
-const lessons = [
-	"-L3nOPjk6NFSMcJGRn4p"
-]
-console.log(lessons)
-const LessonList = ({}) => (
+const LessonList = ({lessonList,deleteLesson}) => (
 	<div>
-		<div>Mock Lessons</div>
-		{lessons.map(lesson => <Link key={lesson} to={`/teacher/lesson/${lesson}`}>{lesson}</Link>)}
+		<Table>
+    <TableHeader>
+      <TableRow>
+        <TableHeaderColumn>Lesson Title</TableHeaderColumn>
+        <TableHeaderColumn>Created</TableHeaderColumn>
+        <TableHeaderColumn>Remove</TableHeaderColumn>
+      </TableRow>
+    </TableHeader>
+    <TableBody>
+			{lessonList.map(lesson =>(
+				<TableRow key={lesson.created}>
+	        <TableRowColumn>{lesson.title}</TableRowColumn>
+	        <TableRowColumn>{lesson.created}</TableRowColumn>
+	        <TableRowColumn>
+						<Delete onClick={()=>deleteLesson(lesson.id)}/>
+					</TableRowColumn>
+	      </TableRow>
+			))}
+
+
+    </TableBody>
+  </Table>
 	</div>
 
 
