@@ -79,7 +79,8 @@ export function addSlide (index, lessonId) {
   return function thunk (dispatch) {
 		const emptySlide = {
 			version: "2.0.0-rc.4",
-			background: 'white'
+			background: 'white',
+			youtubeVideo: ''
 		}
 		db.ref().child('slides').push(emptySlide)
 			.then(slideKey => {

@@ -38,6 +38,7 @@ class CanvasBlock extends Component {
 			this.canvas.loadFromJSON(this.props.currentSlide, this.canvas.renderAll.bind(this.canvas))
 			this.canvas.renderAll()
 		}
+		// is this where the getYouTubeDispatcher goes?
   }
 	componentDidMount() {
 		const width = this.block.clientWidth
@@ -68,7 +69,7 @@ class CanvasBlock extends Component {
 
 	render() {
 		const { slides, deleteSlide, addSlide, changeSlide,
-			currentSlideIndex, updateSlide, getToolsDispatcher,lesson} = this.props
+			currentSlideIndex, updateSlide, getToolsDispatcher,lesson, currentSlide} = this.props
 		return (
 			<div style={{flex: 1}}>
 				<div style={{
@@ -157,7 +158,7 @@ class CanvasBlock extends Component {
 							</div>
 							<div style={{zIndex: this.state.canvas ? -5000 : 5000, position: 'absolute', background: "white", top: 0, left: 0, width: this.block ? this.block.clientWidth : "0px", height: this.block ? this.block.clientHeight : "0px"}}>
 								<IconButton><CloseYouTube onClick={this.toggleCanvas} /></IconButton>
-								<YouTubeOverlay toggleCanvas={this.toggleCanvas} canvas={this.state.canvas}/>
+								<YouTubeOverlay updateSlide={this.props.updateSlide} currentSlide={currentSlide} />
 							</div>
 							{/* <div style={{
 								height: '70px',

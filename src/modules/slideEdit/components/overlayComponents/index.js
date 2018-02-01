@@ -54,7 +54,7 @@ class YouTubeDisplay extends Component { // YouTubeDisplay
   }
 
   render() {
-    const { canDrop, isOver, connectDropTarget} = this.props
+    const { canDrop, isOver, connectDropTarget, currentSlide} = this.props
     const videoSearch = _.debounce((term) => { this.videoSearch(term) }, 300);
 
     return connectDropTarget(
@@ -70,7 +70,7 @@ class YouTubeDisplay extends Component { // YouTubeDisplay
             onVideoSelect={selectedVideo => this.setState({selectedVideo})}
             videos={this.state.videos} />
         }
-        <RaisedButton label="Select" onClick={() => {console.log(this.state.selectedVideo)}} />
+        <RaisedButton label="Select" onClick={() => {console.log(currentSlide.id); console.log(this.state.selectedVideo.id.videoId)}} />
       </div>
     );
   }
