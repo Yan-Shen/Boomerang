@@ -30,7 +30,8 @@ export function createLesson (title) {
 		}
 		const emptySlide = {
 			version: "2.0.0-rc.4",
-			background: 'white'
+			background: 'white',
+			youtubeVideo: ''
 		}
 		let lessonKey
 

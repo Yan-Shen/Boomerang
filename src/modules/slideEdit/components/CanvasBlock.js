@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Toolbar, ToolbarGroup, ToolbarSeparator,Toggle } from 'material-ui'
+import { Toolbar, ToolbarGroup, ToolbarSeparator,Toggle,IconButton } from 'material-ui'
 import AddSlide from 'material-ui/svg-icons/av/library-add'
 import SlidePreview from './SlidePreview'
 import Steps from './Steps'
@@ -11,11 +11,14 @@ import ChangeTextBackground from './toolbarComponents/ChangeTextBackground'
 import RemoveObject from './toolbarComponents/RemoveObject'
 import EditLayers from './toolbarComponents/EditLayers'
 import EditText from './toolbarComponents/EditText'
+import CloseYouTube from 'material-ui/svg-icons/navigation/close'
+import ReactDOM from 'react-dom'
 
 import Icon from 'react-icons-kit'
 import { socialYoutube } from 'react-icons-kit/typicons/socialYoutube'
 
 import YouTubeOverlay from './YouTubeOverlay'
+import YouTubeVideo from './overlayComponents/YouTubeDisplay/video_detail'
 
 class CanvasBlock extends Component {
 	constructor(props) {
@@ -37,7 +40,17 @@ class CanvasBlock extends Component {
 			this.canvas.loadFromJSON(this.props.currentSlide, this.canvas.renderAll.bind(this.canvas))
 			this.canvas.renderAll()
 		}
-  }
+		// is this where the getYouTubeDispatcher goes?
+		if (this.props.currentSlide.youtubeVideo) {
+			console.log('will this fire when video is in database?');
+			const videoId = this.props.currentSlide.youtubeVideo;
+			const url = `https://www.youtube.com/embed/${videoId}`;
+			ReactDOM.render(<YouTubeVideo url={url}/>, document.getElementById('video-overlay'))
+		} else {
+			ReactDOM.unmountComponentAtNode(document.getElementById('video-overlay'))
+		}
+	}
+  
 	componentDidMount() {
 		const width = this.block.clientWidth
 		const scale = width/900
@@ -67,7 +80,7 @@ class CanvasBlock extends Component {
 
 	render() {
 		const { slides, deleteSlide, addSlide, changeSlide,
-			currentSlideIndex, updateSlide, getToolsDispatcher,lesson} = this.props
+			currentSlideIndex, updateSlide, getToolsDispatcher,lesson, currentSlide} = this.props
 		return (
 			<div style={{flex: 1}}>
 				<div style={{
@@ -151,8 +164,12 @@ class CanvasBlock extends Component {
 							flexDirection: 'column'}}
 						>
 							<canvas  id="fabricTest" width="900" height="550" />
+							<div id='video-overlay' style={{position: 'absolute', top: 0, left: 0, width: this.block ? this.block.clientWidth : "0px", height: this.block ? this.block.clientHeight : "0px"}}>
+								{/* Hello */}
+							</div>
 							<div style={{zIndex: this.state.canvas ? -5000 : 5000, position: 'absolute', background: "white", top: 0, left: 0, width: this.block ? this.block.clientWidth : "0px", height: this.block ? this.block.clientHeight : "0px"}}>
-								<YouTubeOverlay toggleCanvas={this.toggleCanvas} canvas={this.state.canvas}/>
+								<IconButton><CloseYouTube onClick={this.toggleCanvas} /></IconButton>
+								<YouTubeOverlay updateSlide={this.props.updateSlide} currentSlide={currentSlide} changeYouTube={this.props.changeYouTube}/>
 							</div>
 							{/* <div style={{
 								height: '70px',

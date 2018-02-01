@@ -21,6 +21,15 @@ export const changeSlide = (index, id) =>  {
 	}
 }
 
+export const changeYouTube = (id, videoId) =>  {
+	return function thunk (dispatch) {
+		db.ref().child(`slides/${id}/youtubeVideo`).set(videoId)
+		.then(() => console.log('database updated or something'))
+		// dispatch(getToolsDispatcher(id))
+		// dispatch(changeSlideAction(index))
+	}
+}
+
 
 export const updateSlideData = data =>  ({type: actions.UPDATE_SLIDE, data})
 
@@ -79,7 +88,8 @@ export function addSlide (index, lessonId) {
   return function thunk (dispatch) {
 		const emptySlide = {
 			version: "2.0.0-rc.4",
-			background: 'white'
+			background: 'white',
+			youtubeVideo: ''
 		}
 		db.ref().child('slides').push(emptySlide)
 			.then(slideKey => {

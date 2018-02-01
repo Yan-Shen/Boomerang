@@ -9,6 +9,8 @@ import SearchBar from './YouTubeDisplay/search_bar';
 import PropTypes from 'prop-types'
 import { DropTarget } from 'react-dnd'
 import ItemTypes from '../../../../ItemTypes'
+import {RaisedButton} from 'material-ui';
+
 
 let API_KEY = config.API_KEY
 
@@ -53,7 +55,7 @@ class YouTubeDisplay extends Component { // YouTubeDisplay
   }
 
   render() {
-    const { canDrop, isOver, connectDropTarget} = this.props
+    const { canDrop, isOver, connectDropTarget, currentSlide} = this.props
     const videoSearch = _.debounce((term) => { this.videoSearch(term) }, 300);
 
     return connectDropTarget(
@@ -61,7 +63,7 @@ class YouTubeDisplay extends Component { // YouTubeDisplay
         <SearchBar style={{flex: 2}} onSearchTermChange={videoSearch}/>
         {
           !this.state.selectedVideo ? null :
-          <VideoDetail style={{flex: 1}} video={this.state.selectedVideo}/>
+          <VideoDetail video={this.state.selectedVideo}/>
         }
         {
           !this.state.videos.length ? null :
@@ -69,6 +71,9 @@ class YouTubeDisplay extends Component { // YouTubeDisplay
             onVideoSelect={selectedVideo => this.setState({selectedVideo})}
             videos={this.state.videos} />
         }
+        <RaisedButton label="Select" onClick={() => {console.log(currentSlide.id); 
+          console.log(this.state.selectedVideo.id.videoId); 
+          this.props.changeYouTube(this.props.currentSlide.id, this.state.selectedVideo.id.videoId)}} />
       </div>
     );
   }

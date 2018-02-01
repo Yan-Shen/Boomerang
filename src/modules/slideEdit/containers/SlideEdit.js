@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import {fetchLesson,addSlide,deleteSlide,changeSlide,updateSlide,unmountLesson} from "../actions";
+import {fetchLesson,addSlide,deleteSlide,changeSlide,updateSlide,unmountLesson,changeYouTube} from "../actions";
 import {getToolsDispatcher} from '../../../store'
 import SlideEditWrapper from '../components/SlideEditWrapper'
 import {AppBar, Paper} from 'material-ui';
@@ -9,6 +9,7 @@ import {db} from '../../../firebase'
 import components from '../components'
 import {ToolContainer} from '../../tools'
 import {DisplayContainer} from '../../display'
+
 
 
 
@@ -52,7 +53,7 @@ function mapStateToProps(state,props){
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({fetchLesson,addSlide,deleteSlide,changeSlide,updateSlide, getToolsDispatcher,unmountLesson}, dispatch);
+  return bindActionCreators({fetchLesson,addSlide,deleteSlide,changeSlide,updateSlide, getToolsDispatcher,unmountLesson,changeYouTube}, dispatch);
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(SlideEdit);
