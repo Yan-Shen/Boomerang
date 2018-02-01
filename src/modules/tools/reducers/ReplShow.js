@@ -1,5 +1,8 @@
+import {db} from '../../../firebase'
+import StudentDisplay from '../../studentLesson/components/StudentDisplay';
+
 // ACTION TYPE
-const REPL_SHOW = 'CHOICE_REPL'
+const REPL_SHOW = 'REPL_SHOW'
 
 // ACTION MAKER
 export const showRepl = ()=> {
@@ -8,6 +11,22 @@ export const showRepl = ()=> {
     bool: 'show'
   }
 }
+
+export const showReplDispatcher = (slideId) => {
+  return dispatch => {
+    db.ref(`/studentDisplay/${slideId}`).once('value')
+      .then(data => {
+        const studentDisplay = data.val()
+        console.log('StudentDisplay is-----------', studentDisplay.Repl)
+        if(!studentDisplay.Repl) {
+          db.ref(`/studentDisplay/${slideId}`).update({Repl: true})
+        } else {
+          db.ref(`/studentDisplay/${slideId}`).update({Repl: false})
+        }
+        dispatch(showRepl())
+      })
+    }
+  }
 
 //REDUCER
 

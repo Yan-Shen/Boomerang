@@ -51,8 +51,8 @@ class ReplSolution extends Component{
         <AceEditor
           mode="javascript"
           theme="monokai"
-          width = "300px"
-          height = "420px"
+          width = "500px"
+          height = "500px"
           value ={value}
           onChange={onChange}
           showPrintMargin={true}

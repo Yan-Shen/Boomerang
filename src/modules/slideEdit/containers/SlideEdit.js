@@ -9,6 +9,8 @@ import {db} from '../../../firebase'
 import components from '../components'
 import {ToolContainer} from '../../tools'
 import {DisplayContainer} from '../../display'
+import ReplSolution from '../../display/components/input_components/ReplSolution'
+import ReplQuestion from '../../display/components/input_components/ReplQuestion';
 
 
 
@@ -48,6 +50,9 @@ function mapStateToProps(state,props){
     currentSlide: slides[state.lesson.currentSlide],
     slides: state.lesson.slides,
     lesson: state.lesson.lessonData,
+    replSolution: state.replSolution,
+    replQuestion: state.replQuestion,
+    replShow: state.replShow
   };
 }
 

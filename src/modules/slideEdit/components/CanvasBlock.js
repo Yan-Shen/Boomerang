@@ -16,6 +16,7 @@ import Icon from 'react-icons-kit'
 import { socialYoutube } from 'react-icons-kit/typicons/socialYoutube'
 
 import YouTubeOverlay from './YouTubeOverlay'
+import ReplOverlay from './overlayComponents/ReplOverlay';
 
 class CanvasBlock extends Component {
 	constructor(props) {
@@ -67,7 +68,7 @@ class CanvasBlock extends Component {
 
 	render() {
 		const { slides, deleteSlide, addSlide, changeSlide,
-			currentSlideIndex, updateSlide, getToolsDispatcher,lesson} = this.props
+			currentSlideIndex, updateSlide, getToolsDispatcher,lesson, replShow} = this.props
 		return (
 			<div style={{flex: 1}}>
 				<div style={{
@@ -154,6 +155,11 @@ class CanvasBlock extends Component {
 							<div style={{zIndex: this.state.canvas ? -5000 : 5000, position: 'absolute', background: "white", top: 0, left: 0, width: this.block ? this.block.clientWidth : "0px", height: this.block ? this.block.clientHeight : "0px"}}>
 								<YouTubeOverlay toggleCanvas={this.toggleCanvas} canvas={this.state.canvas}/>
 							</div>
+
+							<div style={{zIndex: replShow ? 6000: -6000, position: 'absolute', backgroundColor: "white", top: 0, left: 0, width: this.block ? this.block.clientWidth : "0px", height: this.block ? this.block.clientHeight : "0px"}}>
+								<ReplOverlay value={this.props.replSolution} question={this.props.replQuestion}/>
+							</div>
+
 							{/* <div style={{
 								height: '70px',
 								background: 'white',
