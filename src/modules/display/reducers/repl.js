@@ -17,7 +17,7 @@ export const updateReplsThunk = (question, solution, slideId) => {
   return dispatch => {
     const key = db.ref(`/selectedTools/${slideId}/Repl/QA`).push().key
     db.ref(`/selectedTools/${slideId}/Repl/QA/${key}`).update({question})
-    db.ref(`/selectedTools/${slideId}/Repl/QA/${key}/solution`).update({solution})
+    db.ref(`/selectedTools/${slideId}/Repl/QA/${key}`).update({solution})
     const listener = db.ref(`/selectedTools/${slideId}/Repl/QA/${key}`)
     listener.on('value', snap=>{
       const repls = snap.val()

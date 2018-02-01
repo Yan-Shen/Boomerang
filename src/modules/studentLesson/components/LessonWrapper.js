@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {db} from '../../../firebase'
 import _ from 'lodash'
 import {Paper} from 'material-ui';
+import StudentDisplay from './StudentDisplay'
 
 
 class LessonWrapper extends Component {
@@ -27,6 +28,7 @@ class LessonWrapper extends Component {
 	}
 	render() {
 		const {id} = this.props.currentSlide
+		const {replSolution} = this.props
 		return (
 			<div style={{background: "#ccc",padding: "15px", display: 'flex'}}>
 				<div ref={block => this.block = block} style={{marginRight: "30px", flex: 4}}>
@@ -37,7 +39,7 @@ class LessonWrapper extends Component {
 				</div>
 				<div style={{width: '350px', height: 'calc(100vh - 90px)'}}>
 					<Paper style={{width: '350px', height: 'calc(100vh - 120px)'}}>
-						gdfhjgdhjf
+						<StudentDisplay value={replSolution}/>
 					</Paper>
 				</div>
 			</div>

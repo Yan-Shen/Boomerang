@@ -1,11 +1,11 @@
 // ACTION TYPE
-const REPL_SHOW = 'CHOICE_REPL'
+const REPLQ_SHARE = 'REPLQ_SHARE'
 
 // ACTION MAKER
-export const showRepl = ()=> {
+export const shareReplQ = ()=> {
   return {
-    type: REPL_SHOW,
-    bool: 'show'
+    type: REPLQ_SHARE,
+    bool: 'share'
   }
 }
 
@@ -13,7 +13,7 @@ export const showRepl = ()=> {
 
 export default function reducer (state = false, action) {
   switch (action.type) {
-    case REPL_SHOW:
+    case REPLQ_SHARE:
       return !state;
       default:
       return state;

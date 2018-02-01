@@ -31,6 +31,8 @@ class CanvasBlock extends Component {
 		this.setState({canvas: !this.state.canvas})
 	}
 	componentDidUpdate(prevProps) {
+		console.log('gvhghjcgvhjcghjvgchjv', this.props, prevProps)
+		this.props.getToolsDispatcher(this.props.currentSlide.id)
 		if (!prevProps.currentSlide || prevProps.currentSlideIndex !== this.props.currentSlideIndex) {
 			this.canvas.loadFromJSON(this.props.currentSlide, this.canvas.renderAll.bind(this.canvas))
 			this.canvas.renderAll()

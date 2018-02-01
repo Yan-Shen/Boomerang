@@ -15,6 +15,7 @@ function ChoiceOutput(props) {
                   <RadioButton
                   value={choice}
                   label={choice}
+                  key = {choice}
                   />
                 )
               })
