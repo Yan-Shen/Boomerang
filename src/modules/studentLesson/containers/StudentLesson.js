@@ -3,13 +3,17 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import { DragDropContextProvider } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
-import {fetchLesson} from '../actions'
+import {fetchLesson,unmountLesson} from '../actions'
 import LessonWrapper from '../components/LessonWrapper'
 
 class StudentLesson extends Component {
   componentDidMount(){
     const id = this.props.match.params.lessonId
     this.props.fetchLesson(id)
+  }
+  componentWillUnmount(){
+    console.log("unmounted!!!!!!")
+    this.props.unmountLesson()
   }
   render() {
     if(!this.props.currentSlide) return <div>loading....</div>
@@ -27,12 +31,13 @@ function mapStateToProps(state){
     currentSlideIndex: state.lesson.currentSlide,
     currentSlide: slides[state.lesson.currentSlide],
     lesson: state.lesson.lessonData,
-    replSolution: state.replSolution
+    replSolution: state.replSolution,
+    emotions: state.lesson.lessonData.emotions
   };
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({fetchLesson}, dispatch);
+  return bindActionCreators({fetchLesson,unmountLesson}, dispatch);
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(StudentLesson);
