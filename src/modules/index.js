@@ -2,6 +2,7 @@ import slideEdit from "./slideEdit"
 import teacherDashboard from "./teacherDashboard"
 import studentDashboard from "./studentDashboard"
 import studentLesson from "./studentLesson"
+import authentication from "./authentication"
 import {ToolContainer} from './tools'
 
 export default {
@@ -9,5 +10,6 @@ export default {
   ToolContainer,
   teacherDashboard,
   studentDashboard,
-  studentLesson
+  studentLesson,
+  authentication
 };
