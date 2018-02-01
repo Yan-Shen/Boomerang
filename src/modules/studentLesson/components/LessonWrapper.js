@@ -27,7 +27,7 @@ class LessonWrapper extends Component {
 		}
 	}
 	render() {
-		console.log(this.props)
+		console.log("------------->",this.props)
 		const {id} = this.props.currentSlide
 		const {replSolution} = this.props
 		return (
@@ -35,7 +35,7 @@ class LessonWrapper extends Component {
 				<div ref={block => this.block = block} style={{marginRight: "30px", flex: 4}}>
 					<Paper>
 							<canvas id='studentCanvas' width="900" height="550" style={{borderRadius: "4px"}}/>
-							{/* {this.props.emotions.map(emotion => <div>testy</div>)} */}
+							{this.props.emotions.map(emotion => <div style={{zIndex: 9000, position: "absolute", right: "400px"}}>testy</div>)}
 					</Paper>
 
 				</div>
