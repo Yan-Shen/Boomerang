@@ -5,7 +5,6 @@ import components from '../../display/components'
 const {ReplSolution} = components
 
 function StudentDisplay(props) {
-  console.log('props ---------------', props)
   return (
     // <Paper>
     <div width="300" height="550" style={{borderRadius: "4px"}}>
