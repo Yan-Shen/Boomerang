@@ -12,11 +12,13 @@ import RemoveObject from './toolbarComponents/RemoveObject'
 import EditLayers from './toolbarComponents/EditLayers'
 import EditText from './toolbarComponents/EditText'
 import CloseYouTube from 'material-ui/svg-icons/navigation/close'
+import ReactDOM from 'react-dom'
 
 import Icon from 'react-icons-kit'
 import { socialYoutube } from 'react-icons-kit/typicons/socialYoutube'
 
 import YouTubeOverlay from './YouTubeOverlay'
+import YouTubeVideo from './overlayComponents/YouTubeDisplay/video_detail'
 
 class CanvasBlock extends Component {
 	constructor(props) {
@@ -39,7 +41,16 @@ class CanvasBlock extends Component {
 			this.canvas.renderAll()
 		}
 		// is this where the getYouTubeDispatcher goes?
-  }
+		if (this.props.currentSlide.youtubeVideo) {
+			console.log('will this fire when video is in database?');
+			const videoId = this.props.currentSlide.youtubeVideo;
+			const url = `https://www.youtube.com/embed/${videoId}`;
+			ReactDOM.render(<YouTubeVideo url={url}/>, document.getElementById('video-overlay'))
+		} else {
+			ReactDOM.unmountComponentAtNode(document.getElementById('video-overlay'))
+		}
+	}
+  
 	componentDidMount() {
 		const width = this.block.clientWidth
 		const scale = width/900
