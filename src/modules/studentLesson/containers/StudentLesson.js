@@ -32,7 +32,7 @@ function mapStateToProps(state){
     currentSlide: slides[state.lesson.currentSlide],
     lesson: state.lesson.lessonData,
     replSolution: state.replSolution,
-    emotions: state.lesson.lessonData.emotions
+    emotions: state.studentLesson.emotions
   };
 }
 
