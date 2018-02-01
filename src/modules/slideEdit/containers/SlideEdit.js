@@ -16,7 +16,6 @@ class SlideEdit extends Component {
   componentDidMount(){
     const id = this.props.match.params.lessonId
     this.props.fetchLesson(id)
-    console.log('slides are----------', this.props.slides)
   }
 
   componentDidUpdate(prevProps){
@@ -24,29 +23,12 @@ class SlideEdit extends Component {
         this.props.getToolsDispatcher(this.props.slides[0].id)
 		}
   }
+
   componentWillUnmount(){
     console.log("unmounted!!!!!!")
     this.props.unmountLesson()
   }
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     slides: []
-  //   };
-  // }
-  // componentDidMount(){
-  //   var lessonRef = db.ref(`lessons/${this.props.match.params.id}`)
-	// 	lessonRef.on('value', snap => {
-	// 		snap.forEach((slide)=>{
-	// 			let slideValue = db.ref(`slides/${slide.key}`)
-	// 			slideValue.on('value', snap => {
-	// 				const slideData = snap.val()
-	// 				const id = slide.key
-	// 				this.setState({slides: [...this.state.slides, {...slideData, id}]})
-	// 			})
-	// 		})
-	// 	})
-  // }
+
   render() {
     if (!this.props.currentSlide) {
       return (<div>Loading...</div>)

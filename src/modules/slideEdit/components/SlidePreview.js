@@ -10,6 +10,7 @@ class SlidePreview extends Component {
 	}
 
 	componentDidMount(){
+		this.props.getToolsDispatcher(this.props.data.id)
 		const scale = 0.2
 		this.canvas = new window.fabric.StaticCanvas(`${this.props.data.id}`);
 		this.canvas.backgroundColor="white"
@@ -21,6 +22,7 @@ class SlidePreview extends Component {
 		this.canvas.setZoom(scale);
 		this.canvas.renderAll();
 	}
+
 	componentDidUpdate(prevProps){
 		if (prevProps.data !== this.props.data) {
 			this.canvas.loadFromJSON(this.props.data, this.canvas.renderAll.bind(this.canvas));
@@ -28,22 +30,23 @@ class SlidePreview extends Component {
 		}
 	}
 
-	handleClick(id){
+	handleClick(id, lessonId){
 		// this.props.changeSlide(this.props.index, id)
-		this.props.changeSlide(this.props.index, id)
+		this.props.changeSlide(this.props.index, lessonId)
 		this.props.getToolsDispatcher(id)
 	}
+
 	handleDelete(){
-		console.log('clicked')
 		if(this.props.slides > 1 ){
 			this.props.deleteSlide(this.props.data.id,this.props.lesson.id,this.props.index-1)
 		}
 	}
+
 	render() {
 		const {id} = this.props.data
 		const lessonId = this.props.lesson.id
 		return (
-			<div onClick={()=>this.handleClick(lessonId)} style={{margin: '10px'}}>
+			<div onClick={()=>this.handleClick(id, lessonId)} style={{margin: '10px'}}>
 				<div style={{height: '120px', width: '180px', overflow: 'hidden',
 					border: this.props.index === this.props.currentSlideIndex ? `2px solid ${teal500}` : "1px solid #ccc",
 					borderRadius: '4px'}}>
