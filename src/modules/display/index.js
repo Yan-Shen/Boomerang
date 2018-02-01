@@ -2,6 +2,7 @@ import QAContainer from './container/input_container/QAContainer'
 import InputQContainer from './container/input_container/InputQContainer'
 import ReplContainer from './container/input_container/ReplContainer'
 import QAOutputContainer from './container/output_container/QAOutputContainer'
+import ReplOutputContainer from './container/output_container/ReplOutputContainer'
 import DisplayContainer from './container/DisplayContainer'
 import MainDisplayContainer from './container/MainDisplayContainer'
 
@@ -12,5 +13,6 @@ export {
   InputQContainer,
   ReplContainer,
   MainDisplayContainer,
-  QAOutputContainer
+  QAOutputContainer,
+  ReplOutputContainer
 }

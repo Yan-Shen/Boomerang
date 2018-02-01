@@ -1,13 +1,14 @@
 import React from 'react';
 import {AppBar, Paper} from 'material-ui';
 import {db} from '../../../firebase'
-
-
+import { DragDropContextProvider } from 'react-dnd'
+import HTML5Backend from 'react-dnd-html5-backend'
 import {ToolContainer} from '../../tools'
 import {MainDisplayContainer} from '../../display'
 import CanvasBlock from './CanvasBlock'
 
 const SlideEditWrapper = (props) => (
+	<DragDropContextProvider backend={HTML5Backend}>
 	<div style={{width: '100vw',display: 'flex'}}>
 
 			<Paper style={{flex: 1, margin: "10px"}} zDepth={1}>
@@ -32,6 +33,7 @@ const SlideEditWrapper = (props) => (
 		</div>
 
 	</div>
+	</DragDropContextProvider>
 );
 
 export default SlideEditWrapper;

@@ -9,6 +9,8 @@ import toggleChoice from '../modules/tools/reducers/ToggleChoice';
 import toggleRepl from '../modules/tools/reducers/ToggleRepl';
 import toggleInput from '../modules/tools/reducers/ToggleInput';
 import choiceShow from '../modules/tools/reducers/ChoiceShow';
+import replShow from '../modules/tools/reducers/ReplShow';
+import replSolution from '../modules/display/reducers/replSolutionShare';
 
 export default combineReducers({
   selectedTools,
@@ -20,7 +22,9 @@ export default combineReducers({
   toggleInput,
   InputQ,
   repl,
-  choiceShow
+  choiceShow,
+  replShow,
+  replSolution
 });
 
 
@@ -32,3 +36,5 @@ export * from '../modules/tools/reducers/ToggleChoice'
 export * from '../modules/tools/reducers/ToggleInput'
 export * from '../modules/tools/reducers/ToggleRepl'
 export * from '../modules/tools/reducers/ChoiceShow'
+export * from '../modules/tools/reducers/ReplShow'
+export * from '../modules/display/reducers/replSolutionShare'

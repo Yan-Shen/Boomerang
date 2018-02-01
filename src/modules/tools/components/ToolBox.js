@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
+import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import { DropTarget } from 'react-dnd'
-import {connect} from 'react-redux'
 import ItemTypes from '../../../ItemTypes'
 import ToolBtn from './ToolBtn'
 
@@ -33,12 +33,9 @@ class ToolBox extends Component {
 		canDrop: PropTypes.bool.isRequired,
 	}
 
-	handleClick(){
-
-	}
 
 	render() {
-		const { canDrop, isOver, connectDropTarget, selectedTools, toggleChoice, choiceStatus, inputStatus, toggleInput, currentSlideId, toggleRepl, replStatus, showChoice } = this.props
+		const { canDrop, isOver, connectDropTarget, selectedTools, toggleChoice, choiceStatus, inputStatus, toggleInput, currentSlideId, toggleRepl, replStatus, showChoice, showRepl } = this.props
 		const selectedToolsName = Object.keys(selectedTools)
 		const isActive = canDrop && isOver
 
@@ -67,6 +64,7 @@ class ToolBox extends Component {
 				{selectedToolsName.includes("Repl")	&&
 				<ToolBtn name="Repl"
 				onClick={toggleRepl}
+				showRepl={showRepl}
 				replStatus = {replStatus}
 				/> }
 			</div>,

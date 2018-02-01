@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import { QAContainer, InputQContainer, ReplContainer, QAOutputContainer } from '../index';
-import { toggleChoice, toggleInput, toggleRepl} from '../../../store';
+import { QAContainer, InputQContainer, ReplContainer, QAOutputContainer, ReplOutputContainer } from '../index';
+import { toggleChoice, toggleInput, toggleRepl, shareReplSolution} from '../../../store';
+import ToggleChoice from '../../tools/reducers/ToggleChoice'
+
 
 
 class DisplayContainer extends Component {
@@ -13,13 +15,16 @@ class DisplayContainer extends Component {
 
   render() {
 
-    const {choiceStatus, inputStatus, replStatus, currentSlideId, toggleChoice, toggleInput, toggleRepl, choiceShowStatus, showChoice, selectedTools} = this.props;
+    const {choiceStatus, inputStatus, replStatus, currentSlideId, toggleChoice, toggleInput, toggleRepl, choiceShowStatus, showChoice, selectedTools, replShowStatus, shareReplSolution} = this.props;
+    let choiceQA
+    let replQA
     if(!Object.keys(selectedTools)[0]) {
       return <div>loading...</div>
     } else {
-      const replQ = Object.values(selectedTools["Repl"]['QA'])
-      const choiceQA = Object.values(selectedTools["Choice Q"]['QA'])
-      console.log('choiceQA----------', choiceQA)
+      (selectedTools && selectedTools["Choice Q"]&& selectedTools["Choice Q"]['QA']) ? choiceQA = Object.values(selectedTools["Choice Q"]['QA']) : choiceQA = []
+
+      selectedTools["Repl"]? replQA = Object.values(selectedTools["Repl"]['QA']) : replQA = []
+      console.log('replQA---------', replQA)
       return (
         <div>
           {
@@ -41,8 +46,14 @@ class DisplayContainer extends Component {
             currentSlideId = {currentSlideId}/>
           }
           {
-            choiceShowStatus &&
-            <QAOutputContainer QA={choiceQA}/>
+            choiceShowStatus && choiceQA.map(each=>{
+              return <QAOutputContainer QA={each} key={each.question}/>
+            })
+          }
+          {
+            replShowStatus && replQA.map(each=>{
+              return <ReplOutputContainer QA={each} repl = {replShowStatus} shareReplSolution = {shareReplSolution} key={each.question}/>
+            })
           }
         </div>
        )
@@ -60,12 +71,27 @@ const mapState = state => {
     replStatus: state.toggleRepl,
     currentSlideId: slides[state.lesson.currentSlide].id,
     selectedTools: state.selectedTools,
-		choiceShowStatus: state.choiceShow,
+    choiceShowStatus: state.choiceShow,
+    replShowStatus: state.replShow,
   }
 }
 
 function mapDispatcher(dispatch){
-  return bindActionCreators({toggleChoice, toggleInput, toggleRepl}, dispatch);
+  return{
+    ToggleChoice(){
+      dispatch(toggleChoice())
+    },
+    toggleInput(){
+      dispatch(toggleInput())
+    },
+    toggleRepl(){
+      dispatch(toggleRepl())
+    },
+    shareReplSolution(solution){
+      dispatch(shareReplSolution(solution))
+    }
+  }
+  return bindActionCreators({toggleChoice, toggleInput, toggleRepl, shareReplSolution}, dispatch);
 }
 
 export default connect(mapState, mapDispatcher)(DisplayContainer);

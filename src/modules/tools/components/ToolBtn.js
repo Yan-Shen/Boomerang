@@ -6,6 +6,7 @@ import {connect} from 'react-redux'
 // import {addTool} from '../store'
 import RaisedButton from 'material-ui/RaisedButton';
 import Toggle from 'material-ui/Toggle';
+import {showChoice} from '../reducers/ChoiceShow'
 
 const styles = {
   toggle: {
@@ -27,8 +28,15 @@ const styles = {
 class ToolBtn extends Component {
 
   render() {
-    const {onClick, choiceStatus, inputStatus, replStatus, name, showChoice} = this.props
+    const {onClick, choiceStatus, inputStatus, replStatus, name, showChoice, showRepl} = this.props
     let btnStyle
+    let show
+    if (name === "Choice Q") {
+      show = showChoice
+    } else if (name === "Repl") {
+      show = showRepl
+    }
+
     if (choiceStatus || inputStatus || replStatus) {
       btnStyle = styles.btnOn
     } else {
@@ -39,7 +47,7 @@ class ToolBtn extends Component {
 
       <div className="flex-container-row singleToolContainer">
         <Toggle
-          onToggle={showChoice}
+          onToggle={show}
         style={styles.toggle}/>
         <RaisedButton
         label={name}
