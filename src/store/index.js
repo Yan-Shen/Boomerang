@@ -29,11 +29,8 @@ export default combineReducers({
   choiceShow,
   replShow,
   replSolution,
-<<<<<<< HEAD
-  replQuestion
-=======
+  replQuestion,
   studentLesson,
->>>>>>> master
 });
 
 
