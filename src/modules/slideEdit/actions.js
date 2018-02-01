@@ -23,7 +23,7 @@ export const changeSlide = (index, id) =>  {
 
 export const changeYouTube = (id, videoId) =>  {
 	return function thunk (dispatch) {
-		db.ref().child(`lessons/${id}/currentSlide`).set(index)
+		db.ref().child(`slide/${id}/youtubeVideo`).set(videoId)
 		// dispatch(getToolsDispatcher(id))
 		dispatch(changeSlideAction(index))
 	}
