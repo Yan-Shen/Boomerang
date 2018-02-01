@@ -18,12 +18,18 @@ class DisplayContainer extends Component {
     const {choiceStatus, inputStatus, replStatus, currentSlideId, toggleChoice, toggleInput, toggleRepl, choiceShowStatus, showChoice, selectedTools, replShowStatus, shareReplSolution} = this.props;
     let choiceQA
     let replQA
+
     if(!Object.keys(selectedTools)[0]) {
       return <div>loading...</div>
     } else {
-      (selectedTools && selectedTools["Choice Q"]&& selectedTools["Choice Q"]['QA']) ? choiceQA = Object.values(selectedTools["Choice Q"]['QA']) : choiceQA = []
 
-      selectedTools["Repl"]? replQA = Object.values(selectedTools["Repl"]['QA']) : replQA = []
+      if(selectedTools && selectedTools["Choice Q"] && selectedTools["Choice Q"]['QA']){
+        choiceQA = Object.values(selectedTools["Choice Q"]['QA'])
+      } else {
+        choiceQA = []
+      }
+
+      (selectedTools["Repl"]&&selectedTools["Repl"]['QA']) ? replQA = Object.values(selectedTools["Repl"]['QA']) : replQA = []
       console.log('replQA---------', replQA)
       return (
         <div>

@@ -43,6 +43,7 @@ export function createLesson (title) {
 			.then(slideKey => {
 				db.ref().child(`lessons/${lessonKey}/slides/${slideKey.key}`).set(true)
 				db.ref().child(`selectedTools/${slideKey.key}`).set(true)
+				db.ref().child(`studentDisplay/${slideKey.key}`).set(true)
 				return slideKey
 		})
 	}
