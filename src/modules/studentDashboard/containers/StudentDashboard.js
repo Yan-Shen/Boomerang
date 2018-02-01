@@ -2,24 +2,26 @@ import React, { Component } from 'react';
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import Dashboard from '../components/Dashboard'
+import {fetchLessons} from '../../teacherDashboard/actions'
 
 class StudentDashboard extends Component {
+  componentDidMount(){
+    this.props.fetchLessons()
+  }
   render() {
     return (
-        <Dashboard />
+        <Dashboard {...this.props}/>
     );
   }
 }
-// function mapStateToProps(state){
-//   return {
-//     currentSlideIndex: state.lesson.currentSlide,
-//     currentSlide: slides? slides[state.lesson.currentSlide] : {},
-//     lesson: state.lesson.lesson
-//   };
-// }
+function mapStateToProps(state){
+  return {
+    lessonList: state.lessonList
+  };
+}
 
-// function mapDispatchToProps(dispatch){
-//   return bindActionCreators({fetchLesson}, dispatch);
-// }
+function mapDispatchToProps(dispatch){
+  return bindActionCreators({fetchLessons}, dispatch);
+}
 
-export default connect(null,null)(StudentDashboard);
+export default connect(mapStateToProps,mapDispatchToProps)(StudentDashboard);

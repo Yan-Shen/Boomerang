@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import selectedTools from '../modules/tools/reducers/SelectedTools';
 import slideEdit from '../modules/slideEdit/reducers';
+import studentLesson from '../modules/studentLesson/reducers';
 import lessonList from '../modules/teacherDashboard/reducers';
 import authentication from '../modules/authentication/reducers';
 import questions from '../modules/display/reducers/questions'
@@ -28,7 +29,11 @@ export default combineReducers({
   choiceShow,
   replShow,
   replSolution,
+<<<<<<< HEAD
   replQuestion
+=======
+  studentLesson,
+>>>>>>> master
 });
 
 
