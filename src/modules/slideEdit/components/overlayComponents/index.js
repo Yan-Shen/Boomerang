@@ -11,6 +11,7 @@ import { DropTarget } from 'react-dnd'
 import ItemTypes from '../../../../ItemTypes'
 import {RaisedButton} from 'material-ui';
 
+
 let API_KEY = config.API_KEY
 
 const boxTarget = {
@@ -70,7 +71,9 @@ class YouTubeDisplay extends Component { // YouTubeDisplay
             onVideoSelect={selectedVideo => this.setState({selectedVideo})}
             videos={this.state.videos} />
         }
-        <RaisedButton label="Select" onClick={() => {console.log(currentSlide.id); console.log(this.state.selectedVideo.id.videoId)}} />
+        <RaisedButton label="Select" onClick={() => {console.log(currentSlide.id); 
+          console.log(this.state.selectedVideo.id.videoId); 
+          this.props.changeYouTube(this.props.currentSlide.id, this.state.selectedVideo.id.videoId)}} />
       </div>
     );
   }

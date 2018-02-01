@@ -158,7 +158,7 @@ class CanvasBlock extends Component {
 							</div>
 							<div style={{zIndex: this.state.canvas ? -5000 : 5000, position: 'absolute', background: "white", top: 0, left: 0, width: this.block ? this.block.clientWidth : "0px", height: this.block ? this.block.clientHeight : "0px"}}>
 								<IconButton><CloseYouTube onClick={this.toggleCanvas} /></IconButton>
-								<YouTubeOverlay updateSlide={this.props.updateSlide} currentSlide={currentSlide} />
+								<YouTubeOverlay updateSlide={this.props.updateSlide} currentSlide={currentSlide} changeYouTube={this.props.changeYouTube}/>
 							</div>
 							{/* <div style={{
 								height: '70px',
