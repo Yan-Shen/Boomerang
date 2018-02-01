@@ -16,6 +16,7 @@ import config from './config'
 
 
 const muiTheme = getMuiTheme({
+  fontFamily: 'Quicksand, sans-serif',
   palette: {
 
 		primary1Color: teal500,

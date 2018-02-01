@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import selectedTools from '../modules/tools/reducers/SelectedTools';
 import slideEdit from '../modules/slideEdit/reducers';
 import lessonList from '../modules/teacherDashboard/reducers';
+import authentication from '../modules/authentication/reducers';
 import questions from '../modules/display/reducers/questions'
 import InputQ from '../modules/display/reducers/InputQ'
 import repl from '../modules/display/reducers/repl'
@@ -11,6 +12,7 @@ import toggleInput from '../modules/tools/reducers/ToggleInput';
 import choiceShow from '../modules/tools/reducers/ChoiceShow';
 
 export default combineReducers({
+  user: authentication,
   selectedTools,
   questions,
   toggleChoice,

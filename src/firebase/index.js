@@ -1,5 +1,6 @@
-import {db} from './firebase'
+import {db,auth} from './firebase'
 
 export {
-	db
+	db,
+	auth
 }

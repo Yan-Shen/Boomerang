@@ -56,9 +56,9 @@ class LessonList extends Component {
 		        <TableHeaderColumn>Remove</TableHeaderColumn>
 		      </TableRow>
 		    </TableHeader>
-		    <TableBody>
+		    <TableBody >
 					{lessonList.map(lesson =>(
-						<TableRow key={lesson.created}>
+						<TableRow style={{fontSize: '18px',fontWeight: 600}} key={lesson.created}>
 			        <TableRowColumn>
 								<Link to={`/teacher/lesson/${lesson.id}`}>
 									{lesson.title}
