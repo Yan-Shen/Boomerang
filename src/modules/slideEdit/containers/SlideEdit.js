@@ -18,11 +18,11 @@ class SlideEdit extends Component {
     this.props.fetchLesson(id)
   }
 
-  componentDidUpdate(prevProps){
-		if (!prevProps.slides.length && this.props.slides.length) {
-        this.props.getToolsDispatcher(this.props.slides[0].id)
-		}
-  }
+  // componentDidUpdate(prevProps){
+	// 	if (!prevProps.slides.length && this.props.slides.length) {
+  //       this.props.getToolsDispatcher(this.props.slides[0].id)
+	// 	}
+  // }
 
   componentWillUnmount(){
     console.log("unmounted!!!!!!")
