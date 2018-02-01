@@ -8,7 +8,7 @@ export const getSlideIndex = index =>  ({type: actions.GET_SLIDE_INDEX, index})
 
 export function fetchLesson (id) {
   return function thunk (dispatch) {
-		db.ref(`lessons/-L3nOPjk6NFSMcJGRn4p/currentSlide`).on('value', (data)=>{
+		db.ref(`lessons/${id}/currentSlide`).on('value', (data)=>{
 			dispatch(getSlideIndex(data.val()))
 		})
     return db.ref(`/lessons/${id}`).once('value')

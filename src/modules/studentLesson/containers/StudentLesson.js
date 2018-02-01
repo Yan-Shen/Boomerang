@@ -17,17 +17,16 @@ class StudentLesson extends Component {
     return (
       <DragDropContextProvider backend={HTML5Backend}>
         <LessonWrapper {...this.props}/>
-        </DragDropContextProvider>
+      </DragDropContextProvider>
     );
   }
 }
 function mapStateToProps(state){
   const slides = state.lesson.slides
-  console.log('state is----------', state)
   return {
     currentSlideIndex: state.lesson.currentSlide,
     currentSlide: slides[state.lesson.currentSlide],
-    lesson: state.lesson.lesson,
+    lesson: state.lesson.lessonData,
     replSolution: state.replSolution
   };
 }
