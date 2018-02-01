@@ -3,7 +3,7 @@ import {db} from '../../../firebase'
 import _ from 'lodash'
 import {Paper} from 'material-ui';
 import StudentDisplay from './StudentDisplay'
-
+import EmotionContainer from '../containers/EmotionContainer'
 
 class LessonWrapper extends Component {
 	componentDidMount(){
@@ -27,6 +27,7 @@ class LessonWrapper extends Component {
 		}
 	}
 	render() {
+		console.log(this.props)
 		const {id} = this.props.currentSlide
 		const {replSolution} = this.props
 		return (
@@ -34,13 +35,15 @@ class LessonWrapper extends Component {
 				<div ref={block => this.block = block} style={{marginRight: "30px", flex: 4}}>
 					<Paper>
 							<canvas id='studentCanvas' width="900" height="550" style={{borderRadius: "4px"}}/>
+							{/* {this.props.emotions.map(emotion => <div>testy</div>)} */}
 					</Paper>
 
 				</div>
 				<div style={{width: '350px', height: 'calc(100vh - 90px)'}}>
-					<Paper style={{width: '350px', height: 'calc(100vh - 120px)'}}>
+					<Paper style={{width: '350px', height: 'calc(100vh - 190px)'}}>
 						<StudentDisplay value={replSolution}/>
 					</Paper>
+					<EmotionContainer/>
 				</div>
 			</div>
 		);

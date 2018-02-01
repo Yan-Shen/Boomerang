@@ -1,21 +1,9 @@
 import * as actions from './actionTypes';
 
-export default function reducers(state = {lesson: {}, slides:[], currentSlide: null}, action){
+export default function reducers(state = {lesson: {}, slides:[], currentSlide: null, emotions: [] }, action){
   switch (action.type){
-    case actions.GET_LESSON:
-			return {...state, lesson: action.lesson}
-		case actions.GET_SLIDE_INDEX:
-			return {...state, currentSlide: action.index}
-		case actions.GET_SLIDE:
-			const update = state.slides.find(slide => slide.id === action.slide.id)
-			if(update){
-				const updatedSlides = state.slides.map(slide => {
-					if(slide.id === action.slide.id) return action.slide
-					return slide
-				})
-				return {...state, slides: updatedSlides}
-			}
-			return {...state, slides: [...state.slides,action.slide]}
+    case actions.ADD_EMOTION:
+  			return {...state, emotions: [...state.emotions, action.emotion]}
     default:
       return state;
   }

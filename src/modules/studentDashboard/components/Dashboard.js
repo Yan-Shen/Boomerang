@@ -5,7 +5,7 @@ import {lightBlue500,lightBlue200} from 'material-ui/styles/colors';
 import StudentLesson from '../../studentLesson'
 import LessonList from './LessonList'
 
-const Dashboard = ({}) => (
+const Dashboard = ({lessonList}) => (
 	<div>
 		<Toolbar style={{height: "40px", background: lightBlue500}}>
 			<ToolbarGroup >
@@ -16,7 +16,7 @@ const Dashboard = ({}) => (
 		<div>
 			<Route
 				exact path={'/student'}
-				component={LessonList}
+				render={()=><LessonList lessonList={lessonList}/>}
 			/>
 			<Route
 				path={'/student/lesson/:lessonId'}
