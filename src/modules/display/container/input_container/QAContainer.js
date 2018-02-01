@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import components from '../components'
+import components from '../../components'
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import {connect} from 'react-redux'
-import { updateQuestionsThunk } from '../reducers/questions';
+import { updateQuestionsThunk } from '../../reducers/questions';
 
 
 const {Question, Choice} = components

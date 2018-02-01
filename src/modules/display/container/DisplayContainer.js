@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import { QAContainer, InputQContainer, ReplContainer } from '../index';
+import { QAContainer, InputQContainer, ReplContainer, QAOutputContainer } from '../index';
 import { toggleChoice, toggleInput, toggleRepl} from '../../../store';
+
 
 class DisplayContainer extends Component {
   constructor(props) {
@@ -11,30 +12,42 @@ class DisplayContainer extends Component {
   }
 
   render() {
-    const {choiceStatus, inputStatus, replStatus, currentSlideId, toggleChoice, toggleInput, toggleRepl} = this.props;
 
-    return (
-      <div>
-        {
-          choiceStatus &&
-          <QAContainer
-          currentSlideId = {currentSlideId}
-          toggleChoice = {toggleChoice}/>
-        }
-        {
-          inputStatus &&
-          <InputQContainer
-          toggleInput = {toggleInput}
-          currentSlideId = {currentSlideId}/>
-        }
-        {
-          replStatus &&
-          <ReplContainer
-          toggleRepl = {toggleRepl}
-          currentSlideId = {currentSlideId}/>
-        }
-      </div>
-     )
+    const {choiceStatus, inputStatus, replStatus, currentSlideId, toggleChoice, toggleInput, toggleRepl, choiceShowStatus, showChoice, selectedTools} = this.props;
+    if(!Object.keys(selectedTools)[0]) {
+      return <div>loading...</div>
+    } else {
+      const replQ = Object.values(selectedTools["Repl"]['QA'])
+      const choiceQA = Object.values(selectedTools["Choice Q"]['QA'])
+      console.log('choiceQA----------', choiceQA)
+      return (
+        <div>
+          {
+            choiceStatus &&
+            <QAContainer
+            currentSlideId = {currentSlideId}
+            toggleChoice = {toggleChoice}/>
+          }
+          {
+            inputStatus &&
+            <InputQContainer
+            toggleInput = {toggleInput}
+            currentSlideId = {currentSlideId}/>
+          }
+          {
+            replStatus &&
+            <ReplContainer
+            toggleRepl = {toggleRepl}
+            currentSlideId = {currentSlideId}/>
+          }
+          {
+            choiceShowStatus &&
+            <QAOutputContainer QA={choiceQA}/>
+          }
+        </div>
+       )
+    }
+
   }
 }
 
@@ -46,6 +59,8 @@ const mapState = state => {
     inputStatus: state.toggleInput,
     replStatus: state.toggleRepl,
     currentSlideId: slides[state.lesson.currentSlide].id,
+    selectedTools: state.selectedTools,
+		choiceShowStatus: state.choiceShow,
   }
 }
 
