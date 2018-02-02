@@ -30,21 +30,20 @@ class CanvasBlock extends Component {
 			canvas: true
 		}
 	}
-	toggleCanvas(){
-		this.setState({canvas: !this.state.canvas})
+	toggleCanvas(view){
+		if (view === 'canvas') this.setState({canvas: !this.state.canvas})
+		else {
+			if (!this.state.canvas) this.setState({canvas: true})
+		}
 	}
 	componentDidUpdate(prevProps) {
-		console.log('gvhghjcgvhjcghjvgchjv', this.props, prevProps)
 		this.props.getToolsDispatcher(this.props.currentSlide.id)
 		if (!prevProps.currentSlide || prevProps.currentSlideIndex !== this.props.currentSlideIndex) {
 			this.canvas.loadFromJSON(this.props.currentSlide, this.canvas.renderAll.bind(this.canvas))
 			this.canvas.renderAll()
 		}
-		// is this where the getYouTubeDispatcher goes?
 		if (this.props.currentSlide.youtubeVideo) {
-			console.log('will this fire when video is in database?');
 			const videoId = this.props.currentSlide.youtubeVideo;
-			// const url = `https://www.youtube.com/embed/${videoId}`;
 			ReactDOM.render(<YouTube videoId={videoId} ></YouTube>, document.getElementById('video-overlay'))
 		} else {
 			ReactDOM.unmountComponentAtNode(document.getElementById('video-overlay'))
@@ -69,9 +68,16 @@ class CanvasBlock extends Component {
 	}
 
 	updateSlide(param) {
+		// if(this.props.currentSlide.youtubeVideo) {
+		// 	console.log('GOT HERE ------------------------ YOUTUBE EXISTS')
+		// 	this.props.changeYouTube(this.props.currentSlide.id, this.props.currentSlide.youtubeVideo)
+		// }
 		if(this.props.currentSlide.id) {
-			this.props.updateSlide(this.props.currentSlide.id,this.canvas.toJSON())
+			const slideData = this.canvas.toJSON()
+			slideData.youtubeVideo = this.props.currentSlide.youtubeVideo
+			if (slideData.youtubeVideo) this.props.updateSlide(this.props.currentSlide.id, slideData)
 		}
+		
 	}
 
 	saveSlide() {
@@ -99,14 +105,16 @@ class CanvasBlock extends Component {
 								canvas={this.canvas}
 								currentSlide={this.props.currentSlide}
 								updateSlide={this.props.updateSlide}
+								changeYouTube={this.props.changeYouTube}
 							/>
 							<AddImage
 								canvas={this.canvas}
 								currentSlide={this.props.currentSlide}
 								updateSlide={this.props.updateSlide}
+								changeYouTube={this.props.changeYouTube}
 							/>
 							<AddShape />
-							<Icon icon={socialYoutube} toggled={this.state.canvas} onClick={this.toggleCanvas} />
+							<Icon icon={socialYoutube} toggled={this.state.canvas} onClick={() => this.toggleCanvas('canvas')} />
 							<ToolbarSeparator style={{
 								marginRight: '10px',
 								marginLeft: '10px'}}
@@ -125,6 +133,7 @@ class CanvasBlock extends Component {
 								canvas={this.canvas}
 								currentSlide={this.props.currentSlide}
 								updateSlide={this.props.updateSlide}
+								changeYouTube={this.props.changeYouTube}
 							/>
 							<EditLayers canvas={this.canvas} />
 						</ToolbarGroup>
@@ -153,6 +162,7 @@ class CanvasBlock extends Component {
 										getToolsDispatcher = {getToolsDispatcher}
 										key={slide.id}
 										data={slide}
+										toggleCanvas={() => this.toggleCanvas('preview')}
 									/>
 							))}
 							<AddSlide onClick={this.saveSlide}/>
@@ -167,7 +177,7 @@ class CanvasBlock extends Component {
 							<canvas  id="fabricTest" width="900" height="550" />
 
 							<div style={{zIndex: this.state.canvas ? -5000 : 5000, position: 'absolute', background: "white", top: 0, left: 0, width: this.block ? this.block.clientWidth : "0px", height: this.block ? this.block.clientHeight : "0px"}}>
-								<IconButton><CloseOverlay onClick={this.toggleCanvas} /></IconButton>
+								<IconButton><CloseOverlay onClick={() => this.toggleCanvas('canvas')} /></IconButton>
 								<OverlayLayer updateSlide={this.props.updateSlide} currentSlide={currentSlide} changeYouTube={this.props.changeYouTube} />
 							</div>
 

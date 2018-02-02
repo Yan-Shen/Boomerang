@@ -30,6 +30,7 @@ class LessonWrapper extends Component {
 		console.log("------------->",this.props)
 		const {id} = this.props.currentSlide
 		const {replSolution} = this.props
+		const youtubeVideo = this.props.currentSlide.youtubeVideo
 		return (
 			<div style={{background: "#ccc",padding: "15px", display: 'flex'}}>
 				<div ref={block => this.block = block} style={{marginRight: "30px", flex: 4}}>

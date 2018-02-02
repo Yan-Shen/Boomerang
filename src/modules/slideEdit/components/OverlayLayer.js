@@ -10,5 +10,3 @@ const OverlayLayer = (props) => (
 );
 
 export default OverlayLayer
-
-

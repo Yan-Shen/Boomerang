@@ -40,7 +40,7 @@ class YouTubeSearch extends Component { // YouTubeSearch
     const videoSearch = _.debounce((term) => { this.videoSearch(term) }, 300);
 
     return (
-      <div style={{display: 'flex', flexDirection: 'column', backgroundColor:'red', width:'100%', height:'100%'}}>
+      <div style={{display: 'flex', flexDirection: 'column', backgroundColor:'white', width:'100%', height:'100%'}}>
         <SearchBar style={{flex: 2}} onSearchTermChange={videoSearch}/>
         {
           !this.state.videos.length ? null :
@@ -48,9 +48,12 @@ class YouTubeSearch extends Component { // YouTubeSearch
             onVideoSelect={selectedVideo => this.setState({selectedVideo})}
             videos={this.state.videos} />
         }
-        <RaisedButton label="Select" onClick={() => {console.log(currentSlide.id); 
-          console.log(this.state.selectedVideo.id.videoId); 
-          this.props.changeYouTube(this.props.currentSlide.id, this.state.selectedVideo.id.videoId)}} />
+        <RaisedButton label="Select" onClick={() => { 
+          if (this.state.selectedVideo) this.props.changeYouTube(this.props.currentSlide.id, this.state.selectedVideo.id.videoId)
+          }} />
+        <RaisedButton label="Remove Video" onClick={() => { 
+          this.props.changeYouTube(this.props.currentSlide.id, '')
+          }} />
       </div>
     )
   }

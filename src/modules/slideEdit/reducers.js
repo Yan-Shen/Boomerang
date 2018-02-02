@@ -15,6 +15,7 @@ export default function reducers(state = {lessonData: {}, slides:[], currentSlid
 
 		case actions.GET_SLIDE:
 			const update = state.slides.find(slide => slide.id === action.slide.id)
+			console.log('THIS IS THE UPDATE -------->', update)
 			if(update){
 				const updatedSlides = state.slides.map(slide => {
 					if(slide.id === action.slide.id) return action.slide

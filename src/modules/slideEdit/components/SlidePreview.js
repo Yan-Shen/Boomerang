@@ -36,6 +36,7 @@ class SlidePreview extends Component {
 		// this.props.changeSlide(this.props.index, id)
 		this.props.changeSlide(this.props.index, lessonId)
 		this.props.getToolsDispatcher(id)
+		this.props.toggleCanvas()
 	}
 
 	handleDelete(){
