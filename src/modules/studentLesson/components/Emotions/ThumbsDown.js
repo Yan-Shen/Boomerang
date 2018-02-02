@@ -1,7 +1,7 @@
 import React from 'react';
 
-const ThumbsDown = ({}) => (
-	<img style={{width: "40px"}} src="/thumbsDown.svg"/>
+const ThumbsDown = ({height}) => (
+	<img style={{width: height}} src="/thumbsDown.svg"/>
 );
 
 export default ThumbsDown;
