@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Delete from 'material-ui/svg-icons/action/delete';
 import {teal500} from 'material-ui/styles/colors';
+import Icon from 'react-icons-kit'
+import { socialYoutube } from 'react-icons-kit/typicons/socialYoutube'
 
 class SlidePreview extends Component {
 	constructor(props){
@@ -43,6 +45,7 @@ class SlidePreview extends Component {
 	}
 
 	render() {
+		const youtube = this.props.youtube
 		const {id} = this.props.data
 		const lessonId = this.props.lesson.id
 		return (
@@ -51,6 +54,9 @@ class SlidePreview extends Component {
 					border: this.props.index === this.props.currentSlideIndex ? `2px solid ${teal500}` : "1px solid #ccc",
 					borderRadius: '4px'}}>
 					<canvas   id={`${id}`} width="900" height="550" />
+				</div>
+				<div style={{position: 'relative', height: "0px", top: "-70px" }}>
+					{ !youtube ? null : <Icon icon={socialYoutube} /> }
 				</div>
 				<div style={{position: 'relative', height: "0px", top: "-30px", left: "75px"}}>
 					<Delete onClick={()=>this.handleDelete(lessonId)}/>

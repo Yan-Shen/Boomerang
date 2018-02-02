@@ -11,14 +11,14 @@ import ChangeTextBackground from './toolbarComponents/ChangeTextBackground'
 import RemoveObject from './toolbarComponents/RemoveObject'
 import EditLayers from './toolbarComponents/EditLayers'
 import EditText from './toolbarComponents/EditText'
-import CloseYouTube from 'material-ui/svg-icons/navigation/close'
+import CloseOverlay from 'material-ui/svg-icons/navigation/close'
 import ReactDOM from 'react-dom'
+import YouTube from 'react-youtube'
 
 import Icon from 'react-icons-kit'
 import { socialYoutube } from 'react-icons-kit/typicons/socialYoutube'
 
-import YouTubeOverlay from './YouTubeOverlay'
-import YouTubeVideo from './overlayComponents/YouTubeDisplay/video_detail'
+import OverlayLayer from './OverlayLayer'
 
 class CanvasBlock extends Component {
 	constructor(props) {
@@ -44,8 +44,8 @@ class CanvasBlock extends Component {
 		if (this.props.currentSlide.youtubeVideo) {
 			console.log('will this fire when video is in database?');
 			const videoId = this.props.currentSlide.youtubeVideo;
-			const url = `https://www.youtube.com/embed/${videoId}`;
-			ReactDOM.render(<YouTubeVideo url={url}/>, document.getElementById('video-overlay'))
+			// const url = `https://www.youtube.com/embed/${videoId}`;
+			ReactDOM.render(<YouTube videoId={videoId} ></YouTube>, document.getElementById('video-overlay'))
 		} else {
 			ReactDOM.unmountComponentAtNode(document.getElementById('video-overlay'))
 		}
@@ -106,7 +106,7 @@ class CanvasBlock extends Component {
 								updateSlide={this.props.updateSlide}
 							/>
 							<AddShape />
-							<Icon icon={socialYoutube} toggled={this.state.canvas} onClick={this.toggleCanvas} label="Simple" />
+							<Icon icon={socialYoutube} toggled={this.state.canvas} onClick={this.toggleCanvas} />
 							<ToolbarSeparator style={{
 								marginRight: '10px',
 								marginLeft: '10px'}}
@@ -143,6 +143,7 @@ class CanvasBlock extends Component {
 						}}>
 							{slides.map((slide, index) => (
 									<SlidePreview
+										youtube={slide.youtubeVideo}
 										lesson={lesson}
 										slides={slides.length}
 										currentSlideIndex={currentSlideIndex}
@@ -164,13 +165,12 @@ class CanvasBlock extends Component {
 							flexDirection: 'column'}}
 						>
 							<canvas  id="fabricTest" width="900" height="550" />
-							<div id='video-overlay' style={{position: 'absolute', top: 0, left: 0, width: this.block ? this.block.clientWidth : "0px", height: this.block ? this.block.clientHeight : "0px"}}>
-								{/* Hello */}
-							</div>
+
 							<div style={{zIndex: this.state.canvas ? -5000 : 5000, position: 'absolute', background: "white", top: 0, left: 0, width: this.block ? this.block.clientWidth : "0px", height: this.block ? this.block.clientHeight : "0px"}}>
-								<IconButton><CloseYouTube onClick={this.toggleCanvas} /></IconButton>
-								<YouTubeOverlay updateSlide={this.props.updateSlide} currentSlide={currentSlide} changeYouTube={this.props.changeYouTube}/>
+								<IconButton><CloseOverlay onClick={this.toggleCanvas} /></IconButton>
+								<OverlayLayer updateSlide={this.props.updateSlide} currentSlide={currentSlide} changeYouTube={this.props.changeYouTube} />
 							</div>
+
 							{/* <div style={{
 								height: '70px',
 								background: 'white',
