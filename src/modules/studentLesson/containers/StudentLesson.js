@@ -39,7 +39,7 @@ function mapStateToProps(state){
     emotions: state.studentLesson.emotions,
     displayObject: state.studentLesson.displayObject,
     userId: state.user.uid,
-    selectedUserId: "a6OGY0fmxadfxXw2Mf0VtMErfDy1"
+    selectedUserId: "hS74ejiqshRiikMYiVla8qLqBEH2"
   };
 }
 

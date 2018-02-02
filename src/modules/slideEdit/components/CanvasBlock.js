@@ -84,7 +84,7 @@ class CanvasBlock extends Component {
 		const { slides, deleteSlide, addSlide, changeSlide,
 			currentSlideIndex, updateSlide, getToolsDispatcher,lesson, replShow, currentSlide, shareReplSolutionDispatcher} = this.props
 			const {id} = this.props.currentSlide
-			// const selectedUserObj = this.props.currentSlide[this.props.selectedUserId]
+			const selectedUserObj = this.props.currentSlide[this.props.selectedUserId]
 
 		return (
 			<div style={{flex: 1}}>
@@ -183,7 +183,7 @@ class CanvasBlock extends Component {
 								question={this.props.replQuestion}
 								slideId={currentSlide.id}
 							shareReplSolutionDispatcher={shareReplSolutionDispatcher}
-							// selectedUserObj={selectedUserObj}
+							selectedUserObj={selectedUserObj}
 							/>
 							</div>
 

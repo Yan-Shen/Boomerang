@@ -23,8 +23,6 @@ const boxSource = {
 		const dropResult = monitor.getDropResult()
 
 		if (dropResult) {
-      console.log('props.currentSlideId-------', props.currentSlideId,)
-      console.log('props.question-------', props.question)
       // alert(`You dropped ${item.name} into ${dropResult.name}!`) // eslint-disable-line no-alert
       props.shareReplQ(props.currentSlideId, props.question)
 		}
@@ -55,7 +53,7 @@ class QuestionOutput extends Component {
 
     return connectDragSource(
       <div style={styleQ}>
-            <p> {this.props.question}</p>
+            <p style={{textAlign:"left"}}> {this.props.question}</p>
       </div>)
   }
 
