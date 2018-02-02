@@ -3,7 +3,9 @@ import {db} from '../../../firebase'
 import _ from 'lodash'
 import {Paper} from 'material-ui';
 import StudentDisplay from './StudentDisplay'
-import EmotionContainer from '../containers/EmotionContainer'
+import EmotionAnimation from './EmotionAnimation'
+import EmotionWrapper from './EmotionWrapper'
+
 
 class LessonWrapper extends Component {
 	componentDidMount(){
@@ -27,7 +29,6 @@ class LessonWrapper extends Component {
 		}
 	}
 	render() {
-		console.log("------------->",this.props)
 		const {id} = this.props.currentSlide
 		const {replSolution} = this.props
 		return (
@@ -35,7 +36,11 @@ class LessonWrapper extends Component {
 				<div ref={block => this.block = block} style={{marginRight: "30px", flex: 4}}>
 					<Paper>
 							<canvas id='studentCanvas' width="900" height="550" style={{borderRadius: "4px"}}/>
-							{this.props.emotions.map(emotion => <div style={{zIndex: 9000, position: "absolute", right: "400px"}}>testy</div>)}
+							<div>
+								{this.props.emotions.map((emotion, index) => (
+									<EmotionAnimation id={this.props.lesson.id} key={emotion.time} emotion={emotion} width={this.block.clientWidth}/>
+								))}
+							</div>
 					</Paper>
 
 				</div>
@@ -43,7 +48,7 @@ class LessonWrapper extends Component {
 					<Paper style={{width: '350px', height: 'calc(100vh - 190px)'}}>
 						<StudentDisplay value={replSolution}/>
 					</Paper>
-					<EmotionContainer/>
+					<EmotionWrapper id={this.props.lesson.id} addEmotionThunk={this.props.addEmotionThunk}/>
 				</div>
 			</div>
 		);

@@ -16,8 +16,9 @@ export function fetchLesson (id) {
 		})
     return db.ref(`/lessons/${id}`).once('value')
 			.then(lesson => {
-
-				dispatch(getLesson(lesson.val().title))
+        lesson = lesson.val()
+				lesson.id = id
+				dispatch(getLesson(lesson))
 				return db.ref(`/lessons/${id}/slides`).once('value')
 			})
 			.then((slides)=>{
@@ -37,13 +38,13 @@ export function fetchLesson (id) {
 }
 
 
-export function addEmotionThunk (type) {
+export function addEmotionThunk (type,id) {
   return function thunk (dispatch) {
       const emotion = {
         type,
         time: new Date().getTime()
       }
-      return db.ref(`/emotionsTest`).push(emotion)
+      return db.ref(`lessons/${id}/emotions`).push(emotion)
         .then(dispatch(addEmotion(emotion)))
 
 	}

@@ -3,6 +3,7 @@ import teacherDashboard from "./teacherDashboard"
 import studentDashboard from "./studentDashboard"
 import studentLesson from "./studentLesson"
 import authentication from "./authentication"
+import whiteboard from "./authentication"
 import {ToolContainer} from './tools'
 
 export default {
@@ -11,5 +12,6 @@ export default {
   teacherDashboard,
   studentDashboard,
   studentLesson,
-  authentication
+  authentication,
+  whiteboard
 };
