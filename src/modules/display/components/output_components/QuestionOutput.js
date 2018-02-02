@@ -5,7 +5,7 @@ import ItemTypes from '../../../../ItemTypes'
 
 const style = {
   repl: {
-    backgroundColor: "aqua",
+    backgroundColor: "#eee",
     height: "100%"
   }
 }

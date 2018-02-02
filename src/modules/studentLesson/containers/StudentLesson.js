@@ -3,7 +3,7 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import { DragDropContextProvider } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
-import {fetchLesson, unmountLesson, addEmotionThunk} from '../actions'
+import {fetchLesson, unmountLesson, addEmotionThunk, addStudentCode} from '../actions'
 import LessonWrapper from '../components/LessonWrapper'
 
 class StudentLesson extends Component {
@@ -30,10 +30,6 @@ class StudentLesson extends Component {
 }
 function mapStateToProps(state){
   const slides = state.lesson.slides
-  // const displayObject = state.studentLesson.displayObject.find(obj=> obj.id===slides[state.lesson.currentSlide].id)
-  // console.log('displayObject is---------', state.studentLesson.displayObject)
-  // console.log('slides is---------', slides)
-  // console.log('state.lesson.currentSlide is---------', slides[state.lesson.currentSlide])
 
   return {
     currentSlideIndex: state.lesson.currentSlide,
@@ -41,12 +37,14 @@ function mapStateToProps(state){
     lesson: state.lesson.lessonData,
     replSolution: state.replSolution,
     emotions: state.studentLesson.emotions,
-    displayObject: state.studentLesson.displayObject
+    displayObject: state.studentLesson.displayObject,
+    userId: state.user.uid,
+    selectedUserId: "a6OGY0fmxadfxXw2Mf0VtMErfDy1"
   };
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({fetchLesson,unmountLesson,addEmotionThunk}, dispatch);
+  return bindActionCreators({fetchLesson,unmountLesson,addEmotionThunk, addStudentCode}, dispatch);
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(StudentLesson);

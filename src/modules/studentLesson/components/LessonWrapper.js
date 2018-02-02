@@ -31,12 +31,14 @@ class LessonWrapper extends Component {
 	}
 	render() {
 		const {id} = this.props.currentSlide
-		const {displayObject} = this.props
+		const selectedUserObj = this.props.currentSlide[this.props.selectedUserId]
+		const {displayObject, addStudentCode, userId} = this.props
 		const currentDisplayObject = displayObject.find(display=>display.id === id)
 		const replQuestion = currentDisplayObject.Repl.question
 		const replSolution = currentDisplayObject.Repl.solution
 		const replShow = currentDisplayObject.Repl.show
-		console.log('repshow is------------', replShow)
+
+		console.log('selectedUserObj -----------', selectedUserObj )
 
 		return (
 			<div style={{background: "#ccc",padding: "15px", display: 'flex'}}>
@@ -52,7 +54,7 @@ class LessonWrapper extends Component {
 							</div>
 
 							<div style={{zIndex: replShow ? 6000 : -1000,  position: 'absolute', backgroundColor: "yellow", top: 0, left: 0, width: this.block ? this.block.clientWidth : "0px", height: this.block ? this.block.clientHeight : "0px"}}>
-								<ReplOverlay value={replSolution} question={replQuestion} />
+								<ReplOverlay value={replSolution} question={replQuestion} selectedUserObj={selectedUserObj}/>
 							</div>
 
 					{/* <Paper> */}
@@ -62,7 +64,7 @@ class LessonWrapper extends Component {
 				</div>
 				<div style={{width: '350px', height: 'calc(100vh - 90px)'}}>
 					<Paper style={{width: '350px', height: 'calc(100vh - 190px)'}}>
-						<StudentDisplay currentDisplayObject={currentDisplayObject}/>
+						<StudentDisplay currentDisplayObject={currentDisplayObject} addStudentCode={addStudentCode} slideId ={id} userId={userId}/>
 					</Paper>
 					<EmotionWrapper id={this.props.lesson.id} addEmotionThunk={this.props.addEmotionThunk}/>
 				</div>
