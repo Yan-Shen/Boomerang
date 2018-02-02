@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import { QAContainer, InputQContainer, ReplContainer, QAOutputContainer, ReplOutputContainer } from '../index';
-import { toggleChoice, toggleInput, toggleRepl, shareReplSolution} from '../../../store';
+import { toggleChoice, toggleInput, toggleRepl, shareReplSolution, shareReplQ, shareReplQDispatcher, shareReplSolutionDispatcher} from '../../../store';
 import ToggleChoice from '../../tools/reducers/ToggleChoice'
 
 
@@ -15,7 +15,7 @@ class DisplayContainer extends Component {
 
   render() {
 
-    const {choiceStatus, inputStatus, replStatus, currentSlideId, toggleChoice, toggleInput, toggleRepl, choiceShowStatus, showChoice, selectedTools, replShowStatus, shareReplSolution} = this.props;
+    const {choiceStatus, inputStatus, replStatus, currentSlideId, toggleChoice, toggleInput, toggleRepl, choiceShowStatus, showChoice, selectedTools, replShowStatus, shareReplSolution, shareReplQ} = this.props;
     let choiceQA
     let replQA
 
@@ -58,7 +58,13 @@ class DisplayContainer extends Component {
           }
           {
             replShowStatus && replQA.map(each=>{
-              return <ReplOutputContainer QA={each} repl = {replShowStatus} shareReplSolution = {shareReplSolution} key={each.question}/>
+              return <ReplOutputContainer
+              QA={each}
+              repl = {replShowStatus}
+              shareReplSolution = {shareReplSolution}
+              shareReplQ= {shareReplQ}
+              currentSlideId = {currentSlideId}
+              key={each.question}/>
             })
           }
         </div>
@@ -84,7 +90,7 @@ const mapState = state => {
 
 function mapDispatcher(dispatch){
   return{
-    ToggleChoice(){
+    toggleChoice(){
       dispatch(toggleChoice())
     },
     toggleInput(){
@@ -93,11 +99,13 @@ function mapDispatcher(dispatch){
     toggleRepl(){
       dispatch(toggleRepl())
     },
-    shareReplSolution(solution){
-      dispatch(shareReplSolution(solution))
+    shareReplSolution(slideId, solution){
+      dispatch(shareReplSolutionDispatcher(slideId, solution))
+    },
+    shareReplQ(slideId, question){
+      dispatch(shareReplQDispatcher(slideId, question))
     }
   }
-  return bindActionCreators({toggleChoice, toggleInput, toggleRepl, shareReplSolution}, dispatch);
 }
 
 export default connect(mapState, mapDispatcher)(DisplayContainer);

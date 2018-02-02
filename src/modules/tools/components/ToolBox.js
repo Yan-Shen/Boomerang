@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { DropTarget } from 'react-dnd'
 import ItemTypes from '../../../ItemTypes'
 import ToolBtn from './ToolBtn'
+import { showReplDispatcher } from '../../../store/index';
 
 
 const style = {
@@ -35,7 +36,7 @@ class ToolBox extends Component {
 
 
 	render() {
-		const { canDrop, isOver, connectDropTarget, selectedTools, toggleChoice, choiceStatus, inputStatus, toggleInput, currentSlideId, toggleRepl, replStatus, showChoice, showRepl } = this.props
+		const { canDrop, isOver, connectDropTarget, selectedTools, toggleChoice, choiceStatus, inputStatus, toggleInput, currentSlideId, toggleRepl, replStatus, showChoice, showReplDispatcher } = this.props
 		const selectedToolsName = Object.keys(selectedTools)
 		const isActive = canDrop && isOver
 
@@ -64,7 +65,8 @@ class ToolBox extends Component {
 				{selectedToolsName.includes("Repl")	&&
 				<ToolBtn name="Repl"
 				onClick={toggleRepl}
-				showRepl={showRepl}
+				showReplDispatcher={showReplDispatcher}
+				currentSlideId = {currentSlideId}
 				replStatus = {replStatus}
 				/> }
 			</div>,
