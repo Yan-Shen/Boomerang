@@ -3,7 +3,7 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import { DragDropContextProvider } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
-import {fetchLesson,unmountLesson} from '../actions'
+import {fetchLesson, unmountLesson, addEmotionThunk} from '../actions'
 import LessonWrapper from '../components/LessonWrapper'
 
 class StudentLesson extends Component {
@@ -46,7 +46,7 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({fetchLesson,unmountLesson}, dispatch);
+  return bindActionCreators({fetchLesson,unmountLesson,addEmotionThunk}, dispatch);
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(StudentLesson);

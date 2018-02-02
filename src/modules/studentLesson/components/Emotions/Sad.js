@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Sad = ({}) => (
-	<img style={{width: "40px"}} src="/Sad.svg"/>
+const Sad = ({height}) => (
+	<img style={{width: height}} src="/Sad.svg"/>
 );
 
 export default Sad;
