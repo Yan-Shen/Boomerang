@@ -52,6 +52,8 @@ class ReplSolution extends Component{
   handleChange(solution) {
     if (this.props.overlay) {
       this.props.shareReplSolutionDispatcher(this.props.slideId, solution)
+    } else if (this.props.userId) {
+      this.props.addStudentCode(solution, this.props.slideId, this.props.userId)
     } else {
       this.props.onChange()
     }
@@ -60,13 +62,13 @@ class ReplSolution extends Component{
   render(){
     const { isDragging, connectDragSource, QA, value, onChange, overlay, shareReplSolutionDispatcher } = this.props
     let editorWidth, editorHeight
-    overlay ? editorWidth = "700px" : editorWidth= "350px"
+    overlay ? editorWidth = "500px" : editorWidth= "350px"
     overlay ? editorHeight = "600px" : editorHeight= "350px"
     return connectDragSource(
       <div>
         <AceEditor
           mode="javascript"
-          theme="monokai"
+          theme="xcode"
           width = {editorWidth}
           height = {editorHeight}
           value ={value}
@@ -74,6 +76,9 @@ class ReplSolution extends Component{
           showPrintMargin={true}
           showGutter={true}
           highlightActiveLine={true}
+          style={{borderStyle: "solid",
+          borderRadius: "8px", borderWidth: "1px",
+          borderColor: "black"}}
           setOptions={{
             enableBasicAutocompletion: true,
             enableLiveAutocompletion: true,

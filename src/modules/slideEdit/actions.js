@@ -10,7 +10,7 @@ export const removeSlide = slideId =>  ({type: actions.DELETE_SLIDE, slideId})
 export const changeSlideAction = index => ({type: actions.CHANGE_SLIDE, index})
 export const unmountLesson = () => ({type: actions.UNMOUNT_LESSON})
 // export const changeSlide = index => ({type: actions.CHANGE_SLIDE, index})
-
+export const getDisplay = displayObject => ({type: actions.GET_DISPLAYOBJECT, displayObject})
 
 
 export const changeSlide = (index, id) =>  {
@@ -48,6 +48,18 @@ export function fetchLesson (id) {
 			})
 			.then((slides)=>{
 				slides.forEach((slide)=>{
+
+					db.ref(`studentDisplay/${slide.key}`).on('value', (data)=>{
+						const displayData = data.val()
+						const slideId = data.key
+						const displayObject = {
+							id: slideId,
+							...displayData
+						}
+						console.log('displayObject teacher------------', displayObject)
+						dispatch(getDisplay(displayObject));
+					})
+
 					db.ref(`slides/${slide.key}`).on('value', (data)=>{
 						if(data.val() === null){
 							return dispatch(removeSlide(data.key))

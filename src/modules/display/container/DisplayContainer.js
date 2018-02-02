@@ -30,7 +30,6 @@ class DisplayContainer extends Component {
       }
 
       (selectedTools["Repl"]&&selectedTools["Repl"]['QA']) ? replQA = Object.values(selectedTools["Repl"]['QA']) : replQA = []
-      console.log('replQA---------', replQA)
       return (
         <div>
           {
