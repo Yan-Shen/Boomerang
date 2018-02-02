@@ -61,3 +61,9 @@ export function addEmotionThunk (type,id) {
 
 	}
 }
+
+export function addStudentCode (code, slideId, userId) {
+	return dispatch => {
+		return db.ref(`slides/${slideId}/${userId}`).update({replCode: code})
+	}
+}

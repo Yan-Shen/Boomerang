@@ -1,11 +1,13 @@
 import * as actions from './actionTypes';
 
 export default function reducers(state = {lesson: {}, slides:[], currentSlide: null, emotions: [], displayObject:[] }, action){
+	console.log('action ==============', action)
   switch (action.type){
     case actions.ADD_EMOTION:
 				return {...state, emotions: [...state.emotions, action.emotion]}
 
 		case actions.GET_DISPLAYOBJECT:
+		console.log('teacher reducer triggered')
 		const obj = state.displayObject.find(display=>display.id===action.displayObject.id)
 		if (!obj) {
 			return {...state, displayObject: [...state.displayObject, action.displayObject]}
