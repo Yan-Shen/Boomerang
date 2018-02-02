@@ -7,7 +7,7 @@ export const getSlide = slide =>  ({type: actions.GET_SLIDE, slide})
 export const getSlideIndex = index =>  ({type: actions.GET_SLIDE_INDEX, index})
 export const unmountLesson = () =>  ({type: actions.UNMOUNT_LESSON})
 export const addEmotion = (emotion) =>  ({type: actions.ADD_EMOTION, emotion})
-
+export const getDisplay = displayObject => ({type: actions.GET_DISPLAYOBJECT, displayObject})
 
 export function fetchLesson (id) {
   return function thunk (dispatch) {
@@ -21,7 +21,19 @@ export function fetchLesson (id) {
 				return db.ref(`/lessons/${id}/slides`).once('value')
 			})
 			.then((slides)=>{
+
 				slides.forEach((slide)=>{
+					db.ref(`studentDisplay/${slide.key}`).on('value', (data)=>{
+						const displayData = data.val()
+						const slideId = data.key
+						const displayObject = {
+							id: slideId,
+							...displayData
+						}
+						dispatch(getDisplay(displayObject));
+					})
+
+
 					db.ref(`slides/${slide.key}`).on('value', (data)=>{
 						const slideData = data.val()
 						const slideId = data.key

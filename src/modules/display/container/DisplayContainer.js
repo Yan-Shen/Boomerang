@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import { QAContainer, InputQContainer, ReplContainer, QAOutputContainer, ReplOutputContainer } from '../index';
-import { toggleChoice, toggleInput, toggleRepl, shareReplSolution, shareReplQ} from '../../../store';
+import { toggleChoice, toggleInput, toggleRepl, shareReplSolution, shareReplQ, shareReplQDispatcher, shareReplSolutionDispatcher} from '../../../store';
 import ToggleChoice from '../../tools/reducers/ToggleChoice'
 
 
@@ -58,7 +58,13 @@ class DisplayContainer extends Component {
           }
           {
             replShowStatus && replQA.map(each=>{
-              return <ReplOutputContainer QA={each} repl = {replShowStatus} shareReplSolution = {shareReplSolution} shareReplQ= {shareReplQ} key={each.question}/>
+              return <ReplOutputContainer
+              QA={each}
+              repl = {replShowStatus}
+              shareReplSolution = {shareReplSolution}
+              shareReplQ= {shareReplQ}
+              currentSlideId = {currentSlideId}
+              key={each.question}/>
             })
           }
         </div>
@@ -93,11 +99,11 @@ function mapDispatcher(dispatch){
     toggleRepl(){
       dispatch(toggleRepl())
     },
-    shareReplSolution(solution){
-      dispatch(shareReplSolution(solution))
+    shareReplSolution(slideId, solution){
+      dispatch(shareReplSolutionDispatcher(slideId, solution))
     },
-    shareReplQ(question){
-      dispatch(shareReplQ(question))
+    shareReplQ(slideId, question){
+      dispatch(shareReplQDispatcher(slideId, question))
     }
   }
 }

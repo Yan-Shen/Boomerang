@@ -35,15 +35,15 @@ class ReplOverlay extends Component { // ReplOverlay
 
 
   render() {
-    const { canDrop, isOver, connectDropTarget} = this.props
+    const { canDrop, isOver, connectDropTarget, shareReplSolutionDispatcher, slideId} = this.props
 
     return connectDropTarget(
-      <div style={{display: 'flex', flexDirection: 'column', backgroundColor:'white', width:'100%', height:'100%'}}>
+      <div style={{display: 'flex', flexDirection: 'column', alignItems:'center', backgroundColor:'aqua', width:'100%', height:'100%'}}>
       {
-       <QuestionOutput question={this.props.question}/>
+       <QuestionOutput question={this.props.question} style={{flex:1}} />
       }
       {
-        this.props.value && <ReplSolution value= {this.props.value} style={{flex: 2}} />
+        this.props.value && <ReplSolution value= {this.props.value} style={{flex: 2}} overlay="overlay" slideId={slideId} shareReplSolutionDispatcher={shareReplSolutionDispatcher}/>
       }
 
       </div>

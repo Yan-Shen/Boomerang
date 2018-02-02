@@ -15,13 +15,16 @@ const style = {
 
 
 function ReplOutputContainer (props){
-  const {QA, repl, shareReplSolution, shareReplQ} = props
+  const {QA, repl, shareReplSolution, shareReplQ, currentSlideId} = props
+
   return (
       <div>
         <Paper style={style} zDepth={1} >
               <div key={QA.question}>
-                 <QuestionOutput question={QA.question} repl={repl} shareReplQ={shareReplQ}/>
-                <ReplSolution value={QA.solution} shareReplSolution = {shareReplSolution}/>
+                 <QuestionOutput question={QA.question} repl={repl} shareReplQ={shareReplQ}
+                 currentSlideId = {currentSlideId}/>
+                <ReplSolution value={QA.solution} shareReplSolution = {shareReplSolution}
+                currentSlideId = {currentSlideId}/>
               </div>
       </Paper>
     </div>

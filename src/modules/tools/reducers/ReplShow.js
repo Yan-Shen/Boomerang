@@ -18,10 +18,12 @@ export const showReplDispatcher = (slideId) => {
       .then(data => {
         const studentDisplay = data.val()
         console.log('StudentDisplay is-----------', studentDisplay.Repl)
-        if(!studentDisplay.Repl) {
-          db.ref(`/studentDisplay/${slideId}`).update({Repl: true})
+        if(!studentDisplay.Repl.show) {
+          db.ref(`/studentDisplay/${slideId}/Repl`).update({show: true})
         } else {
-          db.ref(`/studentDisplay/${slideId}`).update({Repl: false})
+          db.ref(`/studentDisplay/${slideId}/Repl`).update({show: false})
+          db.ref(`/studentDisplay/${slideId}/Repl`).update({question: ''})
+          db.ref(`/studentDisplay/${slideId}/Repl`).update({solution: ''})
         }
         dispatch(showRepl())
       })

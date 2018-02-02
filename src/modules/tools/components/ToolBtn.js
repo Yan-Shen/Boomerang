@@ -35,7 +35,6 @@ class ToolBtn extends Component {
     if (this.props.name === "Choice Q"){
       this.props.showChoice()
     } else if (this.props.name === "Repl") {
-      console.log('toggle is triggered--------------')
       this.props.showReplDispatcher(this.props.currentSlideId)
     }
   }

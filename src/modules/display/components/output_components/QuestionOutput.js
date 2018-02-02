@@ -23,9 +23,10 @@ const boxSource = {
 		const dropResult = monitor.getDropResult()
 
 		if (dropResult) {
-
+      console.log('props.currentSlideId-------', props.currentSlideId,)
+      console.log('props.question-------', props.question)
       // alert(`You dropped ${item.name} into ${dropResult.name}!`) // eslint-disable-line no-alert
-      props.shareReplQ(props.question)
+      props.shareReplQ(props.currentSlideId, props.question)
 		}
 	}
 }

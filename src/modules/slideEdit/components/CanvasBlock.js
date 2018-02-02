@@ -67,8 +67,9 @@ class CanvasBlock extends Component {
 	}
 
 	render() {
+		console.log('canavas slideid-------------', this.props.currentSlide.id)
 		const { slides, deleteSlide, addSlide, changeSlide,
-			currentSlideIndex, updateSlide, getToolsDispatcher,lesson, replShow} = this.props
+			currentSlideIndex, updateSlide, getToolsDispatcher,lesson, replShow, currentSlide, shareReplSolutionDispatcher} = this.props
 		return (
 			<div style={{flex: 1}}>
 				<div style={{
@@ -157,7 +158,7 @@ class CanvasBlock extends Component {
 							</div>
 
 							<div style={{zIndex: replShow ? 6000: -6000, position: 'absolute', backgroundColor: "white", top: 0, left: 0, width: this.block ? this.block.clientWidth : "0px", height: this.block ? this.block.clientHeight : "0px"}}>
-								<ReplOverlay value={this.props.replSolution} question={this.props.replQuestion}/>
+								<ReplOverlay value={this.props.replSolution} question={this.props.replQuestion} slideId={currentSlide.id} shareReplSolutionDispatcher={shareReplSolutionDispatcher}/>
 							</div>
 
 							{/* <div style={{

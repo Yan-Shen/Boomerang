@@ -1,3 +1,4 @@
+import {db} from '../../../firebase'
 // ACTION TYPE
 const REPLQ_SHARE = 'REPLQ_SHARE'
 
@@ -9,6 +10,16 @@ export const shareReplQ = (question)=> {
   }
 }
 
+
+export const shareReplQDispatcher = (slideId, question) => {
+  return dispatch => {
+      db.ref(`/studentDisplay/${slideId}/Repl`).update({question})
+      .then(()=>{
+        dispatch(shareReplQ(question))
+      })
+    }
+  }
+
 //REDUCER
 
 export default function reducer (state = '', action) {
@@ -19,3 +30,6 @@ export default function reducer (state = '', action) {
       return state;
   }
 }
+
+
+
