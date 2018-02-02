@@ -36,7 +36,7 @@ class ReplContainer extends Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <ReplQuestion value={this.state.ReplQuestion} onChange={this.handleChangeQuestion}/>
+        <ReplQuestion question={this.state.ReplQuestion} onChange={this.handleChangeQuestion}/>
         <ReplSolution value={this.state.ReplSolution} onChange={this.handleChangeSolution}/>
         <div>
         <RaisedButton label="Save" type="submit" />

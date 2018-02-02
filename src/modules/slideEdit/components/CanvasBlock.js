@@ -19,6 +19,7 @@ import Icon from 'react-icons-kit'
 import { socialYoutube } from 'react-icons-kit/typicons/socialYoutube'
 
 import OverlayLayer from './OverlayLayer'
+import ReplOverlay from './overlayComponents/ReplOverlay';
 
 class CanvasBlock extends Component {
 	constructor(props) {
@@ -49,7 +50,7 @@ class CanvasBlock extends Component {
 			ReactDOM.unmountComponentAtNode(document.getElementById('video-overlay'))
 		}
 	}
-  
+
 	componentDidMount() {
 		const width = this.block.clientWidth
 		const scale = width/900
@@ -85,8 +86,9 @@ class CanvasBlock extends Component {
 	}
 
 	render() {
+		console.log('canavas slideid-------------', this.props.currentSlide.id)
 		const { slides, deleteSlide, addSlide, changeSlide,
-			currentSlideIndex, updateSlide, getToolsDispatcher,lesson, currentSlide} = this.props
+			currentSlideIndex, updateSlide, getToolsDispatcher,lesson, replShow, currentSlide, shareReplSolutionDispatcher} = this.props
 		return (
 			<div style={{flex: 1}}>
 				<div style={{
@@ -179,6 +181,10 @@ class CanvasBlock extends Component {
 							<div style={{zIndex: this.state.canvas ? -5000 : 5000, position: 'absolute', background: "white", top: 0, left: 0, width: this.block ? this.block.clientWidth : "0px", height: this.block ? this.block.clientHeight : "0px"}}>
 								<IconButton><CloseOverlay onClick={() => this.toggleCanvas('canvas')} /></IconButton>
 								<OverlayLayer updateSlide={this.props.updateSlide} currentSlide={currentSlide} changeYouTube={this.props.changeYouTube} />
+							</div>
+
+							<div style={{zIndex: replShow ? 6000: -6000, position: 'absolute', backgroundColor: "white", top: 0, left: 0, width: this.block ? this.block.clientWidth : "0px", height: this.block ? this.block.clientHeight : "0px"}}>
+								<ReplOverlay value={this.props.replSolution} question={this.props.replQuestion} slideId={currentSlide.id} shareReplSolutionDispatcher={shareReplSolutionDispatcher} />
 							</div>
 
 							{/* <div style={{

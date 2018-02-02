@@ -1,3 +1,4 @@
+import {db} from '../../../firebase'
 // ACTION TYPE
 const REPLSOLUTION_SHARE = 'REPLSOLUTION_SHARE'
 
@@ -8,6 +9,17 @@ export const shareReplSolution= (solution)=> {
     solution: solution
   }
 }
+
+export const shareReplSolutionDispatcher = (slideId, solution) =>
+{
+  console.log('slideid---------', slideId)
+  return dispatch => {
+      db.ref(`/studentDisplay/${slideId}/Repl`).update({solution})
+      .then(()=>{
+        dispatch(shareReplSolution(solution))
+      })
+    }
+  }
 
 //REDUCER
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Happy = ({}) => (
-	<img style={{width: "40px"}}src="/happy.svg"/>
+const Happy = ({height}) => (
+	<img style={{width: height}} src="/happy.svg"/>
 );
 
 export default Happy;

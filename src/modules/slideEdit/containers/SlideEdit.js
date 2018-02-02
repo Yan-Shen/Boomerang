@@ -9,6 +9,9 @@ import {db} from '../../../firebase'
 import components from '../components'
 import {ToolContainer} from '../../tools'
 import {DisplayContainer} from '../../display'
+import ReplSolution from '../../display/components/input_components/ReplSolution'
+import ReplQuestion from '../../display/components/input_components/ReplQuestion';
+import {shareReplSolutionDispatcher} from '../../display/reducers/replSolutionShare'
 
 
 
@@ -49,11 +52,14 @@ function mapStateToProps(state,props){
     currentSlide: slides[state.lesson.currentSlide],
     slides: state.lesson.slides,
     lesson: state.lesson.lessonData,
+    replSolution: state.replSolution,
+    replQuestion: state.replQuestion,
+    replShow: state.replShow
   };
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({fetchLesson,addSlide,deleteSlide,changeSlide,updateSlide, getToolsDispatcher,unmountLesson,changeYouTube}, dispatch);
+  return bindActionCreators({fetchLesson,addSlide,deleteSlide,changeSlide,updateSlide, getToolsDispatcher,unmountLesson,changeYouTube, shareReplSolutionDispatcher}, dispatch);
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(SlideEdit);

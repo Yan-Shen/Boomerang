@@ -2,6 +2,7 @@ import React from 'react';
 import Paper from 'material-ui/Paper';
 import components from '../../components'
 import {shareReplSolution} from '../../reducers/replSolutionShare'
+import {shareReplQ} from '../../reducers/replQShare'
 const {QuestionOutput, ReplSolution} = components
 
 const style = {
@@ -14,13 +15,16 @@ const style = {
 
 
 function ReplOutputContainer (props){
-  const {QA, repl, shareReplSolution} = props
+  const {QA, repl, shareReplSolution, shareReplQ, currentSlideId} = props
+
   return (
       <div>
         <Paper style={style} zDepth={1} >
               <div key={QA.question}>
-                 <QuestionOutput question={QA.question} repl={repl}/>
-                <ReplSolution value={QA.solution} shareReplSolution = {shareReplSolution}/>
+                 <QuestionOutput question={QA.question} repl={repl} shareReplQ={shareReplQ}
+                 currentSlideId = {currentSlideId}/>
+                <ReplSolution value={QA.solution} shareReplSolution = {shareReplSolution}
+                currentSlideId = {currentSlideId}/>
               </div>
       </Paper>
     </div>

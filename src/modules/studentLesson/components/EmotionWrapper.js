@@ -6,23 +6,23 @@ import Happy from './Emotions/Happy.js'
 import Content from './Emotions/Content.js'
 import Sad from './Emotions/Sad.js'
 
-const EmotionWrapper = ({addEmotionThunk}) => (
+const EmotionWrapper = ({addEmotionThunk, id}) => (
 	<Paper style={{height: "60px", width: "350px", marginTop: "10px"}}>
 		<div style={{paddingLeft: "15px",paddingRight: "15px", paddingTop: "10px",alignItems: 'center',display: 'flex', justifyContent: 'space-between'}}>
-			<div onClick={()=>{addEmotionThunk('thumbsUp')}}>
-				<ThumbsUp  style={{height: "40px"}}/>
+			<div onClick={()=>{addEmotionThunk('thumbsUp', id)}}>
+				<ThumbsUp  height="40px"/>
 			</div>
-			<div onClick={()=>{addEmotionThunk('thumbsDown')}}>
-				<ThumbsDown style={{height: "40px"}}/>
+			<div onClick={()=>{addEmotionThunk('thumbsDown',id)}}>
+				<ThumbsDown height="40px"/>
 			</div>
-			<div onClick={()=>{addEmotionThunk('happy')}}>
-				<Happy style={{height: "40px"}}/>
+			<div onClick={()=>{addEmotionThunk('happy',id)}}>
+				<Happy height="40px"/>
 			</div>
-			<div onClick={()=>{addEmotionThunk('content')}}>
-				<Content style={{height: "40px"}}/>
+			<div onClick={()=>{addEmotionThunk('content',id)}}>
+				<Content height="40px"/>
 			</div>
-			<div onClick={()=>{addEmotionThunk('sad')}}>
-				<Sad style={{height: "40px"}}/>
+			<div onClick={()=>{addEmotionThunk('sad',id)}}>
+				<Sad height="40px"/>
 			</div>
 		</div>
 	</Paper>

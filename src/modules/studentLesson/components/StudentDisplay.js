@@ -5,10 +5,14 @@ import components from '../../display/components'
 const {ReplSolution} = components
 
 function StudentDisplay(props) {
+  console.log('currentDisplayObject for repl-----------------', props.currentDisplayObject)
   return (
     // <Paper>
     <div width="300" height="550" style={{borderRadius: "4px"}}>
-    <ReplSolution value={props.value}/>
+    {
+      props.currentDisplayObject.Repl.show &&
+       <ReplSolution value={props.value}/>
+    }
     </div>
   // </Paper>
   )

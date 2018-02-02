@@ -26,16 +26,22 @@ const styles = {
 };
 
 class ToolBtn extends Component {
+  constructor(props){
+    super(props)
+    this.handleToggle = this.handleToggle.bind(this)
+  }
+
+  handleToggle(){
+    if (this.props.name === "Choice Q"){
+      this.props.showChoice()
+    } else if (this.props.name === "Repl") {
+      this.props.showReplDispatcher(this.props.currentSlideId)
+    }
+  }
 
   render() {
-    const {onClick, choiceStatus, inputStatus, replStatus, name, showChoice, showRepl} = this.props
+    const {onClick, choiceStatus, inputStatus, replStatus, name, showChoice, showReplDispatcher} = this.props
     let btnStyle
-    let show
-    if (name === "Choice Q") {
-      show = showChoice
-    } else if (name === "Repl") {
-      show = showRepl
-    }
 
     if (choiceStatus || inputStatus || replStatus) {
       btnStyle = styles.btnOn
@@ -47,7 +53,7 @@ class ToolBtn extends Component {
 
       <div className="flex-container-row singleToolContainer">
         <Toggle
-          onToggle={show}
+          onToggle={this.handleToggle}
         style={styles.toggle}/>
         <RaisedButton
         label={name}
