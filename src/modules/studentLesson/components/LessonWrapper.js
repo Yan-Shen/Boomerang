@@ -3,14 +3,10 @@ import {db} from '../../../firebase'
 import _ from 'lodash'
 import {Paper} from 'material-ui';
 import StudentDisplay from './StudentDisplay'
-<<<<<<< HEAD
-import EmotionContainer from '../containers/EmotionContainer'
 import ReplOverlay from '../../slideEdit/components/overlayComponents/ReplOverlay'
-=======
 import EmotionAnimation from './EmotionAnimation'
 import EmotionWrapper from './EmotionWrapper'
 
->>>>>>> master
 
 class LessonWrapper extends Component {
 	componentDidMount(){

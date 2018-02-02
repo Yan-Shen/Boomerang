@@ -18,11 +18,8 @@ import Icon from 'react-icons-kit'
 import { socialYoutube } from 'react-icons-kit/typicons/socialYoutube'
 
 import YouTubeOverlay from './YouTubeOverlay'
-<<<<<<< HEAD
 import ReplOverlay from './overlayComponents/ReplOverlay';
-=======
 import YouTubeVideo from './overlayComponents/YouTubeDisplay/video_detail'
->>>>>>> master
 
 class CanvasBlock extends Component {
 	constructor(props) {
@@ -54,7 +51,7 @@ class CanvasBlock extends Component {
 			ReactDOM.unmountComponentAtNode(document.getElementById('video-overlay'))
 		}
 	}
-  
+
 	componentDidMount() {
 		const width = this.block.clientWidth
 		const scale = width/900
@@ -85,11 +82,7 @@ class CanvasBlock extends Component {
 	render() {
 		console.log('canavas slideid-------------', this.props.currentSlide.id)
 		const { slides, deleteSlide, addSlide, changeSlide,
-<<<<<<< HEAD
 			currentSlideIndex, updateSlide, getToolsDispatcher,lesson, replShow, currentSlide, shareReplSolutionDispatcher} = this.props
-=======
-			currentSlideIndex, updateSlide, getToolsDispatcher,lesson, currentSlide} = this.props
->>>>>>> master
 		return (
 			<div style={{flex: 1}}>
 				<div style={{

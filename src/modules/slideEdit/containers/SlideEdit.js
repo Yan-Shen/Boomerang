@@ -59,11 +59,7 @@ function mapStateToProps(state,props){
 }
 
 function mapDispatchToProps(dispatch){
-<<<<<<< HEAD
-  return bindActionCreators({fetchLesson,addSlide,deleteSlide,changeSlide,updateSlide, getToolsDispatcher,unmountLesson, shareReplSolutionDispatcher}, dispatch);
-=======
-  return bindActionCreators({fetchLesson,addSlide,deleteSlide,changeSlide,updateSlide, getToolsDispatcher,unmountLesson,changeYouTube}, dispatch);
->>>>>>> master
+  return bindActionCreators({fetchLesson,addSlide,deleteSlide,changeSlide,updateSlide, getToolsDispatcher,unmountLesson,changeYouTube, shareReplSolutionDispatcher}, dispatch);
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(SlideEdit);
