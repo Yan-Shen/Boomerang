@@ -1,5 +1,6 @@
 import {db} from '../../../firebase'
 import StudentDisplay from '../../studentLesson/components/StudentDisplay';
+import { shareReplSolution, shareReplQ } from '../../../store/index';
 
 // ACTION TYPE
 const REPL_SHOW = 'REPL_SHOW'
@@ -24,6 +25,8 @@ export const showReplDispatcher = (slideId) => {
           db.ref(`/studentDisplay/${slideId}/Repl`).update({show: false})
           db.ref(`/studentDisplay/${slideId}/Repl`).update({question: ''})
           db.ref(`/studentDisplay/${slideId}/Repl`).update({solution: ''})
+          dispatch(shareReplSolution(''))
+          dispatch(shareReplQ(''))
         }
         dispatch(showRepl())
       })
