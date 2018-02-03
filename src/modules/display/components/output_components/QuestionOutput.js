@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import { DragSource } from 'react-dnd'
 import ItemTypes from '../../../../ItemTypes'
+import Paper from 'material-ui/Paper';
 
 const style = {
   repl: {
@@ -52,10 +53,14 @@ class QuestionOutput extends Component {
     }
 
     return connectDragSource(
+
       <div style={styleQ}>
-            <p style={{textAlign:"left"}}> {this.props.question}</p>
-      </div>)
-  }
+        <Paper style={{margin: "auto 10px", paddingLeft: "10px", paddingRight: "10px"}} zDepth={1} >
+          <p style={{textAlign:"left"}}> {this.props.question}</p>
+        </ Paper>
+      </div>
+
+    )}
 
 }
 

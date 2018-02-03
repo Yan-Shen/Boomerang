@@ -28,6 +28,7 @@ export const showReplDispatcher = (slideId) => {
           dispatch(shareReplSolution(''))
           dispatch(shareReplQ(''))
         }
+        // to dispatch something to switch off selected active user
         dispatch(showRepl())
       })
     }
