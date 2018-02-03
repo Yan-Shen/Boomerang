@@ -6,6 +6,7 @@ import HTML5Backend from 'react-dnd-html5-backend'
 import {ToolContainer} from '../../tools'
 import {MainDisplayContainer} from '../../display'
 import CanvasBlock from './CanvasBlock'
+import SelectActiveUsers from './SelectActiveUsers'
 
 const SlideEditWrapper = (props) => (
 	<DragDropContextProvider backend={HTML5Backend}>
@@ -19,6 +20,9 @@ const SlideEditWrapper = (props) => (
 
 		<div style={{width: '350px'}}>
 		 {/* Toolbox area */}
+		 <Paper style={{margin: "10px"}} zDepth={1}>
+		 	<SelectActiveUsers lessonId={props.lesson.id} toggleActiveStudent={props.toggleActiveStudent} users={props.users}/>
+		 </Paper>
 			<Paper style={{margin: "10px"}} zDepth={1}>
 			<div className="flex-container-column">
 				<ToolContainer />

@@ -7,9 +7,18 @@ import ReplOverlay from '../../slideEdit/components/overlayComponents/ReplOverla
 import EmotionAnimation from './EmotionAnimation'
 import EmotionWrapper from './EmotionWrapper'
 import ReplSolution from '../../display/components/input_components/ReplSolution'
+import WhiteBoardCanvas from '../../whiteboard/containers/WhiteBoardCanvas'
+import WhiteBoardControls from '../../whiteboard/components/WhiteBoardControls'
 
 
 class LessonWrapper extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			width: null,
+			height: null
+		};
+	}
 	componentDidMount(){
 		const width = this.block.clientWidth
 		const scale = width/900
@@ -25,6 +34,7 @@ class LessonWrapper extends Component {
 		console.log(this.props)
 	}
 	componentDidUpdate(prevProps){
+		if(this.state.height === null) this.setState({height: this.block.clientHeight, width: this.block.clientWidth})
 		if(!_.isEqual(prevProps.currentSlide,this.props.currentSlide) || prevProps.currentSlideIndex === this.props.currentSlideIndex){
 			this.canvas.loadFromJSON(this.props.currentSlide, this.canvas.renderAll.bind(this.canvas));
 			this.canvas.renderAll();
@@ -52,12 +62,12 @@ class LessonWrapper extends Component {
 			<div style={{background: "#ccc",padding: "15px", display: 'flex'}}>
 				<div ref={block => this.block = block} style={{marginRight: "30px", flex: 4}}>
 					<Paper style={{position: 'relative'}}>
-							{/* <canvas id='studentCanvas' width="900" height="550" style={{borderRadius: "4px", position: 'absolute', top: 0, left: 0, }}/>
-							{this.props.emotions.map(emotion => <div style={{zIndex: 5000, position: "absolute", right: "400px"}}>testy</div>)} */}
-						<canvas id='studentCanvas' width="900" height="550" style={{borderRadius: "4px"}}/>
+							<canvas style={{background: "red"}} id='studentCanvas' width="900" height="550" style={{borderRadius: "4px"}}/>
+							<WhiteBoardCanvas width={this.state.width} height={this.state.height}/>
+
 							<div>
 								{this.props.emotions.map((emotion, index) => (
-									<EmotionAnimation id={this.props.lesson.id} key={emotion.time} emotion={emotion} width={this.block.clientWidth}/>
+									<EmotionAnimation id={this.props.lesson.id} key={emotion.time} emotion={emotion} width={this.state.width}/>
 								))}
 							</div>
 
@@ -72,7 +82,12 @@ class LessonWrapper extends Component {
 				</div>
 				<div style={{width: '350px', height: 'calc(100vh - 90px)'}}>
 					<Paper style={{width: '350px', height: 'calc(100vh - 190px)'}}>
+<<<<<<< HEAD
 						<StudentDisplay replShow={replShow} addStudentCode={addStudentCode} slideId ={id} userId={userId}/>
+=======
+						{/* <StudentDisplay value={replSolution}/> */}
+						<WhiteBoardControls />
+>>>>>>> master
 					</Paper>
 					<EmotionWrapper id={this.props.lesson.id} addEmotionThunk={this.props.addEmotionThunk}/>
 				</div>

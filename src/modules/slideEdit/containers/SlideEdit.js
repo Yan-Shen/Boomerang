@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import {fetchLesson,addSlide,deleteSlide,changeSlide,updateSlide,unmountLesson,changeYouTube} from "../actions";
+import {toggleActiveStudent,fetchLesson,addSlide,deleteSlide,changeSlide,updateSlide,unmountLesson,changeYouTube} from "../actions";
 import {getToolsDispatcher} from '../../../store'
 import SlideEditWrapper from '../components/SlideEditWrapper'
 import {AppBar, Paper} from 'material-ui';
@@ -37,6 +37,7 @@ class SlideEdit extends Component {
     if (!this.props.currentSlide) {
       return (<div>Loading...</div>)
     }
+    console.log('online users', this.props.users)
     return (
         <div style={{display: 'flex',width: '100vw'}}>
           <SlideEditWrapper {...this.props}/>
@@ -57,12 +58,14 @@ function mapStateToProps(state,props){
     replShow: state.replShow,
     choiceShow: state.choiceShow,
     displayObject: state.studentLesson.displayObject,
-    selectedUserId: "hS74ejiqshRiikMYiVla8qLqBEH2"
+    selectedUserId: "hS74ejiqshRiikMYiVla8qLqBEH2",
+    users: state.lesson.users,
+    activeUsers: state.lesson.active
   };
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({fetchLesson,addSlide,deleteSlide,changeSlide,updateSlide, getToolsDispatcher,unmountLesson,changeYouTube, shareReplSolutionDispatcher}, dispatch);
+  return bindActionCreators({toggleActiveStudent,fetchLesson,addSlide,deleteSlide,changeSlide,updateSlide, getToolsDispatcher,unmountLesson,changeYouTube, shareReplSolutionDispatcher}, dispatch);
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(SlideEdit);

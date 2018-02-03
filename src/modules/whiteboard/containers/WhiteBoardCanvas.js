@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import Dashboard from '../components/Dashboard'
+import Canvas from '../components/Canvas'
 
-class Whiteboard extends Component {
+class WhiteboardCanvas extends Component {
   componentDidMount(){
-    this.props.fetchLessons()
+
   }
   render() {
     return (
-        <Dashboard {...this.props}/>
+        <Canvas {...this.props}/>
     );
   }
 }
 function mapStateToProps(state){
   return {
-    lessonList: state.lessonList
+    penWidth: state.whiteboard.width,
+    color: state.whiteboard.color
   };
 }
 
@@ -23,4 +24,4 @@ function mapDispatchToProps(dispatch){
   return bindActionCreators({}, dispatch);
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Whiteboard);
+export default connect(mapStateToProps,mapDispatchToProps)(WhiteboardCanvas);

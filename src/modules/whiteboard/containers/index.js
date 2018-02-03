@@ -1,6 +1,6 @@
-import WhiteBoard from './WhiteBoard';
+import WhiteBoardCanvas from './WhiteBoardCanvas';
 
 
 export default {
-	WhiteBoard
+	WhiteBoardCanvas
 }
