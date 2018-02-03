@@ -82,12 +82,9 @@ class LessonWrapper extends Component {
 				</div>
 				<div style={{width: '350px', height: 'calc(100vh - 90px)'}}>
 					<Paper style={{width: '350px', height: 'calc(100vh - 190px)'}}>
-<<<<<<< HEAD
 						<StudentDisplay replShow={replShow} addStudentCode={addStudentCode} slideId ={id} userId={userId}/>
-=======
 						{/* <StudentDisplay value={replSolution}/> */}
 						<WhiteBoardControls />
->>>>>>> master
 					</Paper>
 					<EmotionWrapper id={this.props.lesson.id} addEmotionThunk={this.props.addEmotionThunk}/>
 				</div>
