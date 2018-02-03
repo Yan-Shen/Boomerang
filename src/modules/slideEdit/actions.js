@@ -2,7 +2,7 @@ import {db} from '../../firebase'
 import * as actions from './actionTypes';
 // import {getToolsDispatcher} from '../../store'
 
-export function test(){}
+export const getStudents = students => ({type: actions.GET_ONLINE_USERS, students})
 export const getLesson = lesson =>  ({type: actions.GET_LESSON, lesson})
 export const getSlide = slide =>  ({type: actions.GET_SLIDE, slide})
 export const getSlideIndex = index =>  ({type: actions.GET_SLIDE_INDEX, index})
@@ -39,6 +39,21 @@ export function fetchLesson (id) {
 		db.ref(`lessons/${id}/currentSlide`).on('value', (data)=>{
 			dispatch(getSlideIndex(data.val()))
 		})
+		db.ref('users/').orderByChild('onlineState')
+    .equalTo(true)
+    .on('value', (data)=>{
+			const dataObj = data.val()
+			const studentArr = []//console.log(data.val())
+			for(var key in dataObj){
+				if(dataObj[key].role === "student") studentArr.push(dataObj[key])
+			}
+			dispatch(getStudents(studentArr))
+			})
+
+		// .then((data)=>{
+		// 	console.log(data.val())
+		// 	dispatch(getUsers(data.val()))
+		// })
     return db.ref(`/lessons/${id}`).once('value')
 			.then(lesson => {
 				lesson = lesson.val()
@@ -114,6 +129,8 @@ export function addSlide (index, lessonId) {
 			})
 	}
 }
+
+
 
 export function updateSlide (id,data) {
   return function thunk (dispatch) {

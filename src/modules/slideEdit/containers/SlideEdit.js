@@ -34,6 +34,7 @@ class SlideEdit extends Component {
     if (!this.props.currentSlide) {
       return (<div>Loading...</div>)
     }
+    console.log('online users', this.props.users)
     return (
         <div style={{display: 'flex',width: '100vw'}}>
           <SlideEditWrapper {...this.props}/>
@@ -49,6 +50,7 @@ function mapStateToProps(state,props){
     currentSlide: slides[state.lesson.currentSlide],
     slides: state.lesson.slides,
     lesson: state.lesson.lessonData,
+    users: state.lesson.users
   };
 }
 
