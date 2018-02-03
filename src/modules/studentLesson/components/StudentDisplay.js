@@ -1,6 +1,7 @@
 import React from 'react';
 import {Paper} from 'material-ui';
 import components from '../../display/components'
+import QAOutputContainer from '../../display/container/output_container/QAOutputContainer';
 
 const {ReplSolution} = components
 
@@ -9,6 +10,8 @@ function StudentDisplay(props) {
   return (
     // <Paper>
     <div width="300" height="550" style={{borderRadius: "4px"}}>
+
+    <QAOutputContainer QA={{question: 'placeholder', solution:'placeholder'}} />
     {
       replShow &&
        <ReplSolution slideId={slideId} userId = {userId} addStudentCode={addStudentCode}/>

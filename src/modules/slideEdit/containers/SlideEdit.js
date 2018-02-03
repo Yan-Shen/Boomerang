@@ -55,6 +55,7 @@ function mapStateToProps(state,props){
     replSolution: state.replSolution,
     replQuestion: state.replQuestion,
     replShow: state.replShow,
+    choiceShow: state.choiceShow,
     displayObject: state.studentLesson.displayObject,
     selectedUserId: "hS74ejiqshRiikMYiVla8qLqBEH2"
   };

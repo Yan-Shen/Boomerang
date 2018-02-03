@@ -1,5 +1,5 @@
 import {db} from '../../../firebase'
-import StudentDisplay from '../../studentLesson/components/StudentDisplay';
+// import StudentDisplay from '../../studentLesson/components/StudentDisplay';
 import { shareReplSolution, shareReplQ } from '../../../store/index';
 
 // ACTION TYPE

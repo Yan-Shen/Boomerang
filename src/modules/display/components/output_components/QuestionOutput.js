@@ -43,19 +43,19 @@ class QuestionOutput extends Component {
   }
 
   render () {
-    const { isDragging, connectDragSource } = this.props
-    const { name } = this.props
-    let styleQ
-    if (this.props.repl) {
+    const { isDragging, connectDragSource, question, type, name, repl } = this.props
+    let styleQ, depth
+    if (repl) {
       styleQ = style.repl
     } else {
       styleQ ={}
     }
+    type === "regular" ? depth = 0 : depth = 2;
 
     return connectDragSource(
 
       <div style={styleQ}>
-        <Paper style={{margin: "auto 10px", paddingLeft: "10px", paddingRight: "10px"}} zDepth={1} >
+        <Paper style={{margin: "auto 10px", paddingLeft: "10px", paddingRight: "10px"}} zDepth={depth} >
           <p style={{textAlign:"left"}}> {this.props.question}</p>
         </ Paper>
       </div>

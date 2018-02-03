@@ -34,6 +34,7 @@ function mapStateToProps(state){
   return {
     currentSlideIndex: state.lesson.currentSlide,
     currentSlide: slides[state.lesson.currentSlide],
+    selectedTools: state.selectedTools,
     lesson: state.lesson.lessonData,
     replSolution: state.replSolution,
     emotions: state.studentLesson.emotions,
