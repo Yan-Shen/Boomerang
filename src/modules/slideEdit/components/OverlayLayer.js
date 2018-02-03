@@ -5,7 +5,7 @@ import YouTubeCurrentVideo from './overlayComponents/YouTubeCurrentVideo'
 const OverlayLayer = (props) => (
 	<div>
 			<YouTubeCurrentVideo currentSlide={props.currentSlide} />
-			<YouTubeSearch currentSlide={props.currentSlide} changeYouTube={props.changeYouTube}/>
+			<YouTubeSearch currentSlide={props.currentSlide} changeYouTube={props.changeYouTube} />
 	</div>
 );
 

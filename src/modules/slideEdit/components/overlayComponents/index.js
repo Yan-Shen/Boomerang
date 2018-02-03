@@ -8,7 +8,11 @@ import SearchBar from './YouTubeSearch/search_bar';
 import PropTypes from 'prop-types'
 import { DropTarget } from 'react-dnd'
 import ItemTypes from '../../../../ItemTypes'
+import {connect} from 'react-redux'
 import {RaisedButton} from 'material-ui';
+import { showYTDispatcher } from '../../../../store/index';
+import { shareYTDispatcher } from '../../../../store/index';
+import { bindActionCreators } from 'redux';
 
 
 let API_KEY = config.API_KEY
@@ -37,6 +41,7 @@ class YouTubeSearch extends Component { // YouTubeSearch
 
   render() {
     const { currentSlide } = this.props
+    const { showYTDispatcher, shareYTDispatcher } = this.props
     const videoSearch = _.debounce((term) => { this.videoSearch(term) }, 300);
 
     return (
@@ -49,7 +54,11 @@ class YouTubeSearch extends Component { // YouTubeSearch
             videos={this.state.videos} />
         }
         <RaisedButton label="Select" onClick={() => { 
-          if (this.state.selectedVideo) this.props.changeYouTube(this.props.currentSlide.id, this.state.selectedVideo.id.videoId)
+          if (this.state.selectedVideo) {
+            this.props.changeYouTube(this.props.currentSlide.id, this.state.selectedVideo.id.videoId)
+            showYTDispatcher(this.props.currentSlide.id)
+            // shareYTDispatcher(this.props.currentSlide.id, this.state.selectedVideo.id.videoId)
+          }
           }} />
         <RaisedButton label="Remove Video" onClick={() => { 
           this.props.changeYouTube(this.props.currentSlide.id, '')
@@ -61,5 +70,8 @@ class YouTubeSearch extends Component { // YouTubeSearch
 // Take this compoment's generated HTML and put it on the page(in the DOM)
 
 // ReactDOM.render(<App />, document.querySelector('.container'));
+const mapDispatch = dispatch => {
+  return bindActionCreators({showYTDispatcher}, dispatch)
+}
 
-export default YouTubeSearch
+export default connect(null, mapDispatch)(YouTubeSearch)

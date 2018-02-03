@@ -37,8 +37,11 @@ class LessonWrapper extends Component {
 		const replQuestion = currentDisplayObject.Repl.question
 		const replSolution = currentDisplayObject.Repl.solution
 		const replShow = currentDisplayObject.Repl.show
+		const youtubeShow = currentDisplayObject.YouTube.show
+		const videoId = currentDisplayObject.YouTube.videoId
 
 		console.log('selectedUserObj -----------', selectedUserObj )
+		console.log('youtubeShow from LessonWrapper -----------', youtubeShow )
 
 		return (
 			<div style={{background: "#ccc",padding: "15px", display: 'flex'}}>
@@ -56,7 +59,7 @@ class LessonWrapper extends Component {
 							<div style={{zIndex: replShow ? 6000 : -1000,  position: 'absolute', backgroundColor: "yellow", top: 0, left: 0, width: this.block ? this.block.clientWidth : "0px", height: this.block ? this.block.clientHeight : "0px"}}>
 								<ReplOverlay value={replSolution} question={replQuestion} selectedUserObj={selectedUserObj}/>
 							</div>
-
+								{/* COPY ABOVE CODE FOR YOUTUBE */}
 					{/* <Paper> */}
 
 					</Paper>
