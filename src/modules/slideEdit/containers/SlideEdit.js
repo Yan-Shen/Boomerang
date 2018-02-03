@@ -53,6 +53,12 @@ function mapStateToProps(state,props){
     currentSlide: slides[state.lesson.currentSlide],
     slides: state.lesson.slides,
     lesson: state.lesson.lessonData,
+    replSolution: state.replSolution,
+    replQuestion: state.replQuestion,
+    replShow: state.replShow,
+    choiceShow: state.choiceShow,
+    displayObject: state.studentLesson.displayObject,
+    selectedUserId: "hS74ejiqshRiikMYiVla8qLqBEH2",
     users: state.lesson.users,
     activeUsers: state.lesson.active
   };

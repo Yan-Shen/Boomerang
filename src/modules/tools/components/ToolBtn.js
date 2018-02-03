@@ -33,7 +33,7 @@ class ToolBtn extends Component {
 
   handleToggle(){
     if (this.props.name === "Choice Q"){
-      this.props.showChoice()
+      this.props.showChoice(this.props.currentSlideId)
     } else if (this.props.name === "Repl") {
       this.props.showReplDispatcher(this.props.currentSlideId)
     }

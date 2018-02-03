@@ -15,6 +15,7 @@ import choiceShow from '../modules/tools/reducers/ChoiceShow';
 import replShow from '../modules/tools/reducers/ReplShow';
 import replSolution from '../modules/display/reducers/replSolutionShare';
 import replQuestion from '../modules/display/reducers/replQShare'
+import choiceQAShare from '../modules/display/reducers/choiceQAShare'
 
 export default combineReducers({
   user: authentication,
@@ -33,6 +34,7 @@ export default combineReducers({
   replSolution,
   replQuestion,
   studentLesson,
+  choiceQAShare,
 });
 
 
@@ -47,3 +49,4 @@ export * from '../modules/tools/reducers/ChoiceShow'
 export * from '../modules/tools/reducers/ReplShow'
 export * from '../modules/display/reducers/replSolutionShare'
 export * from '../modules/display/reducers/replQShare'
+export * from '../modules/display/reducers/choiceQAShare'

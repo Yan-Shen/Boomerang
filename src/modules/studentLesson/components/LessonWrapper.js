@@ -6,6 +6,7 @@ import StudentDisplay from './StudentDisplay'
 import ReplOverlay from '../../slideEdit/components/overlayComponents/ReplOverlay'
 import EmotionAnimation from './EmotionAnimation'
 import EmotionWrapper from './EmotionWrapper'
+import ReplSolution from '../../display/components/input_components/ReplSolution'
 import WhiteBoardCanvas from '../../whiteboard/containers/WhiteBoardCanvas'
 import WhiteBoardControls from '../../whiteboard/components/WhiteBoardControls'
 
@@ -44,9 +45,16 @@ class LessonWrapper extends Component {
 		const selectedUserObj = this.props.currentSlide[this.props.selectedUserId]
 		const {displayObject, addStudentCode, userId} = this.props
 		const currentDisplayObject = displayObject.find(display=>display.id === id)
-		const replQuestion = currentDisplayObject.Repl.question
-		const replSolution = currentDisplayObject.Repl.solution
-		const replShow = currentDisplayObject.Repl.show
+		let replQuestion, replSolution, replShow
+		if (currentDisplayObject['Repl'] ) {
+			replQuestion = currentDisplayObject.Repl.question
+			replSolution = currentDisplayObject.Repl.solution
+			replShow = currentDisplayObject.Repl.show
+		} else {
+			replQuestion = ''
+			replSolution = ''
+			replShow = false
+		}
 
 		console.log('selectedUserObj -----------', selectedUserObj )
 
@@ -74,6 +82,7 @@ class LessonWrapper extends Component {
 				</div>
 				<div style={{width: '350px', height: 'calc(100vh - 90px)'}}>
 					<Paper style={{width: '350px', height: 'calc(100vh - 190px)'}}>
+						<StudentDisplay replShow={replShow} addStudentCode={addStudentCode} slideId ={id} userId={userId}/>
 						{/* <StudentDisplay value={replSolution}/> */}
 						<WhiteBoardControls />
 					</Paper>

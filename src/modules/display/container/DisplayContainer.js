@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import { QAContainer, InputQContainer, ReplContainer, QAOutputContainer, ReplOutputContainer } from '../index';
-import { toggleChoice, toggleInput, toggleRepl, shareReplSolution, shareReplQ, shareReplQDispatcher, shareReplSolutionDispatcher} from '../../../store';
+import { toggleChoice, toggleInput, toggleRepl, shareReplSolution, shareReplQ, shareReplQDispatcher, shareReplSolutionDispatcher, shareChoiceQADispatcher} from '../../../store';
 import ToggleChoice from '../../tools/reducers/ToggleChoice'
 
 
@@ -52,7 +52,11 @@ class DisplayContainer extends Component {
           }
           {
             choiceShowStatus && choiceQA.map(each=>{
-              return <QAOutputContainer QA={each} key={each.question}/>
+              return <QAOutputContainer
+              QA={each}
+              currentSlideId = {currentSlideId}
+              shareChoiceQA = {shareChoiceQADispatcher}
+              key={each.question}/>
             })
           }
           {
@@ -103,6 +107,9 @@ function mapDispatcher(dispatch){
     },
     shareReplQ(slideId, question){
       dispatch(shareReplQDispatcher(slideId, question))
+    },
+    shareChoiceQADispatcher(slideId, QA) {
+      dispatch(shareChoiceQADispatcher(slideId, QA))
     }
   }
 }

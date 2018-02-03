@@ -1,16 +1,19 @@
 import React from 'react';
 import {Paper} from 'material-ui';
 import components from '../../display/components'
+import QAOutputContainer from '../../display/container/output_container/QAOutputContainer';
 
 const {ReplSolution} = components
 
 function StudentDisplay(props) {
-  const {currentDisplayObject, slideId, userId, addStudentCode} = props
+  const {replShow, slideId, userId, addStudentCode} = props
   return (
     // <Paper>
     <div width="300" height="550" style={{borderRadius: "4px"}}>
+
+    <QAOutputContainer QA={{question: 'placeholder', solution:'placeholder'}} />
     {
-      currentDisplayObject.Repl.show &&
+      replShow &&
        <ReplSolution slideId={slideId} userId = {userId} addStudentCode={addStudentCode}/>
     }
     </div>
