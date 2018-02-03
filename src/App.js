@@ -33,8 +33,22 @@ class App extends Component {
   }
   componentDidMount() {
     auth.onAuthStateChanged(authUser => {
-      console.log("auth state changed")
+      if(authUser){
+        const user = db.ref(`users/${authUser.uid}`)
+        user.update({
+           onlineState: true,
+           status: "I'm online."
+        });
+        user.onDisconnect().update({
+          onlineState: false,
+          status: "I'm offline."
+        })
         this.props.userStatus(authUser)
+
+      }
+      else {
+        this.props.userStatus(authUser)
+      }
     })
   }
   shouldComponentUpdate(nextProps){
@@ -44,13 +58,22 @@ class App extends Component {
     }
     return true
   }
+  handleLogout(){
+    db.ref(`users/${auth.currentUser.uid}`)
+    .update({
+      onlineState: false,
+      status: "I'm offline."
+    })
+    .then(()=> auth.signOut())
+
+  }
   render() {
     const student = this.props.location.pathname.indexOf('student') >= 0
     return (
       <div className="App">
         {this.props.user ?
           <div>
-            <AppBar style={{background: student ? lightBlue500: teal500}} zDepth={0} iconElementRight={this.props.user && <FlatButton onClick={()=>auth.signOut()} label="Logout" />}/>
+            <AppBar style={{background: student ? lightBlue500: teal500}} zDepth={0} iconElementRight={this.props.user && <FlatButton onClick={this.handleLogout} label="Logout" />}/>
             <Route
               path={'/teacher'}
               component={TeacherDashboard}

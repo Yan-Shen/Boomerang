@@ -10,7 +10,8 @@ class Wrapper extends Component {
 		this.state = {
 			login: true,
 			email: "",
-			password: ''
+			password: '',
+			name: ''
 		};
 		this.handleSubmit = this.handleSubmit.bind(this)
 	}
@@ -24,7 +25,11 @@ class Wrapper extends Component {
 		}
 		else if(!this.state.login){
 			auth.createUserWithEmailAndPassword(this.state.email, this.state.password)
-			.then(user => db.ref(`users/${user.uid}`).set({role: 'student'}))
+			.then(user => db.ref(`users/${user.uid}`).set({
+				role: 'student',
+				name: this.state.name,
+				email: this.state.email
+			}))
 		}
 	}
 	testSignUp(){
@@ -52,8 +57,9 @@ class Wrapper extends Component {
 			<div style={{flexDirection: 'column',alignItems: 'center', justifyContent: 'space-between', display: 'flex', background: '#eee', height: '100vh'}}>
 				{/* <button onClick={this.testSignUp}>sign up</button> */}
 				<div style={{margin: "60px", fontWeight: 700, fontSize: "60px", color: "#6bada7"}}>Boomerang</div>
-				<Card className="animated fadeInUp" style={{width: '500px', height: '400px', display: 'flex', justifyContent: 'center'}}>
+				<Card className="animated fadeInUp" style={{width: '500px', display: 'flex', justifyContent: 'center'}}>
 						<h2 style={{fontSize: "26px", fontWeight: '700'}}> {this.state.login ? "Login" : "Sign Up"}</h2>
+						{!this.state.login && <TextField id="nameField" onChange={(e,val)=> this.setState({name: val})} floatingLabelStyle={{fontSize: '22px'}} style={{margin: "10px", width: '90%'}} floatingLabelText="Name"/>}
 						<TextField id="emailField" onChange={(e,val)=> this.setState({email: val})} floatingLabelStyle={{fontSize: '22px'}} style={{margin: "10px", width: '90%'}} floatingLabelText="Email"/>
 						<TextField onChange={(e,val)=> this.setState({password: val})} type="password" floatingLabelStyle={{fontSize: '22px'}} style={{margin: "10px", width: '90%'}} floatingLabelText="Password"/>
 					<RaisedButton  onClick={this.handleSubmit} label={this.state.login ? "Login" : "Sign Up"} primary={true} style={{marginTop: "20px"}} labelStyle={{fontWeight: '700', fontSize: '22px'}}/>

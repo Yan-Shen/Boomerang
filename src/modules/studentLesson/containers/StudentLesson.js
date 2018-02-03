@@ -34,12 +34,13 @@ function mapStateToProps(state){
   return {
     currentSlideIndex: state.lesson.currentSlide,
     currentSlide: slides[state.lesson.currentSlide],
+    selectedTools: state.selectedTools,
     lesson: state.lesson.lessonData,
     replSolution: state.replSolution,
     emotions: state.studentLesson.emotions,
     displayObject: state.studentLesson.displayObject,         // coming from huge object in the action when fetching lesson
     userId: state.user.uid,
-    selectedUserId: "a6OGY0fmxadfxXw2Mf0VtMErfDy1"
+    selectedUserId: "hS74ejiqshRiikMYiVla8qLqBEH2"
   };
 }
 

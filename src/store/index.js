@@ -3,6 +3,7 @@ import selectedTools from '../modules/tools/reducers/SelectedTools';
 import slideEdit from '../modules/slideEdit/reducers';
 import studentLesson from '../modules/studentLesson/reducers';
 import lessonList from '../modules/teacherDashboard/reducers';
+import whiteboard from '../modules/whiteboard/reducers';
 import authentication from '../modules/authentication/reducers';
 import questions from '../modules/display/reducers/questions'
 import InputQ from '../modules/display/reducers/InputQ'
@@ -16,6 +17,7 @@ import replSolution from '../modules/display/reducers/replSolutionShare';
 import replQuestion from '../modules/display/reducers/replQShare'
 import YTShow from '../modules/slideEdit/components/overlayComponents/reducers/YouTubeShow'
 import YTShare from '../modules/slideEdit/components/overlayComponents/reducers/YouTubeShare'
+import choiceQAShare from '../modules/display/reducers/choiceQAShare'
 
 export default combineReducers({
   user: authentication,
@@ -24,6 +26,7 @@ export default combineReducers({
   toggleChoice,
   toggleRepl,
   lessonList,
+  whiteboard,
   lesson: slideEdit,
   toggleInput,
   InputQ,
@@ -34,7 +37,8 @@ export default combineReducers({
   replQuestion,
   studentLesson,
   YTShow,
-  YTShare
+  YTShare,
+  choiceQAShare,
 });
 
 
@@ -51,3 +55,4 @@ export * from '../modules/display/reducers/replSolutionShare'
 export * from '../modules/display/reducers/replQShare'
 export * from '../modules/slideEdit/components/overlayComponents/reducers/YouTubeShow'
 export * from '../modules/slideEdit/components/overlayComponents/reducers/YouTubeShare'
+export * from '../modules/display/reducers/choiceQAShare'
