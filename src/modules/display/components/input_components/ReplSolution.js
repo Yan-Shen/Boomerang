@@ -26,7 +26,7 @@ const boxSource = {
 		if (dropResult) {
       // let currentSlideId = props.currentSlideId
       console.log('props----------', props)
-      props.shareReplSolution(props.value)
+      props.shareReplSolution(props.currentSlideId, props.value)
       // eslint-disable-line no-alert
       // props.addTool(item.name, currentSlideId)
 		}
@@ -39,25 +39,46 @@ const collect = (connect, monitor) => ({
 })
 
 class ReplSolution extends Component{
+  constructor(props){
+    super(props)
+    this.handleChange = this.handleChange.bind(this)
+  }
+
   static propTypes = {
     connectDragSource: PropTypes.func.isRequired,
     isDragging: PropTypes.bool.isRequired,
   }
 
+  handleChange(solution) {
+    if (this.props.overlay) {
+      this.props.shareReplSolutionDispatcher(this.props.slideId, solution)
+    } else if (this.props.userId) {
+      this.props.addStudentCode(solution, this.props.slideId, this.props.userId)
+    } else {
+      this.props.onChange()
+    }
+  }
+
   render(){
-    const { isDragging, connectDragSource, QA, value, onChange } = this.props
+    const { isDragging, connectDragSource, QA, value, onChange, overlay, shareReplSolutionDispatcher } = this.props
+    let editorWidth, editorHeight
+    overlay ? editorWidth = "500px" : editorWidth= "350px"
+    overlay ? editorHeight = "600px" : editorHeight= "350px"
     return connectDragSource(
       <div>
         <AceEditor
           mode="javascript"
-          theme="monokai"
-          width = "300px"
-          height = "420px"
+          theme="xcode"
+          width = {editorWidth}
+          height = {editorHeight}
           value ={value}
-          onChange={onChange}
+          onChange={this.handleChange}
           showPrintMargin={true}
           showGutter={true}
           highlightActiveLine={true}
+          style={{borderStyle: "solid",
+          borderRadius: "8px", borderWidth: "1px",
+          borderColor: "black"}}
           setOptions={{
             enableBasicAutocompletion: true,
             enableLiveAutocompletion: true,

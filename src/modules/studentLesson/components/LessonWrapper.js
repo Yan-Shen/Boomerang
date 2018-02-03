@@ -3,6 +3,7 @@ import {db} from '../../../firebase'
 import _ from 'lodash'
 import {Paper} from 'material-ui';
 import StudentDisplay from './StudentDisplay'
+import ReplOverlay from '../../slideEdit/components/overlayComponents/ReplOverlay'
 import EmotionAnimation from './EmotionAnimation'
 import EmotionWrapper from './EmotionWrapper'
 import WhiteBoardCanvas from '../../whiteboard/containers/WhiteBoardCanvas'
@@ -40,7 +41,15 @@ class LessonWrapper extends Component {
 	}
 	render() {
 		const {id} = this.props.currentSlide
-		const {replSolution} = this.props
+		const selectedUserObj = this.props.currentSlide[this.props.selectedUserId]
+		const {displayObject, addStudentCode, userId} = this.props
+		const currentDisplayObject = displayObject.find(display=>display.id === id)
+		const replQuestion = currentDisplayObject.Repl.question
+		const replSolution = currentDisplayObject.Repl.solution
+		const replShow = currentDisplayObject.Repl.show
+
+		console.log('selectedUserObj -----------', selectedUserObj )
+
 		return (
 			<div style={{background: "#ccc",padding: "15px", display: 'flex'}}>
 				<div ref={block => this.block = block} style={{marginRight: "30px", flex: 4}}>
@@ -53,6 +62,13 @@ class LessonWrapper extends Component {
 									<EmotionAnimation id={this.props.lesson.id} key={emotion.time} emotion={emotion} width={this.state.width}/>
 								))}
 							</div>
+
+							<div style={{zIndex: replShow ? 6000 : -1000,  position: 'absolute', backgroundColor: "yellow", top: 0, left: 0, width: this.block ? this.block.clientWidth : "0px", height: this.block ? this.block.clientHeight : "0px"}}>
+								<ReplOverlay value={replSolution} question={replQuestion} selectedUserObj={selectedUserObj}/>
+							</div>
+
+					{/* <Paper> */}
+
 					</Paper>
 
 				</div>

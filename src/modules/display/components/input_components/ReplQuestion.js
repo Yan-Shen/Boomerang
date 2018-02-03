@@ -6,7 +6,7 @@ function ReplQuestion (props) {
     <div>
       <TextField
       hintText="PLEASE ENTER THE CODE CHALLENGE"
-      value ={props.value}
+      value ={props.question}
       onChange={props.onChange}
       multiLine={true}
       rows={3}
