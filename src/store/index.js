@@ -3,6 +3,7 @@ import selectedTools from '../modules/tools/reducers/SelectedTools';
 import slideEdit from '../modules/slideEdit/reducers';
 import studentLesson from '../modules/studentLesson/reducers';
 import lessonList from '../modules/teacherDashboard/reducers';
+import whiteboard from '../modules/whiteboard/reducers';
 import authentication from '../modules/authentication/reducers';
 import questions from '../modules/display/reducers/questions'
 import InputQ from '../modules/display/reducers/InputQ'
@@ -22,6 +23,7 @@ export default combineReducers({
   toggleChoice,
   toggleRepl,
   lessonList,
+  whiteboard,
   lesson: slideEdit,
   toggleInput,
   InputQ,

@@ -2,12 +2,13 @@ import {db} from '../../firebase'
 import * as actions from './actionTypes';
 // import {getToolsDispatcher} from '../../store'
 
-export function test(){}
+export const getStudents = students => ({type: actions.GET_ONLINE_USERS, students})
 export const getLesson = lesson =>  ({type: actions.GET_LESSON, lesson})
 export const getSlide = slide =>  ({type: actions.GET_SLIDE, slide})
 export const getSlideIndex = index =>  ({type: actions.GET_SLIDE_INDEX, index})
 export const removeSlide = slideId =>  ({type: actions.DELETE_SLIDE, slideId})
 export const changeSlideAction = index => ({type: actions.CHANGE_SLIDE, index})
+export const activeStudents = students => ({type: actions.GET_ACTIVE_STUDENTS, students})
 export const unmountLesson = () => ({type: actions.UNMOUNT_LESSON})
 // export const changeSlide = index => ({type: actions.CHANGE_SLIDE, index})
 export const getDisplay = displayObject => ({type: actions.GET_DISPLAYOBJECT, displayObject})
@@ -18,6 +19,27 @@ export const changeSlide = (index, id) =>  {
 		db.ref().child(`lessons/${id}/currentSlide`).set(index)
 		// dispatch(getToolsDispatcher(id))
 		dispatch(changeSlideAction(index))
+	}
+}
+export const toggleActiveStudent = (lessonId, studentId,bool) =>  {
+	return function thunk (dispatch) {
+		db.ref().child(`lessons/${lessonId}/activeStudents/${studentId}`).once("value")
+		.then((data)=>{
+			if(data.val() === null){
+				db.ref().child(`lessons/${lessonId}/activeStudents/${studentId}`).set(true)
+			}
+			else{
+				db.ref().child(`lessons/${lessonId}/activeStudents/${studentId}`).remove()
+			}
+			// if(data){
+			// 	db.ref().child(`lessons/${lessonId}/activeStudents/${studentId}`).remove()
+			// }
+			// else{
+			// 	db.ref().child(`lessons/${lessonId}/activeStudents/${studentId}`).set(true)
+			// }
+		})
+		// dispatch(getToolsDispatcher(id))
+		//dispatch(changeSlideAction(index))
 	}
 }
 
@@ -36,9 +58,45 @@ export const updateSlideData = data =>  ({type: actions.UPDATE_SLIDE, data})
 export function fetchLesson (id) {
   return function thunk (dispatch) {
 		/// Keep track of current slide
+		db.ref(`lessons/${id}/activeStudents`).set(true)
+		.then(()=>{
+			db.ref(`lessons/${id}/activeStudents`).on('value', (data)=>{
+				const dataObj = data.val()
+				const activeArr = []//console.log(data.val())
+				for(var key in dataObj){
+					activeArr.push(key)
+				}
+				dispatch(activeStudents(activeArr))
+			})
+		})
 		db.ref(`lessons/${id}/currentSlide`).on('value', (data)=>{
 			dispatch(getSlideIndex(data.val()))
 		})
+		db.ref('users/').orderByChild('onlineState')
+    .equalTo(true)
+    .on('value', (data)=>{
+
+			const dataObj = data.val()
+			const studentArr = []//console.log(data.val())
+			for(var key in dataObj){
+
+				if(dataObj[key].role === "student") {
+					var student = dataObj[key]
+					student.id = key
+					console.log(student)
+					studentArr.push(student)
+				}
+			}
+			// for(var key in dataObj){
+			// 	studentArr.push(dataObj[key])
+			// }
+			dispatch(getStudents(studentArr))
+			})
+
+		// .then((data)=>{
+		// 	console.log(data.val())
+		// 	dispatch(getUsers(data.val()))
+		// })
     return db.ref(`/lessons/${id}`).once('value')
 			.then(lesson => {
 				lesson = lesson.val()
@@ -126,6 +184,8 @@ export function addSlide (index, lessonId) {
 			})
 	}
 }
+
+
 
 export function updateSlide (id,data) {
   return function thunk (dispatch) {
