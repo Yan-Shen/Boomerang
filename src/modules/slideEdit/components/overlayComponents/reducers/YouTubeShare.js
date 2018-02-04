@@ -1,4 +1,5 @@
 import {db} from '../../../../../firebase'
+import StudentDisplay from '../../../../studentLesson/components/StudentDisplay';
 // ACTION TYPE
 const YOUTUBE_SHARE = 'YOUTUBE_SHARE'
 
@@ -12,7 +13,7 @@ export const shareYouTube = (videoId)=> {
 
 export const shareYTDispatcher = (slideId, videoId) =>
 {
-  console.log('slideid---------', videoId)
+  console.log('share videoId---------', videoId)
   return dispatch => {
       db.ref(`/studentDisplay/${slideId}/YouTube`).update({videoId})
       .then(()=>{

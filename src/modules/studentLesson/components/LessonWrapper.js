@@ -4,11 +4,14 @@ import _ from 'lodash'
 import {Paper} from 'material-ui';
 import StudentDisplay from './StudentDisplay'
 import ReplOverlay from '../../slideEdit/components/overlayComponents/ReplOverlay'
+import YouTubeCurrentVideo from '../../slideEdit/components/overlayComponents/YouTubeCurrentVideo'
 import EmotionAnimation from './EmotionAnimation'
 import EmotionWrapper from './EmotionWrapper'
 import ReplSolution from '../../display/components/input_components/ReplSolution'
 import WhiteBoardCanvas from '../../whiteboard/containers/WhiteBoardCanvas'
 import WhiteBoardControls from '../../whiteboard/components/WhiteBoardControls'
+import ReactDOM from 'react-dom'
+import YouTube from 'react-youtube'
 
 
 class LessonWrapper extends Component {
@@ -32,6 +35,12 @@ class LessonWrapper extends Component {
 		this.canvas.setZoom(scale);
     this.canvas.renderAll();
 		console.log(this.props)
+		if (this.props.currentSlide.youtubeVideo) {
+			const videoId = this.props.currentSlide.youtubeVideo;
+			ReactDOM.render(<YouTube videoId={videoId} ></YouTube>, document.getElementById('video-overlay'))
+		} else {
+			ReactDOM.unmountComponentAtNode(document.getElementById('video-overlay'))
+		}
 	}
 	componentDidUpdate(prevProps){
 		if(this.state.height === null) this.setState({height: this.block.clientHeight, width: this.block.clientWidth})
@@ -39,15 +48,28 @@ class LessonWrapper extends Component {
 			this.canvas.loadFromJSON(this.props.currentSlide, this.canvas.renderAll.bind(this.canvas));
 			this.canvas.renderAll();
 		}
+		if (this.props.currentSlide.youtubeVideo) {
+			const videoId = this.props.currentSlide.youtubeVideo;
+			ReactDOM.render(<YouTube videoId={videoId} ></YouTube>, document.getElementById('video-overlay'))
+		} else {
+			ReactDOM.unmountComponentAtNode(document.getElementById('video-overlay'))
+		}
 	}
 	render() {
 		const {id} = this.props.currentSlide
 		const selectedUserObj = this.props.currentSlide[this.props.selectedUserId]
 		const {displayObject, addStudentCode, userId} = this.props
 		const currentDisplayObject = displayObject.find(display=>display.id === id)
-		const youtubeShow = currentDisplayObject.YouTube.show
-		const videoId = currentDisplayObject.YouTube.videoId
+		let videoId, youtubeShow
 		let replQuestion, replSolution, replShow
+
+		if (currentDisplayObject['YouTube'] ) {
+			videoId = currentDisplayObject.YouTube.videoId
+			youtubeShow = currentDisplayObject.YouTube.show
+		} else {
+			videoId = ''
+			youtubeShow = false
+		}
 		if (currentDisplayObject['Repl'] ) {
 			replQuestion = currentDisplayObject.Repl.question
 			replSolution = currentDisplayObject.Repl.solution
@@ -60,6 +82,7 @@ class LessonWrapper extends Component {
 
 		console.log('selectedUserObj -----------', selectedUserObj )
 		console.log('youtubeShow from LessonWrapper -----------', youtubeShow )
+		console.log('youtubeShow from videoId -----------', videoId )
 
 		return (
 			<div style={{background: "#ccc",padding: "15px", display: 'flex'}}>
@@ -77,7 +100,10 @@ class LessonWrapper extends Component {
 							<div style={{zIndex: replShow ? 6000 : -1000,  position: 'absolute', backgroundColor: "yellow", top: 0, left: 0, width: this.block ? this.block.clientWidth : "0px", height: this.block ? this.block.clientHeight : "0px"}}>
 								<ReplOverlay value={replSolution} question={replQuestion} selectedUserObj={selectedUserObj}/>
 							</div>
-								{/* COPY ABOVE CODE FOR YOUTUBE */}
+							<div style={{zIndex: youtubeShow ? 6000 : -1000,  position: 'absolute', backgroundColor: "white", top: 0, left: 0, width: this.block ? this.block.clientWidth : "0px", height: this.block ? this.block.clientHeight : "0px"}}>
+								<YouTubeCurrentVideo currentSlide={this.props.currentSlide} />
+							</div>
+								
 					{/* <Paper> */}
 
 					</Paper>

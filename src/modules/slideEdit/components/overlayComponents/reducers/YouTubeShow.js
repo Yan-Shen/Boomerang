@@ -13,20 +13,21 @@ export const showYouTube = ()=> {
   }
 }
 
-export const showYTDispatcher = (slideId) => {
+export const showYTDispatcher = (slideId, videoId, bool) => {
   return dispatch => {
     db.ref(`/studentDisplay/${slideId}`).once('value')
       .then(data => {
         const studentDisplay = data.val()
-        console.log('data is-----------', data)
-        if(!studentDisplay.YouTube.show) {
-          db.ref(`/studentDisplay/${slideId}/YouTube`).update({show: true})
+        console.log('data is-----------', data.val())
+        // if (!studentDisplay || !studentDisplay['YouTube'] || !studentDisplay['YouTube']['show'] || !videoId) {
+        //   db.ref(`/studentDisplay/${slideId}/YouTube`).update({show: bool})
+        // }
+        if (!studentDisplay || !studentDisplay['YouTube'] || !studentDisplay['YouTube']['show'] || !studentDisplay['YouTube']['videoId']) {
+          db.ref(`/studentDisplay/${slideId}/YouTube`).update({show: bool})
+          db.ref(`/studentDisplay/${slideId}/YouTube`).update({videoId})
         } else {
-          db.ref(`/studentDisplay/${slideId}/YouTube`).update({show: false})
-          // db.ref(`/studentDisplay/${slideId}/YouTube`).update({question: ''})
-          // db.ref(`/studentDisplay/${slideId}/YouTube`).update({solution: ''})
-          // dispatch(shareReplSolution(''))
-          // dispatch(shareReplQ(''))
+          db.ref(`/studentDisplay/${slideId}/YouTube`).update({show: bool})
+          db.ref(`/studentDisplay/${slideId}/YouTube`).update({videoId: ''})
         }
         dispatch(showYouTube())
       })

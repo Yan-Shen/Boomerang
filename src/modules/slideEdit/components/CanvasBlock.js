@@ -21,6 +21,8 @@ import { socialYoutube } from 'react-icons-kit/typicons/socialYoutube'
 import OverlayLayer from './OverlayLayer'
 import ReplOverlay from './overlayComponents/ReplOverlay';
 
+// import { showYTDispatcher } from '../../../store/index';
+
 class CanvasBlock extends Component {
 	constructor(props) {
 		super(props)
@@ -32,7 +34,9 @@ class CanvasBlock extends Component {
 		}
 	}
 	toggleCanvas(view){
-		if (view === 'canvas') this.setState({canvas: !this.state.canvas})
+		if (view === 'canvas') {
+			this.setState({canvas: !this.state.canvas})
+		}
 		else {
 			if (!this.state.canvas) this.setState({canvas: true})
 		}
@@ -87,8 +91,8 @@ class CanvasBlock extends Component {
 
 	render() {
 		console.log('canavas slideid-------------', this.props.currentSlide.id)
-		const { slides, deleteSlide, addSlide, changeSlide,
-			currentSlideIndex, updateSlide, getToolsDispatcher,lesson, replShow, choiceShow, currentSlide, shareReplSolutionDispatcher} = this.props
+		const { slides, deleteSlide, addSlide, changeSlide, showYTDispatcher,
+			currentSlideIndex, updateSlide, getToolsDispatcher,lesson, replShow, choiceShow, currentSlide, shareReplSolutionDispatcher } = this.props
 			const {id} = this.props.currentSlide
 			const selectedUserObj = this.props.currentSlide[this.props.selectedUserId]
 
@@ -119,7 +123,10 @@ class CanvasBlock extends Component {
 								changeYouTube={this.props.changeYouTube}
 							/>
 							<AddShape />
-							<Icon icon={socialYoutube} toggled={this.state.canvas} onClick={() => this.toggleCanvas('canvas')} />
+							<Icon icon={socialYoutube} onClick={() => {
+								this.toggleCanvas('canvas')
+								this.props.showYTDispatcher(this.props.currentSlide.id, null, this.state.canvas)
+							}} />
 							<ToolbarSeparator style={{
 								marginRight: '10px',
 								marginLeft: '10px'}}
@@ -182,7 +189,7 @@ class CanvasBlock extends Component {
 							<canvas  id="fabricTest" width="900" height="550" />
 
 							<div style={{zIndex: this.state.canvas ? -5000 : 5000, position: 'absolute', background: "white", top: 0, left: 0, width: this.block ? this.block.clientWidth : "0px", height: this.block ? this.block.clientHeight : "0px"}}>
-								<IconButton><CloseOverlay onClick={() => this.toggleCanvas('canvas')} /></IconButton>
+								{/* <IconButton><CloseOverlay onClick={() => this.toggleCanvas('canvas')} /></IconButton> */}
 								<OverlayLayer updateSlide={this.props.updateSlide} currentSlide={currentSlide} changeYouTube={this.props.changeYouTube} />
 							</div>
 

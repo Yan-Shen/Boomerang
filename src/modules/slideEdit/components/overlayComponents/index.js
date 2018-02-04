@@ -11,7 +11,7 @@ import ItemTypes from '../../../../ItemTypes'
 import {connect} from 'react-redux'
 import {RaisedButton} from 'material-ui';
 import { showYTDispatcher } from '../../../../store/index';
-import { shareYTDispatcher } from '../../../../store/index';
+// import { shareYTDispatcher } from '../../../../store/index';
 import { bindActionCreators } from 'redux';
 
 
@@ -40,10 +40,11 @@ class YouTubeSearch extends Component { // YouTubeSearch
   }
 
   render() {
-    const { currentSlide } = this.props
-    const { showYTDispatcher, shareYTDispatcher } = this.props
+    const { currentSlide, showYTDispatcher } = this.props
     const videoSearch = _.debounce((term) => { this.videoSearch(term) }, 300);
-
+    // if (!toggled && this.state.selectedVideo) showYTDispatcher(currentSlide.id, this.state.selectedVideo.id.videoId || '', true)
+    // else if (toggled) showYTDispatcher(currentSlide.id, this.state.selectedVideo.id.videoId || '', false)
+    
     return (
       <div style={{display: 'flex', flexDirection: 'column', backgroundColor:'white', width:'100%', height:'100%'}}>
         <SearchBar style={{flex: 2}} onSearchTermChange={videoSearch}/>
@@ -56,12 +57,13 @@ class YouTubeSearch extends Component { // YouTubeSearch
         <RaisedButton label="Select" onClick={() => { 
           if (this.state.selectedVideo) {
             this.props.changeYouTube(this.props.currentSlide.id, this.state.selectedVideo.id.videoId)
-            showYTDispatcher(this.props.currentSlide.id)
+            showYTDispatcher(this.props.currentSlide.id, this.state.selectedVideo.id.videoId, true)
             // shareYTDispatcher(this.props.currentSlide.id, this.state.selectedVideo.id.videoId)
           }
           }} />
         <RaisedButton label="Remove Video" onClick={() => { 
           this.props.changeYouTube(this.props.currentSlide.id, '')
+          showYTDispatcher(this.props.currentSlide.id, '', true)
           }} />
       </div>
     )
