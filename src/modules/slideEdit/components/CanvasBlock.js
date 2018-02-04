@@ -168,6 +168,7 @@ class CanvasBlock extends Component {
 										lesson={lesson}
 										slides={slides.length}
 										currentSlideIndex={currentSlideIndex}
+										showYTDispatcher={showYTDispatcher}
 										index={index}
 										changeSlide={changeSlide}
 										deleteSlide={deleteSlide}
