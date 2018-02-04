@@ -49,6 +49,7 @@ class SlideEdit extends Component {
 function mapStateToProps(state,props){
   const slides = state.lesson.slides
   return {
+    currentUser: state.user,
     currentSlideIndex: state.lesson.currentSlide,
     currentSlide: slides[state.lesson.currentSlide],
     slides: state.lesson.slides,

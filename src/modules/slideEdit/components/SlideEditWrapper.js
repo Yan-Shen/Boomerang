@@ -7,6 +7,8 @@ import {ToolContainer} from '../../tools'
 import {MainDisplayContainer} from '../../display'
 import CanvasBlock from './CanvasBlock'
 import SelectActiveUsers from './SelectActiveUsers'
+import CamView from './CamView'
+
 
 const SlideEditWrapper = (props) => (
 	<DragDropContextProvider backend={HTML5Backend}>
@@ -22,6 +24,7 @@ const SlideEditWrapper = (props) => (
 		 {/* Toolbox area */}
 		 <Paper style={{margin: "10px"}} zDepth={1}>
 		 	<SelectActiveUsers lessonId={props.lesson.id} toggleActiveStudent={props.toggleActiveStudent} users={props.users}/>
+			<CamView currentUser={props.currentUser}/>
 		 </Paper>
 			<Paper style={{margin: "10px"}} zDepth={1}>
 			<div className="flex-container-column">

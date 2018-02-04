@@ -8,7 +8,7 @@ import EmotionAnimation from './EmotionAnimation'
 import EmotionWrapper from './EmotionWrapper'
 import WhiteBoardCanvas from '../../whiteboard/containers/WhiteBoardCanvas'
 import WhiteBoardControls from '../../whiteboard/components/WhiteBoardControls'
-
+import CamView from '../../slideEdit/components/CamView'
 
 class LessonWrapper extends Component {
 	constructor(props) {
@@ -44,9 +44,9 @@ class LessonWrapper extends Component {
 		const selectedUserObj = this.props.currentSlide[this.props.selectedUserId]
 		const {displayObject, addStudentCode, userId} = this.props
 		const currentDisplayObject = displayObject.find(display=>display.id === id)
-		const replQuestion = currentDisplayObject.Repl.question
-		const replSolution = currentDisplayObject.Repl.solution
-		const replShow = currentDisplayObject.Repl.show
+		// const replQuestion = currentDisplayObject.Repl.question
+		// const replSolution = currentDisplayObject.Repl.solution
+		// const replShow = currentDisplayObject.Repl.show
 
 		console.log('selectedUserObj -----------', selectedUserObj )
 
@@ -63,9 +63,9 @@ class LessonWrapper extends Component {
 								))}
 							</div>
 
-							<div style={{zIndex: replShow ? 6000 : -1000,  position: 'absolute', backgroundColor: "yellow", top: 0, left: 0, width: this.block ? this.block.clientWidth : "0px", height: this.block ? this.block.clientHeight : "0px"}}>
+							{/* <div style={{zIndex: replShow ? 6000 : -1000,  position: 'absolute', backgroundColor: "yellow", top: 0, left: 0, width: this.block ? this.block.clientWidth : "0px", height: this.block ? this.block.clientHeight : "0px"}}>
 								<ReplOverlay value={replSolution} question={replQuestion} selectedUserObj={selectedUserObj}/>
-							</div>
+							</div> */}
 
 					{/* <Paper> */}
 
@@ -75,6 +75,7 @@ class LessonWrapper extends Component {
 				<div style={{width: '350px', height: 'calc(100vh - 90px)'}}>
 					<Paper style={{width: '350px', height: 'calc(100vh - 190px)'}}>
 						{/* <StudentDisplay value={replSolution}/> */}
+						<CamView currentUser={this.props.user}/>
 						<WhiteBoardControls />
 					</Paper>
 					<EmotionWrapper id={this.props.lesson.id} addEmotionThunk={this.props.addEmotionThunk}/>
