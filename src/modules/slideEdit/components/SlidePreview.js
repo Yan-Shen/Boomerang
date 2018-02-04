@@ -12,7 +12,6 @@ class SlidePreview extends Component {
 	}
 
 	componentDidMount(){
-		//this.props.getToolsDispatcher(this.props.data.id)
 		const scale = 0.2
 		this.canvas = new window.fabric.StaticCanvas(`${this.props.data.id}`);
 		this.canvas.backgroundColor="white"

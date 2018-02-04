@@ -1,3 +1,8 @@
+.OT_widget-container {
+    border-radius: 4px;
+  }
+
+
 .App {
   text-align: center;
   background: #fefefe;

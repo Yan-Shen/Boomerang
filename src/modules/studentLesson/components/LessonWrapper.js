@@ -10,6 +10,8 @@ import EmotionWrapper from './EmotionWrapper'
 import ReplSolution from '../../display/components/input_components/ReplSolution'
 import WhiteBoardCanvas from '../../whiteboard/containers/WhiteBoardCanvas'
 import WhiteBoardControls from '../../whiteboard/components/WhiteBoardControls'
+
+import CamView from '../../slideEdit/components/CamView'
 import ReactDOM from 'react-dom'
 import YouTube from 'react-youtube'
 
@@ -67,7 +69,7 @@ class LessonWrapper extends Component {
 					rel: 0,
 					disablekb: 0,
 					enablejsapi: 1,
-					showinfo: 0								
+					showinfo: 0
 					// 'fs' : 0
 				}
 			}
@@ -94,7 +96,7 @@ class LessonWrapper extends Component {
 			videoId = ''
 			youtubeShow = false
 		}
-		
+
 
 		if (currentDisplayObject['Repl'] ) {
 			replQuestion = currentDisplayObject['Repl']['question']
@@ -135,7 +137,7 @@ class LessonWrapper extends Component {
 							<div style={{zIndex: youtubeShow ? 6000 : -1000,  position: 'absolute', backgroundColor: "white", top: 0, left: 0, width: this.block ? this.block.clientWidth : "0px", height: this.block ? this.block.clientHeight : "0px"}}>
 								<YouTubeCurrentVideo currentSlide={this.props.currentSlide} />
 							</div>
-								
+
 					{/* <Paper> */}
 
 					</Paper>
@@ -152,6 +154,7 @@ class LessonWrapper extends Component {
 						QA={QA}
 						userId={userId}/>
 						{/* <StudentDisplay value={replSolution}/> */}
+						<CamView currentUser={this.props.user}/>
 						<WhiteBoardControls />
 					</Paper>
 					<EmotionWrapper id={this.props.lesson.id} addEmotionThunk={this.props.addEmotionThunk}/>
