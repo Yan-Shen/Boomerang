@@ -36,8 +36,19 @@ class LessonWrapper extends Component {
     this.canvas.renderAll();
 		console.log(this.props)
 		if (this.props.currentSlide.youtubeVideo) {
+			const opts = {
+				// this is where height and width will go for YT student view
+				playerVars: {
+					controls: 0,
+					rel: 0,
+					disablekb: 0,
+					enablejsapi: 1,
+					showinfo: 0
+					// 'fs' : 0
+				}
+			}
 			const videoId = this.props.currentSlide.youtubeVideo;
-			ReactDOM.render(<YouTube videoId={videoId} ></YouTube>, document.getElementById('video-overlay'))
+			ReactDOM.render(<YouTube videoId={videoId} opts={opts}></YouTube>, document.getElementById('video-overlay'))
 		} else {
 			ReactDOM.unmountComponentAtNode(document.getElementById('video-overlay'))
 		}
@@ -49,8 +60,19 @@ class LessonWrapper extends Component {
 			this.canvas.renderAll();
 		}
 		if (this.props.currentSlide.youtubeVideo) {
+			const opts = {
+				// this is where height and width will go for YT student view
+				playerVars: {
+					controls: 0,
+					rel: 0,
+					disablekb: 0,
+					enablejsapi: 1,
+					showinfo: 0								
+					// 'fs' : 0
+				}
+			}
 			const videoId = this.props.currentSlide.youtubeVideo;
-			ReactDOM.render(<YouTube videoId={videoId} ></YouTube>, document.getElementById('video-overlay'))
+			ReactDOM.render(<YouTube videoId={videoId} opts={opts} ></YouTube>, document.getElementById('video-overlay'))
 		} else {
 			ReactDOM.unmountComponentAtNode(document.getElementById('video-overlay'))
 		}
