@@ -16,6 +16,7 @@ function ChoiceOutput(props) {
                   value={choice}
                   label={choice}
                   key = {choice}
+                  labelStyle={{textAlign:"left", paddingLeft:"5px"}}
                   />
                 )
               })
