@@ -16,7 +16,6 @@ import replShow from '../modules/tools/reducers/ReplShow';
 import replSolution from '../modules/display/reducers/replSolutionShare';
 import replQuestion from '../modules/display/reducers/replQShare'
 import YTShow from '../modules/slideEdit/components/overlayComponents/reducers/YouTubeShow'
-import YTShare from '../modules/slideEdit/components/overlayComponents/reducers/YouTubeShare'
 import choiceQAShare from '../modules/display/reducers/choiceQAShare'
 
 export default combineReducers({
@@ -37,7 +36,6 @@ export default combineReducers({
   replQuestion,
   studentLesson,
   YTShow,
-  YTShare,
   choiceQAShare,
 });
 
@@ -54,5 +52,4 @@ export * from '../modules/tools/reducers/ReplShow'
 export * from '../modules/display/reducers/replSolutionShare'
 export * from '../modules/display/reducers/replQShare'
 export * from '../modules/slideEdit/components/overlayComponents/reducers/YouTubeShow'
-export * from '../modules/slideEdit/components/overlayComponents/reducers/YouTubeShare'
 export * from '../modules/display/reducers/choiceQAShare'
