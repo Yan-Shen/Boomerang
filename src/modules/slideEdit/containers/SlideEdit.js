@@ -57,9 +57,9 @@ function mapStateToProps(state,props){
     replShow: state.replShow,
     choiceShow: state.choiceShow,
     displayObject: state.studentLesson.displayObject,
-    selectedUserId: "hS74ejiqshRiikMYiVla8qLqBEH2",
     users: state.lesson.users,
-    activeUsers: state.lesson.active
+    activeUsers: state.lesson.active,
+    // selectedUserId: state.lesson.active[0],
   };
 }
 

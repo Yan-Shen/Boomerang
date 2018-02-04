@@ -4,14 +4,15 @@ import Paper from 'material-ui/Paper';
 import PropTypes from 'prop-types'
 import { DragSource } from 'react-dnd'
 import ItemTypes from '../../../../ItemTypes'
-
+import {db} from '../../../../firebase'
 
 const {QuestionOutput, ChoiceOutput} = components
 
 const boxSource = {
 	beginDrag(props) {
 		return {
-			question: props.question,
+      question: props.question,
+      QA: props.QA
 		}
 	},
 
@@ -23,7 +24,8 @@ const boxSource = {
 		if (dropResult) {
       let currentSlideId = props.currentSlideId
       console.log('dropped!!!!!!!!!')
-      props.shareChoiceQA(currentSlideId, props.QA)
+      db.ref(`/studentDisplay/${currentSlideId}/Choice`).update({QA: props.QA})
+      // props.shareChoiceQADispatcher(currentSlideId, props.QA)
 		}
 	}
 }
@@ -46,7 +48,7 @@ class QAOutputContainer extends Component{
   static propTypes = {
     connectDragSource: PropTypes.func.isRequired,
     isDragging: PropTypes.bool.isRequired,
-    question: PropTypes.string.isRequired,
+    // question: PropTypes.string.isRequired,
   }
 
   render () {

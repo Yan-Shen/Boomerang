@@ -4,6 +4,7 @@ import ReplQuestion from './input_components/ReplQuestion'
 import ReplSolution from './input_components/ReplSolution'
 import QuestionOutput from './output_components/QuestionOutput'
 import ChoiceOutput from './output_components/ChoiceOutput'
+import NameGenerator from './output_components/NameGenerator'
 
 export default {
   Question,
@@ -11,5 +12,6 @@ export default {
   ReplQuestion,
   ReplSolution,
   QuestionOutput,
-  ChoiceOutput
+  ChoiceOutput,
+  NameGenerator
 }

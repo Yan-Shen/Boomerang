@@ -79,11 +79,13 @@ class LessonWrapper extends Component {
 	}
 	render() {
 		const {id} = this.props.currentSlide
-		const selectedUserObj = this.props.currentSlide[this.props.selectedUserId]
-		const {displayObject, addStudentCode, userId} = this.props
+		const {displayObject, addStudentCode, userId, activeUsers} = this.props
+		const activeUser = activeUsers[0]
+		const selectedUserObj = this.props.currentSlide[activeUser]
+
 		const currentDisplayObject = displayObject.find(display=>display.id === id)
 		let videoId, youtubeShow
-		let replQuestion, replSolution, replShow
+		let replQuestion, replSolution, replShow, QA, choiceShow
 
 		if (currentDisplayObject['YouTube'] ) {
 			videoId = currentDisplayObject.YouTube.videoId
@@ -92,19 +94,27 @@ class LessonWrapper extends Component {
 			videoId = ''
 			youtubeShow = false
 		}
+		
+
 		if (currentDisplayObject['Repl'] ) {
-			replQuestion = currentDisplayObject.Repl.question
-			replSolution = currentDisplayObject.Repl.solution
-			replShow = currentDisplayObject.Repl.show
+			replQuestion = currentDisplayObject['Repl']['question']
+			replSolution = currentDisplayObject['Repl']['solution']
+			replShow = currentDisplayObject['Repl']['show']
 		} else {
 			replQuestion = ''
 			replSolution = ''
 			replShow = false
 		}
 
-		console.log('selectedUserObj -----------', selectedUserObj )
-		console.log('youtubeShow from LessonWrapper -----------', youtubeShow )
-		console.log('youtubeShow from videoId -----------', videoId )
+		if(currentDisplayObject['Choice']&&currentDisplayObject['Choice']['QA']) {
+			QA = currentDisplayObject['Choice']['QA']
+			choiceShow = currentDisplayObject['Choice']['show']
+		} else {
+			QA={}
+			choiceShow = false
+		}
+
+		console.log('currentDisplayObject, QA  -----------', currentDisplayObject, QA )
 
 		return (
 			<div style={{background: "#ccc",padding: "15px", display: 'flex'}}>
@@ -133,7 +143,14 @@ class LessonWrapper extends Component {
 				</div>
 				<div style={{width: '350px', height: 'calc(100vh - 90px)'}}>
 					<Paper style={{width: '350px', height: 'calc(100vh - 190px)'}}>
-						<StudentDisplay replShow={replShow} addStudentCode={addStudentCode} slideId ={id} userId={userId}/>
+						<StudentDisplay
+						replShow={replShow}
+						choiceShow = {choiceShow}
+						addStudentCode={addStudentCode}
+						slideId ={id}
+						activeUser = {activeUser}
+						QA={QA}
+						userId={userId}/>
 						{/* <StudentDisplay value={replSolution}/> */}
 						<WhiteBoardControls />
 					</Paper>

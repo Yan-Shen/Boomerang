@@ -40,7 +40,8 @@ function mapStateToProps(state){
     emotions: state.studentLesson.emotions,
     displayObject: state.studentLesson.displayObject,         // coming from huge object in the action when fetching lesson
     userId: state.user.uid,
-    selectedUserId: "hS74ejiqshRiikMYiVla8qLqBEH2"
+    activeUsers: state.lesson.active,
+    // selectedUserId: "hS74ejiqshRiikMYiVla8qLqBEH2"
   };
 }
 

@@ -16,7 +16,7 @@ export const showChoiceDispatcher = (slideId) => {
     db.ref(`/studentDisplay/${slideId}`).once('value')
       .then(data => {
         const studentDisplay = data.val()
-        if(!studentDisplay['Choice'] ||!studentDisplay['Choice'].show) {
+        if(!studentDisplay||!studentDisplay['Choice'] ||!studentDisplay['Choice']['show']) {
           db.ref(`/studentDisplay/${slideId}/Choice`).update({show: true})
         } else {
           db.ref(`/studentDisplay/${slideId}/Choice`).update({show: false})

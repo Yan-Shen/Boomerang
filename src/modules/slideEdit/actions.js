@@ -83,7 +83,6 @@ export function fetchLesson (id) {
 				if(dataObj[key].role === "student") {
 					var student = dataObj[key]
 					student.id = key
-					console.log(student)
 					studentArr.push(student)
 				}
 			}
@@ -106,7 +105,8 @@ export function fetchLesson (id) {
 			})
 			.then((slides)=>{
 				slides.forEach((slide)=>{
-
+					db.ref(`/studentDisplay/${slide.key}/Choice`).set(true)
+					db.ref(`/studentDisplay/${slide.key}/Repl`).set(true)
 					db.ref(`studentDisplay/${slide.key}`).on('value', (data)=>{
 						const displayData = data.val()
 						const slideId = data.key
@@ -114,7 +114,6 @@ export function fetchLesson (id) {
 							id: slideId,
 							...displayData
 						}
-						console.log('displayObject teacher------------', displayObject)
 						dispatch(getDisplay(displayObject));
 					})
 

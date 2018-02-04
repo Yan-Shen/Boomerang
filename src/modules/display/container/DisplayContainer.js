@@ -20,7 +20,7 @@ class DisplayContainer extends Component {
     let replQA
 
     if(!Object.keys(selectedTools)[0]) {
-      return <div>loading...</div>
+      return <div></div>
     } else {
 
       if(selectedTools && selectedTools["Choice Q"] && selectedTools["Choice Q"]['QA']){
@@ -55,7 +55,7 @@ class DisplayContainer extends Component {
               return <QAOutputContainer
               QA={each}
               currentSlideId = {currentSlideId}
-              shareChoiceQA = {shareChoiceQADispatcher}
+              shareChoiceQADispatcher = {shareChoiceQADispatcher}
               key={each.question}/>
             })
           }
