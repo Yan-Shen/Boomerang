@@ -50,7 +50,8 @@ const mapState = state => {
 		choiceStatus: state.toggleChoice,
 		inputStatus: state.toggleInput,
 		replStatus: state.toggleRepl,
-		currentSlideId: slides[state.lesson.currentSlide].id
+		currentSlideId: slides[state.lesson.currentSlide].id,
+		activeUsers: state.lesson.active,
 	}
 }
 

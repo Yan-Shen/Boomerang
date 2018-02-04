@@ -7,6 +7,7 @@ import {connect} from 'react-redux'
 import RaisedButton from 'material-ui/RaisedButton';
 import Toggle from 'material-ui/Toggle';
 import {showChoice} from '../reducers/ChoiceShow'
+import {db} from '../../../firebase'
 
 const styles = {
   toggle: {
@@ -34,7 +35,19 @@ class ToolBtn extends Component {
   handleToggle(){
     if (this.props.name === "Choice Q"){
       this.props.showChoice(this.props.currentSlideId)
+    db.ref(`/studentDisplay/${this.props.currentSlideId}/Choice`).once('value')
+      .then(data=>{
+        let choice = data.val()
+        if (choice['QA']) {
+          db.ref(`/studentDisplay/${this.props.currentSlideId}/Choice`).update({QA: {}})
+        }
+      })
+
     } else if (this.props.name === "Repl") {
+      if (this.props.activeUsers) {
+        const activeUser = this.props.activeUsers[0]
+        db.ref(`slides/${this.props.currentSlideId}/${activeUser}`).update({replCode: ""})
+      }
       this.props.showReplDispatcher(this.props.currentSlideId)
     }
   }

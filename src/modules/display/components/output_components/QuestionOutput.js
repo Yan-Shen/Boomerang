@@ -25,7 +25,9 @@ const boxSource = {
 
 		if (dropResult) {
       // alert(`You dropped ${item.name} into ${dropResult.name}!`) // eslint-disable-line no-alert
-      props.shareReplQ(props.currentSlideId, props.question)
+      if(props.type === 'replQ') {
+        props.shareReplQ(props.currentSlideId, props.question)
+      }
 		}
 	}
 }

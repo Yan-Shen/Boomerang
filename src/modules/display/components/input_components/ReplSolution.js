@@ -3,7 +3,8 @@ import TextField from 'material-ui/TextField';
 import brace from 'brace';
 import AceEditor from 'react-ace';
 import 'brace/mode/javascript';
-import 'brace/theme/monokai';
+import 'brace/theme/terminal';
+import 'brace/theme/xcode';
 import PropTypes from 'prop-types'
 import { DragSource } from 'react-dnd'
 import ItemTypes from '../../../../ItemTypes'
@@ -38,6 +39,21 @@ const collect = (connect, monitor) => ({
   isDragging: monitor.isDragging()
 })
 
+const style = {
+  regular: {
+      borderStyle: "solid",
+      borderRadius: "8px",
+      borderWidth: "1px",
+      borderColor: "black"
+  },
+  active: {
+    borderStyle: "solid",
+    borderRadius: "8px",
+    borderWidth: "3px",
+    borderColor: "red"
+  }
+}
+
 class ReplSolution extends Component{
   constructor(props){
     super(props)
@@ -55,30 +71,50 @@ class ReplSolution extends Component{
     } else if (this.props.userId) {
       this.props.addStudentCode(solution, this.props.slideId, this.props.userId)
     } else {
-      this.props.onChange()
+      this.props.onChange(solution)
     }
   }
 
   render(){
-    const { isDragging, connectDragSource, QA, value, onChange, overlay, shareReplSolutionDispatcher } = this.props
-    let editorWidth, editorHeight
-    overlay ? editorWidth = "500px" : editorWidth= "350px"
-    overlay ? editorHeight = "600px" : editorHeight= "350px"
+    const { isDragging, connectDragSource, QA, value, onChange, overlay, shareReplSolutionDispatcher, activeUser, userId, userType } = this.props
+    let editorWidth, editorHeight, editorMode, editorFontSize, editorStyle
+
+    if(activeUser && userId && (activeUser === userId) ) {
+      editorStyle = style.active
+    } else {
+      editorStyle = style.regular
+    }
+
+    editorMode = "xcode"
+    if(overlay) {
+      editorWidth = "500px"
+      editorHeight = "600px"
+      editorFontSize = "1em"
+    } else if (userType === "student"){
+      editorWidth = "350px"
+      editorHeight = "300px"
+      editorFontSize = "0.8em"
+    } else {
+      editorWidth= "300px"
+      editorHeight= "150px"
+      editorFontSize = "0.5em"
+    }
+
+
     return connectDragSource(
       <div>
         <AceEditor
           mode="javascript"
-          theme="xcode"
+          theme={editorMode}
           width = {editorWidth}
           height = {editorHeight}
           value ={value}
+          fontSize={editorFontSize}
           onChange={this.handleChange}
           showPrintMargin={true}
           showGutter={true}
           highlightActiveLine={true}
-          style={{borderStyle: "solid",
-          borderRadius: "8px", borderWidth: "1px",
-          borderColor: "black"}}
+          style={editorStyle}
           setOptions={{
             enableBasicAutocompletion: true,
             enableLiveAutocompletion: true,

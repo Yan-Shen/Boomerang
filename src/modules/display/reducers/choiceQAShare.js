@@ -14,22 +14,23 @@ export const shareChoiceQA = (QA)=> {
 export const shareChoiceQADispatcher = (slideId, QA) => {
   console.log('slideId==========', slideId)
   console.log('QA==========', QA)
-  return dispatch => {
-    console.log('shareChoiceQADispatcher triggered')
+  return dispatch=>{
+    console.log('shareChoiceQADispatcher triggered==============')
       db.ref(`/studentDisplay/${slideId}/Choice`).update({QA: QA})
       .then(()=>{
-        dispatch(shareChoiceQA(QA))
+        return dispatch(shareChoiceQA(QA))
       })
     }
+    console.log('this should run?')
   }
 
 //REDUCER
-
-export default function reducer (state = '', action) {
+export default function reducer (state = {}, action) {
   switch (action.type) {
     case CHOICEQA_SHARE:
+    console.log('action QA=============', action)
       return action.QA
-      default:
+    default:
       return state;
   }
 }

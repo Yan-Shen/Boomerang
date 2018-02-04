@@ -6,15 +6,23 @@ import QAOutputContainer from '../../display/container/output_container/QAOutput
 const {ReplSolution} = components
 
 function StudentDisplay(props) {
-  const {replShow, slideId, userId, addStudentCode} = props
+  const {replShow, choiceShow, slideId, userId, addStudentCode, activeUser, QA} = props
+  // console.log('activeUser, userId is-----------', activeUser, userId)
+  let question, choice
+  QA['question'] ? question = QA['question'] : question = ""
+  QA['choice'] ? choice = QA['choice'] : choice =[]
+
+  console.log('QA in student disply---------', QA)
   return (
     // <Paper>
     <div width="300" height="550" style={{borderRadius: "4px"}}>
+    {
+      choiceShow && <QAOutputContainer QA={{question, choice}} />
+    }
 
-    <QAOutputContainer QA={{question: 'placeholder', solution:'placeholder'}} />
     {
       replShow &&
-       <ReplSolution slideId={slideId} userId = {userId} addStudentCode={addStudentCode}/>
+       <ReplSolution slideId={slideId} userId = {userId} userType="student" activeUser={activeUser} addStudentCode={addStudentCode}/>
     }
     </div>
   // </Paper>
