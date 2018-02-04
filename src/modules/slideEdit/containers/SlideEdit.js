@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {toggleActiveStudent,fetchLesson,addSlide,deleteSlide,changeSlide,updateSlide,unmountLesson,changeYouTube} from "../actions";
-import {getToolsDispatcher} from '../../../store'
+import {getToolsDispatcher, showYTDispatcher } from '../../../store'
 import SlideEditWrapper from '../components/SlideEditWrapper'
 import {AppBar, Paper} from 'material-ui';
 import {db} from '../../../firebase'
@@ -12,7 +12,6 @@ import {DisplayContainer} from '../../display'
 import ReplSolution from '../../display/components/input_components/ReplSolution'
 import ReplQuestion from '../../display/components/input_components/ReplQuestion';
 import {shareReplSolutionDispatcher} from '../../display/reducers/replSolutionShare'
-
 
 
 
@@ -65,7 +64,7 @@ function mapStateToProps(state,props){
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({toggleActiveStudent,fetchLesson,addSlide,deleteSlide,changeSlide,updateSlide, getToolsDispatcher,unmountLesson,changeYouTube, shareReplSolutionDispatcher}, dispatch);
+  return bindActionCreators({toggleActiveStudent,fetchLesson,addSlide,deleteSlide,changeSlide,updateSlide, getToolsDispatcher,unmountLesson,changeYouTube, shareReplSolutionDispatcher, showYTDispatcher}, dispatch);
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(SlideEdit);

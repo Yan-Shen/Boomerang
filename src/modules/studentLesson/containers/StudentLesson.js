@@ -38,7 +38,7 @@ function mapStateToProps(state){
     lesson: state.lesson.lessonData,
     replSolution: state.replSolution,
     emotions: state.studentLesson.emotions,
-    displayObject: state.studentLesson.displayObject,
+    displayObject: state.studentLesson.displayObject,         // coming from huge object in the action when fetching lesson
     userId: state.user.uid,
     activeUsers: state.lesson.active,
     // selectedUserId: "hS74ejiqshRiikMYiVla8qLqBEH2"

@@ -15,6 +15,7 @@ import choiceShow from '../modules/tools/reducers/ChoiceShow';
 import replShow from '../modules/tools/reducers/ReplShow';
 import replSolution from '../modules/display/reducers/replSolutionShare';
 import replQuestion from '../modules/display/reducers/replQShare'
+import YTShow from '../modules/slideEdit/components/overlayComponents/reducers/YouTubeShow'
 import choiceQAShare from '../modules/display/reducers/choiceQAShare'
 
 export default combineReducers({
@@ -34,6 +35,7 @@ export default combineReducers({
   replSolution,
   replQuestion,
   studentLesson,
+  YTShow,
   choiceQAShare,
 });
 
@@ -49,4 +51,5 @@ export * from '../modules/tools/reducers/ChoiceShow'
 export * from '../modules/tools/reducers/ReplShow'
 export * from '../modules/display/reducers/replSolutionShare'
 export * from '../modules/display/reducers/replQShare'
+export * from '../modules/slideEdit/components/overlayComponents/reducers/YouTubeShow'
 export * from '../modules/display/reducers/choiceQAShare'
