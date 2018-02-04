@@ -36,7 +36,7 @@ class ToolBox extends Component {
 
 
 	render() {
-		const { canDrop, isOver, connectDropTarget, selectedTools, toggleChoice, choiceStatus, inputStatus, toggleInput, currentSlideId, toggleRepl, replStatus, showChoiceDispatcher, showReplDispatcher } = this.props
+		const { canDrop, isOver, connectDropTarget, selectedTools, toggleChoice, choiceStatus, inputStatus, toggleInput, currentSlideId, toggleRepl, replStatus, showChoiceDispatcher, showReplDispatcher, activeUsers } = this.props
 		const selectedToolsName = Object.keys(selectedTools)
 		const isActive = canDrop && isOver
 
@@ -69,6 +69,7 @@ class ToolBox extends Component {
 				showReplDispatcher={showReplDispatcher}
 				currentSlideId = {currentSlideId}
 				replStatus = {replStatus}
+				activeUsers = {activeUsers}
 				/> }
 			</div>,
 		)

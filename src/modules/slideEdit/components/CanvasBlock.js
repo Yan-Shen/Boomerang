@@ -80,11 +80,13 @@ class CanvasBlock extends Component {
 	}
 
 	render() {
-		console.log('canavas slideid-------------', this.props.currentSlide.id)
+
 		const { slides, deleteSlide, addSlide, changeSlide,
-			currentSlideIndex, updateSlide, getToolsDispatcher,lesson, replShow, choiceShow, currentSlide, shareReplSolutionDispatcher} = this.props
+			currentSlideIndex, updateSlide, getToolsDispatcher,lesson, replShow, choiceShow, currentSlide, shareReplSolutionDispatcher, activeUsers} = this.props
 			const {id} = this.props.currentSlide
-			const selectedUserObj = this.props.currentSlide[this.props.selectedUserId]
+			let selectedUserObj
+			activeUsers ? selectedUserObj = this.props.currentSlide[activeUsers[0]] : selectedUserObj ={}
+
 
 		return (
 			<div style={{flex: 1}}>
