@@ -1,3 +1,10 @@
+import React, { Component } from 'react';
+import RaisedButton from 'material-ui/RaisedButton';
+
+const style = {
+  margin: 12,
+};
+
 function getRandom(items) {
   return items[Math.floor(Math.random()*items.length)];
 }
@@ -8,7 +15,7 @@ const Button = ({name, onClick, children}) => {
   )
 }
 
-class App extends React.Component {
+class NameGenerator extends Component {
   
   constructor(props) {
     super(props);
@@ -29,7 +36,6 @@ class App extends React.Component {
     })
   };
   
- 
   handleGetNameClick = (e) => {
     this.setState({
       [e.target.name]: getRandom(nameData[e.target.name])
@@ -38,11 +44,13 @@ class App extends React.Component {
   
   render() {
     const {studentName} = this.state;
+    console.log('this is the name generator component')
     return (
       <div className="container">
-        <Button name="studentName" onClick={this.handleGetNameClick}>Pick A Student</Button>
+        <Button name="studentName" onClick={this.handleGetNameClick}>Pick A Student </Button>
         <div className="name">
           <div>
+            <br />
             <span className="studentname">{studentName}</span>
             <br />
           </div>
@@ -53,3 +61,25 @@ class App extends React.Component {
 }
 
 
+const nameData = {
+	"studentName": [
+		"Yan",
+		"Nick",
+		"Aubrey",
+    "Jordon",
+    "John",
+    "Karen",
+    "Erik",
+    "Antonio",
+    "Amanda",
+    "Jane",
+    "Will",
+    "Shaun",
+    "Elana",
+    "John",
+    "David",
+    "Nimit"
+	]
+}
+
+export default NameGenerator
