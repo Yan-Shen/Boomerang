@@ -4,11 +4,17 @@ import _ from 'lodash'
 import {Paper} from 'material-ui';
 import StudentDisplay from './StudentDisplay'
 import ReplOverlay from '../../slideEdit/components/overlayComponents/ReplOverlay'
+import YouTubeCurrentVideo from '../../slideEdit/components/overlayComponents/YouTubeCurrentVideo'
 import EmotionAnimation from './EmotionAnimation'
 import EmotionWrapper from './EmotionWrapper'
+import ReplSolution from '../../display/components/input_components/ReplSolution'
 import WhiteBoardCanvas from '../../whiteboard/containers/WhiteBoardCanvas'
 import WhiteBoardControls from '../../whiteboard/components/WhiteBoardControls'
+
 import CamView from '../../slideEdit/components/CamView'
+import ReactDOM from 'react-dom'
+import YouTube from 'react-youtube'
+
 
 class LessonWrapper extends Component {
 	constructor(props) {
@@ -31,6 +37,23 @@ class LessonWrapper extends Component {
 		this.canvas.setZoom(scale);
     this.canvas.renderAll();
 		console.log(this.props)
+		if (this.props.currentSlide.youtubeVideo) {
+			const opts = {
+				// this is where height and width will go for YT student view
+				playerVars: {
+					controls: 0,
+					rel: 0,
+					disablekb: 0,
+					enablejsapi: 1,
+					showinfo: 0
+					// 'fs' : 0
+				}
+			}
+			const videoId = this.props.currentSlide.youtubeVideo;
+			ReactDOM.render(<YouTube videoId={videoId} opts={opts}></YouTube>, document.getElementById('video-overlay'))
+		} else {
+			ReactDOM.unmountComponentAtNode(document.getElementById('video-overlay'))
+		}
 	}
 	componentDidUpdate(prevProps){
 		if(this.state.height === null) this.setState({height: this.block.clientHeight, width: this.block.clientWidth})
@@ -38,17 +61,62 @@ class LessonWrapper extends Component {
 			this.canvas.loadFromJSON(this.props.currentSlide, this.canvas.renderAll.bind(this.canvas));
 			this.canvas.renderAll();
 		}
+		if (this.props.currentSlide.youtubeVideo) {
+			const opts = {
+				// this is where height and width will go for YT student view
+				playerVars: {
+					controls: 0,
+					rel: 0,
+					disablekb: 0,
+					enablejsapi: 1,
+					showinfo: 0
+					// 'fs' : 0
+				}
+			}
+			const videoId = this.props.currentSlide.youtubeVideo;
+			ReactDOM.render(<YouTube videoId={videoId} opts={opts} ></YouTube>, document.getElementById('video-overlay'))
+		} else {
+			ReactDOM.unmountComponentAtNode(document.getElementById('video-overlay'))
+		}
 	}
 	render() {
 		const {id} = this.props.currentSlide
-		const selectedUserObj = this.props.currentSlide[this.props.selectedUserId]
-		const {displayObject, addStudentCode, userId} = this.props
-		const currentDisplayObject = displayObject.find(display=>display.id === id)
-		// const replQuestion = currentDisplayObject.Repl.question
-		// const replSolution = currentDisplayObject.Repl.solution
-		// const replShow = currentDisplayObject.Repl.show
+		const {displayObject, addStudentCode, userId, activeUsers} = this.props
+		const activeUser = activeUsers[0]
+		const selectedUserObj = this.props.currentSlide[activeUser]
 
-		console.log('selectedUserObj -----------', selectedUserObj )
+		const currentDisplayObject = displayObject.find(display=>display.id === id)
+		let videoId, youtubeShow
+		let replQuestion, replSolution, replShow, QA, choiceShow
+
+		if (currentDisplayObject['YouTube'] ) {
+			videoId = currentDisplayObject.YouTube.videoId
+			youtubeShow = currentDisplayObject.YouTube.show
+		} else {
+			videoId = ''
+			youtubeShow = false
+		}
+
+
+		if (currentDisplayObject['Repl'] ) {
+			replQuestion = currentDisplayObject['Repl']['question']
+			replSolution = currentDisplayObject['Repl']['solution']
+			replShow = currentDisplayObject['Repl']['show']
+		} else {
+			replQuestion = ''
+			replSolution = ''
+			replShow = false
+		}
+
+		if(currentDisplayObject['Choice']&&currentDisplayObject['Choice']['QA']) {
+			QA = currentDisplayObject['Choice']['QA']
+			choiceShow = currentDisplayObject['Choice']['show']
+		} else {
+			QA={}
+			choiceShow = false
+		}
+
+		console.log('currentDisplayObject, QA  -----------', currentDisplayObject, QA )
 
 		return (
 			<div style={{background: "#ccc",padding: "15px", display: 'flex'}}>
@@ -63,9 +131,12 @@ class LessonWrapper extends Component {
 								))}
 							</div>
 
-							{/* <div style={{zIndex: replShow ? 6000 : -1000,  position: 'absolute', backgroundColor: "yellow", top: 0, left: 0, width: this.block ? this.block.clientWidth : "0px", height: this.block ? this.block.clientHeight : "0px"}}>
+							<div style={{zIndex: replShow ? 6000 : -1000,  position: 'absolute', backgroundColor: "yellow", top: 0, left: 0, width: this.block ? this.block.clientWidth : "0px", height: this.block ? this.block.clientHeight : "0px"}}>
 								<ReplOverlay value={replSolution} question={replQuestion} selectedUserObj={selectedUserObj}/>
-							</div> */}
+							</div>
+							<div style={{zIndex: youtubeShow ? 6000 : -1000,  position: 'absolute', backgroundColor: "white", top: 0, left: 0, width: this.block ? this.block.clientWidth : "0px", height: this.block ? this.block.clientHeight : "0px"}}>
+								<YouTubeCurrentVideo currentSlide={this.props.currentSlide} />
+							</div>
 
 					{/* <Paper> */}
 
@@ -74,6 +145,14 @@ class LessonWrapper extends Component {
 				</div>
 				<div style={{width: '350px', height: 'calc(100vh - 90px)'}}>
 					<Paper style={{width: '350px', height: 'calc(100vh - 190px)'}}>
+						<StudentDisplay
+						replShow={replShow}
+						choiceShow = {choiceShow}
+						addStudentCode={addStudentCode}
+						slideId ={id}
+						activeUser = {activeUser}
+						QA={QA}
+						userId={userId}/>
 						{/* <StudentDisplay value={replSolution}/> */}
 						<CamView currentUser={this.props.user}/>
 						<WhiteBoardControls />

@@ -1,5 +1,5 @@
 import {db} from '../../../firebase'
-import StudentDisplay from '../../studentLesson/components/StudentDisplay';
+// import StudentDisplay from '../../studentLesson/components/StudentDisplay';
 import { shareReplSolution, shareReplQ } from '../../../store/index';
 
 // ACTION TYPE
@@ -18,8 +18,7 @@ export const showReplDispatcher = (slideId) => {
     db.ref(`/studentDisplay/${slideId}`).once('value')
       .then(data => {
         const studentDisplay = data.val()
-        console.log('StudentDisplay is-----------', studentDisplay.Repl)
-        if(!studentDisplay.Repl.show) {
+        if(!studentDisplay || !studentDisplay['Repl'] || !studentDisplay['Repl']['show']) {
           db.ref(`/studentDisplay/${slideId}/Repl`).update({show: true})
         } else {
           db.ref(`/studentDisplay/${slideId}/Repl`).update({show: false})
@@ -28,6 +27,7 @@ export const showReplDispatcher = (slideId) => {
           dispatch(shareReplSolution(''))
           dispatch(shareReplQ(''))
         }
+        // to dispatch something to switch off selected active user
         dispatch(showRepl())
       })
     }

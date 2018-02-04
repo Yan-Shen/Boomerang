@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import { DragSource } from 'react-dnd'
 import ItemTypes from '../../../../ItemTypes'
+import Paper from 'material-ui/Paper';
 
 const style = {
   repl: {
@@ -23,10 +24,10 @@ const boxSource = {
 		const dropResult = monitor.getDropResult()
 
 		if (dropResult) {
-      console.log('props.currentSlideId-------', props.currentSlideId,)
-      console.log('props.question-------', props.question)
       // alert(`You dropped ${item.name} into ${dropResult.name}!`) // eslint-disable-line no-alert
-      props.shareReplQ(props.currentSlideId, props.question)
+      if(props.type === 'replQ') {
+        props.shareReplQ(props.currentSlideId, props.question)
+      }
 		}
 	}
 }
@@ -44,20 +45,24 @@ class QuestionOutput extends Component {
   }
 
   render () {
-    const { isDragging, connectDragSource } = this.props
-    const { name } = this.props
-    let styleQ
-    if (this.props.repl) {
+    const { isDragging, connectDragSource, question, type, name, repl } = this.props
+    let styleQ, depth
+    if (repl) {
       styleQ = style.repl
     } else {
       styleQ ={}
     }
+    type === "regular" ? depth = 0 : depth = 2;
 
     return connectDragSource(
+
       <div style={styleQ}>
-            <p> {this.props.question}</p>
-      </div>)
-  }
+        <Paper style={{margin: "auto 10px", paddingLeft: "10px", paddingRight: "10px"}} zDepth={depth} >
+          <p style={{textAlign:"left"}}> {this.props.question}</p>
+        </ Paper>
+      </div>
+
+    )}
 
 }
 

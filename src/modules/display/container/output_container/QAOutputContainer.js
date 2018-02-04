@@ -4,13 +4,15 @@ import Paper from 'material-ui/Paper';
 import PropTypes from 'prop-types'
 import { DragSource } from 'react-dnd'
 import ItemTypes from '../../../../ItemTypes'
+import {db} from '../../../../firebase'
 
 const {QuestionOutput, ChoiceOutput} = components
 
 const boxSource = {
 	beginDrag(props) {
 		return {
-			question: props.question,
+      question: props.question,
+      QA: props.QA
 		}
 	},
 
@@ -20,9 +22,10 @@ const boxSource = {
 		const dropResult = monitor.getDropResult()
 
 		if (dropResult) {
-      // let currentSlideId = props.currentSlideId
-      console.log('dropped!!!!!!!!!') // eslint-disable-line no-alert
-      // props.addTool(item.name, currentSlideId)
+      let currentSlideId = props.currentSlideId
+      console.log('dropped!!!!!!!!!')
+      db.ref(`/studentDisplay/${currentSlideId}/Choice`).update({QA: props.QA})
+      // props.shareChoiceQADispatcher(currentSlideId, props.QA)
 		}
 	}
 }
@@ -38,22 +41,23 @@ const style = {
   margin: 20,
   textAlign: 'center',
   display: 'inline-block',
+  // backgroundColor: '#999'
 };
 
 class QAOutputContainer extends Component{
   static propTypes = {
     connectDragSource: PropTypes.func.isRequired,
     isDragging: PropTypes.bool.isRequired,
-    question: PropTypes.string.isRequired,
+    // question: PropTypes.string.isRequired,
   }
 
   render () {
     const { isDragging, connectDragSource, QA } = this.props
     return connectDragSource(
         <div>
-          <Paper style={style} zDepth={1} >
+          <Paper style={style} zDepth={2} >
                 <div key={QA.question}>
-                  <QuestionOutput question={QA.question}/>
+                  <QuestionOutput question={QA.question} type="regular"/>
                   <ChoiceOutput choice={QA.choice}/>
                 </div>
         </Paper>

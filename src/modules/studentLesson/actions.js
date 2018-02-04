@@ -8,17 +8,27 @@ export const getSlideIndex = index =>  ({type: actions.GET_SLIDE_INDEX, index})
 export const unmountLesson = () =>  ({type: actions.UNMOUNT_LESSON})
 export const addEmotion = (emotion) =>  ({type: actions.ADD_EMOTION, emotion})
 export const getDisplay = displayObject => ({type: actions.GET_DISPLAYOBJECT, displayObject})
+export const activeStudents = students => ({type: actions.GET_ACTIVE_STUDENTS, students})
 
 export function fetchLesson (id) {
   return function thunk (dispatch) {
 		db.ref(`lessons/${id}/currentSlide`).on('value', (data)=>{
 			dispatch(getSlideIndex(data.val()))
 		})
+		db.ref(`lessons/${id}/activeStudents`).on('value', (data)=>{
+			const dataObj = data.val()
+					const activeArr = []
+					for(var key in dataObj){
+						activeArr.push(key)
+					}
+					dispatch(activeStudents(activeArr))
+		})
     return db.ref(`/lessons/${id}`).once('value')
 			.then(lesson => {
         lesson = lesson.val()
 				lesson.id = id
 				dispatch(getLesson(lesson))
+
 				return db.ref(`/lessons/${id}/slides`).once('value')
 			})
 			.then((slides)=>{
