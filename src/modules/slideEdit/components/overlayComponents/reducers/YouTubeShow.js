@@ -13,7 +13,7 @@ export const showYouTube = ()=> {
   }
 }
 
-export const showYTDispatcher = (slideId, videoId, bool) => {
+export const showYTDispatcher = (slideId, videoId, bool, eventObj) => {
   return dispatch => {
     db.ref(`/studentDisplay/${slideId}`).once('value')
       .then(data => {
@@ -28,6 +28,7 @@ export const showYTDispatcher = (slideId, videoId, bool) => {
         } else {
           db.ref(`/studentDisplay/${slideId}/YouTube`).update({show: bool})
           db.ref(`/studentDisplay/${slideId}/YouTube`).update({videoId: ''})
+          // db.ref(`/studentDisplay/${slideId}/YouTube`).update({eventObj})
         }
         dispatch(showYouTube())
       })

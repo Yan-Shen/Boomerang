@@ -54,7 +54,7 @@ class YouTubeSearch extends Component { // YouTubeSearch
             onVideoSelect={selectedVideo => this.setState({selectedVideo})}
             videos={this.state.videos} />
         }
-        <RaisedButton label="Select" onClick={() => { 
+        <RaisedButton label="Select" onClick={() => {
           if (this.state.selectedVideo) {
             this.props.changeYouTube(this.props.currentSlide.id, this.state.selectedVideo.id.videoId)
             showYTDispatcher(this.props.currentSlide.id, this.state.selectedVideo.id.videoId, true)

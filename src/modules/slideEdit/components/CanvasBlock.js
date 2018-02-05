@@ -49,7 +49,7 @@ class CanvasBlock extends Component {
 		}
 		if (this.props.currentSlide.youtubeVideo) {
 			const videoId = this.props.currentSlide.youtubeVideo;
-			ReactDOM.render(<YouTube videoId={videoId} ></YouTube>, document.getElementById('video-overlay'))
+			ReactDOM.render(<YouTube videoId={videoId} onStateChange={(event) => console.log(event)}></YouTube>, document.getElementById('video-overlay'))
 		} else {
 			ReactDOM.unmountComponentAtNode(document.getElementById('video-overlay'))
 		}
