@@ -14,22 +14,27 @@ class DisplayContainer extends Component {
   }
 
   render() {
-
     const {choiceStatus, inputStatus, replStatus, currentSlideId, toggleChoice, toggleInput, toggleRepl, choiceShowStatus, showChoice, selectedTools, replShowStatus, shareReplSolution, shareReplQ} = this.props;
-    let choiceQA
-    let replQA
+    let choiceQA, replQA
+
+      if(selectedTools && selectedTools["Choice Q"] && selectedTools["Choice Q"]['QA']){
+        choiceQA =selectedTools["Choice Q"]['QA']
+      } else {
+        choiceQA = {}
+      }
+
+      let choiceArray = []
+      for (let key in choiceQA) {
+        let obj = {}
+        obj[key]= choiceQA[key]
+       choiceArray.push(obj)
+      }
+
+      (selectedTools["Repl"]&&selectedTools["Repl"]['QA']) ? replQA = Object.values(selectedTools["Repl"]['QA']) : replQA = []
 
     if(!Object.keys(selectedTools)[0]) {
       return <div></div>
     } else {
-
-      if(selectedTools && selectedTools["Choice Q"] && selectedTools["Choice Q"]['QA']){
-        choiceQA = Object.values(selectedTools["Choice Q"]['QA'])
-      } else {
-        choiceQA = []
-      }
-
-      (selectedTools["Repl"]&&selectedTools["Repl"]['QA']) ? replQA = Object.values(selectedTools["Repl"]['QA']) : replQA = []
       return (
         <div>
           {
@@ -51,12 +56,19 @@ class DisplayContainer extends Component {
             currentSlideId = {currentSlideId}/>
           }
           {
-            choiceShowStatus && choiceQA.map(each=>{
+            choiceShowStatus &&
+            choiceArray.map(choiceEach=> {
+              const [value] = Object.values(choiceEach)
+              const [qaId] = Object.keys(choiceEach)
               return <QAOutputContainer
-              QA={each}
+              role ="teacher"
+              QA={value}
+              key= {qaId}
+              qaId = {qaId}
+              // QAID= {each.key}
               currentSlideId = {currentSlideId}
               shareChoiceQADispatcher = {shareChoiceQADispatcher}
-              key={each.question}/>
+              key={value.question}/>
             })
           }
           {
