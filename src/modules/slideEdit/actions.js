@@ -2,7 +2,7 @@ import {db} from '../../firebase'
 import * as actions from './actionTypes';
 // import {getToolsDispatcher} from '../../store'
 export const changePanel = () => ({type: actions.CHANGE_PANEL})
-export const getSubscribers = subscribers => ({type: actions.GET_CAMERA_SUBSCRIBERS, subscribers})
+export const getSubscribers = (session,subscribers) => ({type: actions.GET_CAMERA_SUBSCRIBERS, session, subscribers})
 export const getStudents = students => ({type: actions.GET_ONLINE_USERS, students})
 export const getLesson = lesson =>  ({type: actions.GET_LESSON, lesson})
 export const getSlide = slide =>  ({type: actions.GET_SLIDE, slide})

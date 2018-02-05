@@ -1,85 +1,76 @@
 import React, { Component } from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
+import { ScaleLoader } from 'react-spinners';
+import {Card} from 'material-ui';
+import { OTSession, OTPublisher, OTStreams, OTSubscriber,createSession } from 'opentok-react';
 
-const style = {
-  margin: 12,
-};
-
-function getRandom(items) {
-  return items[Math.floor(Math.random()*items.length)];
-}
-
-const Button = ({name, onClick, children}) => {
-  return (
-    <input type="submit" name={name} onClick={onClick} value={children} />
-  )
-}
-
-class NameGenerator extends Component {
-  
-  constructor(props) {
+class RandomName extends Component {
+	constructor(props){
     super(props);
     this.state = {
-      studentName: '',
-    };
+			currentCount: 2,
+			name: null,
+      id: null,
+		}
   }
-
-  componentWillMount() {
-    this._randomAll()
-  }
-
-  _randomAll() {
-    Object.keys(this.state).forEach(name => {
-      this.setState({
-        [name]: getRandom(nameData[name])
-      })
-    })
-  };
-  
-  handleGetNameClick = (e) => {
+  timer() {
     this.setState({
-      [e.target.name]: getRandom(nameData[e.target.name])
+      currentCount: this.state.currentCount - 1
     })
-  };
-  
-  render() {
-    const {studentName} = this.state;
-    console.log('this is the name generator component')
+		if(this.state.currentCount === 1) {
+			const {users} = this.props
+			const ind = Math.floor(Math.random() * users.length)
+			const name = users[ind].name
+      const id = users[ind].id
+			this.setState({name, id})
+    }
+    if(this.state.currentCount < 1) {
+      clearInterval(this.intervalId);
+    }
+  }
+  componentDidMount() {
+
+    this.intervalId = setInterval(this.timer.bind(this), 1000);
+  }
+  componentWillUnmount(){
+    clearInterval(this.intervalId);
+  }
+  renderStream(){
+    if(!this.props.users.length){
+      return <div>no users online</div>
+    }
+    const {id} = this.state
+
+    const {subscribers, session} = this.props
+
+    const selected = subscribers.find(stream => stream.name === id)
+
+
     return (
-      <div className="container">
-        <Button name="studentName" onClick={this.handleGetNameClick}>Pick A Student </Button>
-        <div className="name">
-          <div>
-            <br />
-            <span className="studentname">{studentName}</span>
-            <br />
-          </div>
-        </div>
-      </div>
+      <OTSubscriber
+        //properties={this.subscriberProperties}
+        session={session.session}
+        stream={selected}
+      />
     )
   }
+	render() {
+		return (
+			<Card style={{margin: "15px", width: "300px", height: "300px"}}>
+				{this.state.currentCount > 0
+				?
+				<ScaleLoader color={'#456e7a'}/>
+				:
+				<div className="animated fadeIn" style={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
+					<div style={{fontSize: "24px",color: "#456e7a"}}>{this.state.name}</div>
+          <div style={{marginTop: '20px'}} className="animated tada">
+            {this.renderStream()}
+          </div>
+				</div>
+				}
+			</Card>
+		);
+	}
+
 }
 
-
-const nameData = {
-	"studentName": [
-		"Yan",
-		"Nick",
-		"Aubrey",
-    "Jordon",
-    "John",
-    "Karen",
-    "Erik",
-    "Antonio",
-    "Amanda",
-    "Jane",
-    "Will",
-    "Shaun",
-    "Elana",
-    "John",
-    "David",
-    "Nimit"
-	]
-}
-
-export default NameGenerator
+export default RandomName;

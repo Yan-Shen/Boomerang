@@ -7,30 +7,22 @@ class CamView extends Component {
 	constructor(props) {
 	    super(props);
 	    this.state = { streams: [] };
+			console.log(this.props.currentUser)
 			this.publisherProperties = {
 				width: 300,
-				height: 190,
+				height: 170,
 				name: this.props.currentUser.uid,
 			}
 			this.subscriberProperties = {
 				width: 300,
-				height: 190
+				height: 170
 			}
+			this.handleToggle = this.handleToggle.bind(this)
 	  }
-
-	  componentWillMount() {
-			const {apiKey, sessionId, token} = this.props.currentUser
-	    this.sessionHelper = createSession({
-	      apiKey: apiKey,
-	      sessionId: sessionId,
-	      token: token,
-	      onStreamsUpdated: streams => { this.props.getSubscribers(streams)}
-	    });
-	  }
-
-	  componentWillUnmount() {
-	    this.sessionHelper.disconnect();
-	  }
+		handleToggle(key, val){
+			const lessonId = this.props.lesson.id
+ 			this.props.toggleActiveStudent(lessonId, key, val)
+		}
 		getUserObject(stream){
 			console.log("name function test -------------->",stream.name)
 			const filtered = this.props.users.filter(user => user.id === stream.name)
@@ -39,8 +31,11 @@ class CamView extends Component {
 	  render() {
 	    return (
 	      <div style={{width: "260px", display: 'flex', flexDirection: 'column'}}>
-					<div style={{borderRadius: "4px", border: "1px solid #ccc"}}>
-						<OTPublisher properties={this.publisherProperties} session={this.sessionHelper.session} />
+					<div style={{borderRadius: "4px", border: "1px solid #ccc",width: "300px",marginLeft: "15px", marginTop: '15px'}}>
+						<OTPublisher properties={this.publisherProperties} session={this.props.session.session} />
+					</div>
+					<div style={{paddingTop: '10px',display: "flex", justifyContent: "flex-start", margin: '10px', fontWeight: 800, color: '#6bada7'}}>
+						Online Users
 					</div>
 	        {this.props.subscribers && this.props.subscribers.map(stream => {
 						const userObj = this.getUserObject(stream)
@@ -50,12 +45,12 @@ class CamView extends Component {
 								<div style={{width: "300px", display: 'flex', alignItems: 'center', justifyContent: 'flex-start'}}>
 									<Avatar style={{margin: '10px'}} icon={<Person />} color={'#6bada7'} backgroundColor={'#eee'} size={30} />
 									<div style={{flex: 1,fontWeight: '600', marginLeft: '10px'}}>{userObj.name}</div>
-									<Checkbox style={{width: '50px'}} />
+									<Checkbox style={{width: '50px'}} onCheck={(e, val)=>{this.handleToggle(userObj.id,val)}}/>
 								</div>
 		            <OTSubscriber
 									properties={this.subscriberProperties}
 		              key={stream.id}
-		              session={this.sessionHelper.session}
+		              session={this.props.session.session}
 		              stream={stream}
 		            />
 							</div>

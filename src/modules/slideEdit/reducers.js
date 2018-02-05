@@ -1,9 +1,9 @@
 import * as actions from './actionTypes';
 
-export default function reducers(state = {lessonData: {}, slides:[], currentSlide: 0, users:[], active: [],subscribers: [], panel: false}, action){
+export default function reducers(state = {lessonData: {}, slides:[], currentSlide: 0, users:[], active: [],subscribers: [], session: {}, panel: false}, action){
   switch (action.type){
     case actions.GET_CAMERA_SUBSCRIBERS:
-			return {...state, subscribers: action.subscribers}
+			return {...state, subscribers: action.subscribers, session: action.session}
     case actions.GET_LESSON:
 			return {...state, lessonData: action.lesson}
     case actions.GET_SLIDE_INDEX:

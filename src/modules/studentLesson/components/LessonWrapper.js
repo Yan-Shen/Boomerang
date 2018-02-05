@@ -10,6 +10,7 @@ import EmotionWrapper from './EmotionWrapper'
 import ReplSolution from '../../display/components/input_components/ReplSolution'
 import WhiteBoardCanvas from '../../whiteboard/containers/WhiteBoardCanvas'
 import WhiteBoardControls from '../../whiteboard/components/WhiteBoardControls'
+import { OTSession, OTPublisher, OTStreams, OTSubscriber,createSession } from 'opentok-react';
 
 import CamView from '../../slideEdit/components/CamView'
 import ReactDOM from 'react-dom'
@@ -23,6 +24,19 @@ class LessonWrapper extends Component {
 			width: null,
 			height: null
 		};
+	}
+	componentWillMount() {
+		const {apiKey, sessionId, token} = this.props.currentUser
+		this.sessionHelper = createSession({
+			apiKey: apiKey,
+			sessionId: sessionId,
+			token: token,
+			onStreamsUpdated: streams => { this.props.getSubscribers(this.sessionHelper, streams)}
+		});
+	}
+
+	componentWillUnmount() {
+		this.sessionHelper.disconnect();
 	}
 	componentDidMount(){
 		const width = this.block.clientWidth
@@ -153,7 +167,7 @@ class LessonWrapper extends Component {
 						QA={QA}
 						userId={userId}/>
 						{/* <StudentDisplay value={replSolution}/> */}
-						<CamView users={this.props.users} getSubscribers={this.props.getSubscribers} subscribers={this.props.subscribers} currentUser={this.props.user}/>
+						<CamView session={this.sessionHelper} users={this.props.users} getSubscribers={this.props.getSubscribers} subscribers={this.props.subscribers} currentUser={this.props.currentUser}/>
 						<WhiteBoardControls />
 					</Paper>
 					<EmotionWrapper id={this.props.lesson.id} addEmotionThunk={this.props.addEmotionThunk}/>
