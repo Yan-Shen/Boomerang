@@ -154,7 +154,7 @@ class LessonWrapper extends Component {
 						QA={QA}
 						userId={userId}/>
 						{/* <StudentDisplay value={replSolution}/> */}
-						<CamView currentUser={this.props.user}/>
+						<CamView users={this.props.users} getSubscribers={this.props.getSubscribers} subscribers={this.props.subscribers} currentUser={this.props.user}/>
 						<WhiteBoardControls />
 					</Paper>
 					<EmotionWrapper id={this.props.lesson.id} addEmotionThunk={this.props.addEmotionThunk}/>

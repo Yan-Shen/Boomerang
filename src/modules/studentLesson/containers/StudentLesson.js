@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import { DragDropContextProvider } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 import {fetchLesson, unmountLesson, addEmotionThunk, addStudentCode} from '../actions'
+import {getSubscribers} from '../../slideEdit/actions'
 import LessonWrapper from '../components/LessonWrapper'
 
 class StudentLesson extends Component {
@@ -32,6 +33,7 @@ function mapStateToProps(state){
   const slides = state.lesson.slides
 
   return {
+    subscribers: state.lesson.subscribers,
     currentSlideIndex: state.lesson.currentSlide,
     currentSlide: slides[state.lesson.currentSlide],
     selectedTools: state.selectedTools,
@@ -41,6 +43,7 @@ function mapStateToProps(state){
     displayObject: state.studentLesson.displayObject,         // coming from huge object in the action when fetching lesson
     userId: state.user.uid,
     user: state.user,
+    users: state.lesson.users,
     activeUsers: state.lesson.active,
     // selectedUserId: "hS74ejiqshRiikMYiVla8qLqBEH2"
 
@@ -48,7 +51,7 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({fetchLesson,unmountLesson,addEmotionThunk, addStudentCode}, dispatch);
+  return bindActionCreators({getSubscribers,fetchLesson,unmountLesson,addEmotionThunk, addStudentCode}, dispatch);
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(StudentLesson);

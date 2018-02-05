@@ -5,6 +5,7 @@ import {BrowserRouter as Router, Route, withRouter} from 'react-router-dom';
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {userStatus} from './modules/authentication/actions'
+import {changePanel} from './modules/slideEdit/actions'
 
 import logo from './logo.svg';
 import './App.css';
