@@ -27,7 +27,7 @@ const boxSource = {
       let currentSlideId = props.currentSlideId
       let qaId = props.qaId
       console.log('dropped!!!!!!!!!')
-      db.ref(`/studentDisplay/${currentSlideId}/Choice`).update({QA:{[`${qaId}`]: props.QA}})
+      db.ref(`/studentDisplay/${currentSlideId}/Choice/QA`).update({[`${qaId}`]: props.QA})
       // props.shareChoiceQADispatcher(currentSlideId, props.QA)
 		}
 	}
@@ -47,10 +47,19 @@ const style = {
 };
 
 class QAOutputContainer extends Component{
+  constructor(props){
+    super(props)
+    this.state = {send: false}
+    this.handleSend = this.handleSend.bind(this)
+  }
   static propTypes = {
     connectDragSource: PropTypes.func.isRequired,
     isDragging: PropTypes.bool.isRequired,
     // question: PropTypes.string.isRequired,
+  }
+
+  handleSend(){
+    this.setState({send: true})
   }
 
   render () {
@@ -62,15 +71,16 @@ class QAOutputContainer extends Component{
     }
 
     return connectDragSource(
-        <div>
+        <div className="animated bounceInDown">
+        {
+          !this.state.send &&
           <Paper style={style} zDepth={2} >
                 <div key={QA.question}>
                   <QuestionOutput question={QA.question} type="regular"/>
-                  <ChoiceOutput choice={QA.choice} role={role} qaId={qaId} slideId={slideId} submittedChoice = {submittedChoice}/>
+                  <ChoiceOutput choice={QA.choice} role={role} qaId={qaId} slideId={slideId} submittedChoice = {submittedChoice} handleSend={this.handleSend}/>
                 </div>
-
-
         </Paper>
+        }
       </div>
 
     )

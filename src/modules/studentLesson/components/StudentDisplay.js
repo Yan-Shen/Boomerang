@@ -10,24 +10,30 @@ class StudentDisplay extends Component {
     const {replShow, choiceShow, slideId, userId, addStudentCode, activeUser, QA} = this.props
 
 
-  let question="", choice=[], obj = {}
+  let question="", choice=[], choiceArray = []
   for (let key in QA) {
-    obj.id = key
-    obj.qaDetail = QA[key]
+    let obj ={}
+    obj[key] = QA[key]
+    choiceArray.push(obj)
   }
-  if (obj.qaDetail && obj.qaDetail['question']) {
-    question = obj.qaDetail['question']
-  }
-    if(obj.qaDetail && obj.qaDetail['choice']) {
-      choice = obj.qaDetail['choice']
-    }
+  // if (obj.qaDetail && obj.qaDetail['question']) {
+  //   question = obj.qaDetail['question']
+  // }
+  //   if(obj.qaDetail && obj.qaDetail['choice']) {
+  //     choice = obj.qaDetail['choice']
+  //   }
 
-
+    console.log('choiceArray=============', choiceArray)
   return (
       // <Paper>
       <div width="300" height="550" style={{borderRadius: "4px"}}>
       {
-        choiceShow && <QAOutputContainer QA={{question, choice}} role="student" qaId={obj.id} slideId={slideId}/>
+        choiceShow &&
+        choiceArray.map(choiceEach=>{
+          const [value] = Object.values(choiceEach)
+          const [qaId] = Object.keys(choiceEach)
+          return <QAOutputContainer QA={value} role="student" key={qaId} qaId={qaId} slideId={slideId}/>
+        })
       }
 
       {

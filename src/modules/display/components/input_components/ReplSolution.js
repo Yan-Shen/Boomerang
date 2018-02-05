@@ -7,6 +7,8 @@ import 'brace/theme/terminal';
 import 'brace/theme/xcode';
 import PropTypes from 'prop-types'
 import { DragSource } from 'react-dnd'
+import IconButton from 'material-ui/IconButton';
+import ActionHome from 'material-ui/svg-icons/action/home';
 import ItemTypes from '../../../../ItemTypes'
 import replSolutionShare, {shareReplSolution} from '../../reducers/replSolutionShare'
 
@@ -57,6 +59,7 @@ const style = {
 class ReplSolution extends Component{
   constructor(props){
     super(props)
+    this.state={solution:''}
     this.handleChange = this.handleChange.bind(this)
   }
 
@@ -66,6 +69,7 @@ class ReplSolution extends Component{
   }
 
   handleChange(solution) {
+    this.setState({solution})
     if (this.props.overlay) {
       this.props.shareReplSolutionDispatcher(this.props.slideId, solution)
     } else if (this.props.userId) {
@@ -124,7 +128,10 @@ class ReplSolution extends Component{
             }}
           name="UNIQUE_ID_OF_DIV"
           editorProps={{$blockScrolling: true}}
-        />,
+        />
+        <IconButton tooltip="SVG Icon" onClick={this.handleSubmit}>
+          <ActionHome />
+        </IconButton>
       </div>
     )
   }
