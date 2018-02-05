@@ -115,8 +115,7 @@ class LessonWrapper extends Component {
 			QA={}
 			choiceShow = false
 		}
-
-		console.log('currentDisplayObject, QA  -----------', currentDisplayObject, QA )
+		console.log('QA lessson Wrapper======', QA)
 
 		return (
 			<div style={{background: "#ccc",padding: "15px", display: 'flex'}}>

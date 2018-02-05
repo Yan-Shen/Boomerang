@@ -28,26 +28,35 @@ export const updateToolsDispatcher = (tool, slideId) => {
   return dispatch=> {
     db.ref(`/selectedTools/${slideId}`).update({[tool]: {name: tool}})
     //   .then(data => console.log(data))
-
-    const listener = db.ref(`/selectedTools/${slideId}`)
-    listener.on('value', snap=>{
-      const selectedTools = snap.val()
-      dispatch(updateTools(selectedTools))
-    })
- }
-}
+    return db.ref(`/selectedTools/${slideId}`).once('value')
+    .then(selectedTools => {
+        dispatch(updateTools(selectedTools.val()))
+    // const listener = db.ref(`/selectedTools/${slideId}`)
+    // listener.on('value', snap=>{
+    //   const selectedTools = snap.val()
+    //   dispatch(updateTools(selectedTools))
+    // })
+ })
+}}
 
 export const getToolsDispatcher = (slideId)=> {
   return dispatch=> {
 
-    return db.ref(`/selectedTools/${slideId}`).once('value')
-      .then(selectedTools => {
-        if (selectedTools.val()) {
-          dispatch(getTools(selectedTools.val()))
-        } else {
-          dispatch(getTools([]))
-        }
-      })
+    // return db.ref(`/selectedTools/${slideId}`).once('value')
+    const listener = db.ref(`/selectedTools/${slideId}`)
+    listener.on('value', snap=>{
+      if(snap.val()) {
+        dispatch(getTools(snap.val()))
+      }
+     })
+
+      // .then(selectedTools => {
+      //   if (selectedTools.val()) {
+      //     dispatch(getTools(selectedTools.val()))
+      //   } else {
+      //     dispatch(getTools([]))
+      //   }
+      // })
   }
 }
 
