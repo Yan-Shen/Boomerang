@@ -21,7 +21,6 @@ import { socialYoutube } from 'react-icons-kit/typicons/socialYoutube'
 import OverlayLayer from './OverlayLayer'
 import ReplOverlay from './overlayComponents/ReplOverlay';
 
-// import { showYTDispatcher } from '../../../store/index';
 
 class CanvasBlock extends Component {
 	constructor(props) {

@@ -1,17 +1,5 @@
 import {db} from '../../../../../firebase'
 import StudentDisplay from '../../../../studentLesson/components/StudentDisplay';
-// import { shareReplSolution, shareReplQ } from '../../../store/index';
-
-// ACTION TYPE
-const YOUTUBE_SHOW = 'YOUTUBE_SHOW'
-
-// ACTION MAKER
-export const showYouTube = ()=> {
-  return {
-    type: YOUTUBE_SHOW,
-    bool: 'show'
-  }
-}
 
 export const showYTDispatcher = (slideId, videoId, bool, YTObj) => {
   return dispatch => {
@@ -40,17 +28,15 @@ export const showYTDispatcher = (slideId, videoId, bool, YTObj) => {
             db.ref(`/studentDisplay/${slideId}/YouTube`).update({YTObj})
           }
         }
-        dispatch(showYouTube())
+        // dispatch(showYouTube())
       })
     }
   }
 
 //REDUCER
 
-export default function reducer (state = false, action) {
+export default function reducer (state = {}, action) {
   switch (action.type) {
-    case YOUTUBE_SHOW:
-      return !state;
     default:
       return state;
   }
