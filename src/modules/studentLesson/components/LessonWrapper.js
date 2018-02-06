@@ -68,7 +68,10 @@ class LessonWrapper extends Component {
 				// const currentDisplayObject = this.props.displayObject.find(display=>display.id === this.props.currentSlide.id)
 				if (this.state.YTPlayer) {
 					const player = this.state.YTPlayer
-					if (player.getVideoData()['video_id'] !== videoId) player.loadVideoById(videoId)
+					if (player.getVideoData() !== undefined && player.getVideoData()['video_id'] !== videoId) {
+						player.loadVideoById(videoId)
+					}
+					console.log('IS IT FUCKING UP HERE??????????????????')
 					player.seekTo(currentDisplayObject.YouTube.YTObj.time)
 					switch (currentDisplayObject.YouTube.YTObj.data) {
 						case -1:
@@ -81,6 +84,9 @@ class LessonWrapper extends Component {
 							player.pauseVideo()
 							break
 						case 0:
+							player.stopVideo()
+							break
+						case 5:
 							player.stopVideo()
 							break
 						default:
