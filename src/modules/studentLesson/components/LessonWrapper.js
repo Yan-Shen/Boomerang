@@ -38,25 +38,6 @@ class LessonWrapper extends Component {
 		this.canvas.loadFromJSON(this.props.currentSlide, this.canvas.renderAll.bind(this.canvas));
 		this.canvas.setZoom(scale);
 		this.canvas.renderAll();
-		console.log(this.props.currentSlide.youtubeVideo.YTObj)
-		console.log(this.props)
-		if (this.props.currentSlide.youtubeVideo.videoId) {
-			const opts = {
-				// this is where height and width will go for YT student view
-				playerVars: {
-					controls: 0,
-					rel: 0,
-					disablekb: 0,
-					enablejsapi: 1,
-					showinfo: 0
-					// 'fs' : 0
-				}
-			}
-		// 	const videoId = this.props.currentSlide.youtubeVideo.videoId;
-		// 	ReactDOM.render(<YouTube videoId={videoId} onReady={this.onReady} opts={opts}></YouTube>, document.getElementById('video-overlay'))
-		// } else {
-		// 	ReactDOM.unmountComponentAtNode(document.getElementById('video-overlay'))
-		}
 	}
 	
 	componentDidUpdate(prevProps){
@@ -81,22 +62,23 @@ class LessonWrapper extends Component {
 			const videoId = this.props.currentSlide.youtubeVideo.videoId;
 			// ReactDOM.unmountComponentAtNode(document.getElementById('video-overlay'))
 			if (!document.getElementById('video-overlay').hasChildNodes()) {
-				console.log("mounting that pupper")
 				ReactDOM.render(<YouTube videoId={videoId} opts={opts} onReady={this.onReady} ></YouTube>, document.getElementById('video-overlay'))
 			} else {
 				const player = this.state.YTPlayer
 				const currentDisplayObject = this.props.displayObject.find(display=>display.id === this.props.currentSlide.id)
-				player.seekTo(currentDisplayObject.YouTube.YTObj.time)
-				switch (currentDisplayObject.YouTube.YTObj.data) {
-					case 1:
-						player.playVideo()
-						break
-					case 2 || 3:
-						player.pauseVideo()
-						break
-					case 0:
-						player.stopVideo()
-						break
+				if (this.state.YTPlayer) {
+					player.seekTo(currentDisplayObject.YouTube.YTObj.time)
+					switch (currentDisplayObject.YouTube.YTObj.data) {
+						case 1:
+							player.playVideo()
+							break
+						case 2 || 3:
+							player.pauseVideo()
+							break
+						case 0:
+							player.stopVideo()
+							break
+					}
 				}
 			}
 		} else {
