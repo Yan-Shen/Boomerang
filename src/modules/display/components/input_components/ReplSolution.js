@@ -7,11 +7,10 @@ import 'brace/theme/terminal';
 import 'brace/theme/xcode';
 import PropTypes from 'prop-types'
 import { DragSource } from 'react-dnd'
-import IconButton from 'material-ui/IconButton';
-import ActionHome from 'material-ui/svg-icons/action/home';
+
 import ItemTypes from '../../../../ItemTypes'
 import replSolutionShare, {shareReplSolution} from '../../reducers/replSolutionShare'
-
+const Embed = require('react-runkit')
 
 const boxSource = {
 	beginDrag(props) {
@@ -59,8 +58,13 @@ const style = {
 class ReplSolution extends Component{
   constructor(props){
     super(props)
-    this.state={solution:''}
     this.handleChange = this.handleChange.bind(this)
+    // this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  componentDidUpdate(){
+    console.log('updated!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+    this.block.clientWidth="450px"
   }
 
   static propTypes = {
@@ -69,7 +73,7 @@ class ReplSolution extends Component{
   }
 
   handleChange(solution) {
-    this.setState({solution})
+    // this.setState({solution})
     if (this.props.overlay) {
       this.props.shareReplSolutionDispatcher(this.props.slideId, solution)
     } else if (this.props.userId) {
@@ -78,6 +82,8 @@ class ReplSolution extends Component{
       this.props.onChange(solution)
     }
   }
+
+
 
   render(){
     const { isDragging, connectDragSource, QA, value, onChange, overlay, shareReplSolutionDispatcher, activeUser, userId, userType } = this.props
@@ -106,7 +112,7 @@ class ReplSolution extends Component{
 
 
     return connectDragSource(
-      <div>
+      <div >
         <AceEditor
           mode="javascript"
           theme={editorMode}
@@ -129,9 +135,13 @@ class ReplSolution extends Component{
           name="UNIQUE_ID_OF_DIV"
           editorProps={{$blockScrolling: true}}
         />
-        <IconButton tooltip="SVG Icon" onClick={this.handleSubmit}>
-          <ActionHome />
-        </IconButton>
+        {
+          this.props.overlay && <Embed source={ value } id="embed" ref={block=>this.block=block}/>
+        }
+
+
+
+
       </div>
     )
   }
@@ -139,3 +149,5 @@ class ReplSolution extends Component{
 }
 
 export default DragSource(ItemTypes.BOX, boxSource, collect)(ReplSolution);
+
+

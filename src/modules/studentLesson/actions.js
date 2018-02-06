@@ -10,6 +10,8 @@ export const addEmotion = (emotion) =>  ({type: actions.ADD_EMOTION, emotion})
 export const getDisplay = displayObject => ({type: actions.GET_DISPLAYOBJECT, displayObject})
 export const activeStudents = students => ({type: actions.GET_ACTIVE_STUDENTS, students})
 
+export const getStudents = students => ({type: actions.GET_ONLINE_USERS, students})
+
 export function fetchLesson (id) {
   return function thunk (dispatch) {
 		db.ref(`lessons/${id}/currentSlide`).on('value', (data)=>{
@@ -23,6 +25,30 @@ export function fetchLesson (id) {
 					}
 					dispatch(activeStudents(activeArr))
 		})
+
+		////////////////////////////////////////
+		db.ref('users/').orderByChild('onlineState')
+    .equalTo(true)
+    .on('value', (data)=>{
+
+			const dataObj = data.val()
+			const studentArr = []//console.log(data.val())
+			for(var key in dataObj){
+
+				if(dataObj[key].role === "student") {
+					var student = dataObj[key]
+					student.id = key
+					studentArr.push(student)
+				}
+			}
+			// for(var key in dataObj){
+			// 	studentArr.push(dataObj[key])
+			// }
+			dispatch(getStudents(studentArr))
+			})
+
+		/////////////////////////////////////////////////////
+
     return db.ref(`/lessons/${id}`).once('value')
 			.then(lesson => {
         lesson = lesson.val()

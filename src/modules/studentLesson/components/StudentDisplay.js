@@ -2,10 +2,17 @@ import React, { Component } from 'react';
 import {Paper} from 'material-ui';
 import components from '../../display/components'
 import QAOutputContainer from '../../display/container/output_container/QAOutputContainer';
+import IconButton from 'material-ui/IconButton'
+import ActionHome from 'material-ui/svg-icons/action/home'
 
 const {ReplSolution} = components
 
 class StudentDisplay extends Component {
+  constructor(props){
+    super(props)
+    // this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
   render () {
     const {replShow, choiceShow, slideId, userId, addStudentCode, activeUser, QA} = this.props
 
@@ -16,14 +23,8 @@ class StudentDisplay extends Component {
     obj[key] = QA[key]
     choiceArray.push(obj)
   }
-  // if (obj.qaDetail && obj.qaDetail['question']) {
-  //   question = obj.qaDetail['question']
-  // }
-  //   if(obj.qaDetail && obj.qaDetail['choice']) {
-  //     choice = obj.qaDetail['choice']
-  //   }
 
-    console.log('choiceArray=============', choiceArray)
+
   return (
       // <Paper>
       <div width="300" height="550" style={{borderRadius: "4px"}}>
@@ -48,3 +49,5 @@ class StudentDisplay extends Component {
 
 
 export default StudentDisplay;
+
+

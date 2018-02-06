@@ -13,7 +13,6 @@ export const updateRepls = repls => {
 
 // THUNK
 export const updateReplsThunk = (question, solution, slideId) => {
-  console.log('question, solution, slideId======', question, solution, slideId)
   return dispatch => {
     const key = db.ref(`/selectedTools/${slideId}/Repl/QA`).push().key
     db.ref(`/selectedTools/${slideId}/Repl/QA/${key}`).update({question})

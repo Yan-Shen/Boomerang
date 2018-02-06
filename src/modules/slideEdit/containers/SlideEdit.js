@@ -17,8 +17,11 @@ import {shareReplSolutionDispatcher} from '../../display/reducers/replSolutionSh
 
 class SlideEdit extends Component {
   componentDidMount(){
-    const id = this.props.match.params.lessonId
-    this.props.fetchLesson(id)
+    // if(!this.props.match.path.includes('frame')) {
+      const id = this.props.match.params.lessonId
+      this.props.fetchLesson(id)
+      console.log('this.props.match=======',this.props.match)
+    // }
   }
 
   // componentDidUpdate(prevProps){
