@@ -49,7 +49,7 @@ class LessonWrapper extends Component {
 		}
 		if (currentDisplayObject.YouTube.videoId) {
 			const opts = {
-				// this is where height and width will go for YT student view
+				// this is where height and width will go for YT student view!
 				playerVars: {
 					controls: 0,
 					rel: 0,
