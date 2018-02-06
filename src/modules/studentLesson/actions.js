@@ -9,9 +9,21 @@ export const unmountLesson = () =>  ({type: actions.UNMOUNT_LESSON})
 export const addEmotion = (emotion) =>  ({type: actions.ADD_EMOTION, emotion})
 export const getDisplay = displayObject => ({type: actions.GET_DISPLAYOBJECT, displayObject})
 export const activeStudents = students => ({type: actions.GET_ACTIVE_STUDENTS, students})
+export const getWhiteboard = bool => ({type: actions.TOGGLE_WHITEBOARD, bool})
 
 export function fetchLesson (id) {
   return function thunk (dispatch) {
+    db.ref(`lessons/${id}/whiteboard`).set('false').then(()=>{
+      db.ref(`lessons/${id}/whiteboard`).on('value', data =>{
+        console.log('whiteboard triggered')
+        dispatch(getWhiteboard(data.val()))
+      })
+    })
+
+    db.ref(`lessons/${id}/emotions`).limitToLast(1).on('child_added', (data)=>{
+      dispatch(addEmotion(data.val()))
+    })
+
 		db.ref(`lessons/${id}/currentSlide`).on('value', (data)=>{
 			dispatch(getSlideIndex(data.val()))
 		})
@@ -67,7 +79,7 @@ export function addEmotionThunk (type,id) {
         time: new Date().getTime()
       }
       return db.ref(`lessons/${id}/emotions`).push(emotion)
-        .then(dispatch(addEmotion(emotion)))
+        //.then(dispatch(addEmotion(emotion)))
 
 	}
 }

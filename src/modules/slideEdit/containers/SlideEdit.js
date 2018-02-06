@@ -17,6 +17,7 @@ import {shareReplSolutionDispatcher} from '../../display/reducers/replSolutionSh
 
 class SlideEdit extends Component {
   componentDidMount(){
+    console.log("mounted")
     const id = this.props.match.params.lessonId
     this.props.fetchLesson(id)
   }
@@ -61,7 +62,9 @@ function mapStateToProps(state,props){
     displayObject: state.studentLesson.displayObject,
     users: state.lesson.users,
     activeUsers: state.lesson.active,
-    panel: state.lesson.panel
+    panel: state.lesson.panel,
+    emotions: state.lesson.emotions,
+    whiteboard: state.lesson.whiteboard
     // selectedUserId: state.lesson.active[0],
   };
 }
