@@ -101,11 +101,13 @@ class CanvasBlock extends Component {
 	}
 
 	updateSlide(param) {
+
 		if(this.props.currentSlide.id) {
 			const slideData = this.canvas.toJSON()
 			// slideData.youtubeVideo = this.props.currentSlide.youtubeVideo
 			// if (slideData.youtubeVideo) 
 			this.props.updateSlide(this.props.currentSlide.id, slideData)
+
 		}
 
 	}
@@ -150,9 +152,11 @@ class CanvasBlock extends Component {
 								changeYouTube={this.props.changeYouTube}
 							/>
 							<AddShape />
+
 							<Icon icon={socialYoutube} onClick={() => {
 								this.toggleCanvas('canvas')
 								this.props.showYTDispatcher(this.props.currentSlide.id, currentDisplayObject.YouTube.videoId, this.state.canvas, currentDisplayObject.YouTube.YTObj)
+
 							}} />
 							<ToolbarSeparator style={{
 								marginRight: '10px',

@@ -40,6 +40,19 @@ class LessonWrapper extends Component {
 	componentWillUnmount() {
 		this.sessionHelper.disconnect();
 	}
+	componentWillMount() {
+		const {apiKey, sessionId, token} = this.props.currentUser
+		this.sessionHelper = createSession({
+			apiKey: apiKey,
+			sessionId: sessionId,
+			token: token,
+			onStreamsUpdated: streams => { this.props.getSubscribers(this.sessionHelper, streams)}
+		});
+	}
+
+	componentWillUnmount() {
+		this.sessionHelper.disconnect();
+	}
 	componentDidMount(){
 		const width = this.block.clientWidth
 		const scale = width/900
