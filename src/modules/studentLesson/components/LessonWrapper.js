@@ -68,7 +68,7 @@ class LessonWrapper extends Component {
 				// const currentDisplayObject = this.props.displayObject.find(display=>display.id === this.props.currentSlide.id)
 				if (this.state.YTPlayer) {
 					const player = this.state.YTPlayer
-					player.loadVideoById(videoId)
+					if (player.getVideoData()['video_id'] !== videoId) player.loadVideoById(videoId)
 					player.seekTo(currentDisplayObject.YouTube.YTObj.time)
 					switch (currentDisplayObject.YouTube.YTObj.data) {
 						case -1:
@@ -78,7 +78,7 @@ class LessonWrapper extends Component {
 							player.playVideo()
 							break
 						case 2 || 3:
-							player.stopVideo()
+							player.pauseVideo()
 							break
 						case 0:
 							player.stopVideo()
