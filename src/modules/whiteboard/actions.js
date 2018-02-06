@@ -11,3 +11,10 @@ export function updateSlide (id,data) {
 		.then(()=>console.log('updateSlide'))
 	}
 }
+
+export function clearSlide (id) {
+  return function thunk (dispatch) {
+		db.ref().child(`slides/${id}/whiteboard`).set(null)
+		.then(()=>console.log('updateSlide'))
+	}
+}

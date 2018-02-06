@@ -26,6 +26,9 @@ class Canvas extends Component {
 		this.props.updateSlide(this.props.currentSlide.id,slideData)
 	}
 	componentDidUpdate(prevProps){
+		if(this.props.whiteboardData === null){
+			this.canvas.clear()
+		}
 		if(prevProps.currentSlide.id !== this.props.currentSlide.id){
 			this.canvas.clear()
 			this.canvas.loadFromJSON(this.props.whiteboardData, this.canvas.renderAll.bind(this.canvas));

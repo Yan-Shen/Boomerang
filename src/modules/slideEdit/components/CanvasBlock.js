@@ -208,10 +208,12 @@ class CanvasBlock extends Component {
 							background: '#ccc',
 							margin: '10px',
 							flex: 1,
-							flexDirection: 'column'}}
+							flexDirection: 'column',
+							boxShadow: this.props.whiteboard ==='true' ?  "0 0 30px #007681" : ""
+						}}
 						>
 							<canvas  style={{zIndex: 0}} id="fabricTest" width="900" height="550" />
-							<div style={{zIndex: this.props.whiteboard ==='true' ? 5000 : -5000, position: 'absolute', top: 0, left: 0, width: this.block ? this.block.clientWidth : '0px', height: this.block ? this.block.clientHeight : '0px'}}>
+							<div style={{zIndex: this.props.whiteboard ==='true' ? 5001 : -5000,position: 'absolute', top: 0, left: 0, width: this.block ? this.block.clientWidth : '0px', height: this.block ? this.block.clientHeight : '0px'}}>
 								<WhiteBoardCanvas style={{zIndex: 20000}} width={this.state.width} height={this.state.height}/>
 							</div>
 
@@ -225,7 +227,7 @@ class CanvasBlock extends Component {
 								<OverlayLayer updateSlide={this.props.updateSlide} currentSlide={currentSlide} changeYouTube={this.props.changeYouTube} />
 							</div>
 
-							<div style={{zIndex: (replShow || choiceShow) ? -1 : -6000, position: 'absolute', backgroundColor: 'white', top: 0, left: 0, width: this.block ? this.block.clientWidth : '0px', height: this.block ? this.block.clientHeight : '0px'}}>
+							<div style={{zIndex: (replShow || choiceShow) ? 4999 : -6000, position: 'absolute', backgroundColor: 'white', top: 0, left: 0, width: this.block ? this.block.clientWidth : '0px', height: this.block ? this.block.clientHeight : '0px'}}>
 								<ReplOverlay
 								value={this.props.replSolution}
 								question={this.props.replQuestion}
