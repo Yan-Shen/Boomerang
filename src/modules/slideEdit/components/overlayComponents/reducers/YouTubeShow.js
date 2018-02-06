@@ -7,9 +7,6 @@ export const showYTDispatcher = (slideId, videoId, bool, YTObj) => {
       .then(data => {
         const studentDisplay = data.val()
         console.log('data is-----------', data.val())
-        // if (!studentDisplay || !studentDisplay['YouTube'] || !studentDisplay['YouTube']['show'] || !videoId) {
-        //   db.ref(`/studentDisplay/${slideId}/YouTube`).update({show: bool})
-        // }
         if (!studentDisplay || !studentDisplay['YouTube'] || !studentDisplay['YouTube']['show'] || !studentDisplay['YouTube']['videoId']) {
           db.ref(`/studentDisplay/${slideId}/YouTube`).update({show: bool})
           db.ref(`/studentDisplay/${slideId}/YouTube`).update({videoId})
@@ -28,7 +25,6 @@ export const showYTDispatcher = (slideId, videoId, bool, YTObj) => {
             db.ref(`/studentDisplay/${slideId}/YouTube`).update({YTObj})
           }
         }
-        // dispatch(showYouTube())
       })
     }
   }

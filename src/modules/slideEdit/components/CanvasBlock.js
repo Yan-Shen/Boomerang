@@ -41,20 +41,20 @@ class CanvasBlock extends Component {
 		}
 	}
 	componentDidUpdate(prevProps) {
+		const currentDisplayObject = this.props.displayObject.find(display=>display.id === this.props.currentSlide.id)
 		this.props.getToolsDispatcher(this.props.currentSlide.id)
 		if (!prevProps.currentSlide || prevProps.currentSlideIndex !== this.props.currentSlideIndex) {
 			this.canvas.loadFromJSON(this.props.currentSlide, this.canvas.renderAll.bind(this.canvas))
 			this.canvas.renderAll()
 		}
-		if (this.props.currentSlide.youtubeVideo.videoId) {
-			const videoId = this.props.currentSlide.youtubeVideo.videoId;
+		if (currentDisplayObject.YouTube.videoId) {
+			const videoId = currentDisplayObject.YouTube.videoId
 			ReactDOM.render(<YouTube videoId={videoId} 
 				onStateChange={(event) => {
 					let YTObj = {
 						data: event.data,
 						time: event.target.getCurrentTime()
 					}
-					// this.props.changeYouTube(this.props.currentSlide.id, videoId, YTObj)
 					this.props.showYTDispatcher(this.props.currentSlide.id, videoId, true, YTObj)
 				}}>
 			</YouTube>, document.getElementById('video-overlay'))
@@ -81,14 +81,11 @@ class CanvasBlock extends Component {
 	}
 
 	updateSlide(param) {
-		// if(this.props.currentSlide.youtubeVideo) {
-		// 	console.log('GOT HERE ------------------------ YOUTUBE EXISTS')
-		// 	this.props.changeYouTube(this.props.currentSlide.id, this.props.currentSlide.youtubeVideo)
-		// }
 		if(this.props.currentSlide.id) {
 			const slideData = this.canvas.toJSON()
-			slideData.youtubeVideo = this.props.currentSlide.youtubeVideo
-			if (slideData.youtubeVideo) this.props.updateSlide(this.props.currentSlide.id, slideData)
+			// slideData.youtubeVideo = this.props.currentSlide.youtubeVideo
+			// if (slideData.youtubeVideo) 
+			this.props.updateSlide(this.props.currentSlide.id, slideData)
 		}
 		
 	}
@@ -98,6 +95,7 @@ class CanvasBlock extends Component {
 	}
 
 	render() {
+		const currentDisplayObject = this.props.displayObject.find(display=>display.id === this.props.currentSlide.id)		
 		const { slides, deleteSlide, addSlide, changeSlide, showYTDispatcher,
 			currentSlideIndex, updateSlide, getToolsDispatcher,lesson, replShow, choiceShow, currentSlide, shareReplSolutionDispatcher, activeUsers} = this.props
 			const {id} = this.props.currentSlide
@@ -134,7 +132,7 @@ class CanvasBlock extends Component {
 							<AddShape />
 							<Icon icon={socialYoutube} onClick={() => {
 								this.toggleCanvas('canvas')
-								this.props.showYTDispatcher(this.props.currentSlide.id, this.props.currentSlide.youtubeVideo.videoId, this.state.canvas, this.props.currentSlide.youtubeVideo.YTObj)
+								this.props.showYTDispatcher(this.props.currentSlide.id, currentDisplayObject.YouTube.videoId, this.state.canvas, currentDisplayObject.YouTube.YTObj)
 							}} />
 							<ToolbarSeparator style={{
 								marginRight: '10px',

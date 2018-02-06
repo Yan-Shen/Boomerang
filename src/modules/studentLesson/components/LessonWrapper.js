@@ -59,13 +59,13 @@ class LessonWrapper extends Component {
 					// 'fs' : 0
 				}
 			}
-			const videoId = this.props.currentSlide.youtubeVideo.videoId;
+			const videoId = currentDisplayObject.YouTube.videoId;
 			// ReactDOM.unmountComponentAtNode(document.getElementById('video-overlay'))
 			if (!document.getElementById('video-overlay').hasChildNodes()) {
 				ReactDOM.render(<YouTube videoId={videoId} opts={opts} onReady={this.onReady} ></YouTube>, document.getElementById('video-overlay'))
 			} else {
 				const player = this.state.YTPlayer
-				const currentDisplayObject = this.props.displayObject.find(display=>display.id === this.props.currentSlide.id)
+				// const currentDisplayObject = this.props.displayObject.find(display=>display.id === this.props.currentSlide.id)
 				if (this.state.YTPlayer) {
 					player.seekTo(currentDisplayObject.YouTube.YTObj.time)
 					switch (currentDisplayObject.YouTube.YTObj.data) {
@@ -87,9 +87,7 @@ class LessonWrapper extends Component {
 	}
 
 	onReady(event) {
-		// this is happening asynch i believe
 		this.setState({YTPlayer: event.target})
-		console.log('THIS......... IS...... STATE!!!!!', this.state)
 	}
 
 	render() {
