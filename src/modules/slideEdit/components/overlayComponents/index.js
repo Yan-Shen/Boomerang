@@ -42,8 +42,6 @@ class YouTubeSearch extends Component { // YouTubeSearch
   render() {
     const { currentSlide, showYTDispatcher } = this.props
     const videoSearch = _.debounce((term) => { this.videoSearch(term) }, 300);
-    // if (!toggled && this.state.selectedVideo) showYTDispatcher(currentSlide.id, this.state.selectedVideo.id.videoId || '', true)
-    // else if (toggled) showYTDispatcher(currentSlide.id, this.state.selectedVideo.id.videoId || '', false)
     
     return (
       <div style={{display: 'flex', flexDirection: 'column', backgroundColor:'white', width:'100%', height:'100%'}}>
@@ -54,15 +52,14 @@ class YouTubeSearch extends Component { // YouTubeSearch
             onVideoSelect={selectedVideo => this.setState({selectedVideo})}
             videos={this.state.videos} />
         }
-        <RaisedButton label="Select" onClick={() => { 
+        <RaisedButton label="Select" onClick={() => {
           if (this.state.selectedVideo) {
             this.props.changeYouTube(this.props.currentSlide.id, this.state.selectedVideo.id.videoId)
-            showYTDispatcher(this.props.currentSlide.id, this.state.selectedVideo.id.videoId, true)
-            // shareYTDispatcher(this.props.currentSlide.id, this.state.selectedVideo.id.videoId)
+            showYTDispatcher(this.props.currentSlide.id, this.state.selectedVideo.id.videoId, true, {data: 2, time: 0})
           }
-          }} />
+        }} />
         <RaisedButton label="Remove Video" onClick={() => { 
-          this.props.changeYouTube(this.props.currentSlide.id, '')
+          this.props.changeYouTube(this.props.currentSlide.id, '', null)
           showYTDispatcher(this.props.currentSlide.id, '', true)
           }} />
       </div>

@@ -22,8 +22,23 @@ class LessonWrapper extends Component {
 		super(props);
 		this.state = {
 			width: null,
-			height: null
+			height: null,
+			YTPlayer: ''
 		};
+		this.onReady = this.onReady.bind(this)
+	}
+	componentWillMount() {
+		const {apiKey, sessionId, token} = this.props.currentUser
+		this.sessionHelper = createSession({
+			apiKey: apiKey,
+			sessionId: sessionId,
+			token: token,
+			onStreamsUpdated: streams => { this.props.getSubscribers(this.sessionHelper, streams)}
+		});
+	}
+
+	componentWillUnmount() {
+		this.sessionHelper.disconnect();
 	}
 	componentWillMount() {
 		const {apiKey, sessionId, token} = this.props.currentUser
@@ -49,35 +64,20 @@ class LessonWrapper extends Component {
     })
 		this.canvas.loadFromJSON(this.props.currentSlide, this.canvas.renderAll.bind(this.canvas));
 		this.canvas.setZoom(scale);
-    this.canvas.renderAll();
-		console.log(this.props)
-		if (this.props.currentSlide.youtubeVideo) {
-			const opts = {
-				// this is where height and width will go for YT student view
-				playerVars: {
-					controls: 0,
-					rel: 0,
-					disablekb: 0,
-					enablejsapi: 1,
-					showinfo: 0
-					// 'fs' : 0
-				}
-			}
-			const videoId = this.props.currentSlide.youtubeVideo;
-			ReactDOM.render(<YouTube videoId={videoId} opts={opts}></YouTube>, document.getElementById('video-overlay'))
-		} else {
-			ReactDOM.unmountComponentAtNode(document.getElementById('video-overlay'))
-		}
+		this.canvas.renderAll();
+		
 	}
+	
 	componentDidUpdate(prevProps){
+		const currentDisplayObject = this.props.displayObject.find(display=>display.id === this.props.currentSlide.id)
 		if(this.state.height === null) this.setState({height: this.block.clientHeight, width: this.block.clientWidth})
 		if(!_.isEqual(prevProps.currentSlide,this.props.currentSlide) || prevProps.currentSlideIndex === this.props.currentSlideIndex){
 			this.canvas.loadFromJSON(this.props.currentSlide, this.canvas.renderAll.bind(this.canvas));
 			this.canvas.renderAll();
 		}
-		if (this.props.currentSlide.youtubeVideo) {
+		if (currentDisplayObject.YouTube.videoId) {
 			const opts = {
-				// this is where height and width will go for YT student view
+				// this is where height and width will go for YT student view!
 				playerVars: {
 					controls: 0,
 					rel: 0,
@@ -87,12 +87,50 @@ class LessonWrapper extends Component {
 					// 'fs' : 0
 				}
 			}
-			const videoId = this.props.currentSlide.youtubeVideo;
-			ReactDOM.render(<YouTube videoId={videoId} opts={opts} ></YouTube>, document.getElementById('video-overlay'))
+			const videoId = currentDisplayObject.YouTube.videoId;
+			// ReactDOM.unmountComponentAtNode(document.getElementById('video-overlay'))
+			if (!document.getElementById('video-overlay').hasChildNodes()) {
+				ReactDOM.render(<YouTube videoId={videoId} opts={opts} onReady={this.onReady} ></YouTube>, document.getElementById('video-overlay'))
+			} else {
+				// const currentDisplayObject = this.props.displayObject.find(display=>display.id === this.props.currentSlide.id)
+				if (this.state.YTPlayer) {
+					const player = this.state.YTPlayer
+					if (player.getVideoData() !== undefined && player.getVideoData()['video_id'] !== videoId) {
+						player.loadVideoById(videoId)
+					}
+					console.log('IS IT FUCKING UP HERE??????????????????')
+					player.seekTo(currentDisplayObject.YouTube.YTObj.time)
+					switch (currentDisplayObject.YouTube.YTObj.data) {
+						case -1:
+							player.stopVideo()
+							break
+						case 1:
+							player.playVideo()
+							break
+						case 2 || 3:
+							player.pauseVideo()
+							break
+						case 0:
+							player.stopVideo()
+							break
+						case 5:
+							player.stopVideo()
+							break
+						default:
+							player.stopVideo()
+							break
+					}
+				}
+			}
 		} else {
 			ReactDOM.unmountComponentAtNode(document.getElementById('video-overlay'))
 		}
 	}
+
+	onReady(event) {
+		this.setState({YTPlayer: event.target})
+	}
+
 	render() {
 		const {id} = this.props.currentSlide
 		const {displayObject, addStudentCode, userId, activeUsers} = this.props
@@ -100,12 +138,13 @@ class LessonWrapper extends Component {
 		const selectedUserObj = this.props.currentSlide[activeUser]
 
 		const currentDisplayObject = displayObject.find(display=>display.id === id)
-		let videoId, youtubeShow
+		let videoId, youtubeShow, YTObj
 		let replQuestion, replSolution, replShow, QA, choiceShow
 
 		if (currentDisplayObject['YouTube'] ) {
 			videoId = currentDisplayObject.YouTube.videoId
 			youtubeShow = currentDisplayObject.YouTube.show
+			YTObj = currentDisplayObject.YouTube.YTObj
 		} else {
 			videoId = ''
 			youtubeShow = false

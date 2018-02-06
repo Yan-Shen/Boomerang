@@ -47,6 +47,7 @@ export function fetchLesson (id) {
 
 				slides.forEach((slide)=>{
 					db.ref(`studentDisplay/${slide.key}`).on('value', (data)=>{
+						console.log('whatever somethin that can be easily seen !!!!!!!!!!!!!!!!!!!', data)
 						const displayData = data.val()
 						const slideId = data.key
 						const displayObject = {

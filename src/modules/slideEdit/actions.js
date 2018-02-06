@@ -58,10 +58,16 @@ export const toggleActiveStudent = (lessonId, studentId,bool) =>  {
 	}
 }
 
-export const changeYouTube = (id, videoId) =>  {
+export const changeYouTube = (id, videoId, YTObj) =>  {
 	return function thunk (dispatch) {
-		db.ref().child(`slides/${id}/youtubeVideo`).set(videoId)
-		.then(() => console.log('database updated or something'))
+		db.ref().child(`slides/${id}/youtubeVideo/videoId`).set(videoId)
+		.then(() => {
+			if (YTObj) {
+				db.ref().child(`slides/${id}/youtubeVideo/YTObj`).set(YTObj)
+			}
+		})
+		// db.ref().child(`slides/${id}/youtubeVideo/youtubeEventObject`).set(YTObj)
+		
 		// dispatch(getToolsDispatcher(id))
 		// dispatch(changeSlideAction(index))
 	}

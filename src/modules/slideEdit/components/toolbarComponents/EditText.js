@@ -98,7 +98,7 @@ class EditText extends Component {
     }
     canvas.renderAll()
     const slideData = this.props.canvas.toJSON()
-    slideData.youtubeVideo = this.props.currentSlide.youtubeVideo
+    // slideData.youtubeVideo = this.props.currentSlide.youtubeVideo
     this.props.updateSlide(this.props.currentSlide.id, slideData)
     // this.props.changeYouTube(this.props.currentSlide.id, this.props.currentSlide.youtubeVideo)
   }
