@@ -38,6 +38,7 @@ class LessonWrapper extends Component {
 		this.canvas.loadFromJSON(this.props.currentSlide, this.canvas.renderAll.bind(this.canvas));
 		this.canvas.setZoom(scale);
 		this.canvas.renderAll();
+		
 	}
 	
 	componentDidUpdate(prevProps){
@@ -70,13 +71,19 @@ class LessonWrapper extends Component {
 					player.loadVideoById(videoId)
 					player.seekTo(currentDisplayObject.YouTube.YTObj.time)
 					switch (currentDisplayObject.YouTube.YTObj.data) {
+						case -1:
+							player.stopVideo()
+							break
 						case 1:
 							player.playVideo()
 							break
 						case 2 || 3:
-							player.pauseVideo()
+							player.stopVideo()
 							break
 						case 0:
+							player.stopVideo()
+							break
+						default:
 							player.stopVideo()
 							break
 					}
