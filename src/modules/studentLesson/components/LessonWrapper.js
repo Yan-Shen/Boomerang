@@ -64,9 +64,10 @@ class LessonWrapper extends Component {
 			if (!document.getElementById('video-overlay').hasChildNodes()) {
 				ReactDOM.render(<YouTube videoId={videoId} opts={opts} onReady={this.onReady} ></YouTube>, document.getElementById('video-overlay'))
 			} else {
-				const player = this.state.YTPlayer
 				// const currentDisplayObject = this.props.displayObject.find(display=>display.id === this.props.currentSlide.id)
 				if (this.state.YTPlayer) {
+					const player = this.state.YTPlayer
+					player.loadVideoById(videoId)
 					player.seekTo(currentDisplayObject.YouTube.YTObj.time)
 					switch (currentDisplayObject.YouTube.YTObj.data) {
 						case 1:
@@ -97,12 +98,13 @@ class LessonWrapper extends Component {
 		const selectedUserObj = this.props.currentSlide[activeUser]
 
 		const currentDisplayObject = displayObject.find(display=>display.id === id)
-		let videoId, youtubeShow
+		let videoId, youtubeShow, YTObj
 		let replQuestion, replSolution, replShow, QA, choiceShow
 
 		if (currentDisplayObject['YouTube'] ) {
 			videoId = currentDisplayObject.YouTube.videoId
 			youtubeShow = currentDisplayObject.YouTube.show
+			YTObj = currentDisplayObject.YouTube.YTObj
 		} else {
 			videoId = ''
 			youtubeShow = false
