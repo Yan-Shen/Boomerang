@@ -10,6 +10,7 @@ import EmotionWrapper from './EmotionWrapper'
 import ReplSolution from '../../display/components/input_components/ReplSolution'
 import WhiteBoardCanvas from '../../whiteboard/containers/WhiteBoardCanvas'
 import WhiteBoardControls from '../../whiteboard/components/WhiteBoardControls'
+import { OTSession, OTPublisher, OTStreams, OTSubscriber,createSession } from 'opentok-react';
 
 import CamView from '../../slideEdit/components/CamView'
 import ReactDOM from 'react-dom'
@@ -25,6 +26,19 @@ class LessonWrapper extends Component {
 			YTPlayer: ''
 		};
 		this.onReady = this.onReady.bind(this)
+	}
+	componentWillMount() {
+		const {apiKey, sessionId, token} = this.props.currentUser
+		this.sessionHelper = createSession({
+			apiKey: apiKey,
+			sessionId: sessionId,
+			token: token,
+			onStreamsUpdated: streams => { this.props.getSubscribers(this.sessionHelper, streams)}
+		});
+	}
+
+	componentWillUnmount() {
+		this.sessionHelper.disconnect();
 	}
 	componentDidMount(){
 		const width = this.block.clientWidth
@@ -147,10 +161,13 @@ class LessonWrapper extends Component {
 			<div style={{background: "#ccc",padding: "15px", display: 'flex'}}>
 				<div ref={block => this.block = block} style={{marginRight: "30px", flex: 4}}>
 					<Paper style={{position: 'relative'}}>
-							<canvas style={{background: "red"}} id='studentCanvas' width="900" height="550" style={{borderRadius: "4px"}}/>
-							<WhiteBoardCanvas width={this.state.width} height={this.state.height}/>
 
-							<div>
+							<canvas style={{background: "red"}} id='studentCanvas' width="900" height="550" style={{borderRadius: "4px"}}/>
+							<div style={{zIndex: this.props.whiteboard ==='true' ? 5000 : -5000, position: 'absolute', top: 0, left: 0, width: this.block ? this.block.clientWidth : '0px', height: this.block ? this.block.clientHeight : '0px'}}>
+								<WhiteBoardCanvas style={{zIndex: 20000}} width={this.state.width} height={this.state.height}/>
+							</div>
+
+							<div style={{position: 'relative'}}>
 								{this.props.emotions.map((emotion, index) => (
 									<EmotionAnimation id={this.props.lesson.id} key={emotion.time} emotion={emotion} width={this.state.width}/>
 								))}
@@ -159,7 +176,7 @@ class LessonWrapper extends Component {
 							<div style={{zIndex: replShow ? 6000 : -1000,  position: 'absolute', backgroundColor: "yellow", top: 0, left: 0, width: this.block ? this.block.clientWidth : "0px", height: this.block ? this.block.clientHeight : "0px"}}>
 								<ReplOverlay value={replSolution} question={replQuestion} selectedUserObj={selectedUserObj}/>
 							</div>
-							<div style={{zIndex: youtubeShow ? 6000 : -1000,  position: 'absolute', backgroundColor: "white", top: 0, left: 0, width: this.block ? this.block.clientWidth : "0px", height: this.block ? this.block.clientHeight : "0px"}}>
+							<div style={{zIndex: youtubeShow ? -1 : -1000,  position: 'absolute', backgroundColor: "white", top: 0, left: 0, width: this.block ? this.block.clientWidth : "0px", height: this.block ? this.block.clientHeight : "0px"}}>
 								<YouTubeCurrentVideo currentSlide={this.props.currentSlide} />
 							</div>
 
@@ -179,7 +196,7 @@ class LessonWrapper extends Component {
 						QA={QA}
 						userId={userId}/>
 						{/* <StudentDisplay value={replSolution}/> */}
-						<CamView currentUser={this.props.user}/>
+						{/* <CamView session={this.sessionHelper} users={this.props.users} getSubscribers={this.props.getSubscribers} subscribers={this.props.subscribers} currentUser={this.props.currentUser}/> */}
 						<WhiteBoardControls />
 					</Paper>
 					<EmotionWrapper id={this.props.lesson.id} addEmotionThunk={this.props.addEmotionThunk}/>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import {toggleActiveStudent,fetchLesson,addSlide,deleteSlide,changeSlide,updateSlide,unmountLesson,changeYouTube} from "../actions";
+import {toggleActiveStudent,fetchLesson,addSlide,deleteSlide,changeSlide,updateSlide,unmountLesson,changeYouTube,getSubscribers} from "../actions";
 import {getToolsDispatcher, showYTDispatcher } from '../../../store'
 import SlideEditWrapper from '../components/SlideEditWrapper'
 import {AppBar, Paper} from 'material-ui';
@@ -17,6 +17,7 @@ import {shareReplSolutionDispatcher} from '../../display/reducers/replSolutionSh
 
 class SlideEdit extends Component {
   componentDidMount(){
+    console.log("mounted")
     const id = this.props.match.params.lessonId
     this.props.fetchLesson(id)
   }
@@ -48,6 +49,7 @@ class SlideEdit extends Component {
 function mapStateToProps(state,props){
   const slides = state.lesson.slides
   return {
+    subscribers: state.lesson.subscribers,
     currentUser: state.user,
     currentSlideIndex: state.lesson.currentSlide,
     currentSlide: slides[state.lesson.currentSlide],
@@ -60,12 +62,15 @@ function mapStateToProps(state,props){
     displayObject: state.studentLesson.displayObject,
     users: state.lesson.users,
     activeUsers: state.lesson.active,
+    panel: state.lesson.panel,
+    emotions: state.lesson.emotions,
+    whiteboard: state.lesson.whiteboard
     // selectedUserId: state.lesson.active[0],
   };
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({toggleActiveStudent,fetchLesson,addSlide,deleteSlide,changeSlide,updateSlide, getToolsDispatcher,unmountLesson,changeYouTube, shareReplSolutionDispatcher, showYTDispatcher}, dispatch);
+  return bindActionCreators({getSubscribers,toggleActiveStudent,fetchLesson,addSlide,deleteSlide,changeSlide,updateSlide, getToolsDispatcher,unmountLesson,changeYouTube, shareReplSolutionDispatcher, showYTDispatcher}, dispatch);
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(SlideEdit);

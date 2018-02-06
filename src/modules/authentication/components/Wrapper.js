@@ -57,7 +57,7 @@ class Wrapper extends Component {
 			<div style={{flexDirection: 'column',alignItems: 'center', justifyContent: 'space-between', display: 'flex', background: '#eee', height: '100vh'}}>
 				{/* <button onClick={this.testSignUp}>sign up</button> */}
 				<div style={{margin: "60px", fontWeight: 700, fontSize: "60px", color: "#6bada7"}}>Boomerang</div>
-				<Card className="animated fadeInUp" style={{width: '500px', display: 'flex', justifyContent: 'center'}}>
+				<Card className="animated rotateInDownRight" style={{width: '500px', display: 'flex', justifyContent: 'center'}}>
 						<h2 style={{fontSize: "26px", fontWeight: '700'}}> {this.state.login ? "Login" : "Sign Up"}</h2>
 						{!this.state.login && <TextField id="nameField" onChange={(e,val)=> this.setState({name: val})} floatingLabelStyle={{fontSize: '22px'}} style={{margin: "10px", width: '90%'}} floatingLabelText="Name"/>}
 						<TextField id="emailField" onChange={(e,val)=> this.setState({email: val})} floatingLabelStyle={{fontSize: '22px'}} style={{margin: "10px", width: '90%'}} floatingLabelText="Email"/>

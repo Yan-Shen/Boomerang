@@ -1,7 +1,8 @@
 import {db} from '../../firebase'
 import * as actions from './actionTypes';
 // import {getToolsDispatcher} from '../../store'
-
+export const changePanel = () => ({type: actions.CHANGE_PANEL})
+export const getSubscribers = (session,subscribers) => ({type: actions.GET_CAMERA_SUBSCRIBERS, session, subscribers})
 export const getStudents = students => ({type: actions.GET_ONLINE_USERS, students})
 export const getLesson = lesson =>  ({type: actions.GET_LESSON, lesson})
 export const getSlide = slide =>  ({type: actions.GET_SLIDE, slide})
@@ -10,17 +11,31 @@ export const removeSlide = slideId =>  ({type: actions.DELETE_SLIDE, slideId})
 export const changeSlideAction = index => ({type: actions.CHANGE_SLIDE, index})
 export const activeStudents = students => ({type: actions.GET_ACTIVE_STUDENTS, students})
 export const unmountLesson = () => ({type: actions.UNMOUNT_LESSON})
+export const addEmotion = (emotion) => ({type: actions.ADD_TEACHER_EMOTION, emotion})
+export const getWhiteboard = bool => ({type: actions.TOGGLE_WHITEBOARD, bool})
 // export const changeSlide = index => ({type: actions.CHANGE_SLIDE, index})
 export const getDisplay = displayObject => ({type: actions.GET_DISPLAYOBJECT, displayObject})
 
 
 export const changeSlide = (index, id) =>  {
 	return function thunk (dispatch) {
-		db.ref().child(`lessons/${id}/currentSlide`).set(index)
+		db.ref(`lessons/${id}/currentSlide`).set(index)
 		// dispatch(getToolsDispatcher(id))
 		dispatch(changeSlideAction(index))
 	}
 }
+
+export const toggleWhiteboard = (id, status) =>  {
+	const sendStatus = status === 'true' ? "false" : "true"
+	console.log('tyuituyoiuyiyutoiytuytiouyrtioyrtuioyrtuyoriuytoiytur', id, sendStatus)
+	return function thunk (dispatch) {
+		db.ref().child(`lessons/${id}/whiteboard`).set('true')
+		// .then()
+		// // dispatch(getToolsDispatcher(id))
+		// dispatch(changeSlideAction(index))
+	}
+}
+
 export const toggleActiveStudent = (lessonId, studentId,bool) =>  {
 	return function thunk (dispatch) {
 		db.ref().child(`lessons/${lessonId}/activeStudents/${studentId}`).once("value")
@@ -64,6 +79,19 @@ export const updateSlideData = data =>  ({type: actions.UPDATE_SLIDE, data})
 export function fetchLesson (id) {
   return function thunk (dispatch) {
 		/// Keep track of current slide
+		//LISTEN FOR NEW EMOTIONS
+				db.ref(`lessons/${id}/whiteboard`).set('false').then(()=>{
+					db.ref(`lessons/${id}/whiteboard`).on('value', data =>{
+						console.log('whiteboard triggered')
+						dispatch(getWhiteboard(data.val()))
+					})
+				})
+
+				db.ref(`lessons/${id}/emotions`).limitToLast(1).on('child_added', (data)=>{
+					console.log('agggeggegegegeg emotionb')
+					dispatch(addEmotion(data.val()))
+				})
+
 		db.ref(`lessons/${id}/activeStudents`).set(true)
 		.then(()=>{
 			db.ref(`lessons/${id}/activeStudents`).on('value', (data)=>{
@@ -105,6 +133,7 @@ export function fetchLesson (id) {
     return db.ref(`/lessons/${id}`).once('value')
 			.then(lesson => {
 				lesson = lesson.val()
+
 				lesson.id = id
 				dispatch(getLesson(lesson))
 				return db.ref(`/lessons/${id}/slides`).once('value')
