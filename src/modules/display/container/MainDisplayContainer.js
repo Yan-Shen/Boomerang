@@ -4,7 +4,7 @@ import DisplayContainer from './DisplayContainer'
 import FaceContainer from './generic_container/FaceContainer'
 import HotSpotContainer from './generic_container/HotSpotContainer'
 import NameContainer from './generic_container/NameContainer'
-import WhiteBoardContainer from './generic_container/WhiteBoardContainer'
+import TeacherControls from '../../whiteboard/components/TeacherControls'
 
 class MainDisplayContainer extends Component {
   constructor(props) {
@@ -38,7 +38,7 @@ class MainDisplayContainer extends Component {
       }
 
       {
-        (selectedTab === "WhiteBoard") && <WhiteBoardContainer />
+        (selectedTab === "WhiteBoard") && <TeacherControls />
       }
 
     </div>

@@ -11,6 +11,12 @@ class TeacherDashboard extends Component {
   componentDidMount(){
     this.props.fetchLessons()
   }
+  shouldComponentUpdate(nextProps){
+    if(nextProps.lessonList !== this.props.lessonList){
+      return true
+    }
+    return false
+  }
   render() {
     return (
         <Dashboard {...this.props}/>

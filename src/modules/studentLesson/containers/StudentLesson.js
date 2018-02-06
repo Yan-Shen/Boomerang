@@ -20,7 +20,7 @@ class StudentLesson extends Component {
     if(!this.props.currentSlide) {
       return <div>loading....</div>
     } else {
-      console.log('this.props.currentSlide-----------',this.props.currentSlideIndex)
+      console.log('this.props.currentSlide-----------',this.props.whiteboard)
       return (
         <DragDropContextProvider backend={HTML5Backend}>
           <LessonWrapper {...this.props}/>
@@ -45,6 +45,7 @@ function mapStateToProps(state){
     currentUser: state.user,
     users: state.lesson.users,
     activeUsers: state.lesson.active,
+    whiteboard: state.lesson.whiteboard
     // selectedUserId: "hS74ejiqshRiikMYiVla8qLqBEH2"
 
   };
