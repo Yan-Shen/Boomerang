@@ -13,7 +13,7 @@ export const showYouTube = ()=> {
   }
 }
 
-export const showYTDispatcher = (slideId, videoId, bool, eventObj) => {
+export const showYTDispatcher = (slideId, videoId, bool, YTObj) => {
   return dispatch => {
     db.ref(`/studentDisplay/${slideId}`).once('value')
       .then(data => {
@@ -27,8 +27,18 @@ export const showYTDispatcher = (slideId, videoId, bool, eventObj) => {
           db.ref(`/studentDisplay/${slideId}/YouTube`).update({videoId})
         } else {
           db.ref(`/studentDisplay/${slideId}/YouTube`).update({show: bool})
-          db.ref(`/studentDisplay/${slideId}/YouTube`).update({videoId: ''})
-          // db.ref(`/studentDisplay/${slideId}/YouTube`).update({eventObj})
+          db.ref(`/studentDisplay/${slideId}/YouTube`).update({videoId})
+        }
+        
+        if (!studentDisplay || !studentDisplay['YouTube'] || !studentDisplay['YouTube']['YTObj']) {
+          console.log('YTObj ========================================', YTObj)
+          if (YTObj) {
+            db.ref(`/studentDisplay/${slideId}/YouTube`).update({YTObj})
+          }
+        } else {
+          if (YTObj) {
+            db.ref(`/studentDisplay/${slideId}/YouTube`).update({YTObj})
+          }
         }
         dispatch(showYouTube())
       })
@@ -41,7 +51,7 @@ export default function reducer (state = false, action) {
   switch (action.type) {
     case YOUTUBE_SHOW:
       return !state;
-      default:
+    default:
       return state;
   }
 }

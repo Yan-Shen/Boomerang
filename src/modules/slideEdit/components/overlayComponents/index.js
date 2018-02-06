@@ -56,13 +56,12 @@ class YouTubeSearch extends Component { // YouTubeSearch
         }
         <RaisedButton label="Select" onClick={() => {
           if (this.state.selectedVideo) {
-            this.props.changeYouTube(this.props.currentSlide.id, this.state.selectedVideo.id.videoId)
+            this.props.changeYouTube(this.props.currentSlide.id, this.state.selectedVideo.id.videoId, null)
             showYTDispatcher(this.props.currentSlide.id, this.state.selectedVideo.id.videoId, true)
-            // shareYTDispatcher(this.props.currentSlide.id, this.state.selectedVideo.id.videoId)
           }
-          }} />
+        }} />
         <RaisedButton label="Remove Video" onClick={() => { 
-          this.props.changeYouTube(this.props.currentSlide.id, '')
+          this.props.changeYouTube(this.props.currentSlide.id, '', null)
           showYTDispatcher(this.props.currentSlide.id, '', true)
           }} />
       </div>
