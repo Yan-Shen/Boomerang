@@ -33,11 +33,11 @@ class Templates extends Component {
         targetOrigin={{horizontal: 'left', vertical: 'top'}}
       >
        <MenuItem primaryText="Save" onClick={() => this.saveTemplate()} />
-       {
+       {/* {
          slides.length && slides.map((slide, index) => (
           <MenuItem><TemplatePreview data={slide} key={slide.id} index={index} /></MenuItem>
          ))
-       }
+       } */}
       </IconMenu>
     )
   }
