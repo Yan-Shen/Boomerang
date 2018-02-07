@@ -6,7 +6,7 @@ import Steps from './Steps';
 import AddText from './toolbarComponents/AddText';
 import AddImage from './toolbarComponents/AddImage';
 import AddShape from './toolbarComponents/AddShape';
-import AddTemplate from './toolbarComponents/AddTemplate';
+import Templates from './toolbarComponents/Templates';
 import ChangeColor from './toolbarComponents/ChangeColor';
 import ChangeBackground from './toolbarComponents/ChangeBackground';
 import RemoveObject from './toolbarComponents/RemoveObject';
@@ -187,10 +187,9 @@ class CanvasBlock extends Component {
 								currentSlide={this.props.currentSlide}
 								updateSlide={this.props.updateSlide}
 							/>
-							<AddTemplate 
+							<Templates 
 								canvas={this.canvas}
-								currentSlide={this.props.currentSlide}
-								updateSlide={this.props.updateSlide}
+								slides={slides}
 							/>
 						</ToolbarGroup>
 						<ToolbarGroup lastChild={true}>

@@ -219,14 +219,6 @@ export function addSlide (index, lessonId) {
 	}
 }
 
-export function addTemplate (canvasJSON) {
-  return function thunk (dispatch) {
-		return db.ref().child('templates').push(canvasJSON)
-	}
-}
-
-
-
 export function updateSlide (id,data) {
   return function thunk (dispatch) {
 		db.ref().child(`slides/${id}`).set(data)
