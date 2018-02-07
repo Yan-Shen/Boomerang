@@ -9,8 +9,11 @@ import LessonWrapper from '../components/LessonWrapper'
 
 class StudentLesson extends Component {
   componentDidMount(){
+    // if(this.props.match.path.includes('student')) {
     const id = this.props.match.params.lessonId
     this.props.fetchLesson(id)
+    // console.log("still good!!!!!!!!!!!!!")
+    // }
   }
   componentWillUnmount(){
     console.log("unmounted!!!!!!")
@@ -20,7 +23,6 @@ class StudentLesson extends Component {
     if(!this.props.currentSlide) {
       return <div>loading....</div>
     } else {
-      console.log('this.props.currentSlide-----------',this.props.whiteboard)
       return (
         <DragDropContextProvider backend={HTML5Backend}>
           <LessonWrapper {...this.props}/>

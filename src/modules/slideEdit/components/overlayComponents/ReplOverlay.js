@@ -8,7 +8,6 @@ import ItemTypes from '../../../../ItemTypes'
 import ReplSolution from '../../../display/components/input_components/ReplSolution'
 import QuestionOutput from '../../../display/components/output_components/QuestionOutput';
 
-
 const boxTarget = {
 	drop() {
 		return { name: 'Overlay' }
@@ -43,10 +42,9 @@ class ReplOverlay extends Component { // ReplOverlay
     } else {
       selectedUserCode = ""
     }
-    console.log('selectedUSercode---------------', selectedUserCode)
 
     return connectDropTarget(
-      <div style={{display: 'flex', flexDirection: 'column', alignItems:'center', backgroundColor:'#eee', width:'100%', height:'100%'}}>
+      <div id="consoleWrapper" style={{display: 'flex', flexDirection: 'column', alignItems:'center', backgroundColor:'#eee', width:'100%', height:'100%'}}>
       {
        <QuestionOutput question={this.props.question} style={{flex:1}} />
       }
@@ -60,7 +58,6 @@ class ReplOverlay extends Component { // ReplOverlay
           this.props.value && <ReplSolution value= {this.props.value} style={{flex: 2}} overlay="overlay" slideId={slideId} shareReplSolutionDispatcher={shareReplSolutionDispatcher}/>
           }
       </div>
-
       </div>
     );
   }
