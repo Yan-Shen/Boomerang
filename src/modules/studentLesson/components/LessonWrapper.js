@@ -62,7 +62,7 @@ class LessonWrapper extends Component {
 			this.canvas.loadFromJSON(this.props.currentSlide, this.canvas.renderAll.bind(this.canvas));
 			this.canvas.renderAll();
 		}
-		if (currentDisplayObject.YouTube.videoId) {
+		if (currentDisplayObject.YouTube && currentDisplayObject.YouTube.videoId) {
 			const opts = {
 				// this is where height and width will go for YT student view!
 				playerVars: {
