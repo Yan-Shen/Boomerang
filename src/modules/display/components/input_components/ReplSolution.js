@@ -75,7 +75,7 @@ class ReplSolution extends Component{
   }
 
   handleChange(solution) {
-    // this.setState({solution})
+    console.log('this.props.userId======', this.props.userId)
     if (this.props.overlay) {
       this.props.shareReplSolutionDispatcher(this.props.slideId, solution)
     } else if (this.props.userId) {
@@ -98,17 +98,13 @@ class ReplSolution extends Component{
     }
 
     editorMode = "xcode"
-    if(overlay) {
-      editorWidth = "500px"
-      editorHeight = "600px"
-      editorFontSize = "1em"
-    } else if (userType === "student"){
-      editorWidth = "350px"
-      editorHeight = "300px"
+ if (userType === "student"){
+      editorWidth = 600
+      editorHeight = 300
       editorFontSize = "0.8em"
     } else {
-      editorWidth= "300px"
-      editorHeight= "150px"
+      editorWidth= 500
+      editorHeight= 150
       editorFontSize = "0.5em"
     }
 
@@ -139,7 +135,7 @@ class ReplSolution extends Component{
         editorProps={{$blockScrolling: true}}
       />
       }
-
+          <div style={{width: "400px"}}>
         {
           this.props.overlay &&
 					<div style={{width: "800px"}}>
@@ -147,7 +143,7 @@ class ReplSolution extends Component{
 					</div>
 
         }
-
+          </div>
       </div>
     )
   }

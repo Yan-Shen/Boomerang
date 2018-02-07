@@ -146,7 +146,7 @@ class LessonWrapper extends Component {
 
 		const currentDisplayObject = displayObject.find(display=>display.id === id)
 
-
+		console.log('userId=========', userId)
 
 
 
@@ -186,7 +186,7 @@ class LessonWrapper extends Component {
 							</div>
 
 							<div style={{zIndex: replShow ? 6000 : -1000,  position: 'absolute', backgroundColor: "yellow", top: 0, left: 0, width: this.block ? this.block.clientWidth : "0px", height: this.block ? this.block.clientHeight : "0px"}}>
-								<ReplOverlay value={replSolution} question={replQuestion} selectedUserObj={selectedUserObj}/>
+								<ReplOverlay value={replSolution} question={replQuestion} selectedUserObj={selectedUserObj} />
 							</div>
 							{youtubeShow && <div style={{zIndex: 7000,  position: 'absolute', backgroundColor: "white", top: 0, left: 0, width: this.block ? this.block.clientWidth : "0px", height: this.block ? this.block.clientHeight : "0px"}}>
 								<YouTubeVideo currentSlide={this.props.currentSlide} />
