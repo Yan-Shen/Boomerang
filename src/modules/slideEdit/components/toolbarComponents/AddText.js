@@ -76,7 +76,6 @@ class AddText extends Component {
 			return null
 		}
 		const slideData = this.props.canvas.toJSON()
-    // slideData.youtubeVideo = this.props.currentSlide.youtubeVideo
     this.props.updateSlide(this.props.currentSlide.id, slideData)
 
 	}

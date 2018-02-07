@@ -22,19 +22,16 @@ class EditText extends Component {
   componentDidMount() {
     this.props.canvas.on('selection:created', (event) => {
 			if (event.target.text) {
-				this.setState({fontSize: event.target.fontSize})
-				this.setState({fontFamily: event.target.fontFamily})
+				this.setState({fontSize: event.target.fontSize, fontFamily: event.target.fontFamily})
 			}
 			if (event.target && event.target._objects) {
 				let decider = event.target._objects[0]
-				this.setState({fontSize: decider.fontSize})
-				this.setState({fontFamily: decider.fontFamily})
+        this.setState({fontSize: decider.fontSize, fontFamily: decider.fontFamily})
 			}
 		})
 		this.props.canvas.on('selection:updated', (event) => {
 			if (event.target.text) {
-				this.setState({fontSize: event.target.fontSize})
-				this.setState({fontFamily: event.target.fontFamily})
+        this.setState({fontSize: event.target.fontSize, fontFamily: event.target.fontFamily})
 			}
 		})
   }

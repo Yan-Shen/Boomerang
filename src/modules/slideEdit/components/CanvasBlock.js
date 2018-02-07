@@ -6,11 +6,13 @@ import Steps from './Steps';
 import AddText from './toolbarComponents/AddText';
 import AddImage from './toolbarComponents/AddImage';
 import AddShape from './toolbarComponents/AddShape';
-import ChangeTextColor from './toolbarComponents/ChangeTextColor';
-import ChangeTextBackground from './toolbarComponents/ChangeTextBackground';
+import Templates from './toolbarComponents/Templates';
+import ChangeColor from './toolbarComponents/ChangeColor';
+import ChangeBackground from './toolbarComponents/ChangeBackground';
 import RemoveObject from './toolbarComponents/RemoveObject';
 import EditLayers from './toolbarComponents/EditLayers';
 import EditText from './toolbarComponents/EditText';
+import EditShape from './toolbarComponents/EditShape';
 import CloseOverlay from 'material-ui/svg-icons/navigation/close';
 import ReactDOM from 'react-dom';
 import YouTube from 'react-youtube';
@@ -133,16 +135,22 @@ class CanvasBlock extends Component {
 								canvas={this.canvas}
 								currentSlide={this.props.currentSlide}
 								updateSlide={this.props.updateSlide}
-								changeYouTube={this.props.changeYouTube}
 							/>
 							<AddImage
 								canvas={this.canvas}
 								currentSlide={this.props.currentSlide}
 								updateSlide={this.props.updateSlide}
-								changeYouTube={this.props.changeYouTube}
 							/>
-							<AddShape />
-
+							<AddShape 
+								canvas={this.canvas}
+								currentSlide={this.props.currentSlide}
+								updateSlide={this.props.updateSlide}
+							/>
+							<EditShape 
+								canvas={this.canvas}
+								currentSlide={this.props.currentSlide}
+								updateSlide={this.props.updateSlide}
+							/>
 							<Icon icon={socialYoutube} onClick={() => {
 								this.toggleCanvas('canvas')
 								//this.props.showYTDispatcher(this.props.currentSlide.id, this.state.canvas)
@@ -151,12 +159,12 @@ class CanvasBlock extends Component {
 								marginRight: '10px',
 								marginLeft: '10px'}}
 							/>
-							<ChangeTextColor
+							<ChangeColor
 								canvas={this.canvas}
 								currentSlide={this.props.currentSlide}
 								updateSlide={this.props.updateSlide}
 							/>
-						 	<ChangeTextBackground
+						 	<ChangeBackground
 								canvas={this.canvas}
 								currentSlide={this.props.currentSlide}
 								updateSlide={this.props.updateSlide}
@@ -165,9 +173,16 @@ class CanvasBlock extends Component {
 								canvas={this.canvas}
 								currentSlide={this.props.currentSlide}
 								updateSlide={this.props.updateSlide}
-								changeYouTube={this.props.changeYouTube}
 							/>
-							<EditLayers canvas={this.canvas} />
+							<EditLayers 
+								canvas={this.canvas}
+								currentSlide={this.props.currentSlide}
+								updateSlide={this.props.updateSlide}
+							/>
+							<Templates 
+								canvas={this.canvas}
+								slides={slides}
+							/>
 						</ToolbarGroup>
 						<ToolbarGroup lastChild={true}>
 							<RemoveObject canvas={this.canvas} />
