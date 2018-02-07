@@ -13,6 +13,7 @@ import {RaisedButton} from 'material-ui';
 import { showYTDispatcher } from '../../../../store/index';
 // import { shareYTDispatcher } from '../../../../store/index';
 import { bindActionCreators } from 'redux';
+import {selectYoutube} from '../youtube/actions'
 
 
 let API_KEY = config.API_KEY
@@ -42,26 +43,29 @@ class YouTubeSearch extends Component { // YouTubeSearch
   render() {
     const { currentSlide, showYTDispatcher } = this.props
     const videoSearch = _.debounce((term) => { this.videoSearch(term) }, 300);
-    
+
     return (
-      <div style={{display: 'flex', flexDirection: 'column', backgroundColor:'white', width:'100%', height:'100%'}}>
+      <div style={{overflow: "hidden", display: 'flex', flexDirection: 'column', backgroundColor:'white', width:'100%', height:'100%'}}>
         <SearchBar style={{flex: 2}} onSearchTermChange={videoSearch}/>
         {
-          !this.state.videos.length ? null :
+          !this.state.videos.length ?
+          <div style={{display: 'flex', flexDirection: 'column',alignItems: 'center'}}>
+            <img style={{margin: '60px', opacity: 0.4, width: "400px"}} src="/search.svg"/>
+            <div style={{fontSize: "50px"}}>No videos found</div>
+            <div style={{color: "#ccc",fontSize: "30px"}}>Search for videos using the text field above</div>
+          </div> :
           <VideoList style={{flex: 1}}
             onVideoSelect={selectedVideo => this.setState({selectedVideo})}
             videos={this.state.videos} />
         }
-        <RaisedButton label="Select" onClick={() => {
-          if (this.state.selectedVideo) {
-            this.props.changeYouTube(this.props.currentSlide.id, this.state.selectedVideo.id.videoId)
-            showYTDispatcher(this.props.currentSlide.id, this.state.selectedVideo.id.videoId, true, {data: 2, time: 0})
-          }
-        }} />
-        <RaisedButton label="Remove Video" onClick={() => { 
-          this.props.changeYouTube(this.props.currentSlide.id, '', null)
-          showYTDispatcher(this.props.currentSlide.id, '', true)
-          }} />
+       {this.state.selectedVideo &&
+         <div style={{display: "flex", justifyContent: 'center'}}>
+           <RaisedButton primary={true} style={{height: "50px",margin: "20px",width: "300px"}} label="Select" labelStyle={{marginTop: "10px", fontSize: "25px"}} onClick={() => {selectYoutube(this.props.currentSlide.id, this.state.selectedVideo.id.videoId, true, {data: 2, time: 0})}}/>
+         </div>
+
+
+
+        }
       </div>
     )
   }

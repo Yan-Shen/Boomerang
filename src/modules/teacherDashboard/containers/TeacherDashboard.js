@@ -12,7 +12,11 @@ class TeacherDashboard extends Component {
     this.props.fetchLessons()
   }
   shouldComponentUpdate(nextProps){
+    console.log(nextProps)
     if(nextProps.lessonList !== this.props.lessonList){
+      return true
+    }
+    if(nextProps.location.pathname !== this.props.location.pathname){
       return true
     }
     return false

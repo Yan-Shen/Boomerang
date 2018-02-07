@@ -31,7 +31,6 @@ export function createLesson (title) {
 		const emptySlide = {
 			version: "2.0.0-rc.4",
 			background: 'white',
-			youtubeVideo: ''
 		}
 		let lessonKey
 
@@ -60,6 +59,7 @@ export function deleteLesson (LessonId) {
 				return data.forEach(slide =>{
 					db.ref(`/slides/${slide.key}`).remove()
           db.ref(`/selectedTools/${slide.key}`).remove()
+    			db.ref(`/studentDisplay/${slide.key}`).remove()
 				})
 			})
 			.then(()=>db.ref(`/lessons/${LessonId}`).remove())

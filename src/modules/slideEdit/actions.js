@@ -13,6 +13,7 @@ export const activeStudents = students => ({type: actions.GET_ACTIVE_STUDENTS, s
 export const unmountLesson = () => ({type: actions.UNMOUNT_LESSON})
 export const addEmotion = (emotion) => ({type: actions.ADD_TEACHER_EMOTION, emotion})
 export const getWhiteboard = bool => ({type: actions.TOGGLE_WHITEBOARD, bool})
+export const updateSlideData = data =>  ({type: actions.UPDATE_SLIDE, data})
 // export const changeSlide = index => ({type: actions.CHANGE_SLIDE, index})
 export const getDisplay = displayObject => ({type: actions.GET_DISPLAYOBJECT, displayObject})
 
@@ -67,14 +68,14 @@ export const changeYouTube = (id, videoId, YTObj) =>  {
 			}
 		})
 		// db.ref().child(`slides/${id}/youtubeVideo/youtubeEventObject`).set(YTObj)
-		
+
 		// dispatch(getToolsDispatcher(id))
 		// dispatch(changeSlideAction(index))
 	}
 }
 
 
-export const updateSlideData = data =>  ({type: actions.UPDATE_SLIDE, data})
+
 
 export function fetchLesson (id) {
   return function thunk (dispatch) {
@@ -181,6 +182,9 @@ export function deleteSlide (slideId,lessonId,index) {
 				db.ref(`/selectedTools/${slideId}`).remove()
 			})
 			.then(()=>{
+				db.ref(`/studentDisplay/${slideId}`).remove()
+			})
+			.then(()=>{
 				dispatch(removeSlide(slideId))
 				dispatch(changeSlide(index, lessonId))
 			})
@@ -192,8 +196,7 @@ export function addSlide (index, lessonId) {
   return function thunk (dispatch) {
 		const emptySlide = {
 			version: "2.0.0-rc.4",
-			background: 'white',
-			youtubeVideo: ''
+			background: 'white'
 		}
 		db.ref().child('slides').push(emptySlide)
 			.then(slideKey => {
