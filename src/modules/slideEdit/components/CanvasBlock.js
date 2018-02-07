@@ -20,7 +20,7 @@ import WhiteBoardCanvas from '../../whiteboard/containers/WhiteBoardCanvas';
 import Icon from 'react-icons-kit';
 import { socialYoutube } from 'react-icons-kit/typicons/socialYoutube';
 
-import OverlayLayer from './OverlayLayer';
+import YouTubeLayer from './youtube/YouTubeLayer';
 import ReplOverlay from './overlayComponents/ReplOverlay';
 
 
@@ -50,33 +50,23 @@ class CanvasBlock extends Component {
 			this.canvas.loadFromJSON(this.props.currentSlide, this.canvas.renderAll.bind(this.canvas));
 			this.canvas.renderAll();
 		}
-		if (currentDisplayObject.YouTube.videoId) {
-			const videoId = currentDisplayObject.YouTube.videoId
-			ReactDOM.render(<YouTube videoId={videoId} 
-				onStateChange={(event) => {
-					let YTObj = {
-						data: event.data,
-						time: event.target.getCurrentTime()
-					}
-					this.props.showYTDispatcher(this.props.currentSlide.id, videoId, true, YTObj)
-				}}>
-			</YouTube>, document.getElementById('video-overlay'))
-		} else {
-			ReactDOM.unmountComponentAtNode(document.getElementById('video-overlay'));
-		}
+		// if (currentDisplayObject.YouTube) {
+		// 	const videoId = currentDisplayObject.YouTube.videoId
+		// 	ReactDOM.render(<YouTube videoId={videoId}
+		// 		onStateChange={(event) => {
+		// 			let YTObj = {
+		// 				data: event.data,
+		// 				time: event.target.getCurrentTime()
+		// 			}
+		// 			this.props.showYTDispatcher(this.props.currentSlide.id, videoId, true, YTObj)
+		// 		}}>
+		// 	</YouTube>, document.getElementById('video-overlay'))
+		// } else {
+		// 	ReactDOM.unmountComponentAtNode(document.getElementById('video-overlay'));
+		// }
 	}
 	updateDimensions(){
 	  this.setState({width: this.block.clientWidth, height: this.block.clientHeight})
-		// console.log(this.state.width)
-		// const width = this.block.clientWidth;
-		// const scale = width / 900;
-		// this.canvas.setDimensions({
-    //     width: this.state.width * scale,
-    //     height: this.state.height * scale
-    // });
-		// this.canvas.loadFromJSON(this.props.currentSlide, this.canvas.renderAll.bind(this.canvas));
-		// this.canvas.setZoom(scale);
-		//this.canvas.renderAll();
 	}
 	componentWillUnmount() {
 		window.removeEventListener("resize", this.updateDimensions);
@@ -105,7 +95,7 @@ class CanvasBlock extends Component {
 		if(this.props.currentSlide.id) {
 			const slideData = this.canvas.toJSON()
 			// slideData.youtubeVideo = this.props.currentSlide.youtubeVideo
-			// if (slideData.youtubeVideo) 
+			// if (slideData.youtubeVideo)
 			this.props.updateSlide(this.props.currentSlide.id, slideData)
 
 		}
@@ -117,7 +107,7 @@ class CanvasBlock extends Component {
 	}
 
 	render() {
-		const currentDisplayObject = this.props.displayObject.find(display=>display.id === this.props.currentSlide.id)		
+		const currentDisplayObject = this.props.displayObject.find(display=>display.id === this.props.currentSlide.id)
 		const { slides, deleteSlide, addSlide, changeSlide, showYTDispatcher,
 			currentSlideIndex, updateSlide, getToolsDispatcher, lesson, replShow, choiceShow, currentSlide, shareReplSolutionDispatcher, activeUsers} = this.props;
 			const {id} = this.props.currentSlide;
@@ -155,8 +145,7 @@ class CanvasBlock extends Component {
 
 							<Icon icon={socialYoutube} onClick={() => {
 								this.toggleCanvas('canvas')
-								this.props.showYTDispatcher(this.props.currentSlide.id, currentDisplayObject.YouTube.videoId, this.state.canvas, currentDisplayObject.YouTube.YTObj)
-
+								//this.props.showYTDispatcher(this.props.currentSlide.id, this.state.canvas)
 							}} />
 							<ToolbarSeparator style={{
 								marginRight: '10px',
@@ -233,7 +222,7 @@ class CanvasBlock extends Component {
 							</div>
 							<div style={{zIndex: this.state.canvas ? -5000 : 5000, position: 'absolute', background: 'white', top: 0, left: 0, width: this.block ? this.block.clientWidth : '0px', height: this.block ? this.block.clientHeight : '0px'}}>
 								{/* <IconButton><CloseOverlay onClick={() => this.toggleCanvas('canvas')} /></IconButton> */}
-								<OverlayLayer updateSlide={this.props.updateSlide} currentSlide={currentSlide} changeYouTube={this.props.changeYouTube} />
+								<YouTubeLayer/>
 							</div>
 
 							<div style={{zIndex: (replShow || choiceShow) ? 4999 : -6000, position: 'absolute', backgroundColor: 'white', top: 0, left: 0, width: this.block ? this.block.clientWidth : '0px', height: this.block ? this.block.clientHeight : '0px'}}>
