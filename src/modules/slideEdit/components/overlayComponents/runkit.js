@@ -20,6 +20,7 @@ class HelloEmbed extends React.Component {
         return <Embed source={ this.props.value } minHeight= "500px" id="embed"
         ref={embed=>this.embed=embed}
         onLoad={(node)=>{
+            this.node=node
             node.iframe.clientWidth=600
             console.log('node.iframe.clientWidth=====', node.iframe.clientWidth)
         }}
