@@ -63,8 +63,10 @@ class ReplSolution extends Component{
   }
 
   componentDidUpdate(){
-    console.log('updated!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-    this.block.clientWidth="450px"
+    if(this.props.overlay) {
+      console.log('updated!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+      this.block.clientWidth="450px"
+    }
   }
 
   static propTypes = {
@@ -112,7 +114,7 @@ class ReplSolution extends Component{
 
 
     return connectDragSource(
-      <div >
+      <div style={{display: "flex"}}>
         <AceEditor
           mode="javascript"
           theme={editorMode}
