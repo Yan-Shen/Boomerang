@@ -64,7 +64,8 @@ function mapStateToProps(state,props){
     activeUsers: state.lesson.active,
     panel: state.lesson.panel,
     emotions: state.lesson.emotions,
-    whiteboard: state.lesson.whiteboard
+    whiteboard: state.lesson.whiteboard,
+    templates: state.lesson.templates
     // selectedUserId: state.lesson.active[0],
   };
 }

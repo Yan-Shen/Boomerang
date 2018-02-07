@@ -181,7 +181,7 @@ class CanvasBlock extends Component {
 							/>
 							<Templates 
 								canvas={this.canvas}
-								slides={slides}
+								templates={this.props.templates}
 							/>
 						</ToolbarGroup>
 						<ToolbarGroup lastChild={true}>
