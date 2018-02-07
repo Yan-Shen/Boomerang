@@ -1,4 +1,5 @@
- import React, { Component } from 'react';
+import React, { Component } from 'react';
+import {Card,TextField,RaisedButton} from 'material-ui';
 
 class SearchBar extends Component {
   constructor(props) {
@@ -10,9 +11,7 @@ class SearchBar extends Component {
   render() {
     return (
       <div className="search-bar">
-        <input
-          value = {this.state.term}
-          onChange={e => this.onInputChange(e.target.value)} />
+        <TextField onChange={(e,val) => this.onInputChange(val)} floatingLabelStyle={{fontSize: '22px'}} style={{margin: "10px", width: '90%'}} floatingLabelText="Video Search"/>
       </div>
     );
   }
