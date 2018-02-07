@@ -59,7 +59,6 @@ class QuestionOutput extends Component {
       <div style={styleQ}>
         <Paper style={{margin: "auto 10px", paddingLeft: "10px", paddingRight: "10px"}} zDepth={depth} >
           <p style={{textAlign:"left"}}> {this.props.question}</p>
-          fgfhghgfghfhgf
         </ Paper>
       </div>
 

@@ -142,7 +142,10 @@ class ReplSolution extends Component{
 
         {
           this.props.overlay &&
-          <HelloEmbed value ={value} ref={block=>this.block=block}/>
+					<div style={{width: "800px"}}>
+						<HelloEmbed value ={value} ref={block=>this.block=block}/>
+					</div>
+
         }
 
       </div>
@@ -152,5 +155,3 @@ class ReplSolution extends Component{
 }
 
 export default DragSource(ItemTypes.BOX, boxSource, collect)(ReplSolution);
-
-
