@@ -138,10 +138,14 @@ class ReplSolution extends Component{
           <div style={{width: "400px"}}>
         {
           this.props.overlay &&
+<<<<<<< HEAD
 					<div style={{width: "800px"}}>
 						<HelloEmbed value ={value} ref={block=>this.block=block}/>
 					</div>
 
+=======
+          <HelloEmbed value ={value} ref={block=>this.block=block}/>
+>>>>>>> 9001b4d4f7a50ee3972e8335f12d71c11fb9a522
         }
           </div>
       </div>
