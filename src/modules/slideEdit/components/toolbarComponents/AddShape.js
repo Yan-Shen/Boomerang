@@ -5,7 +5,6 @@ import Widgets from 'material-ui/svg-icons/device/widgets';
 import Square from 'material-ui/svg-icons/image/crop-din';
 import Line from 'material-ui/svg-icons/content/remove';
 import Circle from 'material-ui/svg-icons/image/panorama-fish-eye';
-import Triangle from 'material-ui/svg-icons/action/change-history';
 
 class AddShape extends Component {
 	constructor(props) {
@@ -109,7 +108,6 @@ class AddShape extends Component {
 				<MenuItem onClick={() => this.shapePosition('rect')} primaryText="Square" leftIcon={<Square />} />
 				<MenuItem onClick={() => this.shapePosition('line')} primaryText="Line" leftIcon={<Line />} />
 				<MenuItem onClick={() => this.shapePosition('circle')} primaryText="Circle" leftIcon={<Circle />} />
-				<MenuItem primaryText="Triangle" leftIcon={<Triangle />} />
 			</IconMenu>
 		)
 	}
