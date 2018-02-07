@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "chart.js": "^2.7.1",
     "firebase": "^4.9.0",
     "gsap": "^1.20.3",
     "lodash": "^4.17.4",
@@ -11,6 +12,7 @@
     "opentok-react": "^0.7.0",
     "react": "^16.2.0",
     "react-ace": "^5.9.0",
+    "react-chartjs-2": "^2.7.0",
     "react-color": "^2.13.8",
     "react-dnd": "^2.5.4",
     "react-dnd-html5-backend": "^2.5.4",
@@ -18,6 +20,7 @@
     "react-icons-kit": "^1.0.7",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
+    "react-runkit": "^0.9.0",
     "react-scripts": "1.1.0",
     "react-spinners": "^0.2.6",
     "react-transition-group": "^2.2.1",

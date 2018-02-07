@@ -4,32 +4,40 @@ import { TwitterPicker } from 'react-color'
 
 import FormatColorFill from 'material-ui/svg-icons/editor/format-color-fill'
 
-class ChangeTextBackground extends Component {
+class ChangeBackground extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			colorPicker: false,
 			color: '#ffffff',
-			textBGColor: '#ffffff'
+			textBGColor: '#ffffff',
+			displayColor: '#ffffff'
 		}
 
 		this.colorPicker = this.colorPicker.bind(this)
-		this.changeTextBGColor = this.changeTextBGColor.bind(this)
+		this.changeBGColor = this.changeBGColor.bind(this)
 	}
 
 	componentDidMount() {
 		this.props.canvas.on('selection:created', (event) => {
 			if (event.target.text) {
-				this.setState({textBGColor: event.target.textBackgroundColor})
+				this.setState({displayColor: event.target.textBackgroundColor})
+			}
+			else if (event.target.stroke) {
+				this.setState({displayColor: event.target.fill})
 			}
 			if (event.target && event.target._objects) {
 				let decider = event.target._objects[0]
-				this.setState({textBGColor: decider.textBackgroundColor})
+				this.setState({displayColor: decider.textBackgroundColor})
 			}
 		})
+
 		this.props.canvas.on('selection:updated', (event) => {
 			if (event.target.text) {
-				this.setState({textBGColor: event.target.textBackgroundColor})
+				this.setState({displayColor: event.target.textBackgroundColor})
+			}
+			else if (event.target.stroke) {
+				this.setState({displayColor: event.target.fill})
 			}
 		})
 	}
@@ -46,12 +54,13 @@ class ChangeTextBackground extends Component {
 		}
 	}
 
-	changeTextBGColor(color, proxy, object = null){
+	changeBGColor(color, proxy, object = null){
 		if (!object) object = this.props.canvas.getActiveObject();
-		this.setState({textBGColor: color.hex});
+		console.log('looking for prop on obj for shapes', object) // if it has fontFamily
+		this.setState({BGColor: color.hex, displayColor: color.hex});
 		if (object && object._objects) {
 			object._objects.forEach(element => {
-				this.changeTextBGColor(color, proxy, element);
+				this.changeBGColor(color, proxy, element);
 			});
 		}
 		if (object && object.textLines) {
@@ -64,11 +73,20 @@ class ChangeTextBackground extends Component {
 				object.removeStyle('textBackgroundColor');
 				object.set('textBackgroundColor', color.hex);
 			}
-			this.props.canvas.renderAll();
-			const slideData = this.props.canvas.toJSON()
-    	slideData.youtubeVideo = this.props.currentSlide.youtubeVideo
-    	this.props.updateSlide(this.props.currentSlide.id, slideData)
 		}
+		else if (object && object.stroke) {
+			if (object.setSelectionStyles && object.isEditing) {
+				let style = {};
+				style.fill = color.hex;
+				object.setSelectionStyles(style);
+			}
+			else {
+				object.set('fill', color.hex);
+			}
+		}
+		this.props.canvas.renderAll()
+		const slideData = this.props.canvas.toJSON()
+		this.props.updateSlide(this.props.currentSlide.id, slideData)
 	}
 
 	render() {
@@ -77,17 +95,17 @@ class ChangeTextBackground extends Component {
 				<IconButton onClick={() => this.colorPicker('fill')}>
 					<FormatColorFill />
 						{this.state.colorPicker && this.state.color === 'fill' && 
-						<TwitterPicker onChange={ this.changeTextBGColor } triangle="hide" />}
+						<TwitterPicker onChange={ this.changeBGColor } triangle="hide" />}
 					</IconButton>
 				<div style={{
 					width: 30, 
 					height: 30,
 					borderRadius: 4,
-					backgroundColor: this.state.textBGColor,
+					backgroundColor: this.state.displayColor,
 					boxShadow: 'rgba(0, 0, 0, 0.12) 0px 1px 4px'}} />
 			</div>
 		)
 	}
 }
 
-export default ChangeTextBackground
+export default ChangeBackground

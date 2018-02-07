@@ -17,11 +17,8 @@ import {shareReplSolutionDispatcher} from '../../display/reducers/replSolutionSh
 
 class SlideEdit extends Component {
   componentDidMount(){
-    // if(!this.props.match.path.includes('frame')) {
       const id = this.props.match.params.lessonId
       this.props.fetchLesson(id)
-      console.log('this.props.match=======',this.props.match)
-    // }
   }
 
   // componentDidUpdate(prevProps){
@@ -31,7 +28,6 @@ class SlideEdit extends Component {
   // }
 
   componentWillUnmount(){
-    console.log("unmounted!!!!!!")
     this.props.unmountLesson()
   }
 
@@ -64,7 +60,9 @@ function mapStateToProps(state,props){
     displayObject: state.studentLesson.displayObject,
     users: state.lesson.users,
     activeUsers: state.lesson.active,
-    panel: state.lesson.panel
+    panel: state.lesson.panel,
+    emotions: state.lesson.emotions,
+    whiteboard: state.lesson.whiteboard
     // selectedUserId: state.lesson.active[0],
   };
 }
