@@ -5,13 +5,14 @@ import { TwitterPicker } from 'react-color'
 import FormatColorText from 'material-ui/svg-icons/editor/format-color-text'
 
 
-class ChangeTextColor extends Component {
+class ChangeColor extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			colorPicker: false,
 			color: '#000000',
-			textColor: '#000000'
+			textColor: '#000000',
+			displayColor: '#000000'
 		}
 
 		this.colorPicker = this.colorPicker.bind(this)
@@ -21,16 +22,23 @@ class ChangeTextColor extends Component {
 	componentDidMount() {
 		this.props.canvas.on('selection:created', (event) => {
 			if (event.target.text) {
-				this.setState({textColor: event.target.fill})
+				this.setState({displayColor: event.target.fill})
+			}
+			else if (event.target.stroke) {
+				this.setState({displayColor: event.target.stroke})
 			}
 			if (event.target && event.target._objects) {
-				let decider = event.target._objects[0];
-				this.setState({textColor: decider.fill})
+				let decider = event.target._objects[0]
+				this.setState({displayColor: decider.fill})
 			}
 		})
+		
 		this.props.canvas.on('selection:updated', (event) => {
 			if (event.target.text) {
-				this.setState({textColor: event.target.fill})
+				this.setState({displayColor: event.target.fill})
+			}
+			else if (event.target.stroke) {
+				this.setState({displayColor: event.target.stroke})
 			}
 		})
 	}
@@ -50,7 +58,7 @@ class ChangeTextColor extends Component {
 	changeColor(color, proxy, object = null) {
 		const canvas = this.props.canvas
 		if (!object) object = canvas.getActiveObject()
-		this.setState({ textColor: color.hex })
+		this.setState({ textColor: color.hex, displayColor: color.hex })
 		if (object && object._objects) {
 			object._objects.forEach(element => {
 				this.changeColor(color, proxy, element)
@@ -66,11 +74,22 @@ class ChangeTextColor extends Component {
 				object.removeStyle('fill')
 				object.setColor(color.hex)
 			}
-			canvas.renderAll()
-			const slideData = this.props.canvas.toJSON()
-    	slideData.youtubeVideo = this.props.currentSlide.youtubeVideo
-    	this.props.updateSlide(this.props.currentSlide.id, slideData)
 		}
+		else if (object && object.stroke) {
+			if (object.setSelectionStyles && object.isEditing) {
+				let style = {};
+				style.stroke = color.hex;
+				object.setSelectionStyles(style);
+			}
+			else {
+				// object.removeStyle('fill');
+				object.set('stroke', color.hex);
+			}
+		}
+		this.props.canvas.renderAll()
+		const slideData = this.props.canvas.toJSON()
+		// slideData.youtubeVideo = this.props.currentSlide.youtubeVideo
+		this.props.updateSlide(this.props.currentSlide.id, slideData)
 	}
 
 	render() {
@@ -85,11 +104,11 @@ class ChangeTextColor extends Component {
 					width: 30, 
 					height: 30, 
 					borderRadius: 4, 
-					backgroundColor: this.state.textColor, 
+					backgroundColor: this.state.displayColor, 
 					boxShadow: 'rgba(0, 0, 0, 0.12) 0px 1px 4px'}} />
 			</div>
 		)
 	}
 }
 
-export default ChangeTextColor
+export default ChangeColor

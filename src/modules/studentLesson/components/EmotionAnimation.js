@@ -12,11 +12,11 @@ const randomHeight = () => {
 
 class EmotionAnimation extends Component {
 	componentDidMount(){
-		let width= this.props.width
+		let width= this.props.width || 1500
 		let height = randomHeight()
 		const proportion = width/10
 		var tl = new TimelineLite()
-			tl.to(this.elem, 0.5, {x:-proportion, y: height/2, opacity: 1, ease:"Linear.easeNone"})
+			tl.to(this.elem, 0.5, {x:-proportion, y: height, opacity: 1, ease:"Linear.easeNone"})
 			tl.to(this.elem, 0.5, {x:-(proportion *2), y: height+20,ease:"Linear.easeNone"})
 			tl.to(this.elem, 0.5, {x:-(proportion *3), y: height,ease:"Linear.easeNone"})
 			tl.to(this.elem, 0.5, {x:-(proportion *4), y: height-20,ease:"Linear.easeNone"})
@@ -47,7 +47,7 @@ class EmotionAnimation extends Component {
 		const {emotion} = this.props
 
 		return (
-			<div ref={obj => this.elem = obj} style={{height: "10px", zIndex: 9000, opacity: 0, position: "absolute", right: "400px"}}>
+			<div ref={obj => this.elem = obj} style={{height: "10px", zIndex: 9000, opacity: 0, position: "absolute" , right: "0px", bottom: '50px'}}>
 				{this.renderEmotion(emotion.type)}
 			</div>
 
