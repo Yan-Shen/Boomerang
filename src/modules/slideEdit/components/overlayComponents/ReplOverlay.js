@@ -7,7 +7,6 @@ import ItemTypes from '../../../../ItemTypes'
 
 import ReplSolution from '../../../display/components/input_components/ReplSolution'
 import QuestionOutput from '../../../display/components/output_components/QuestionOutput';
-import HelloEmbed from './runkit'
 
 const boxTarget = {
 	drop() {
@@ -59,7 +58,6 @@ class ReplOverlay extends Component { // ReplOverlay
           this.props.value && <ReplSolution value= {this.props.value} style={{flex: 2}} overlay="overlay" slideId={slideId} shareReplSolutionDispatcher={shareReplSolutionDispatcher}/>
           }
       </div>
-      {/* {  <HelloEmbed /> } */}
       </div>
     );
   }

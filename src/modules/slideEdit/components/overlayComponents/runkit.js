@@ -7,31 +7,25 @@ const Embed = require('react-runkit')
 const helloSource = `console.log('Hello, world!')`
 
 class HelloEmbed extends React.Component {
+// constructor(props){
+//     super(props)
+//     this.state={}
+// }
 
-
+    // componentDidMount(){
+    //     this.embed.refs.embed.clientWidth="400px"
+    // }
 
     render() {
-        // let selectedUserCode
-        // if (selectedUserObj && selectedUserObj['replCode']) {
-        //   selectedUserCode = selectedUserObj.replCode
-        // } else {
-        //   selectedUserCode = ""
-        // }
-        return <Embed source={ helloSource } minHeight= "500px" id="embed"/>
+        return <Embed source={ this.props.value } minHeight= "500px" id="embed"
+        ref={embed=>this.embed=embed}
+        onLoad={(node)=>{
+            node.iframe.clientWidth=600
+            console.log('node.iframe.clientWidth=====', node.iframe.clientWidth)
+        }}
+        />
     }
 }
 
-function mapStateToProps(state,props){
-    const slides = state.lesson.slides
-    return {
-      currentUser: state.user,
-      currentSlideIndex: state.lesson.currentSlide,
-      currentSlide: slides[state.lesson.currentSlide],
-      users: state.lesson.users,
-      activeUsers: state.lesson.active,
-      panel: state.lesson.panel
-      // selectedUserId: state.lesson.active[0],
-    };
-  }
 
 export default HelloEmbed

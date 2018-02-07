@@ -10,7 +10,7 @@ import { DragSource } from 'react-dnd'
 
 import ItemTypes from '../../../../ItemTypes'
 import replSolutionShare, {shareReplSolution} from '../../reducers/replSolutionShare'
-const Embed = require('react-runkit')
+import HelloEmbed from '../../../slideEdit/components/overlayComponents/runkit'
 
 const boxSource = {
 	beginDrag(props) {
@@ -115,34 +115,35 @@ class ReplSolution extends Component{
 
     return connectDragSource(
       <div style={{display: "flex"}}>
+      {!this.props.overlay &&
         <AceEditor
-          mode="javascript"
-          theme={editorMode}
-          width = {editorWidth}
-          height = {editorHeight}
-          value ={value}
-          fontSize={editorFontSize}
-          onChange={this.handleChange}
-          showPrintMargin={true}
-          showGutter={true}
-          highlightActiveLine={true}
-          style={editorStyle}
-          setOptions={{
-            enableBasicAutocompletion: true,
-            enableLiveAutocompletion: true,
-            enableSnippets: false,
-            showLineNumbers: true,
-            tabSize: 2,
-            }}
-          name="UNIQUE_ID_OF_DIV"
-          editorProps={{$blockScrolling: true}}
-        />
+        mode="javascript"
+        theme={editorMode}
+        width = {editorWidth}
+        height = {editorHeight}
+        value ={value}
+        fontSize={editorFontSize}
+        onChange={this.handleChange}
+        showPrintMargin={true}
+        showGutter={true}
+        highlightActiveLine={true}
+        style={editorStyle}
+        setOptions={{
+          enableBasicAutocompletion: true,
+          enableLiveAutocompletion: true,
+          enableSnippets: false,
+          showLineNumbers: true,
+          tabSize: 2,
+          }}
+        name="UNIQUE_ID_OF_DIV"
+        editorProps={{$blockScrolling: true}}
+      />
+      }
+
         {
-          this.props.overlay && <Embed source={ value } id="embed" ref={block=>this.block=block}/>
+          this.props.overlay &&
+          <HelloEmbed value ={value} ref={block=>this.block=block}/>
         }
-
-
-
 
       </div>
     )
