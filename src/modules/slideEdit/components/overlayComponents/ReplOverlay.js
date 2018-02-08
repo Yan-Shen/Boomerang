@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types'
 import { DropTarget } from 'react-dnd'
 import ItemTypes from '../../../../ItemTypes'
-
+import ChartContainer from '../../../display/chart/ChartContainer'
 import ReplSolution from '../../../display/components/input_components/ReplSolution'
 import QuestionOutput from '../../../display/components/output_components/QuestionOutput';
 
@@ -48,7 +48,7 @@ class ReplOverlay extends Component { // ReplOverlay
       {
        <QuestionOutput question={this.props.question} style={{flex:1}} />
       }
-
+			<ChartContainer />
       <div style={{display: 'flex', flexDirection: 'row', alignItems:'center', justifyContent: "space-around", width:'100%'}}>
         {
           selectedUserCode &&

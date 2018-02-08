@@ -148,5 +148,3 @@ class ReplSolution extends Component{
 }
 
 export default DragSource(ItemTypes.BOX, boxSource, collect)(ReplSolution);
-
-
