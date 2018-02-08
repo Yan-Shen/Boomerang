@@ -12,7 +12,8 @@ const {ToolBox, ToolMiniChoice, ToolMiniRepl, ToolMiniInput} = components;
 
 const style = {
 	height: '56px',
-	backgroundColor: 'rgb(232, 232, 232)'
+	backgroundColor: '#fafafa',
+	borderBottom: '1px solid #ccc'
 };
 
 class Container extends Component {
