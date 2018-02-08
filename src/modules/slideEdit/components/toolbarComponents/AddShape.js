@@ -44,7 +44,7 @@ class AddShape extends Component {
 		else if (this.state.shape === 'line') {
 			shape = new window.fabric.Rect( 
 				{ left: x, top: y, 
-					fill: '#000000',
+					fill: this.state.shapeFill,
 					stroke: this.state.shapeColor,
 					width: 250,
 					height: 3,

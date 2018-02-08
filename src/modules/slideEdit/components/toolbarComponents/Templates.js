@@ -31,11 +31,7 @@ class Templates extends Component {
   }
 
   handleDelete(templateId){
-    console.log('deleteTemplate', this.props.deleteTemplate)
-		if (this.props.templates.length > 1 ) {
-      console.log('getting here')
-			this.props.deleteTemplate(templateId)
-		}
+    this.props.deleteTemplate(templateId)
 	}
 
   render() {
@@ -55,7 +51,7 @@ class Templates extends Component {
               </MenuItem>
               <MenuItem leftIcon={<Delete />} primaryText='Delete Template' onClick={() => this.handleDelete(template.id)} />
             </div>
-         ))
+         )) || <div style={{textAlign: 'center', marginTop: 10, marginBottom: 10}}>No saved templates</div>
        }
       </IconMenu>
     )
