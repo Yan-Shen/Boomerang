@@ -3,8 +3,9 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import { DragDropContextProvider } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
-import {fetchLesson, unmountLesson, addEmotionThunk, addStudentCode, selectedTools} from '../actions'
+import {fetchLesson, unmountLesson, addEmotionThunk, addStudentCode} from '../actions'
 import {getSubscribers} from '../../slideEdit/actions'
+import {getToolsDispatcher} from '../../tools/reducers/SelectedTools'
 import LessonWrapper from '../components/LessonWrapper'
 
 class StudentLesson extends Component {
@@ -12,15 +13,16 @@ class StudentLesson extends Component {
     // if(this.props.match.path.includes('student')) {
     const id = this.props.match.params.lessonId
     this.props.fetchLesson(id)
-    this.props.selectedTools(this.props.currentSlideId)
+    this.props.getToolsDispatcher(this.props.currentSlideId)
     // console.log("still good!!!!!!!!!!!!!")
     // }
   }
 
   componentDidUpdate(prevProps, prevState) {
+
     if(prevProps.currentSlideId !== this.props.currentSlideId){
       console.log("slideIOd changedchnaged")
-      this.props.selectedTools(this.props.currentSlideId)
+      this.props.getToolsDispatcher(this.props.currentSlideId)
     }
   }
   componentWillUnmount(){
@@ -45,7 +47,7 @@ function mapStateToProps(state){
     subscribers: state.lesson.subscribers,
     currentSlideIndex: state.lesson.currentSlide,
     currentSlide: slides[state.lesson.currentSlide],
-    currentSlideId: slides[state.lesson.currentSlide] ? slides[state.lesson.currentSlide].id : "",
+    currentSlideId: slides[state.lesson.currentSlide] ? slides[state.lesson.currentSlide].id : null,
     selectedTools: state.selectedTools,
     lesson: state.lesson.lessonData,
     replSolution: state.replSolution,
@@ -62,7 +64,7 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({getSubscribers,fetchLesson,unmountLesson,addEmotionThunk, addStudentCode, selectedTools}, dispatch);
+  return bindActionCreators({getSubscribers,fetchLesson,unmountLesson,addEmotionThunk, addStudentCode, getToolsDispatcher}, dispatch);
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(StudentLesson);
