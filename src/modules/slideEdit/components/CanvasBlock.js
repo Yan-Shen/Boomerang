@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Toolbar, ToolbarGroup, ToolbarSeparator, Toggle, IconButton } from 'material-ui';
+import { Toolbar, ToolbarGroup, ToolbarSeparator} from 'material-ui';
 import AddSlide from 'material-ui/svg-icons/av/library-add';
 import SlidePreview from './SlidePreview';
-import Steps from './Steps';
 import AddText from './toolbarComponents/AddText';
 import AddImage from './toolbarComponents/AddImage';
 import AddShape from './toolbarComponents/AddShape';
@@ -13,15 +12,10 @@ import RemoveObject from './toolbarComponents/RemoveObject';
 import EditLayers from './toolbarComponents/EditLayers';
 import EditText from './toolbarComponents/EditText';
 import EditShape from './toolbarComponents/EditShape';
-import CloseOverlay from 'material-ui/svg-icons/navigation/close';
-import ReactDOM from 'react-dom';
-import YouTube from 'react-youtube';
 import EmotionAnimation from '../../studentLesson/components/EmotionAnimation';
 import WhiteBoardCanvas from '../../whiteboard/containers/WhiteBoardCanvas';
-
 import Icon from 'react-icons-kit';
 import { socialYoutube } from 'react-icons-kit/typicons/socialYoutube';
-
 import YouTubeLayer from './youtube/YouTubeLayer';
 import ReplOverlay from './overlayComponents/ReplOverlay';
 
@@ -46,7 +40,7 @@ class CanvasBlock extends Component {
 		else if (!this.state.canvas) {this.setState({canvas: true});}
 	}
 	componentDidUpdate(prevProps) {
-		const currentDisplayObject = this.props.displayObject.find(display=>display.id === this.props.currentSlide.id)
+		//const currentDisplayObject = this.props.displayObject.find(display=>display.id === this.props.currentSlide.id)
 		this.props.getToolsDispatcher(this.props.currentSlide.id)
 		if (!prevProps.currentSlide || prevProps.currentSlideIndex !== this.props.currentSlideIndex) {
 			this.canvas.loadFromJSON(this.props.currentSlide, this.canvas.renderAll.bind(this.canvas));
@@ -109,10 +103,9 @@ class CanvasBlock extends Component {
 	}
 
 	render() {
-		const currentDisplayObject = this.props.displayObject.find(display=>display.id === this.props.currentSlide.id)
-		const { slides, deleteSlide, addSlide, changeSlide, showYTDispatcher,
-			currentSlideIndex, updateSlide, getToolsDispatcher, lesson, replShow, choiceShow, currentSlide, shareReplSolutionDispatcher, activeUsers} = this.props;
-			const {id} = this.props.currentSlide;
+		//const currentDisplayObject = this.props.displayObject.find(display=>display.id === this.props.currentSlide.id)
+		const { slides, deleteSlide, changeSlide, showYTDispatcher,
+			currentSlideIndex,  getToolsDispatcher, lesson, replShow, choiceShow, currentSlide, shareReplSolutionDispatcher, activeUsers} = this.props;
 			let selectedUserObj;
 			activeUsers ? selectedUserObj = this.props.currentSlide[activeUsers[0]] : selectedUserObj = {};
 
@@ -141,12 +134,12 @@ class CanvasBlock extends Component {
 								currentSlide={this.props.currentSlide}
 								updateSlide={this.props.updateSlide}
 							/>
-							<AddShape 
+							<AddShape
 								canvas={this.canvas}
 								currentSlide={this.props.currentSlide}
 								updateSlide={this.props.updateSlide}
 							/>
-							<EditShape 
+							<EditShape
 								canvas={this.canvas}
 								currentSlide={this.props.currentSlide}
 								updateSlide={this.props.updateSlide}
@@ -174,12 +167,12 @@ class CanvasBlock extends Component {
 								currentSlide={this.props.currentSlide}
 								updateSlide={this.props.updateSlide}
 							/>
-							<EditLayers 
+							<EditLayers
 								canvas={this.canvas}
 								currentSlide={this.props.currentSlide}
 								updateSlide={this.props.updateSlide}
 							/>
-							<Templates 
+							<Templates
 								canvas={this.canvas}
 								templates={this.props.templates}
 							/>

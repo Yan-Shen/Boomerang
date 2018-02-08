@@ -20,7 +20,6 @@ export const shareChoiceQADispatcher = (slideId, QA) => {
         return dispatch(shareChoiceQA(QA))
       })
     }
-    console.log('this should run?')
   }
 
 //REDUCER
@@ -33,6 +32,3 @@ export default function reducer (state = {}, action) {
       return state;
   }
 }
-
-
-

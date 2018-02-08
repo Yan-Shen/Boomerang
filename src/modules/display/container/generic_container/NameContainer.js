@@ -14,7 +14,6 @@ class NameContainer extends Component {
 }
 
 function mapStateToProps(state,props){
-  const slides = state.lesson.slides
   return {
     subscribers: state.lesson.subscribers,
     session: state.lesson.session,

@@ -8,6 +8,15 @@ class StudentDashboard extends Component {
   componentDidMount(){
     this.props.fetchLessons()
   }
+  shouldComponentUpdate(nextProps){
+    if(nextProps.lessonList !== this.props.lessonList){
+      return true
+    }
+    if(nextProps.location.pathname !== this.props.location.pathname){
+      return true
+    }
+    return false
+  }
   render() {
     return (
         <Dashboard {...this.props}/>

@@ -9,7 +9,7 @@ class ChoiceEmoji extends Component {
     this.state = {  }
   }
   render() {
-    const number = parseInt(this.props.number)
+    const number = parseInt(this.props.number,10)
     const repeat = new Array(number).fill('emoji')
     return (
       <div style={{height: "40px", paddingTop:"5px", textAlign:"left"}}>

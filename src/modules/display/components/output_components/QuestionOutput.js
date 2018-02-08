@@ -20,7 +20,7 @@ const boxSource = {
 
 	endDrag(props, monitor) {
 
-		const item = monitor.getItem()
+		// const item = monitor.getItem()
 		const dropResult = monitor.getDropResult()
 
 		if (dropResult) {
@@ -41,11 +41,10 @@ class QuestionOutput extends Component {
   static propTypes = {
     connectDragSource: PropTypes.func.isRequired,
     isDragging: PropTypes.bool.isRequired,
-    question: PropTypes.string.isRequired,
   }
 
   render () {
-    const { isDragging, connectDragSource, question, type, name, repl } = this.props
+    const { connectDragSource, type, repl } = this.props
     let styleQ, depth
     if (repl) {
       styleQ = style.repl

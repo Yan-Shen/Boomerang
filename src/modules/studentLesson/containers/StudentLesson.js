@@ -12,17 +12,18 @@ class StudentLesson extends Component {
     // if(this.props.match.path.includes('student')) {
     const id = this.props.match.params.lessonId
     this.props.fetchLesson(id)
+    this.props.selectedTools(this.props.currentSlideId)
     // console.log("still good!!!!!!!!!!!!!")
     // }
   }
-  componentWillUpdate(nextProps){
-    console.log(this.props.currentSlideId,nextProps.currentSlideId)
-    if(nextProps.currentSlideId !== this.props.currentSlideId){
-      this.props.selectedTools(nextProps.currentSlideId)
+
+  componentDidUpdate(prevProps, prevState) {
+    if(prevProps.currentSlideId !== this.props.currentSlideId){
+      console.log("slideIOd changedchnaged")
+      this.props.selectedTools(this.props.currentSlideId)
     }
   }
   componentWillUnmount(){
-    console.log("unmounted!!!!!!")
     this.props.unmountLesson()
   }
   render() {

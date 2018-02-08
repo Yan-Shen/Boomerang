@@ -1,10 +1,5 @@
 import React, { Component } from 'react';
-import TextField from 'material-ui/TextField';
-import brace from 'brace';
 import AceEditor from 'react-ace';
-import 'brace/mode/javascript';
-import 'brace/theme/terminal';
-import 'brace/theme/xcode';
 import PropTypes from 'prop-types'
 import { DragSource } from 'react-dnd'
 

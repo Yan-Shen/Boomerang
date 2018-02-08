@@ -10,7 +10,6 @@ import {BrowserRouter as Router} from 'react-router-dom';
 import store from './store/store'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import config from './config'
 
 
 

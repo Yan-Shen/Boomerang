@@ -19,7 +19,6 @@ function clearPaths(data){
   if(!data){
     return null
   }
-  const objects = data.objects
   const newObjects = data.objects.map(object => {
     object.fill = null
     return object

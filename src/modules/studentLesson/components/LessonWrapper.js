@@ -1,20 +1,17 @@
 import React, { Component } from 'react';
-import {db} from '../../../firebase'
-import _ from 'lodash'
 import {Paper} from 'material-ui';
+import _ from 'lodash'
 import StudentDisplay from './StudentDisplay'
 import ReplOverlay from '../../slideEdit/components/overlayComponents/ReplOverlay'
 import YouTubeVideo from './YouTubeVideo'
 import EmotionAnimation from './EmotionAnimation'
 import EmotionWrapper from './EmotionWrapper'
-import ReplSolution from '../../display/components/input_components/ReplSolution'
 import WhiteBoardCanvas from '../../whiteboard/containers/WhiteBoardCanvas'
 import WhiteBoardControls from '../../whiteboard/components/WhiteBoardControls'
-import { OTSession, OTPublisher, OTStreams, OTSubscriber,createSession } from 'opentok-react';
+import {createSession } from 'opentok-react';
 
-import CamView from '../../slideEdit/components/CamView'
-import ReactDOM from 'react-dom'
-import YouTube from 'react-youtube'
+
+
 
 
 class LessonWrapper extends Component {
@@ -27,15 +24,6 @@ class LessonWrapper extends Component {
 		};
 		this.onReady = this.onReady.bind(this)
 	}
-	componentWillMount() {
-		const {apiKey, sessionId, token} = this.props.currentUser
-		this.sessionHelper = createSession({
-			apiKey: apiKey,
-			sessionId: sessionId,
-			token: token,
-			onStreamsUpdated: streams => { this.props.getSubscribers(this.sessionHelper, streams)}
-		});
-	}
 
 	componentWillUnmount() {
 		this.sessionHelper.disconnect();
@@ -50,9 +38,7 @@ class LessonWrapper extends Component {
 		});
 	}
 
-	componentWillUnmount() {
-		this.sessionHelper.disconnect();
-	}
+
 	componentDidMount(){
 		const width = this.block.clientWidth
 		const scale = width/900
@@ -132,7 +118,7 @@ class LessonWrapper extends Component {
 
 	render() {
 		//YOUTUBE LOGIC!!!!!!!!
-		let videoId, youtubeShow, YTObj
+		let youtubeShow
 		let replQuestion, replSolution, replShow, QA, choiceShow
 
 
@@ -145,9 +131,7 @@ class LessonWrapper extends Component {
 		const selectedUserObj = this.props.currentSlide[activeUser]
 
 		const currentDisplayObject = displayObject.find(display=>display.id === id)
-
-		console.log('userId=========', userId)
-
+		const showChoiceLayer = currentDisplayObject.Choice.show
 
 
 		if (currentDisplayObject['Repl'] ) {
@@ -167,14 +151,13 @@ class LessonWrapper extends Component {
 			QA={}
 			choiceShow = false
 		}
-		console.log('QA lessson Wrapper======', QA)
-
+		console.log("gfdhjfghjdgfhdsgjfhgsdjhgfhsdjhf", currentDisplayObject,choiceShow)
 		return (
 			<div style={{background: "#ccc",padding: "15px", display: 'flex'}}>
 				<div ref={block => this.block = block} style={{marginRight: "30px", flex: 4}}>
 					<Paper style={{position: 'relative'}}>
 
-							<canvas style={{background: "red"}} id='studentCanvas' width="900" height="550" style={{borderRadius: "4px"}}/>
+							<canvas style={{background: "red",borderRadius: "4px"}} id='studentCanvas' width="900" height="550"/>
 							<div style={{zIndex: this.props.whiteboard ==='true' ? 5000 : -5000, position: 'absolute', top: 0, left: 0, width: this.block ? this.block.clientWidth : '0px', height: this.block ? this.block.clientHeight : '0px'}}>
 								<WhiteBoardCanvas style={{zIndex: 20000}} width={this.state.width} height={this.state.height}/>
 							</div>
@@ -185,7 +168,7 @@ class LessonWrapper extends Component {
 								))}
 							</div>
 
-							<div style={{zIndex: replShow ? 6000 : -1000,  position: 'absolute', backgroundColor: "yellow", top: 0, left: 0, width: this.block ? this.block.clientWidth : "0px", height: this.block ? this.block.clientHeight : "0px"}}>
+							<div style={{zIndex: replShow || showChoiceLayer ? 6000 : -1000,  position: 'absolute', backgroundColor: "yellow", top: 0, left: 0, width: this.block ? this.block.clientWidth : "0px", height: this.block ? this.block.clientHeight : "0px"}}>
 								<ReplOverlay value={replSolution} question={replQuestion} selectedUserObj={selectedUserObj} />
 							</div>
 							{youtubeShow && <div style={{zIndex: 7000,  position: 'absolute', backgroundColor: "white", top: 0, left: 0, width: this.block ? this.block.clientWidth : "0px", height: this.block ? this.block.clientHeight : "0px"}}>
