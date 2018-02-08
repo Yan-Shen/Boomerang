@@ -6,7 +6,7 @@ import Paper from 'material-ui/Paper';
 
 const style = {
   repl: {
-    backgroundColor: "#eee",
+    //backgroundColor: "#eee",
     height: "100%"
   }
 }
@@ -56,9 +56,9 @@ class QuestionOutput extends Component {
     return connectDragSource(
 
       <div style={styleQ}>
-        <Paper style={{margin: "auto 10px", paddingLeft: "10px", paddingRight: "10px"}} zDepth={depth} >
-          <p style={{textAlign:"left"}}> {this.props.question}</p>
-        </ Paper>
+
+          <p style={{color: "#6bada7", fontSize: "18px", fontWeight: 800, marginLeft: '10px', textAlign:"left"}}> {this.props.question}</p>
+
       </div>
 
     )}

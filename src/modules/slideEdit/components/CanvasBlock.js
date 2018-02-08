@@ -89,9 +89,9 @@ class CanvasBlock extends Component {
 	}
 
 	render() {
-		const { slides, deleteSlide, addSlide, changeSlide, showYTDispatcher, whiteboard, 
+		const { slides, deleteSlide, addSlide, changeSlide, showYTDispatcher, whiteboard,
 			currentSlideIndex, updateSlide, getToolsDispatcher, lesson, replShow, templates,
-			emotions, choiceShow, currentSlide, shareReplSolutionDispatcher, activeUsers, 
+			emotions, choiceShow, currentSlide, shareReplSolutionDispatcher, activeUsers,
 			replSolution, replQuestion, deleteTemplate } = this.props
 		let selectedUserObj
 		activeUsers ? selectedUserObj = currentSlide[activeUsers[0]] : selectedUserObj = {}
@@ -203,8 +203,8 @@ class CanvasBlock extends Component {
 						}}
 						>
 							<canvas  style={{zIndex: 0}} id="fabricTest" width="900" height="550" />
-							<div style={{zIndex: whiteboard ==='true' ? 5001 : -5000, 
-								position: 'absolute', top: 0, left: 0, width: this.block ? this.block.clientWidth : '0px', 
+							<div style={{zIndex: whiteboard ==='true' ? 5001 : -5000,
+								position: 'absolute', top: 0, left: 0, width: this.block ? this.block.clientWidth : '0px',
 								height: this.block ? this.block.clientHeight : '0px'}}
 							>
 								<WhiteBoardCanvas style={{zIndex: 20000}} width={this.state.width} height={this.state.height}/>
@@ -212,20 +212,20 @@ class CanvasBlock extends Component {
 
 							<div style={{position: 'relative'}}>
 								{this.props.emotions.map((emotion, index) => (
-									<EmotionAnimation left={this.state.width} id={this.props.lesson.id} key={index} 
-										emotion={emotion} width={this.state.width} 
+									<EmotionAnimation left={this.state.width} id={this.props.lesson.id} key={index}
+										emotion={emotion} width={this.state.width}
 									/>
 								))}
 							</div>
-							<div style={{zIndex: this.state.canvas ? -5000 : 5000, position: 'absolute', background: 'white', 
-								top: 0, left: 0, width: this.block ? this.block.clientWidth : '0px', 
+							<div style={{zIndex: this.state.canvas ? -5000 : 5000, position: 'absolute', background: 'white',
+								top: 0, left: 0, width: this.block ? this.block.clientWidth : '0px',
 								height: this.block ? this.block.clientHeight : '0px'
 							}}>
 								<YouTubeLayer/>
 							</div>
 
-							<div style={{zIndex: (replShow || choiceShow) ? 4999 : -6000, position: 'absolute', backgroundColor: 'white', 
-								top: 0, left: 0, width: this.block ? this.block.clientWidth : '0px', 
+							<div style={{zIndex: (replShow || choiceShow) ? 4999 : -6000, position: 'absolute', backgroundColor: 'white',
+								top: 0, left: 0, width: this.block ? this.block.clientWidth : '0px',
 								height: this.block ? this.block.clientHeight : '0px'}
 							}>
 								<ReplOverlay
@@ -234,6 +234,7 @@ class CanvasBlock extends Component {
 									slideId={currentSlide.id}
 									shareReplSolutionDispatcher={shareReplSolutionDispatcher}
 									selectedUserObj={selectedUserObj}
+									choiceShow={choiceShow}
 								/>
 							</div>
 						</div>
