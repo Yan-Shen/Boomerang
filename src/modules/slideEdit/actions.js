@@ -2,6 +2,7 @@ import {db} from '../../firebase'
 import * as actions from './actionTypes';
 // import {getToolsDispatcher} from '../../store'
 export const changePanel = () => ({type: actions.CHANGE_PANEL})
+// export const getSelectedTools = tools =>  ({type: actions.GET_SELECTED_TOOLS, tools})
 export const getSubscribers = (session,subscribers) => ({type: actions.GET_CAMERA_SUBSCRIBERS, session, subscribers})
 export const getStudents = students => ({type: actions.GET_ONLINE_USERS, students})
 export const getLesson = lesson =>  ({type: actions.GET_LESSON, lesson})
@@ -16,6 +17,16 @@ export const getWhiteboard = bool => ({type: actions.TOGGLE_WHITEBOARD, bool})
 export const updateSlideData = data =>  ({type: actions.UPDATE_SLIDE, data})
 // export const changeSlide = index => ({type: actions.CHANGE_SLIDE, index})
 export const getDisplay = displayObject => ({type: actions.GET_DISPLAYOBJECT, displayObject})
+
+
+// export function selectedTools (id) {
+//   return function thunk (dispatch) {
+//     db.ref(`selectedTools/${id}`).on('value', (data)=>{
+//       dispatch(getSelectedTools(data.val()))
+//     })
+//   }
+// }
+
 
 
 export const changeSlide = (index, id) =>  {

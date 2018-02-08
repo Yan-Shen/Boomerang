@@ -3,7 +3,7 @@ import * as actions from './actionTypes';
 
 
 export const getLesson = lesson =>  ({type: actions.GET_LESSON, lesson})
-export const getSelectedTools = tools =>  ({type: actions.GET_SELECTED_TOOLS, tools})
+//export const getSelectedTools = tools =>  ({type: actions.GET_SELECTED_TOOLS, tools})
 export const getSlide = slide =>  ({type: actions.GET_SLIDE, slide})
 export const getSlideIndex = index =>  ({type: actions.GET_SLIDE_INDEX, index})
 export const unmountLesson = () =>  ({type: actions.UNMOUNT_LESSON})
@@ -14,13 +14,13 @@ export const getWhiteboard = bool => ({type: actions.TOGGLE_WHITEBOARD, bool})
 
 export const getStudents = students => ({type: actions.GET_ONLINE_USERS, students})
 
-export function selectedTools (id) {
-  return function thunk (dispatch) {
-    db.ref(`selectedTools/${id}`).on('value', (data)=>{
-      dispatch(getSelectedTools(data.val()))
-    })
-  }
-}
+// export function selectedTools (id) {
+//   return function thunk (dispatch) {
+//     db.ref(`selectedTools/${id}`).on('value', (data)=>{
+//       dispatch(getSelectedTools(data.val()))
+//     })
+//   }
+// }
 
 
 export function fetchLesson (id) {
