@@ -10,6 +10,16 @@ import {db} from '../../../../firebase'
 
 const {QuestionOutput, ChoiceOutput} = components
 
+let style
+style = {
+  width: 300,
+  margin: 20,
+  textAlign: 'center',
+  display: 'inline-block',
+  paddingBottom: "20px"
+};
+
+
 const boxSource = {
 	beginDrag(props) {
 		return {
@@ -26,7 +36,7 @@ const boxSource = {
 		if (dropResult) {
       let currentSlideId = props.currentSlideId
       let qaId = props.qaId
-      console.log('dropped!!!!!!!!!')
+
       db.ref(`/studentDisplay/${currentSlideId}/Choice/QA`).update({[`${qaId}`]: props.QA})
       // props.shareChoiceQADispatcher(currentSlideId, props.QA)
 		}
@@ -38,13 +48,7 @@ const collect = (connect, monitor) => ({
   isDragging: monitor.isDragging()
 })
 
-const style = {
-  width: 300,
-  margin: 20,
-  textAlign: 'center',
-  display: 'inline-block',
-  paddingBottom: "20px"
-};
+
 
 class QAOutputContainer extends Component{
   constructor(props){
