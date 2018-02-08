@@ -51,7 +51,10 @@ export default function reducers(state = initialState, action){
     case actions.UNMOUNT_LESSON:
       return {...initialState}
     case actions.GET_TEMPLATES:
-			return {...state, templates: action.templates}
+      return {...state, templates: action.templates}
+    case actions.DELETE_TEMPLATE:
+      const updatedTemplates = state.templates.filter(template => template.id !== action.templateId)
+      return {...state, templates: updatedTemplates}
     default:
       return state;
   }

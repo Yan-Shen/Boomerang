@@ -3,7 +3,7 @@ import MenuItem from 'material-ui/MenuItem'
 import IconButton from 'material-ui/IconButton'
 import LayersMenu from 'material-ui/svg-icons/maps/layers'
 import TextField from 'material-ui/TextField'
-import TextFieldIcon from 'material-ui/svg-icons/editor/text-fields'
+import LineWeight from 'material-ui/svg-icons/action/line-weight'
 import { IconMenu, SelectField, ToolbarSeparator } from 'material-ui'
 
 class EditShape extends Component {
@@ -64,7 +64,7 @@ class EditShape extends Component {
     return (
       <div style={{display: 'flex', alignItems: 'center'}}>
         <IconMenu
-          iconButtonElement={<IconButton><TextFieldIcon /></IconButton>}
+          iconButtonElement={<IconButton><LineWeight /></IconButton>}
           anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
           targetOrigin={{horizontal: 'left', vertical: 'top'}}
         >

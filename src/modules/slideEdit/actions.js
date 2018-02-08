@@ -1,6 +1,6 @@
 import {db} from '../../firebase'
 import * as actions from './actionTypes';
-// import {getToolsDispatcher} from '../../store'
+
 export const changePanel = () => ({type: actions.CHANGE_PANEL})
 export const getSubscribers = (session,subscribers) => ({type: actions.GET_CAMERA_SUBSCRIBERS, session, subscribers})
 export const getStudents = students => ({type: actions.GET_ONLINE_USERS, students})
@@ -17,6 +17,7 @@ export const updateSlideData = data =>  ({type: actions.UPDATE_SLIDE, data})
 // export const changeSlide = index => ({type: actions.CHANGE_SLIDE, index})
 export const getDisplay = displayObject => ({type: actions.GET_DISPLAYOBJECT, displayObject})
 export const getTemplates= templates =>  ({type: actions.GET_TEMPLATES, templates})
+export const removeTemplate = templateId =>  ({type: actions.DELETE_TEMPLATE, templateId})
 
 export const changeSlide = (index, id) =>  {
 	return function thunk (dispatch) {
@@ -28,12 +29,8 @@ export const changeSlide = (index, id) =>  {
 
 export const toggleWhiteboard = (id, status) =>  {
 	const sendStatus = status === 'true' ? "false" : "true"
-	console.log('tyuituyoiuyiyutoiytuytiouyrtioyrtuioyrtuyoriuytoiytur', id, sendStatus)
 	return function thunk (dispatch) {
 		db.ref().child(`lessons/${id}/whiteboard`).set('true')
-		// .then()
-		// // dispatch(getToolsDispatcher(id))
-		// dispatch(changeSlideAction(index))
 	}
 }
 
@@ -47,15 +44,7 @@ export const toggleActiveStudent = (lessonId, studentId,bool) =>  {
 			else{
 				db.ref().child(`lessons/${lessonId}/activeStudents/${studentId}`).remove()
 			}
-			// if(data){
-			// 	db.ref().child(`lessons/${lessonId}/activeStudents/${studentId}`).remove()
-			// }
-			// else{
-			// 	db.ref().child(`lessons/${lessonId}/activeStudents/${studentId}`).set(true)
-			// }
 		})
-		// dispatch(getToolsDispatcher(id))
-		//dispatch(changeSlideAction(index))
 	}
 }
 
@@ -67,29 +56,18 @@ export const changeYouTube = (id, videoId, YTObj) =>  {
 				db.ref().child(`slides/${id}/youtubeVideo/YTObj`).set(YTObj)
 			}
 		})
-		// db.ref().child(`slides/${id}/youtubeVideo/youtubeEventObject`).set(YTObj)
-
-		// dispatch(getToolsDispatcher(id))
-		// dispatch(changeSlideAction(index))
 	}
 }
 
-
-
-
 export function fetchLesson (id) {
   return function thunk (dispatch) {
-		/// Keep track of current slide
-		//LISTEN FOR NEW EMOTIONS
 		db.ref(`lessons/${id}/whiteboard`).set('false').then(()=>{
 			db.ref(`lessons/${id}/whiteboard`).on('value', data =>{
-				console.log('whiteboard triggered')
 				dispatch(getWhiteboard(data.val()))
 			})
 		})
 
 		db.ref(`lessons/${id}/emotions`).limitToLast(1).on('child_added', (data)=>{
-			console.log('agggeggegegegeg emotionb')
 			dispatch(addEmotion(data.val()))
 		})
 
@@ -107,22 +85,23 @@ export function fetchLesson (id) {
 		.then(()=>{
 			db.ref(`lessons/${id}/activeStudents`).on('value', (data)=>{
 				const dataObj = data.val()
-				const activeArr = []//console.log(data.val())
+				const activeArr = []
 				for(var key in dataObj){
 					activeArr.push(key)
 				}
 				dispatch(activeStudents(activeArr))
 			})
 		})
+
 		db.ref(`lessons/${id}/currentSlide`).on('value', (data)=>{
 			dispatch(getSlideIndex(data.val()))
 		})
+
 		db.ref('users/').orderByChild('onlineState')
     .equalTo(true)
     .on('value', (data)=>{
-
 			const dataObj = data.val()
-			const studentArr = []//console.log(data.val())
+			const studentArr = []
 			for(var key in dataObj){
 
 				if(dataObj[key].role === "student") {
@@ -131,16 +110,9 @@ export function fetchLesson (id) {
 					studentArr.push(student)
 				}
 			}
-			// for(var key in dataObj){
-			// 	studentArr.push(dataObj[key])
-			// }
 			dispatch(getStudents(studentArr))
 			})
 
-		// .then((data)=>{
-		// 	console.log(data.val())
-		// 	dispatch(getUsers(data.val()))
-		// })
     return db.ref(`/lessons/${id}`).once('value')
 			.then(lesson => {
 				lesson = lesson.val()
@@ -174,19 +146,17 @@ export function fetchLesson (id) {
 							...slideData
 						}
 						dispatch(getSlide(slideObject));
-
 					})
 			})
 		});
 	}
 }
 
-export function deleteSlide (slideId,lessonId,index) {
+export function deleteSlide (slideId, lessonId, index) {
 	return function thunk (dispatch) {
 		return db.ref(`/lessons/${lessonId}/slides/${slideId}`).remove()
 			.then(()=> {
 				return db.ref(`/slides/${slideId}`).remove()
-
 			})
 			.then(()=>{
 				db.ref(`/selectedTools/${slideId}`).remove()
@@ -201,6 +171,14 @@ export function deleteSlide (slideId,lessonId,index) {
 	}
 }
 
+export function deleteTemplate (templateId) {
+	return function thunk (dispatch) {
+		return db.ref(`/templates/${templateId}`).remove()
+			.then(()=>{
+				dispatch(removeTemplate(templateId))
+			})
+	}
+}
 
 export function addSlide (index, lessonId) {
   return function thunk (dispatch) {
@@ -232,7 +210,7 @@ export function addSlide (index, lessonId) {
 	}
 }
 
-export function updateSlide (id,data) {
+export function updateSlide (id, data) {
   return function thunk (dispatch) {
 		db.ref().child(`slides/${id}`).set(data)
 		.then(()=>console.log('updateSlide'))

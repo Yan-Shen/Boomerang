@@ -56,7 +56,6 @@ class ChangeBackground extends Component {
 
 	changeBGColor(color, proxy, object = null){
 		if (!object) object = this.props.canvas.getActiveObject();
-		console.log('looking for prop on obj for shapes', object) // if it has fontFamily
 		this.setState({BGColor: color.hex, displayColor: color.hex});
 		if (object && object._objects) {
 			object._objects.forEach(element => {

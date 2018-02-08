@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { IconMenu, MenuItem, IconButton} from 'material-ui'
+import { IconMenu, MenuItem, IconButton } from 'material-ui'
 import FormatShape from 'material-ui/svg-icons/editor/format-shapes'
 import TextFieldIcon from 'material-ui/svg-icons/editor/text-fields'
 
@@ -43,37 +43,37 @@ class AddText extends Component {
 	textPosition(type){
 		switch (type) {
 			case 'normal':
-			this.setState({
-				textPositionSelect: true,
-				fontSize: 24,
-				fontWeight: 'normal',
-				fontFamily: this.state.fontFamily,
-				textColor: '#000000',
-				textBGColor: '#ffffff'
-			})
+				this.setState({
+					textPositionSelect: true,
+					fontSize: 24,
+					fontWeight: 'normal',
+					fontFamily: this.state.fontFamily,
+					textColor: '#000000',
+					textBGColor: '#ffffff'
+				})
 			break
 			case 'h1':
-			this.setState({
-				textPositionSelect: true,
-				fontSize: 48,
-				fontWeight: 'bold',
-				fontFamily: this.state.fontFamily,
-				textColor: '#000000',
-				textBGColor: '#ffffff'
-			})
+				this.setState({
+					textPositionSelect: true,
+					fontSize: 48,
+					fontWeight: 'bold',
+					fontFamily: this.state.fontFamily,
+					textColor: '#000000',
+					textBGColor: '#ffffff'
+				})
 			break
 			case 'h2':
-			this.setState({
-				textPositionSelect: true,
-				fontSize: 36,
-				fontWeight: 'bold',
-				fontFamily: this.state.fontFamily,
-				textColor: '#000000',
-				textBGColor: '#ffffff'
-			})
+				this.setState({
+					textPositionSelect: true,
+					fontSize: 36,
+					fontWeight: 'bold',
+					fontFamily: this.state.fontFamily,
+					textColor: '#000000',
+					textBGColor: '#ffffff'
+				})
 			break
 			default:
-			return null
+				return null
 		}
 		const slideData = this.props.canvas.toJSON()
     this.props.updateSlide(this.props.currentSlide.id, slideData)
