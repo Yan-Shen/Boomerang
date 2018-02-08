@@ -10,7 +10,8 @@ const initialState={
   session: {},
   panel: false,
   emotions: [],
-  whiteboard: 'false'
+  whiteboard: 'false',
+  templates: []
 }
 
 export default function reducers(state = initialState, action){
@@ -48,7 +49,9 @@ export default function reducers(state = initialState, action){
 			}
 			return {...state, slides: [...state.slides,action.slide]}
     case actions.UNMOUNT_LESSON:
-  		return {...initialState}
+      return {...initialState}
+    case actions.GET_TEMPLATES:
+			return {...state, templates: action.templates}
     default:
       return state;
   }
