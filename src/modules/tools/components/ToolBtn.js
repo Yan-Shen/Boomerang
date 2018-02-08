@@ -35,6 +35,13 @@ class ToolBtn extends Component {
   handleToggle(){
     if (this.props.name === "Choice Q"){
       this.props.showChoice(this.props.currentSlideId)
+      db.ref(`/selectedTools/${this.props.currentSlideId}/Choice Q/QA`).once('value')
+      .then(QAs=>{
+        QAs.forEach(QA=>{
+          db.ref(`/selectedTools/${this.props.currentSlideId}/Choice Q/QA/${QA.key}`).update({submission: {}})
+        })
+      })
+
     db.ref(`/studentDisplay/${this.props.currentSlideId}/Choice`).once('value')
       .then(data=>{
         let choice = data.val()

@@ -24,10 +24,10 @@ class EditText extends Component {
 			if (event.target.text) {
 				this.setState({fontSize: event.target.fontSize, fontFamily: event.target.fontFamily})
 			}
-			if (event.target && event.target._objects) {
+			else if (event.target && event.target._objects) {
 				let decider = event.target._objects[0]
-        this.setState({fontSize: decider.fontSize, fontFamily: decider.fontFamily})
-			}
+        if (decider.fontSize) this.setState({fontSize: decider.fontSize, fontFamily: decider.fontFamily})
+      }
 		})
 		this.props.canvas.on('selection:updated', (event) => {
 			if (event.target.text) {

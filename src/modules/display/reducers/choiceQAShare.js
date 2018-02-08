@@ -15,7 +15,6 @@ export const shareChoiceQADispatcher = (slideId, QA) => {
   console.log('slideId==========', slideId)
   console.log('QA==========', QA)
   return dispatch=>{
-    console.log('shareChoiceQADispatcher triggered==============')
       db.ref(`/studentDisplay/${slideId}/Choice`).update({QA: QA})
       .then(()=>{
         return dispatch(shareChoiceQA(QA))

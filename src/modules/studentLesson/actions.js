@@ -3,6 +3,7 @@ import * as actions from './actionTypes';
 
 
 export const getLesson = lesson =>  ({type: actions.GET_LESSON, lesson})
+export const getSelectedTools = tools =>  ({type: actions.GET_SELECTED_TOOLS, tools})
 export const getSlide = slide =>  ({type: actions.GET_SLIDE, slide})
 export const getSlideIndex = index =>  ({type: actions.GET_SLIDE_INDEX, index})
 export const unmountLesson = () =>  ({type: actions.UNMOUNT_LESSON})
@@ -10,6 +11,16 @@ export const addEmotion = (emotion) =>  ({type: actions.ADD_EMOTION, emotion})
 export const getDisplay = displayObject => ({type: actions.GET_DISPLAYOBJECT, displayObject})
 export const activeStudents = students => ({type: actions.GET_ACTIVE_STUDENTS, students})
 export const getWhiteboard = bool => ({type: actions.TOGGLE_WHITEBOARD, bool})
+
+export const getStudents = students => ({type: actions.GET_ONLINE_USERS, students})
+
+export function selectedTools (id) {
+  return function thunk (dispatch) {
+    db.ref(`selectedTools/${id}`).once('value')
+    .then(data => dispatch(getSelectedTools(data.val())))
+  }
+}
+
 
 export function fetchLesson (id) {
   return function thunk (dispatch) {
@@ -35,6 +46,30 @@ export function fetchLesson (id) {
 					}
 					dispatch(activeStudents(activeArr))
 		})
+
+		////////////////////////////////////////
+		db.ref('users/').orderByChild('onlineState')
+    .equalTo(true)
+    .on('value', (data)=>{
+
+			const dataObj = data.val()
+			const studentArr = []//console.log(data.val())
+			for(var key in dataObj){
+
+				if(dataObj[key].role === "student") {
+					var student = dataObj[key]
+					student.id = key
+					studentArr.push(student)
+				}
+			}
+			// for(var key in dataObj){
+			// 	studentArr.push(dataObj[key])
+			// }
+			dispatch(getStudents(studentArr))
+			})
+
+		/////////////////////////////////////////////////////
+
     return db.ref(`/lessons/${id}`).once('value')
 			.then(lesson => {
         lesson = lesson.val()
@@ -67,6 +102,14 @@ export function fetchLesson (id) {
 						}
 						dispatch(getSlide(slideObject));
 					})
+
+          // db.ref(`/selectedTools/${slide.key}`).on('value', snap=>{
+          //   if(snap.val()) {
+          //     dispatch(getSelectedTools(snap.val()))
+          //   }
+          //  })
+
+
 			})
 		});
 	}

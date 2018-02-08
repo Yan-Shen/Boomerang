@@ -21,15 +21,15 @@ class ChangeColor extends Component {
 
 	componentDidMount() {
 		this.props.canvas.on('selection:created', (event) => {
-			if (event.target.text) {
+			if (event.target && event.target._objects) {
+				let decider = event.target._objects[0]
+				this.setState({displayColor: decider.stroke || decider.fill})
+			}
+			else if (event.target.text) {
 				this.setState({displayColor: event.target.fill})
 			}
 			else if (event.target.stroke) {
 				this.setState({displayColor: event.target.stroke})
-			}
-			if (event.target && event.target._objects) {
-				let decider = event.target._objects[0]
-				this.setState({displayColor: decider.fill})
 			}
 		})
 		

@@ -20,15 +20,15 @@ class ChangeBackground extends Component {
 
 	componentDidMount() {
 		this.props.canvas.on('selection:created', (event) => {
-			if (event.target.text) {
+			if (event.target && event.target._objects) {
+				let decider = event.target._objects[0]
+				this.setState({displayColor: decider.textBackgroundColor || decider.fill})
+			}
+			else if (event.target.text) {
 				this.setState({displayColor: event.target.textBackgroundColor})
 			}
 			else if (event.target.stroke) {
 				this.setState({displayColor: event.target.fill})
-			}
-			if (event.target && event.target._objects) {
-				let decider = event.target._objects[0]
-				this.setState({displayColor: decider.textBackgroundColor})
 			}
 		})
 
