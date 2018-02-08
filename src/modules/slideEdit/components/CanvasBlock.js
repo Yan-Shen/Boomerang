@@ -172,7 +172,7 @@ class CanvasBlock extends Component {
 							background: 'white',
 							margin: '10px',
 							marginRight: '0px',
-							height: '790px'
+							height: '915px'
 						}}>
 							{slides.map((slide, index) => (
 									<SlidePreview

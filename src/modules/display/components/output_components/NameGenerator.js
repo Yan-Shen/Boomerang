@@ -19,8 +19,8 @@ class RandomName extends Component {
 		if(this.state.currentCount === 1) {
 			const {users} = this.props
 			const ind = Math.floor(Math.random() * users.length)
-			const name = users[ind].name
-      const id = users[ind].id
+			const name = users.length ? users[ind].name : "No Users Online"
+      const id = users.length ? users[ind].id : "gfdhjfgdhj"
 			this.setState({name, id})
     }
     if(this.state.currentCount < 1) {

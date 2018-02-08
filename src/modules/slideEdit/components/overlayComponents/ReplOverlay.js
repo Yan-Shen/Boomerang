@@ -44,14 +44,23 @@ class ReplOverlay extends Component { // ReplOverlay
     }
 
     return connectDropTarget(
-      <div id="consoleWrapper" style={{display: 'flex', flexDirection: 'column', alignItems:'center', backgroundColor:'#eee', width:'100%', height:'100%'}}>
-      {
-       <QuestionOutput question={this.props.question} style={{flex:1}} />
+      <div id="consoleWrapper" style={{display: 'flex', flexDirection: 'column', alignItems:'center', backgroundColor:'white', width:'100%', height:'100%'}}>
+      {<div>
+				<QuestionOutput fontSize="34px" question={this.props.question} style={{flex:1}} />
+				{ !this.props.value && this.props.selectedUserObj && !this.props.selectedUserObj.replCode ?
+					<div>
+						<img style={{marginTop: "200px", width: '300px', opacity: 0.5}} src="/replit.svg"/>
+						<div style={{fontSize: '22px', color: '#ccc'}}>Waiting for Teacher to intiate Replit Block</div>
+				  </div> :null}
+			</div>
+
+
       }
 			{
 				choiceShow && <ChartContainer />
 			}
       <div style={{display: 'flex', flexDirection: 'row', alignItems:'center', justifyContent: "space-around", width:'100%'}}>
+
         {
           selectedUserCode &&
           <ReplSolution value={selectedUserCode} style={{flex: 2}} overlay="overlay" slideId={slideId} />

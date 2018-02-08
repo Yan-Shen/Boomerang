@@ -19,10 +19,10 @@ const style = {
   fontSize: "0.7em",
   // borderStyle: "solid",
   borderWidth: 0.3,
-  padding: 2,
+  // padding: 2,
   // margin: "30px 5px",
   color: "grey",
-  boxShadow: "0.5px 0.5px 1px 1.2px #ccc",
+  // boxShadow: "0.5px 0.5px 1px 1.2px #ccc",
   borderRadius: 2,
 };
 
@@ -91,7 +91,10 @@ const boxSource = {
       const { isDragging, connectDragSource } = this.props
       const { name } = this.props
       // const opacity = isDragging ? 0.4 : 1
-      return connectDragSource(<div style={style}><IconButton><QuestionIcon /></IconButton></div>)
+      return connectDragSource(<div style={style}>
+        <IconButton>
+          <QuestionIcon style={{background: 'white', marginLeft: '10px'}}/>
+        </IconButton></div>)
     }
   }
 
@@ -108,5 +111,3 @@ export const ToolMiniChoice = connect(null, mapDispatch)(DragSource(ItemTypes.BO
 export const ToolMiniRepl = connect(null, mapDispatch)(DragSource(ItemTypes.BOX, boxSource, collect)(Repl))
 
 export const ToolMiniInput = connect(null, mapDispatch)(DragSource(ItemTypes.BOX, boxSource, collect)(Input))
-
-

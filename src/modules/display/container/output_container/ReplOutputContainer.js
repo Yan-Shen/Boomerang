@@ -19,9 +19,9 @@ function ReplOutputContainer (props){
 
   return (
       <div>
-        
+
               <div key={QA.question}>
-                 <QuestionOutput question={QA.question} repl={repl} shareReplQ={shareReplQ}
+                 <QuestionOutput fontSize="18px" question={QA.question} repl={repl} shareReplQ={shareReplQ}
                  currentSlideId = {currentSlideId} type="replQ"/>
                 <ReplSolution value={QA.solution} shareReplSolution = {shareReplSolution}
                 currentSlideId = {currentSlideId}/>

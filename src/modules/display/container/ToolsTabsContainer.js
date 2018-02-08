@@ -11,12 +11,11 @@ import NamesGenIcon from 'material-ui/svg-icons/action/event-seat';
 
 const TabsExampleIcon = (props) => (
 
-  <Tabs onChange={value => props.handleChange(value)}>
+  <Tabs inkBarStyle={{backgroundColor: "#007681"}} tabItemContainerStyle={{background: '#6bada7'}} style={{width: "330px"}} onChange={value => props.handleChange(value)}>
     <Tab value="default" icon={<DefaultIcon />} />
     <Tab value="Name" icon={<NamesGenIcon />} />
     <Tab value="Face" icon={<VideoIcon />} />
     <Tab value = "WhiteBoard" icon={<WhiteBoardIcon />} />
-    <Tab value= "HotSpot" icon={<HotSpotIcon />} />
   </Tabs>
 );
 

@@ -57,7 +57,7 @@ class QuestionOutput extends Component {
 
       <div style={styleQ}>
 
-          <p style={{color: "#6bada7", fontSize: "18px", fontWeight: 800, marginLeft: '10px', textAlign:"left"}}> {this.props.question}</p>
+          <p style={{color: "#6bada7", fontSize: this.props.fontSize, fontWeight: 800, marginLeft: '10px', textAlign:"left"}}> {this.props.question}</p>
 
       </div>
 

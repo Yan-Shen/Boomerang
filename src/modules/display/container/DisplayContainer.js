@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import { QAContainer, InputQContainer, ReplContainer, QAOutputContainer, ReplOutputContainer } from '../index';
 import { toggleChoice, toggleInput, toggleRepl, shareReplSolution, shareReplQ, shareReplQDispatcher, shareReplSolutionDispatcher, shareChoiceQADispatcher} from '../../../store';
 import ToggleChoice from '../../tools/reducers/ToggleChoice'
-
+import ReviewIcon from '../components/ReviewIcon'
 
 
 class DisplayContainer extends Component {
@@ -36,8 +36,7 @@ class DisplayContainer extends Component {
       return <div></div>
     } else {
       return (
-        <div>
-          hjjhjhkjhjk
+        <div style={{height: '900px'}}>
           {
             choiceStatus &&
             <QAContainer
@@ -83,6 +82,12 @@ class DisplayContainer extends Component {
               currentSlideId = {currentSlideId}
               key={each.question}/>
             })
+          }
+          {!choiceShowStatus && !replShowStatus && !replStatus && !inputStatus && !choiceStatus &&
+            <div style={{display: 'flex', flexDirection: 'column',alignItems: 'center', marginTop: "150px", opacity: 0.7}}>
+              <ReviewIcon width="150px"/>
+              Waiting for interaction to be activated.
+            </div>
           }
 
         </div>

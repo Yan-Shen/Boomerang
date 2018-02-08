@@ -99,7 +99,7 @@ class ReplSolution extends Component{
       editorHeight = "580px"
       editorFontSize = "0.8em"
     } else {
-      editorWidth= "280px"
+      editorWidth= "310px"
       editorHeight= 150
       editorFontSize = "0.5em"
     }

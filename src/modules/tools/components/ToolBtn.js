@@ -8,6 +8,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Toggle from 'material-ui/Toggle';
 import {showChoice} from '../reducers/ChoiceShow'
 import {db} from '../../../firebase'
+import Settings from 'material-ui/svg-icons/action/settings'
 
 const styles = {
   toggle: {
@@ -71,18 +72,24 @@ class ToolBtn extends Component {
 
     return (
 
-      <div className="flex-container-row singleToolContainer">
-        <Toggle
-          onToggle={this.handleToggle}
-        style={styles.toggle}/>
-        <RaisedButton
-        label={name}
-        labelStyle={styles.lable}
-        buttonStyle = {btnStyle}
-        className="toolBtn"
-        onClick={onClick}
-        />
-      </div>
+
+        <div style={{
+          margin: '10px', display: 'flex', alignItems: "center", justifyContent: 'space-between', padding: '10px',
+          boxShadow: 'rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px',
+          borderRadius: "4px"
+
+        }}>
+          <Toggle
+            onToggle={this.handleToggle}
+            style={styles.toggle}/>
+          <div>
+            {name === "Choice Q" ? "Multiple Choice" : "Replit Code Block"}
+          </div>
+          <Settings onClick={onClick}/>
+        </div>
+
+
+
 
     )
   }

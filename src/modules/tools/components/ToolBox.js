@@ -8,6 +8,8 @@ import { showReplDispatcher, showChoiceDispatcher } from '../../../store/index';
 
 
 const style = {
+	display: 'flex',
+	flexDirection: 'column',
 	width: "100%",
 	height: 120,
 	paddingTop: "30px",
@@ -48,7 +50,7 @@ class ToolBox extends Component {
 		}
 
 		return connectDropTarget(
-			<div style ={style} className="fullWidth flex-container-wrap">
+			<div style ={style}>
 				{selectedToolsName.includes("Choice Q") &&
 				<ToolBtn
 				onClick={toggleChoice}
