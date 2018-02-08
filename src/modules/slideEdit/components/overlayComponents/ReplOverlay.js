@@ -35,7 +35,7 @@ class ReplOverlay extends Component { // ReplOverlay
 
   render() {
 
-    const { canDrop, isOver, connectDropTarget, shareReplSolutionDispatcher, slideId, selectedUserObj} = this.props
+    const { choiceShow,canDrop, isOver, connectDropTarget, shareReplSolutionDispatcher, slideId, selectedUserObj} = this.props
     let selectedUserCode
     if (selectedUserObj && selectedUserObj['replCode']) {
       selectedUserCode = selectedUserObj.replCode
@@ -48,8 +48,9 @@ class ReplOverlay extends Component { // ReplOverlay
       {
        <QuestionOutput question={this.props.question} style={{flex:1}} />
       }
-			gfdjhsgfjhdsgjfh
-			<ChartContainer />
+			{
+				choiceShow && <ChartContainer />
+			}
       <div style={{display: 'flex', flexDirection: 'row', alignItems:'center', justifyContent: "space-around", width:'100%'}}>
         {
           selectedUserCode &&

@@ -38,15 +38,16 @@ const collect = (connect, monitor) => ({
 const style = {
   regular: {
       borderStyle: "solid",
-      borderRadius: "8px",
+      borderRadius: "4px",
       borderWidth: "1px",
-      borderColor: "black"
+      borderColor: "#ccc",
+			marginLeft: '10px'
   },
   active: {
     borderStyle: "solid",
-    borderRadius: "8px",
+    borderRadius: "4px",
     borderWidth: "3px",
-    borderColor: "red"
+    borderColor: "#6bada7"
   }
 }
 
@@ -94,22 +95,22 @@ class ReplSolution extends Component{
 
     editorMode = "xcode"
  if (userType === "student"){
-      editorWidth = 600
-      editorHeight = 300
+      editorWidth = "430px"
+      editorHeight = "580px"
       editorFontSize = "0.8em"
     } else {
-      editorWidth= 500
+      editorWidth= "280px"
       editorHeight= 150
       editorFontSize = "0.5em"
     }
 
 
     return connectDragSource(
-      <div style={{display: "flex"}}>
+      <div>
       {!this.props.overlay &&
         <AceEditor
         mode="javascript"
-        theme={editorMode}
+        theme='xcode'
         width = {editorWidth}
         height = {editorHeight}
         value ={value}

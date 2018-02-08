@@ -4,8 +4,6 @@ export default function reducers(state = {lesson: {}, slides:[], currentSlide: n
   switch (action.type){
     case actions.ADD_EMOTION:
 				return {...state, emotions: [...state.emotions, action.emotion]}
-    case actions.GET_SELECTED_TOOLS:
-    		return {...state, selectedTools: action.tools}
 		case actions.GET_DISPLAYOBJECT:
 		const obj = state.displayObject.find(display=>display.id===action.displayObject.id)
 		if (!obj) {

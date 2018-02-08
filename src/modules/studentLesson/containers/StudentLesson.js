@@ -57,7 +57,8 @@ function mapStateToProps(state){
     currentUser: state.user,
     users: state.lesson.users,
     activeUsers: state.lesson.active,
-    whiteboard: state.lesson.whiteboard
+    whiteboard: state.lesson.whiteboard,
+    panel: state.lesson.panel,
     // selectedUserId: "hS74ejiqshRiikMYiVla8qLqBEH2"
 
   };

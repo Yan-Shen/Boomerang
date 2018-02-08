@@ -3,6 +3,7 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import Dashboard from '../components/Dashboard'
 import {fetchLessons} from '../../teacherDashboard/actions'
+import {changePanel} from '../../slideEdit/actions'
 
 class StudentDashboard extends Component {
   componentDidMount(){
@@ -25,12 +26,13 @@ class StudentDashboard extends Component {
 }
 function mapStateToProps(state){
   return {
-    lessonList: state.lessonList
+    lessonList: state.lessonList,
+    panel: state.lesson.panel
   };
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({fetchLessons}, dispatch);
+  return bindActionCreators({fetchLessons,changePanel}, dispatch);
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(StudentDashboard);

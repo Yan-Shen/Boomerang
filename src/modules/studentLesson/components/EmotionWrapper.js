@@ -7,7 +7,7 @@ import Content from './Emotions/Content.js'
 import Sad from './Emotions/Sad.js'
 
 const EmotionWrapper = ({addEmotionThunk, id}) => (
-	<Paper style={{height: "60px", width: "350px", marginTop: "10px"}}>
+	<Paper style={{height: "60px", width: "470px", marginTop: "10px"}}>
 		<div style={{paddingLeft: "15px",paddingRight: "15px", paddingTop: "10px",alignItems: 'center',display: 'flex', justifyContent: 'space-between'}}>
 			<div onClick={()=>{addEmotionThunk('thumbsUp', id)}}>
 				<ThumbsUp  height="40px"/>
