@@ -1,16 +1,17 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import {toggleActiveStudent,fetchLesson,addSlide,deleteSlide,changeSlide,updateSlide,unmountLesson,changeYouTube,getSubscribers} from "../actions";
+import {toggleActiveStudent, fetchLesson, addSlide, deleteSlide, changeSlide, 
+  updateSlide, unmountLesson, changeYouTube, getSubscribers, deleteTemplate} from "../actions"
 import {getToolsDispatcher, showYTDispatcher } from '../../../store'
 import SlideEditWrapper from '../components/SlideEditWrapper'
-import {AppBar, Paper} from 'material-ui';
+import {AppBar, Paper} from 'material-ui'
 import {db} from '../../../firebase'
 import components from '../components'
 import {ToolContainer} from '../../tools'
 import {DisplayContainer} from '../../display'
 import ReplSolution from '../../display/components/input_components/ReplSolution'
-import ReplQuestion from '../../display/components/input_components/ReplQuestion';
+import ReplQuestion from '../../display/components/input_components/ReplQuestion'
 import {shareReplSolutionDispatcher} from '../../display/reducers/replSolutionShare'
 
 
@@ -40,11 +41,11 @@ class SlideEdit extends Component {
         <div style={{display: 'flex',width: '100vw'}}>
           <SlideEditWrapper {...this.props}/>
         </div>
-    );
+    )
   }
 }
 
-function mapStateToProps(state,props){
+function mapStateToProps(state, props){
   const slides = state.lesson.slides
   return {
     subscribers: state.lesson.subscribers,
@@ -69,7 +70,9 @@ function mapStateToProps(state,props){
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({getSubscribers,toggleActiveStudent,fetchLesson,addSlide,deleteSlide,changeSlide,updateSlide, getToolsDispatcher,unmountLesson,changeYouTube, shareReplSolutionDispatcher, showYTDispatcher}, dispatch);
+  return bindActionCreators({getSubscribers, toggleActiveStudent, fetchLesson, addSlide, 
+    deleteSlide,changeSlide,updateSlide, getToolsDispatcher,unmountLesson,changeYouTube, 
+    shareReplSolutionDispatcher, showYTDispatcher, deleteTemplate}, dispatch)
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(SlideEdit);

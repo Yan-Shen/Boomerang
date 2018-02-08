@@ -82,13 +82,11 @@ class ChangeColor extends Component {
 				object.setSelectionStyles(style);
 			}
 			else {
-				// object.removeStyle('fill');
 				object.set('stroke', color.hex);
 			}
 		}
 		this.props.canvas.renderAll()
 		const slideData = this.props.canvas.toJSON()
-		// slideData.youtubeVideo = this.props.currentSlide.youtubeVideo
 		this.props.updateSlide(this.props.currentSlide.id, slideData)
 	}
 

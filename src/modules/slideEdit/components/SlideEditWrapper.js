@@ -23,6 +23,7 @@ class SlideEditWrapper extends Component {
 	componentWillUnmount() {
 		this.sessionHelper.disconnect();
 	}
+	
 	render() {
 		return (
 			<DragDropContextProvider backend={HTML5Backend}>

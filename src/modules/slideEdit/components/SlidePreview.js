@@ -41,13 +41,13 @@ class SlidePreview extends Component {
 
 	handleDelete(){
 		if(this.props.slides > 1 ){
-			this.props.deleteSlide(this.props.data.id,this.props.lesson.id,this.props.index-1)
+			this.props.deleteSlide(this.props.data.id, this.props.lesson.id, this.props.index-1)
 		}
 	}
 
 	render() {
 		const youtube = this.props.youtube
-		const {id} = this.props.data
+		const { id } = this.props.data
 		const lessonId = this.props.lesson.id
 		return (
 			<div onClick={()=>this.handleClick(id, lessonId)} style={{margin: '10px'}}>

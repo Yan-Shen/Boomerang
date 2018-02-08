@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {IconMenu, MenuItem,IconButton} from 'material-ui';
+import { IconMenu, MenuItem, IconButton } from 'material-ui';
 
 import Widgets from 'material-ui/svg-icons/device/widgets';
 import Square from 'material-ui/svg-icons/image/crop-din';
@@ -44,7 +44,7 @@ class AddShape extends Component {
 		else if (this.state.shape === 'line') {
 			shape = new window.fabric.Rect( 
 				{ left: x, top: y, 
-					fill: '#000000',
+					fill: this.state.shapeFill,
 					stroke: this.state.shapeColor,
 					width: 250,
 					height: 3,
@@ -72,7 +72,7 @@ class AddShape extends Component {
 					shapeFill: this.state.shapeFill,
 					shapeColor: this.state.shapeColor
 				})
-				break
+			break
 			case 'line':
 				this.setState({
 					shapePositionSelect: true,
@@ -80,7 +80,7 @@ class AddShape extends Component {
 					shapeFill: '#000000',
 					shapeColor: this.state.shapeColor
 				})
-				break
+			break
 			case 'circle':
 				this.setState({
 					shapePositionSelect: true,
@@ -88,14 +88,13 @@ class AddShape extends Component {
 					shapeFill: this.state.shapeFill,
 					shapeColor: this.state.shapeColor
 				})
-				break
+			break
 			default:
 				return null
-				break
+			break
 		}
 		const slideData = this.props.canvas.toJSON()
 		this.props.updateSlide(this.props.currentSlide.id, slideData)
-		// this.props.canvas.renderAll()
 	}
 
 	render() {
