@@ -13,18 +13,12 @@ import RemoveObject from './toolbarComponents/RemoveObject'
 import EditLayers from './toolbarComponents/EditLayers'
 import EditText from './toolbarComponents/EditText'
 import EditShape from './toolbarComponents/EditShape'
-import CloseOverlay from 'material-ui/svg-icons/navigation/close'
-import ReactDOM from 'react-dom'
-import YouTube from 'react-youtube'
 import EmotionAnimation from '../../studentLesson/components/EmotionAnimation'
 import WhiteBoardCanvas from '../../whiteboard/containers/WhiteBoardCanvas'
-
 import Icon from 'react-icons-kit'
 import { socialYoutube } from 'react-icons-kit/typicons/socialYoutube'
-
 import YouTubeLayer from './youtube/YouTubeLayer'
 import ReplOverlay from './overlayComponents/ReplOverlay'
-
 
 class CanvasBlock extends Component {
 	constructor(props) {
@@ -48,7 +42,7 @@ class CanvasBlock extends Component {
 	}
 
 	componentDidUpdate(prevProps) {
-		const currentDisplayObject = this.props.displayObject.find(display=>display.id === this.props.currentSlide.id)
+		//const currentDisplayObject = this.props.displayObject.find(display=>display.id === this.props.currentSlide.id)
 		this.props.getToolsDispatcher(this.props.currentSlide.id)
 		if (!prevProps.currentSlide || prevProps.currentSlideIndex !== this.props.currentSlideIndex) {
 			this.canvas.loadFromJSON(this.props.currentSlide, this.canvas.renderAll.bind(this.canvas))
@@ -124,12 +118,12 @@ class CanvasBlock extends Component {
 							<AddImage
 								canvas={this.canvas}
 							/>
-							<AddShape 
+							<AddShape
 								canvas={this.canvas}
 								currentSlide={currentSlide}
 								updateSlide={updateSlide}
 							/>
-							<EditShape 
+							<EditShape
 								canvas={this.canvas}
 								currentSlide={currentSlide}
 								updateSlide={updateSlide}
@@ -156,12 +150,12 @@ class CanvasBlock extends Component {
 								currentSlide={currentSlide}
 								updateSlide={updateSlide}
 							/>
-							<EditLayers 
+							<EditLayers
 								canvas={this.canvas}
 								currentSlide={currentSlide}
 								updateSlide={updateSlide}
 							/>
-							<Templates 
+							<Templates
 								canvas={this.canvas}
 								templates={templates}
 								deleteTemplate={deleteTemplate}

@@ -22,7 +22,7 @@ export const removeTemplate = templateId =>  ({type: actions.DELETE_TEMPLATE, te
 export const changeSlide = (index, id) =>  {
 	return function thunk (dispatch) {
 		db.ref(`lessons/${id}/currentSlide`).set(index)
-		// dispatch(getToolsDispatcher(id))
+		//dispatch(getToolsDispatcher(id))
 		dispatch(changeSlideAction(index))
 	}
 }
@@ -61,25 +61,17 @@ export const changeYouTube = (id, videoId, YTObj) =>  {
 
 export function fetchLesson (id) {
   return function thunk (dispatch) {
-		db.ref(`lessons/${id}/whiteboard`).set('false').then(()=>{
-			db.ref(`lessons/${id}/whiteboard`).on('value', data =>{
-				dispatch(getWhiteboard(data.val()))
+			db.ref(`lessons/${id}/whiteboard`).set('false').then(()=>{
+				db.ref(`lessons/${id}/whiteboard`).on('value', data =>{
+					console.log('whiteboard triggered')
+					dispatch(getWhiteboard(data.val()))
+				})
 			})
-		})
-
-		db.ref(`lessons/${id}/emotions`).limitToLast(1).on('child_added', (data)=>{
-			dispatch(addEmotion(data.val()))
-		})
-
-		db.ref(`templates`).on('value', (data)=>{
-			const templateArr = []
-			data.forEach((template)=>{
-				const val = template.val()
-				val.id = template.key
-				templateArr.push(val)
+			
+			db.ref(`lessons/${id}/emotions`).limitToLast(1).on('child_added', (data)=>{
+				console.log('agggeggegegegeg emotionb')
+				dispatch(addEmotion(data.val()))
 			})
-			dispatch(getTemplates(templateArr))
-		})
 
 		db.ref(`lessons/${id}/activeStudents`).set(true)
 		.then(()=>{
@@ -210,7 +202,17 @@ export function addSlide (index, lessonId) {
 	}
 }
 
-export function updateSlide (id, data) {
+export function addTemplate (index, lessonId, canvasJSON) {
+  return function thunk (dispatch) {
+		db.ref().child('templates').push(canvasJSON)
+			.then(slideKey => {
+				db.ref().child(`templates/${slideKey.key}`).set(canvasJSON)
+				return slideKey
+			})
+	}
+}
+
+export function updateSlide (id,data) {
   return function thunk (dispatch) {
 		db.ref().child(`slides/${id}`).set(data)
 		.then(()=>console.log('updateSlide'))

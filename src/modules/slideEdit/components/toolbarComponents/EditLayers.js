@@ -36,6 +36,8 @@ function changeZAxis(action, canvas, updateSlide, currentSlide) {
 
       case 'sendToBack':
         canvas.sendToBack(object)
+      default:
+        canvas.bringToFront(object);
       break
     }
   }

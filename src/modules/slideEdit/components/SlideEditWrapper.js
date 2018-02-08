@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
-import {AppBar, Paper} from 'material-ui';
-import {db} from '../../../firebase';
-import { OTSession, OTPublisher, OTStreams, OTSubscriber,createSession } from 'opentok-react';
+import { Paper} from 'material-ui';
+import {createSession } from 'opentok-react';
 import { DragDropContextProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import {ToolContainer} from '../../tools';
 import {MainDisplayContainer} from '../../display';
 import CanvasBlock from './CanvasBlock';
-import SelectActiveUsers from './SelectActiveUsers';
 import CamView from './CamView';
-
 
 
 class SlideEditWrapper extends Component {

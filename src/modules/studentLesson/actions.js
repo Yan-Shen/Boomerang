@@ -16,8 +16,9 @@ export const getStudents = students => ({type: actions.GET_ONLINE_USERS, student
 
 export function selectedTools (id) {
   return function thunk (dispatch) {
-    db.ref(`selectedTools/${id}`).once('value')
-    .then(data => dispatch(getSelectedTools(data.val())))
+    db.ref(`selectedTools/${id}`).on('value', (data)=>{
+      dispatch(getSelectedTools(data.val()))
+    })
   }
 }
 
@@ -82,7 +83,6 @@ export function fetchLesson (id) {
 
 				slides.forEach((slide)=>{
 					db.ref(`studentDisplay/${slide.key}`).on('value', (data)=>{
-						console.log('whatever somethin that can be easily seen !!!!!!!!!!!!!!!!!!!', data)
 						const displayData = data.val()
 						const slideId = data.key
 						const displayObject = {

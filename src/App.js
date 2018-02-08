@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import {AppBar, Paper, FlatButton} from 'material-ui';
-import {BrowserRouter as Router, Route, withRouter} from 'react-router-dom';
+import {AppBar, FlatButton} from 'material-ui';
+import { Route, withRouter} from 'react-router-dom';
 
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {userStatus} from './modules/authentication/actions'
 
 
-import logo from './logo.svg';
 import './App.css';
 
 import modules from './modules'
@@ -18,7 +17,7 @@ import {db,auth} from './firebase'
 //import {init as firebaseInit} from './firebase/firebase'
 import {lightBlue500,teal500} from 'material-ui/styles/colors';
 
-const {slideEdit, teacherDashboard, studentDashboard, authentication} = modules
+const {teacherDashboard, studentDashboard, authentication} = modules
 const {StudentDashboard} = studentDashboard.containers
 const {TeacherDashboard} = teacherDashboard.containers
 const {Authentication} = authentication.containers
