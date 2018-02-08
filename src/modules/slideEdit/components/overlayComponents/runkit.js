@@ -1,10 +1,7 @@
-import {db} from '../../../../firebase'
+
 const React = require('react')
 const Embed = require('react-runkit')
 
-
-
-const helloSource = `console.log('Hello, world!')`
 
 class HelloEmbed extends React.Component {
 // constructor(props){

@@ -25,7 +25,7 @@ class LessonList extends Component {
 			    </TableHeader>
 		    <TableBody >
 					{lessonList.map(lesson =>(
-						<TableRow style={{fontSize: '18px',fontWeight: 600}} key={lesson.created}>
+						<TableRow style={{fontSize: '18px',fontWeight: 600}} key={lesson.id}>
 			        <TableRowColumn>
 								<Link to={`/student/lesson/${lesson.id}`}>
 									{lesson.title}
