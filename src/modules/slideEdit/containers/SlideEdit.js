@@ -17,9 +17,8 @@ import {shareReplSolutionDispatcher} from '../../display/reducers/replSolutionSh
 
 class SlideEdit extends Component {
   componentDidMount(){
-    console.log("mounted")
-    const id = this.props.match.params.lessonId
-    this.props.fetchLesson(id)
+      const id = this.props.match.params.lessonId
+      this.props.fetchLesson(id)
   }
 
   // componentDidUpdate(prevProps){
@@ -29,7 +28,6 @@ class SlideEdit extends Component {
   // }
 
   componentWillUnmount(){
-    console.log("unmounted!!!!!!")
     this.props.unmountLesson()
   }
 

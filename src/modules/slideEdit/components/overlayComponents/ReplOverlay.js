@@ -4,10 +4,9 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types'
 import { DropTarget } from 'react-dnd'
 import ItemTypes from '../../../../ItemTypes'
-
+import ChartContainer from '../../../display/chart/ChartContainer'
 import ReplSolution from '../../../display/components/input_components/ReplSolution'
 import QuestionOutput from '../../../display/components/output_components/QuestionOutput';
-
 
 const boxTarget = {
 	drop() {
@@ -43,14 +42,13 @@ class ReplOverlay extends Component { // ReplOverlay
     } else {
       selectedUserCode = ""
     }
-    console.log('selectedUSercode---------------', selectedUserCode)
 
     return connectDropTarget(
-      <div style={{display: 'flex', flexDirection: 'column', alignItems:'center', backgroundColor:'#eee', width:'100%', height:'100%'}}>
+      <div id="consoleWrapper" style={{display: 'flex', flexDirection: 'column', alignItems:'center', backgroundColor:'#eee', width:'100%', height:'100%'}}>
       {
        <QuestionOutput question={this.props.question} style={{flex:1}} />
       }
-
+			<ChartContainer />
       <div style={{display: 'flex', flexDirection: 'row', alignItems:'center', justifyContent: "space-around", width:'100%'}}>
         {
           selectedUserCode &&
@@ -60,7 +58,6 @@ class ReplOverlay extends Component { // ReplOverlay
           this.props.value && <ReplSolution value= {this.props.value} style={{flex: 2}} overlay="overlay" slideId={slideId} shareReplSolutionDispatcher={shareReplSolutionDispatcher}/>
           }
       </div>
-
       </div>
     );
   }

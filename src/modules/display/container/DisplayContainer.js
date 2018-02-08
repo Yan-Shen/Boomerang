@@ -71,6 +71,7 @@ class DisplayContainer extends Component {
               key={value.question}/>
             })
           }
+
           {
             replShowStatus && replQA.map(each=>{
               return <ReplOutputContainer
@@ -82,6 +83,7 @@ class DisplayContainer extends Component {
               key={each.question}/>
             })
           }
+
         </div>
        )
     }

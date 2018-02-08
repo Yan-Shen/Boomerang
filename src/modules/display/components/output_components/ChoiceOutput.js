@@ -27,11 +27,11 @@ class ChoiceOutput extends Component {
     const slideId = this.props.slideId
     const qaId = this.props.qaId
     db.ref(`/selectedTools/${slideId}/Choice Q/QA/${qaId}/submission`).push(choice)
+    this.props.handleSend()
   }
 
   render(){
     const {role, choice, submittedChoice} = this.props
-    console.log('submittedChoice=======', submittedChoice)
     return (
       <div style={{position: "relative", display:"flex"}}>
             {
