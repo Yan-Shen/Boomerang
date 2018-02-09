@@ -55,7 +55,11 @@ class YouTubeVideo extends Component {
 		const {currentSlide} = this.props
 		const {youtubeVideo} = currentSlide
 		return (
-			<YouTube videoId={youtubeVideo.videoId} onReady={this.onReady} opts={opts}/>
+			<div style={{position: 'relative', marginTop: '20px',marginLeft: '20px', width: '97%', height: "920px" }}>
+				<YouTube id="student-youtube-video" videoId={youtubeVideo.videoId} onReady={this.onReady} opts={opts}/>
+				<div style={{position: 'absolute', top: 0, left: 0, marginLeft: '20px', height: "920px", width: "97%"}}></div>
+			</div>
+
 		);
 	}
 

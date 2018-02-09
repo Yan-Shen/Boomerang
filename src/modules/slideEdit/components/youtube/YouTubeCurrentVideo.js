@@ -28,7 +28,7 @@ class YouTubeCurrentVideo extends Component {
   				}}
         />
 
-        <RaisedButton style={{margin: "10px",width: "300px"}} labelStyle={{color: 'white', marginTop: "10px", fontSize: "25px"}} primary={true} onClick={()=>{selectYoutube(this.props.currentSlide.id, null)}}>Remove</RaisedButton>
+        <RaisedButton style={{margin: "10px",width: "300px"}} labelStyle={{color: 'white', marginTop: "10px", fontSize: "25px"}} primary={true} onClick={()=>{selectYoutube(this.props.currentSlide.id, null,false)}}>Remove</RaisedButton>
       </div>
 
 

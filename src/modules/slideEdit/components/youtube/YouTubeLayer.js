@@ -9,7 +9,7 @@ const YouTubeLayer = (props) => {
 	console.log(slide)
 	return (
 		<div>
-				{slide.youtubeVideo ?
+				{slide.youtubeVideo && slide.youtubeVideo.YTObj ?
 					<YouTubeCurrentVideo currentSlide={props.currentSlide} /> :
 					<YouTubeSearch currentSlide={props.currentSlide} />
 				}

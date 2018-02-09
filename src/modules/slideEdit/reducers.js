@@ -11,7 +11,8 @@ const initialState={
   panel: false,
   emotions: [],
   whiteboard: 'false',
-  templates: []
+  templates: [],
+  youtube: 'false'
 }
 
 export default function reducers(state = initialState, action){
@@ -52,6 +53,8 @@ export default function reducers(state = initialState, action){
       return {...initialState}
     case actions.GET_TEMPLATES:
       return {...state, templates: action.templates}
+    case actions.TOGGLE_YOUTUBE:
+      return {...state, youtube: action.bool}
     case actions.DELETE_TEMPLATE:
       const updatedTemplates = state.templates.filter(template => template.id !== action.templateId)
       return {...state, templates: updatedTemplates}
