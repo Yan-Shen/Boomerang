@@ -15,11 +15,11 @@ const EmotionWrapper = ({addEmotionThunk, id}) => (
 			<div onClick={()=>{addEmotionThunk('thumbsDown',id)}}>
 				<ThumbsDown height="40px"/>
 			</div>
+			<div onClick={()=>{addEmotionThunk('content',id)}}>
+				<Content height="50px"/>
+			</div>
 			<div onClick={()=>{addEmotionThunk('happy',id)}}>
 				<Happy height="40px"/>
-			</div>
-			<div onClick={()=>{addEmotionThunk('content',id)}}>
-				<Content height="40px"/>
 			</div>
 			<div onClick={()=>{addEmotionThunk('sad',id)}}>
 				<Sad height="40px"/>
