@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import AceEditor from 'react-ace';
 import PropTypes from 'prop-types'
 import { DragSource } from 'react-dnd'
+import brace from 'brace';
+import 'brace/mode/java';
+import 'brace/theme/github';
+
 
 import ItemTypes from '../../../../ItemTypes'
 import replSolutionShare, {shareReplSolution} from '../../reducers/replSolutionShare'

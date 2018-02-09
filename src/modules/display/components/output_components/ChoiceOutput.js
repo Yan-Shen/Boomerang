@@ -37,7 +37,7 @@ class ChoiceOutput extends Component {
             {
               choice &&
               <RadioButtonGroup name="shipSpeed"
-              style={{flex: 1}}
+              style={{flex: 1.5}}
               defaultSelected={this.props.choice[0]}
               onChange={(evt, value)=>this.handleChange(value)}>
               {
@@ -59,7 +59,7 @@ class ChoiceOutput extends Component {
             }
             {
               role === "teacher" &&
-              <div style={{ flex: 1.2}}>
+              <div style={{ flex: 1}}>
               {
                 choice.map(choice=>{
                  const num = submittedChoice.filter(ele=> ele===choice).length
