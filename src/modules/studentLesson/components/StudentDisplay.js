@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Paper} from 'material-ui';
 import components from '../../display/components';
 import QAOutputContainer from '../../display/container/output_container/QAOutputContainer';
-
+import ReviewIcon from '../../display/components/ReviewIcon'
 
 const {ReplSolution} = components;
 
@@ -42,7 +42,11 @@ class StudentDisplay extends Component {
       }
        {
          !choiceShow && !replShow &&
-         <div> gfgfgfgfgfgfg </div>
+         <div style={{display: 'flex', flexDirection:'column', opacity: 0.5, alignItems: 'center', marginTop: '140px'}}>
+           <ReviewIcon width="150px"/>
+           Waiting for interaction to be activated.
+         </div>
+
        }
       </div>
     // </Paper>

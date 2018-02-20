@@ -28,7 +28,7 @@ class CanvasBlock extends Component {
 		this.toggleCanvas = this.toggleCanvas.bind(this)
 		this.updateDimensions = this.updateDimensions.bind(this)
 		this.state = {
-			canvas: true,
+			canvas: false,
 			width: window.innerWidth,
 			height: window.innerHeight,
 		}
@@ -36,12 +36,19 @@ class CanvasBlock extends Component {
 
 	toggleCanvas(view){
 		if (view === 'canvas') {
-			this.setState({canvas: !this.state.canvas})
+			this.setState({canvas: !this.state.canvas}, ()=>{
+				this.props.toggleYoutube(this.props.currentSlide.id, this.state.canvas)
+			})
+			// this.props.toggleYoutube(this.props.currentSlide.id, !this.state.canvas)
 		}
-		else if (!this.state.canvas) {this.setState({canvas: true})}
+		else if (!this.state.canvas) {this.setState({canvas: true}, ()=>{
+				this.props.toggleYoutube(this.props.currentSlide.id, true)
+			}
+		)}
 	}
 
 	componentDidUpdate(prevProps) {
+		this.props.toggleYoutube(this.props.currentSlide.id, this.state.canvas)
 		//const currentDisplayObject = this.props.displayObject.find(display=>display.id === this.props.currentSlide.id)
 		this.props.getToolsDispatcher(this.props.currentSlide.id)
 		if (!prevProps.currentSlide || prevProps.currentSlideIndex !== this.props.currentSlideIndex) {
@@ -217,14 +224,14 @@ class CanvasBlock extends Component {
 									/>
 								))}
 							</div>
-							<div style={{zIndex: this.state.canvas ? -5000 : 5000, position: 'absolute', background: 'white',
+							<div style={{zIndex: this.state.canvas ? 5 : -5, position: 'absolute', background: 'white',
 								top: 0, left: 0, width: this.block ? this.block.clientWidth : '0px',
 								height: this.block ? this.block.clientHeight : '0px'
 							}}>
 								<YouTubeLayer/>
 							</div>
 
-							<div style={{zIndex: (replShow || choiceShow) ? 4999 : -6000, position: 'absolute', backgroundColor: 'white',
+							<div style={{zIndex: (replShow || choiceShow) ? 4 : -6, position: 'absolute', backgroundColor: 'white',
 								top: 0, left: 0, width: this.block ? this.block.clientWidth : '0px',
 								height: this.block ? this.block.clientHeight : '0px'}
 							}>

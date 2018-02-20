@@ -15,6 +15,7 @@ export const unmountLesson = () => ({type: actions.UNMOUNT_LESSON})
 export const addEmotion = (emotion) => ({type: actions.ADD_TEACHER_EMOTION, emotion})
 export const getWhiteboard = bool => ({type: actions.TOGGLE_WHITEBOARD, bool})
 export const updateSlideData = data =>  ({type: actions.UPDATE_SLIDE, data})
+export const switchYoutube = bool =>  ({type: actions.TOGGLE_YOUTUBE, bool})
 // export const changeSlide = index => ({type: actions.CHANGE_SLIDE, index})
 export const getDisplay = displayObject => ({type: actions.GET_DISPLAYOBJECT, displayObject})
 export const getTemplates= templates =>  ({type: actions.GET_TEMPLATES, templates})
@@ -38,6 +39,8 @@ export const changeSlide = (index, id) =>  {
 	}
 }
 
+
+
 export const toggleWhiteboard = (id, status) =>  {
 	const sendStatus = status === 'true' ? "false" : "true"
 	return function thunk (dispatch) {
@@ -56,6 +59,13 @@ export const toggleActiveStudent = (lessonId, studentId,bool) =>  {
 				db.ref().child(`lessons/${lessonId}/activeStudents/${studentId}`).remove()
 			}
 		})
+	}
+}
+
+export const toggleYoutube = (id,bool) =>  {
+	return function thunk (dispatch) {
+		console.log(bool)
+		db.ref(`slides/${id}/youtubeVideo`).update({show: bool})
 	}
 }
 
@@ -78,7 +88,11 @@ export function fetchLesson (id) {
 					dispatch(getWhiteboard(data.val()))
 				})
 			})
-			
+			db.ref(`lessons/${id}/youtubeVideo/show`).on('value', (data)=>{
+				console.log('agggeggegegegeg emotionb',data.val())
+				dispatch(switchYoutube(data.val()))
+			})
+			db.ref(`lessons/${id}/emotions`).set(true)
 			db.ref(`lessons/${id}/emotions`).limitToLast(1).on('child_added', (data)=>{
 				console.log('agggeggegegegeg emotionb')
 				dispatch(addEmotion(data.val()))

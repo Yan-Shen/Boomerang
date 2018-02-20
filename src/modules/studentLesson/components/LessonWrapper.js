@@ -66,13 +66,11 @@ class LessonWrapper extends Component {
 
 	render() {
 		//YOUTUBE LOGIC!!!!!!!!
-		let youtubeShow;
+		let youtubeShow = this.props.currentSlide.youtubeVideo.show;
 		let replQuestion, replSolution, replShow, QA, choiceShow;
 
 
-		if (this.props.currentSlide.youtubeVideo){
-			youtubeShow = true;
-		}
+
 		const {id} = this.props.currentSlide;
 		const {displayObject, addStudentCode, userId, activeUsers} = this.props;
 		const activeUser = activeUsers[0];

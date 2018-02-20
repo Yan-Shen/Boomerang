@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import {toggleActiveStudent, fetchLesson, addSlide, deleteSlide, changeSlide, 
+import {toggleActiveStudent, toggleYoutube, fetchLesson, addSlide, deleteSlide, changeSlide,
   updateSlide, unmountLesson, changeYouTube, getSubscribers, deleteTemplate} from "../actions"
 import {getToolsDispatcher, showYTDispatcher } from '../../../store'
 import SlideEditWrapper from '../components/SlideEditWrapper'
@@ -64,14 +64,15 @@ function mapStateToProps(state, props){
     panel: state.lesson.panel,
     emotions: state.lesson.emotions,
     whiteboard: state.lesson.whiteboard,
-    templates: state.lesson.templates
+    templates: state.lesson.templates,
+    youtube: state.lesson.youtube
     // selectedUserId: state.lesson.active[0],
   };
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({getSubscribers, toggleActiveStudent, fetchLesson, addSlide, 
-    deleteSlide,changeSlide,updateSlide, getToolsDispatcher,unmountLesson,changeYouTube, 
+  return bindActionCreators({getSubscribers, toggleActiveStudent, fetchLesson, addSlide,
+    deleteSlide,changeSlide,updateSlide, getToolsDispatcher,toggleYoutube,unmountLesson,changeYouTube,
     shareReplSolutionDispatcher, showYTDispatcher, deleteTemplate}, dispatch)
 }
 
