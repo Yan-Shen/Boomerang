@@ -2,6 +2,8 @@
 
 # Hello, welcome to a bash script.
 
+# Remember to grant permission to run this file by `chmod 755 script/deploy` in the terminal
+
 # This bash script deploys your boilermaker application.
 
 # On the terminal you run individual
