@@ -26,7 +26,7 @@ class Wrapper extends Component {
 		else if(!this.state.login){
 			auth.createUserWithEmailAndPassword(this.state.email, this.state.password)
 			.then(user => db.ref(`users/${user.uid}`).set({
-				role: 'student',
+				role: 'teacher',
 				name: this.state.name,
 				email: this.state.email
 			}))
