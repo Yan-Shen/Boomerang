@@ -7,6 +7,7 @@
 /coverage
 
 # production
+# when deploy need to upload the /build folder
 /build
 
 # misc
